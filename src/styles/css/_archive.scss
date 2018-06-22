@@ -1,0 +1,193 @@
+.ArchiveItems {
+  width: 90%;
+  margin: auto;
+  padding: 8vw 0;
+
+  .cardContainer {
+    .ArchiveItem {
+      padding: 0.5vw;
+      width: 16%;
+      position: relative;
+      transition: all 0.5s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5%);
+        background: none;
+        transition: all 0.5s ease;
+
+        .whiteCard, .subInfo {
+          box-shadow: $lgThemeShadow;
+        }
+      }
+
+      .whiteCard:hover {
+        transform: none;
+        box-shadow: $themeShadow;
+      }
+
+      .whiteCard {
+        padding-bottom: 1vw;
+      }
+
+      .subInfo {
+        @extend %card;
+        @extend %softGradient;
+        padding: 1vw 2vw;
+        background: $gray;
+        border: solid 5px $white;
+        border-top: 0;
+
+        p {
+          color: white;
+          display: inline-block;
+        }
+
+        .amount {
+          font-weight: bold;
+          text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+          margin-right:10px;
+        }
+
+        .rounded {
+          border-radius: 100px;
+          padding: 5px 10px;
+          font-size: 12px;
+          text-align: center;
+        }
+        .pam {
+          background: rgba($black, 0.2);
+        }
+        .canc {
+          background: rgba($primary, 0.2);
+        }
+        .appc {
+          background: rgba(#1F92C2, 0.2);
+        }
+      }
+
+      .smallText {
+        margin-top: 4px;
+        img, span {
+          vertical-align: middle;
+        }
+        img {
+          width: 24px;
+          margin-right: 2px;
+        }
+      }
+
+      &.isActive {
+        .subInfo {
+          background: rgba($secondary, 0.35);
+        }
+        &.very .subInfo {
+          background: rgba($secondary, 0.75);
+        }
+        &.unhappy .subInfo {
+          background: rgba($primary, 0.35);
+        }
+        &.crew .subInfo {
+          background: rgba(#E2630D, 0.35);
+        }
+        &.new .subInfo {
+          background: rgba(#1F92C2, 0.35);
+        }
+        &.satisfied .subInfo {
+          background: rgba($black, 0.15);
+        }
+      }
+      &.nonActive .subInfo {
+        background: #EBEBE8;
+        p {
+          color: $black;
+        }
+      }
+    }
+    .whiteCard {
+      padding: 2vw;
+      width: 100%;
+    }
+  }
+}
+
+.FranchiseInfoItems {
+  .tableHeader {
+    border-bottom: 1px solid $gray;
+    background: $offWhite;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 1vw 1.5vw;
+    margin-bottom: 2vw;
+    position: fixed;
+    width: 90%;
+    top: 0;
+    padding-top: 10vw;
+
+    .tableCol {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+
+  .tableContainer {
+    @extend %card;
+    margin-top: 7vw;
+    background: transparent;
+    margin-bottom: 2vw;
+    position: fixed;
+    width: 90%;
+    overflow-x: scroll;
+  }
+
+  .tableRow {
+    background: $white;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0.5vw 1.5vw;
+
+    .tableCol {
+      flex-grow: 1;
+      flex-shrink: 1;
+      border: 0;
+      border-bottom: 1px solid $gray;
+      margin-left: 10px;
+      margin-right: 10px;
+      background: transparent;
+    }
+
+    &:nth-child(even) {
+      background: #F7F7F5;
+    }
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 25%;
+  }
+  .ArchiveItems {
+    padding: 100px 0;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 33%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 100%;
+  }
+}

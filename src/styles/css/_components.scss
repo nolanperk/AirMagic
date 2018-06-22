@@ -1,0 +1,66 @@
+%card {
+  background-color: $white;
+  box-shadow: $themeShadow;
+  transition: all 0.5s ease;
+}
+
+%card-hover {
+  @extend %card;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5%);
+    box-shadow: $lgThemeShadow;
+    transition: all 0.5s ease;
+  }
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.whiteCard {
+  border: solid 1px $lightGray;
+  list-style: none;
+  @extend %card-hover;
+}
+
+.softGrad--primary {
+  @extend %softGradient;
+  background: $primary;
+  @extend %card-hover;
+}
+.softGrad--secondary {
+  @extend %softGradient;
+  background: $secondary;
+  @extend %card-hover;
+}
+.softGrad--secondary {
+  @extend %softGradient;
+  background: $secondary;
+  @extend %card-hover;
+}
+
+.navIcon {
+  display: inline-block;
+  border-radius: 100px;
+  padding: 18px;
+  line-height: 0;
+
+  img {
+    width: 15px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navIcon {
+    padding: 15px;
+
+    img {
+      width: 12px;
+    }
+  }
+}

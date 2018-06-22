@@ -1,0 +1,49 @@
+// COLOR VARIABLES = = = = = = =
+
+$primary: #C31F2F;
+$secondary: #1FC26A;
+
+// darkening code
+// @link-hover-color: darken(@link-color, 15%);
+
+$offWhite: #F7F7F5;
+$lightGray: #F5F5F5;
+$medGray: #ebebeb;
+$gray: #EBEBE8;
+$darkGray: #DBDBD9;
+
+$white: #fff;
+$black: #131313;
+
+$test: #62e920;		// Test is a bright green just for testing purposes
+$themeShadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+$lgThemeShadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+
+
+
+
+
+// FONT VARIABLES = = = = = = =
+
+$sans: 'proxima-nova', sans-serif;
+
+
+%sans {
+	font-family: $sans;
+	font-weight: 400;
+}
+%sansB {
+	font-family: $sans;
+	font-weight: 700;
+}
+%sansBlack {
+	font-family: $sans;
+	font-weight: 900;
+}
+
+%primaryText {
+	color: $primary;
+}
+%secondaryText {
+	color: $secondary;
+}

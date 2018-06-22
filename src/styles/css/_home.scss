@@ -1,0 +1,95 @@
+.BaseList {
+  text-align: center;
+  position: absolute;
+  width: 700px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  h1 {
+    margin-bottom: 2vw;
+  }
+
+  .cardContainer {
+    justify-content: space-evenly;
+  }
+
+  .whiteCard {
+    width: 30%;
+    margin-bottom: 1.25vw;
+
+    a {
+      text-decoration: none;
+    }
+
+    .inner {
+      padding: 2.75vw;
+    }
+
+    .circleDot {
+      margin: auto;
+      margin-bottom: 20px;
+      width: 85px;
+      height: 85px;
+      border-radius: 100%;
+      @extend %softGradient;
+    }
+    &:nth-child(1) {
+      .circleDot {
+        background: #C31F68;
+      }
+    }
+    &:nth-child(2) {
+      .circleDot {
+        background: #C31F2F;
+      }
+    }
+    &:nth-child(3) {
+      .circleDot {
+        background: #EC9730;
+      }
+    }
+    &:nth-child(4) {
+      .circleDot {
+        background: $secondary;
+      }
+    }
+    &:nth-child(5) {
+      .circleDot {
+        background: #1FC2C2;
+      }
+    }
+    &:nth-child(6) {
+      .circleDot {
+        background: #1F7DC2;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 900px) {
+  .BaseList {
+    width: 90%;
+
+    h1 {
+      font-size: 25px;
+      margin-bottom: 50px;
+    }
+
+    .whiteCard {
+      width: 48%;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .BaseList {
+
+    .whiteCard {
+      .circleDot {
+        width: 20vw;
+        height: 20vw;
+        margin-bottom: 5vw;
+      }
+    }
+  }
+}

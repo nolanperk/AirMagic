@@ -1,0 +1,261 @@
+.ControlsBar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: rgba($gray, 0.95);
+  padding: 20px;
+  z-index: 2;
+
+  &.plusControls {
+    #filterBtn, #sortBtn, .ControlsBar--search {
+      display: none;
+    }
+  }
+
+  .ControlsBar--btn {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1.4vw;
+    transition: all 0.5s ease;
+
+    &.disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    p {
+      margin-left: 10px;
+      user-select: none;
+    }
+
+    .navIcon, p {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .navIcon {
+      margin-right: 0.3vw;
+
+      &:hover {
+        box-shadow: $themeShadow;
+        transform: none;
+      }
+    }
+
+    &.saveBtn {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%;
+
+      .navIcon {
+        padding: 18px;
+
+        &.isHidden {
+          display: none;
+        }
+        img {
+          width: 25px;
+        }
+
+        &:last-child {
+          margin-left: 1vw;
+        }
+      }
+
+      &.disabled {
+        opacity: 0.5;
+
+        .navIcon {
+          pointer-events: none;
+        }
+      }
+
+      &:hover {
+        transform: translate(-50%, -50%);
+
+        .navIcon {
+          transform: none;
+        }
+      }
+
+      .navIcon {
+        &:hover {
+          transform: translateY(-5%);
+        }
+      }
+    }
+
+    &.isActive {
+      @extend .softGrad--secondary;
+      border-radius: 3px;
+      padding-right: 22px;
+      color: white;
+
+      .navIcon {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding-right: 0;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-5%);
+      transition: all 0.5s ease;
+
+      .navIcon {
+        transform: translateY(-5%);
+        box-shadow: $lgThemeShadow;
+      }
+    }
+  }
+
+  #addNewRecord {
+    float: right;
+  }
+
+  .ControlsBar--search {
+    font-size: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    .navIcon, input, select {
+      vertical-align: middle;
+    }
+
+    input {
+      @extend .whiteCard;
+      height: 49px;
+      right: 0;
+      border-radius: 100px;
+      font-size: 15px;
+      padding-left: 1.25vw;
+      padding-right: 1vw;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      outline: 0;
+      cursor: text;
+      width: 250px;
+
+      &:hover {
+        transform: none;
+        box-shadow: $themeShadow;
+      }
+    }
+    select {
+      @extend .whiteCard;
+      background: rgba($white, 0.5);
+      height: 49px;
+      border: 0;
+      padding: 0 15px;
+      padding-right: 80px;
+      margin-right: -50px;
+      border-radius: 0;
+      font-size: 14px;
+      outline: 0;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+      -webkit-appearance: none;
+      position: relative;
+
+      &:hover {
+        transform: none;
+        box-shadow: $themeShadow;
+      }
+    }
+    &::after {
+      background: url('../assets/icons/black/down_carrot.png');
+      content: "";
+      opacity: 0.5;
+      position: absolute;
+      background-size: cover;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.FilterBox {
+  position: fixed;
+  bottom: 5.5vw;
+  padding: 20px;
+  @extend %card;
+}
+
+@media only screen and (max-width: 1050px) {
+  .ControlsBar .ControlsBar--search input {
+      font-size: 13px;
+      padding-left: 16px;
+      padding-right: 15px;
+      width: 180px;
+  }
+  .ControlsBar .ControlsBar--search select {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .ControlsBar.normalControls {
+   .ControlsBar--btn p {
+     display: none;
+   }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ControlsBar.recordControls {
+    padding: 15px;
+    .ControlsBar--btn {
+     p {
+       display: none;
+     }
+    }
+  }
+  .ControlsBar.normalControls {
+    .ControlsBar--btn {
+      display: none;
+    }
+  }
+  .ControlsBar .ControlsBar--search {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+
+    input {
+      font-size: 12px;
+      padding: 0 3vw;
+      width: 40vw;
+    }
+    select {
+      padding-right: 17vw;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .ControlsBar .ControlsBar--btn.saveBtn .navIcon {
+    padding: 16px;
+
+    img {
+      width: 20px;
+    }
+
+    &:last-child {
+      margin-left: 10px;
+    }
+  }
+}

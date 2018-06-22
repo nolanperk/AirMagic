@@ -1,0 +1,67 @@
+.Navbar {
+  @extend %fadeOut;
+  padding: 20px;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+
+  .navIcon, h4, .TabList {
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1;
+    position: relative;
+  }
+
+  h4 {
+    margin-left: 1vw;
+  }
+
+  .TabList {
+    margin-left: 1.4vw;
+  }
+
+  .TabItem {
+    display: inline-block;
+    list-style: none;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    margin-right: 1vw;
+    position: relative;
+    cursor: pointer;
+
+
+    a {
+      text-decoration: none;
+    }
+
+    &.isActive {
+      color: $primary;
+      @extend %sansB;
+      cursor: default;
+
+
+      a {
+        color: $primary;
+        text-decoration: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        height: 1px;
+        width: 100%;
+        background: $primary;
+        left: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .Navbar h4 {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}

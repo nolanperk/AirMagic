@@ -1,0 +1,93 @@
+.RecordNotes {
+  text-align: center;
+  .NotesNav {
+    @extend %fadeOut--white;
+    padding: 3vw;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    text-align: left;
+  }
+
+  .addNotesBox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+
+    .navIcon {
+      padding: 25px;
+
+      img {
+        width: 25px;
+      }
+    }
+  }
+
+  .NotesList {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    padding: 8vw 7% 6.5vw;
+    height: 100%;
+    border: 0;
+    outline: solid transparent 1px;
+    transition: all 0.5s ease;
+    min-height: 100%;
+
+    &:focus {
+      width: 85%;
+      outline: solid $gray 1px;
+      padding: 8vw 1vw 6.5vw;
+      background: #fcfcfc;
+      transition: all 0.5s ease;
+      color: #626255;
+    }
+
+    .NotesItem {
+      font-size: 16px;
+      padding-bottom: 3vw;
+      border-bottom: 1px solid $lightGray;
+      margin-bottom: 3vw;
+
+      &:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .accountItem {
+        background: $lightGray;
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 100px;
+        position: relative;
+        margin-right: 5px;
+
+        img {
+          width: 22px;
+          margin-right: 5px;
+        }
+      }
+      br {
+        content: "";
+        margin-bottom: 0.75vw;
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
+    padding: 50px 20px 20px;
+  }
+  .RecordNotes .addNotesBox {
+    bottom: 90px;
+  }
+  .RecordNotes .addNotesBox .navIcon {
+    padding: 20px;
+    img {
+      width: 20px;
+    }
+  }
+}

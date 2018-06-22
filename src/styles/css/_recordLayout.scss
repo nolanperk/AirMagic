@@ -1,0 +1,252 @@
+.RecordModules, .RecordNotes {
+  position: fixed;
+  height: 100%;
+  overflow: scroll;
+}
+.RecordModules {
+  left: 0;
+  width: 60%;
+}
+
+
+.ControlsBar.recordControls {
+  width: 60%;
+}
+
+.exportBtn {
+  float: right;
+  img {
+    pointer-events: none;
+  }
+}
+.recordNav .Navbar {
+  width: 60%;
+}
+.RecordView {
+  left: 0;
+  width: 60%;
+}
+
+.RecordNotes {
+  right: 0;
+  width: 40%;
+  @extend %card;
+  cursor: default;
+  top: 0;
+}
+
+.ModuleContainer {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+
+  position: absolute;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  padding-bottom: 100px;
+}
+.ModuleList {
+  position: relative;
+  width: 92%;
+  margin: auto;
+  padding-top: 7vw;
+  margin-bottom: 3vw;
+
+  .ModuleCard {
+    padding: 0.8vw;
+    width: 50%;
+    .inner {
+      padding: 0.7vw 1.4vw;
+      width: 100%;
+      @extend %card;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .cardTag {
+      padding: 15px 0;
+      border-top: 1px solid $gray;
+      width: 100%;
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  .inputBlock {
+    display: inline-block;
+    margin-bottom: 11px;
+    position: relative;
+
+    .selectBlock {
+      position: relative;
+      &::after {
+        background: url('../assets/icons/black/down_carrot.png');
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        background-size: cover;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &.inputBlock--half {
+      flex-basis: 48%;
+    }
+    &.inputBlock--full {
+      flex-basis: 100%;
+    }
+    &.inputBlock--small {
+      flex-basis: 35%;
+    }
+    &.inputBlock--quart {
+      flex-basis: 22%;
+    }
+    &.inputBlock--large {
+      flex-basis: 61%;
+    }
+
+    label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      @extend %sansB;
+      color: #8C7376;
+      width: 100%;
+    }
+
+    input, select, textarea {
+      border: solid 1px $medGray;
+      width: 100%;
+      padding: 0.5vw 0.35vw;
+      font-size: 14px;
+      outline: 0;
+      background: white;
+      border-radius: 0;
+
+      &:focus {
+        border: solid 1px darken($darkGray, 5%);
+      }
+    }
+
+    select {
+      -webkit-appearance: none;
+      padding: 0.3vw 0.35vw;
+      background: transparent;
+    }
+
+    input[type='checkbox'] {
+      background: blue;
+    }
+  }
+
+  .inputWithTag {
+    display: flex;
+    flex-wrap: nowrap;
+
+    .inputTag {
+      flex-basis: 40px;
+      background: $offWhite;
+      position: relative;
+
+      a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      img {
+        width: 15px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1440px) {
+}
+@media only screen and (max-width: 1350px) {
+  .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 65%;
+  }
+  .ModuleList {
+    width: 96%;
+  }
+  .RecordNotes, .RecordNotes .NotesList, .RecordNotes .NotesNav {
+    width: 35%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 100%;
+  }
+  .ModuleContainer {
+    height: calc(65% - 93px) !important;
+    margin: 0 auto;
+    padding-bottom: 0;
+
+    &::after {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+      bottom: 2vw;
+      right: 0;
+      background: -webkit-linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+      background: -webkit-gradient(linear, left bottom, left bottom, color-stop(50%, #f7f7f5), to(rgba(247, 247, 245, 0)));
+      background: -o-linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+      background: linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+    }
+  }
+  .ModuleList {
+    padding: 90px 0px 35px;
+  }
+  .RecordNotes {
+    box-shadow: 0 -1px 30px rgba(0, 0, 0, 0.1);
+    height: 35%;
+    top: auto;
+    bottom: 95px;
+  }
+  .RecordNotes, .RecordNotes .NotesList, .RecordNotes .NotesNav {
+    width: 100%;
+  }
+  .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
+    padding: 50px 20px 20px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ModuleContainer {
+    height: calc(65% - 74px) !important;
+  }
+  .RecordNotes {
+    bottom: 74px;
+  }
+  .ModuleList .ModuleCard {
+    width: 100%;
+    padding: 10px;
+
+    .inner {
+      padding: 20px;
+    }
+  }
+}
+@media only screen and (max-width: 500px) {
+
+}

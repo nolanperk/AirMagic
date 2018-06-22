@@ -1,0 +1,1011 @@
+@import url(css/normalize.css);
+.btn {
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 400; }
+
+.boldText, .Navbar .TabItem.isActive, .ModuleList .inputBlock label, .FilterModal li, .UserModal li {
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 700; }
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+/* html element 62.5% font-size for REM use */
+html {
+  font-size: 62.5%;
+  height: 100%; }
+
+p {
+  margin: 0; }
+
+.modal .modalInner .modalTitle {
+  *zoom: 1; }
+  .modal .modalInner .modalTitle:before, .modal .modalInner .modalTitle:after {
+    content: " ";
+    display: table; }
+  .modal .modalInner .modalTitle:after {
+    clear: both; }
+
+body {
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  font-family: "proxima-nova", sans-serif;
+  background: #F7F7F5;
+  color: #131313;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  -webkit-touch-callout: none !important; }
+
+img {
+  max-width: 100%;
+  vertical-align: bottom; }
+
+a {
+  color: #131313;
+  text-decoration: underline;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.4s ease; }
+
+a:focus {
+  outline: 0; }
+
+a:hover,
+a:active {
+  transition: all 0.4s ease;
+  outline: 0;
+  opacity: 0.5; }
+
+.btn {
+  border-radius: 3px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+  background-color: #fff; }
+
+.btn {
+  border-radius: 3px;
+  background-color: #F9F9F9;
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+  border: solid 1px #E6E6E6; }
+
+.modal .modalInner .modalTitle {
+  *zoom: 1; }
+  .modal .modalInner .modalTitle:before, .modal .modalInner .modalTitle:after {
+    content: " ";
+    display: table; }
+  .modal .modalInner .modalTitle:after {
+    clear: both; }
+
+.btn {
+  background-color: #fff;
+  border: 0;
+  border-radius: 100px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 10px 30px;
+  display: inline-block;
+  transition: all 0.4s ease;
+  color: #fff;
+  text-decoration: none; }
+  .btn:hover {
+    opacity: 1;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s ease;
+    transform: translateY(-5%); }
+
+h1, h2, h3, h4, p {
+  margin: 0;
+  position: relative; }
+
+h1 {
+  font-size: 2.8vw;
+  line-height: 2.5vw; }
+
+h2 {
+  font-size: 2.25vw;
+  line-height: 2vw; }
+
+h3 {
+  font-size: 1.65vw;
+  line-height: 1.45; }
+
+h4 {
+  font-size: 20px;
+  line-height: 1.15; }
+
+p {
+  font-size: 18px;
+  line-height: 20px; }
+  p.smallText {
+    font-size: 15px; }
+
+.absLink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+
+ul {
+  padding-left: 0; }
+
+#next {
+  position: absolute;
+  right: 20px; }
+  #next p {
+    margin-right: 10px; }
+
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
+  position: relative; }
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+.RecordNotes .NotesNav, .Navbar {
+  position: relative; }
+  .RecordNotes .NotesNav::before, .Navbar::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: -2vw;
+    right: 0;
+    background: -moz-linear-gradient(top, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(top, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+.RecordNotes .NotesNav::before {
+  background: -moz-linear-gradient(top, white 50%, rgba(255, 255, 255, 0) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, white 50%, rgba(255, 255, 255, 0) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(top, white 50%, rgba(255, 255, 255, 0) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .ModuleList .ModuleCard .inner, .modal .modalInner {
+  background-color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s ease; }
+
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
+  cursor: pointer; }
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover {
+    transform: translateY(-5%);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s ease; }
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0; }
+
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select {
+  border: solid 1px #F5F5F5;
+  list-style: none; }
+
+.softGrad--primary {
+  background: #C31F2F; }
+
+.softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
+  background: #1FC26A; }
+
+.softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
+  background: #1FC26A; }
+
+.navIcon {
+  display: inline-block;
+  border-radius: 100px;
+  padding: 18px;
+  line-height: 0; }
+  .navIcon img {
+    width: 15px; }
+
+@media only screen and (max-width: 767px) {
+  .navIcon {
+    padding: 15px; }
+    .navIcon img {
+      width: 12px; } }
+
+.Navbar {
+  padding: 20px;
+  position: fixed;
+  z-index: 2;
+  width: 100%; }
+  .Navbar .navIcon, .Navbar h4, .Navbar .TabList {
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1;
+    position: relative; }
+  .Navbar h4 {
+    margin-left: 1vw; }
+  .Navbar .TabList {
+    margin-left: 1.4vw; }
+  .Navbar .TabItem {
+    display: inline-block;
+    list-style: none;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    margin-right: 1vw;
+    position: relative;
+    cursor: pointer; }
+    .Navbar .TabItem a {
+      text-decoration: none; }
+    .Navbar .TabItem.isActive {
+      color: #C31F2F;
+      cursor: default; }
+      .Navbar .TabItem.isActive a {
+        color: #C31F2F;
+        text-decoration: none; }
+      .Navbar .TabItem.isActive::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        height: 1px;
+        width: 100%;
+        background: #C31F2F;
+        left: 0; }
+
+@media only screen and (max-width: 767px) {
+  .Navbar h4 {
+    margin-left: 10px;
+    font-size: 16px; } }
+
+.ControlsBar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: rgba(235, 235, 232, 0.95);
+  padding: 20px;
+  z-index: 2; }
+  .ControlsBar.plusControls #filterBtn, .ControlsBar.plusControls #sortBtn, .ControlsBar.plusControls .ControlsBar--search {
+    display: none; }
+  .ControlsBar .ControlsBar--btn {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1.4vw;
+    transition: all 0.5s ease; }
+    .ControlsBar .ControlsBar--btn.disabled {
+      opacity: 0;
+      pointer-events: none; }
+    .ControlsBar .ControlsBar--btn:last-child {
+      margin-right: 0; }
+    .ControlsBar .ControlsBar--btn p {
+      margin-left: 10px;
+      user-select: none; }
+    .ControlsBar .ControlsBar--btn .navIcon, .ControlsBar .ControlsBar--btn p {
+      display: inline-block;
+      vertical-align: middle; }
+    .ControlsBar .ControlsBar--btn .navIcon {
+      margin-right: 0.3vw; }
+      .ControlsBar .ControlsBar--btn .navIcon:hover {
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+        transform: none; }
+    .ControlsBar .ControlsBar--btn.saveBtn {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%; }
+      .ControlsBar .ControlsBar--btn.saveBtn .navIcon {
+        padding: 18px; }
+        .ControlsBar .ControlsBar--btn.saveBtn .navIcon.isHidden {
+          display: none; }
+        .ControlsBar .ControlsBar--btn.saveBtn .navIcon img {
+          width: 25px; }
+        .ControlsBar .ControlsBar--btn.saveBtn .navIcon:last-child {
+          margin-left: 1vw; }
+      .ControlsBar .ControlsBar--btn.saveBtn.disabled {
+        opacity: 0.5; }
+        .ControlsBar .ControlsBar--btn.saveBtn.disabled .navIcon {
+          pointer-events: none; }
+      .ControlsBar .ControlsBar--btn.saveBtn:hover {
+        transform: translate(-50%, -50%); }
+        .ControlsBar .ControlsBar--btn.saveBtn:hover .navIcon {
+          transform: none; }
+      .ControlsBar .ControlsBar--btn.saveBtn .navIcon:hover {
+        transform: translateY(-5%); }
+    .ControlsBar .ControlsBar--btn.isActive {
+      border-radius: 3px;
+      padding-right: 22px;
+      color: white; }
+      .ControlsBar .ControlsBar--btn.isActive .navIcon {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding-right: 0; }
+    .ControlsBar .ControlsBar--btn:hover {
+      cursor: pointer;
+      transform: translateY(-5%);
+      transition: all 0.5s ease; }
+      .ControlsBar .ControlsBar--btn:hover .navIcon {
+        transform: translateY(-5%);
+        box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08); }
+  .ControlsBar #addNewRecord {
+    float: right; }
+  .ControlsBar .ControlsBar--search {
+    font-size: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+    .ControlsBar .ControlsBar--search .navIcon, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select {
+      vertical-align: middle; }
+    .ControlsBar .ControlsBar--search input {
+      height: 49px;
+      right: 0;
+      border-radius: 100px;
+      font-size: 15px;
+      padding-left: 1.25vw;
+      padding-right: 1vw;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      outline: 0;
+      cursor: text;
+      width: 250px; }
+      .ControlsBar .ControlsBar--search input:hover {
+        transform: none;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
+    .ControlsBar .ControlsBar--search select {
+      background: rgba(255, 255, 255, 0.5);
+      height: 49px;
+      border: 0;
+      padding: 0 15px;
+      padding-right: 80px;
+      margin-right: -50px;
+      border-radius: 0;
+      font-size: 14px;
+      outline: 0;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+      -webkit-appearance: none;
+      position: relative; }
+      .ControlsBar .ControlsBar--search select:hover {
+        transform: none;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
+    .ControlsBar .ControlsBar--search::after {
+      background: url("../assets/icons/black/down_carrot.png");
+      content: "";
+      opacity: 0.5;
+      position: absolute;
+      background-size: cover;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%); }
+
+.FilterBox {
+  position: fixed;
+  bottom: 5.5vw;
+  padding: 20px; }
+
+@media only screen and (max-width: 1050px) {
+  .ControlsBar .ControlsBar--search input {
+    font-size: 13px;
+    padding-left: 16px;
+    padding-right: 15px;
+    width: 180px; }
+  .ControlsBar .ControlsBar--search select {
+    font-size: 12px; } }
+
+@media only screen and (max-width: 900px) {
+  .ControlsBar.normalControls .ControlsBar--btn p {
+    display: none; } }
+
+@media only screen and (max-width: 767px) {
+  .ControlsBar.recordControls {
+    padding: 15px; }
+    .ControlsBar.recordControls .ControlsBar--btn p {
+      display: none; }
+  .ControlsBar.normalControls .ControlsBar--btn {
+    display: none; }
+  .ControlsBar .ControlsBar--search {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px; }
+    .ControlsBar .ControlsBar--search input {
+      font-size: 12px;
+      padding: 0 3vw;
+      width: 40vw; }
+    .ControlsBar .ControlsBar--search select {
+      padding-right: 17vw; }
+    .ControlsBar .ControlsBar--search::after {
+      display: none; }
+  .ControlsBar .ControlsBar--btn.saveBtn .navIcon {
+    padding: 16px; }
+    .ControlsBar .ControlsBar--btn.saveBtn .navIcon img {
+      width: 20px; }
+    .ControlsBar .ControlsBar--btn.saveBtn .navIcon:last-child {
+      margin-left: 10px; } }
+
+.BaseList {
+  text-align: center;
+  position: absolute;
+  width: 700px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+  .BaseList h1 {
+    margin-bottom: 2vw; }
+  .BaseList .cardContainer {
+    justify-content: space-evenly; }
+  .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select {
+    width: 30%;
+    margin-bottom: 1.25vw; }
+    .BaseList .whiteCard a, .BaseList .ControlsBar .ControlsBar--search input a, .ControlsBar .ControlsBar--search .BaseList input a, .BaseList .ControlsBar .ControlsBar--search select a, .ControlsBar .ControlsBar--search .BaseList select a {
+      text-decoration: none; }
+    .BaseList .whiteCard .inner, .BaseList .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList input .inner, .BaseList .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList select .inner {
+      padding: 2.75vw; }
+    .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
+      margin: auto;
+      margin-bottom: 20px;
+      width: 85px;
+      height: 85px;
+      border-radius: 100%; }
+    .BaseList .whiteCard:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(1) .circleDot {
+      background: #C31F68; }
+    .BaseList .whiteCard:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(2) .circleDot {
+      background: #C31F2F; }
+    .BaseList .whiteCard:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(3) .circleDot {
+      background: #EC9730; }
+    .BaseList .whiteCard:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(4) .circleDot {
+      background: #1FC26A; }
+    .BaseList .whiteCard:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(5) .circleDot {
+      background: #1FC2C2; }
+    .BaseList .whiteCard:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(6) .circleDot {
+      background: #1F7DC2; }
+
+@media only screen and (max-width: 900px) {
+  .BaseList {
+    width: 90%; }
+    .BaseList h1 {
+      font-size: 25px;
+      margin-bottom: 50px; }
+    .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select {
+      width: 48%; } }
+
+@media only screen and (max-width: 600px) {
+  .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
+    width: 20vw;
+    height: 20vw;
+    margin-bottom: 5vw; } }
+
+.ArchiveItems {
+  width: 90%;
+  margin: auto;
+  padding: 8vw 0; }
+  .ArchiveItems .cardContainer .ArchiveItem {
+    padding: 0.5vw;
+    width: 16%;
+    position: relative;
+    transition: all 0.5s ease;
+    cursor: pointer; }
+    .ArchiveItems .cardContainer .ArchiveItem:hover {
+      transform: translateY(-5%);
+      background: none;
+      transition: all 0.5s ease; }
+      .ArchiveItems .cardContainer .ArchiveItem:hover .whiteCard, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover input, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover select, .ArchiveItems .cardContainer .ArchiveItem:hover .subInfo {
+        box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08); }
+    .ArchiveItems .cardContainer .ArchiveItem .whiteCard:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select:hover {
+      transform: none;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
+    .ArchiveItems .cardContainer .ArchiveItem .whiteCard, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select {
+      padding-bottom: 1vw; }
+    .ArchiveItems .cardContainer .ArchiveItem .subInfo {
+      padding: 1vw 2vw;
+      background: #EBEBE8;
+      border: solid 5px #fff;
+      border-top: 0; }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo p {
+        color: white;
+        display: inline-block; }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .amount {
+        font-weight: bold;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        margin-right: 10px; }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .rounded {
+        border-radius: 100px;
+        padding: 5px 10px;
+        font-size: 12px;
+        text-align: center; }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .pam {
+        background: rgba(19, 19, 19, 0.2); }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .canc {
+        background: rgba(195, 31, 47, 0.2); }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .appc {
+        background: rgba(31, 146, 194, 0.2); }
+    .ArchiveItems .cardContainer .ArchiveItem .smallText {
+      margin-top: 4px; }
+      .ArchiveItems .cardContainer .ArchiveItem .smallText img, .ArchiveItems .cardContainer .ArchiveItem .smallText span {
+        vertical-align: middle; }
+      .ArchiveItems .cardContainer .ArchiveItem .smallText img {
+        width: 24px;
+        margin-right: 2px; }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive .subInfo {
+      background: rgba(31, 194, 106, 0.35); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.very .subInfo {
+      background: rgba(31, 194, 106, 0.75); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.unhappy .subInfo {
+      background: rgba(195, 31, 47, 0.35); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.crew .subInfo {
+      background: rgba(226, 99, 13, 0.35); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.new .subInfo {
+      background: rgba(31, 146, 194, 0.35); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.satisfied .subInfo {
+      background: rgba(19, 19, 19, 0.15); }
+    .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo {
+      background: #EBEBE8; }
+      .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo p {
+        color: #131313; }
+  .ArchiveItems .cardContainer .whiteCard, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer input, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer select {
+    padding: 2vw;
+    width: 100%; }
+
+.FranchiseInfoItems .tableHeader {
+  border-bottom: 1px solid #EBEBE8;
+  background: #F7F7F5;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1vw 1.5vw;
+  margin-bottom: 2vw;
+  position: fixed;
+  width: 90%;
+  top: 0;
+  padding-top: 10vw; }
+  .FranchiseInfoItems .tableHeader .tableCol {
+    flex-grow: 1;
+    flex-shrink: 1; }
+
+.FranchiseInfoItems .tableContainer {
+  margin-top: 7vw;
+  background: transparent;
+  margin-bottom: 2vw;
+  position: fixed;
+  width: 90%;
+  overflow-x: scroll; }
+
+.FranchiseInfoItems .tableRow {
+  background: #fff;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0.5vw 1.5vw; }
+  .FranchiseInfoItems .tableRow .tableCol {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border: 0;
+    border-bottom: 1px solid #EBEBE8;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: transparent; }
+  .FranchiseInfoItems .tableRow:nth-child(even) {
+    background: #F7F7F5; }
+
+@media only screen and (max-width: 1440px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 20%; } }
+
+@media only screen and (max-width: 1200px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 25%; }
+  .ArchiveItems {
+    padding: 100px 0; } }
+
+@media only screen and (max-width: 900px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 33%; } }
+
+@media only screen and (max-width: 767px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 50%; } }
+
+@media only screen and (max-width: 500px) {
+  .ArchiveItems .cardContainer .ArchiveItem {
+    width: 100%; } }
+
+.RecordModules, .RecordNotes {
+  position: fixed;
+  height: 100%;
+  overflow: scroll; }
+
+.RecordModules {
+  left: 0;
+  width: 60%; }
+
+.ControlsBar.recordControls {
+  width: 60%; }
+
+.exportBtn {
+  float: right; }
+  .exportBtn img {
+    pointer-events: none; }
+
+.recordNav .Navbar {
+  width: 60%; }
+
+.RecordView {
+  left: 0;
+  width: 60%; }
+
+.RecordNotes {
+  right: 0;
+  width: 40%;
+  cursor: default;
+  top: 0; }
+
+.ModuleContainer {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  padding-bottom: 100px; }
+
+.ModuleList {
+  position: relative;
+  width: 92%;
+  margin: auto;
+  padding-top: 7vw;
+  margin-bottom: 3vw; }
+  .ModuleList .ModuleCard {
+    padding: 0.8vw;
+    width: 50%; }
+    .ModuleList .ModuleCard .inner {
+      padding: 0.7vw 1.4vw;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between; }
+    .ModuleList .ModuleCard .cardTag {
+      padding: 15px 0;
+      border-top: 1px solid #EBEBE8;
+      width: 100%; }
+      .ModuleList .ModuleCard .cardTag .btn {
+        width: 100%;
+        text-align: center; }
+  .ModuleList .inputBlock {
+    display: inline-block;
+    margin-bottom: 11px;
+    position: relative; }
+    .ModuleList .inputBlock .selectBlock {
+      position: relative; }
+      .ModuleList .inputBlock .selectBlock::after {
+        background: url("../assets/icons/black/down_carrot.png");
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        background-size: cover;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%); }
+    .ModuleList .inputBlock.inputBlock--half {
+      flex-basis: 48%; }
+    .ModuleList .inputBlock.inputBlock--full {
+      flex-basis: 100%; }
+    .ModuleList .inputBlock.inputBlock--small {
+      flex-basis: 35%; }
+    .ModuleList .inputBlock.inputBlock--quart {
+      flex-basis: 22%; }
+    .ModuleList .inputBlock.inputBlock--large {
+      flex-basis: 61%; }
+    .ModuleList .inputBlock label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8C7376;
+      width: 100%; }
+    .ModuleList .inputBlock input, .ModuleList .inputBlock select, .ModuleList .inputBlock textarea {
+      border: solid 1px #ebebeb;
+      width: 100%;
+      padding: 0.5vw 0.35vw;
+      font-size: 14px;
+      outline: 0;
+      background: white;
+      border-radius: 0; }
+      .ModuleList .inputBlock input:focus, .ModuleList .inputBlock select:focus, .ModuleList .inputBlock textarea:focus {
+        border: solid 1px #cfcfcc; }
+    .ModuleList .inputBlock select {
+      -webkit-appearance: none;
+      padding: 0.3vw 0.35vw;
+      background: transparent; }
+    .ModuleList .inputBlock input[type='checkbox'] {
+      background: blue; }
+  .ModuleList .inputWithTag {
+    display: flex;
+    flex-wrap: nowrap; }
+    .ModuleList .inputWithTag .inputTag {
+      flex-basis: 40px;
+      background: #F7F7F5;
+      position: relative; }
+      .ModuleList .inputWithTag .inputTag a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1; }
+      .ModuleList .inputWithTag .inputTag img {
+        width: 15px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); }
+
+@media only screen and (max-width: 1350px) {
+  .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 65%; }
+  .ModuleList {
+    width: 96%; }
+  .RecordNotes, .RecordNotes .NotesList, .RecordNotes .NotesNav {
+    width: 35%; } }
+
+@media only screen and (max-width: 1200px) {
+  .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 100%; }
+  .ModuleContainer {
+    height: calc(65% - 93px) !important;
+    margin: 0 auto;
+    padding-bottom: 0; }
+    .ModuleContainer::after {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+      bottom: 2vw;
+      right: 0;
+      background: -webkit-linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+      background: -webkit-gradient(linear, left bottom, left bottom, color-stop(50%, #f7f7f5), to(rgba(247, 247, 245, 0)));
+      background: -o-linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%);
+      background: linear-gradient(bottom, #f7f7f5 50%, rgba(247, 247, 245, 0) 100%); }
+  .ModuleList {
+    padding: 90px 0px 35px; }
+  .RecordNotes {
+    box-shadow: 0 -1px 30px rgba(0, 0, 0, 0.1);
+    height: 35%;
+    top: auto;
+    bottom: 95px; }
+  .RecordNotes, .RecordNotes .NotesList, .RecordNotes .NotesNav {
+    width: 100%; }
+  .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
+    padding: 50px 20px 20px; } }
+
+@media only screen and (max-width: 767px) {
+  .ModuleContainer {
+    height: calc(65% - 74px) !important; }
+  .RecordNotes {
+    bottom: 74px; }
+  .ModuleList .ModuleCard {
+    width: 100%;
+    padding: 10px; }
+    .ModuleList .ModuleCard .inner {
+      padding: 20px; } }
+
+.RecordNotes {
+  text-align: center; }
+  .RecordNotes .NotesNav {
+    padding: 3vw;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    text-align: left; }
+  .RecordNotes .addNotesBox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10; }
+    .RecordNotes .addNotesBox .navIcon {
+      padding: 25px; }
+      .RecordNotes .addNotesBox .navIcon img {
+        width: 25px; }
+  .RecordNotes .NotesList {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    padding: 8vw 7% 6.5vw;
+    height: 100%;
+    border: 0;
+    outline: solid transparent 1px;
+    transition: all 0.5s ease;
+    min-height: 100%; }
+    .RecordNotes .NotesList:focus {
+      width: 85%;
+      outline: solid #EBEBE8 1px;
+      padding: 8vw 1vw 6.5vw;
+      background: #fcfcfc;
+      transition: all 0.5s ease;
+      color: #626255; }
+    .RecordNotes .NotesList .NotesItem {
+      font-size: 16px;
+      padding-bottom: 3vw;
+      border-bottom: 1px solid #F5F5F5;
+      margin-bottom: 3vw; }
+      .RecordNotes .NotesList .NotesItem:last-child {
+        border-bottom: 0;
+        padding-bottom: 0; }
+      .RecordNotes .NotesList .NotesItem .accountItem {
+        background: #F5F5F5;
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 100px;
+        position: relative;
+        margin-right: 5px; }
+        .RecordNotes .NotesList .NotesItem .accountItem img {
+          width: 22px;
+          margin-right: 5px; }
+      .RecordNotes .NotesList .NotesItem br {
+        content: "";
+        margin-bottom: 0.75vw;
+        width: 100%;
+        display: block; }
+
+@media only screen and (max-width: 1200px) {
+  .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
+    padding: 50px 20px 20px; }
+  .RecordNotes .addNotesBox {
+    bottom: 90px; }
+  .RecordNotes .addNotesBox .navIcon {
+    padding: 20px; }
+    .RecordNotes .addNotesBox .navIcon img {
+      width: 20px; } }
+
+.modal {
+  background: rgba(247, 247, 245, 0.9);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10; }
+  .modal .btn {
+    margin-right: 10px; }
+  .modal .modalInner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    padding-top: 39px;
+    border-radius: 3px; }
+    .modal .modalInner textarea {
+      width: 500px;
+      min-width: 500px;
+      max-width: 500px;
+      font-size: 16px;
+      border: none;
+      margin: 30px 0 10px;
+      outline: solid #EBEBE8 1px;
+      background: #fcfcfc;
+      transition: all 0.5s ease;
+      color: #626255;
+      padding: 1vw; }
+    .modal .modalInner .modalTitle {
+      width: 500px; }
+      .modal .modalInner .modalTitle h4 {
+        float: left;
+        padding: 15px 0; }
+      .modal .modalInner .modalTitle .navIcon {
+        float: right; }
+        .modal .modalInner .modalTitle .navIcon:hover {
+          transform: none;
+          opacity: 0.8; }
+    .modal .modalInner a {
+      display: block; }
+
+.LoadModal {
+  text-align: center; }
+  .LoadModal img {
+    width: 300px;
+    padding: 100px; }
+
+.AddNoteModal.modalInner .btn {
+  display: block;
+  text-align: center;
+  width: 150px; }
+
+.FilterModal .filterSearch, .UserModal .filterSearch {
+  border: none;
+  border-bottom: 1px solid #EBEBE8;
+  width: 100%;
+  padding: 15px;
+  position: relative; }
+  .FilterModal .filterSearch img, .UserModal .filterSearch img {
+    width: 20px;
+    position: absolute;
+    top: 19px; }
+  .FilterModal .filterSearch input, .UserModal .filterSearch input {
+    position: relative;
+    padding: 0;
+    padding-left: 40px;
+    outline: 0;
+    height: 25px;
+    font-size: 15px;
+    width: calc(100% - 0vw);
+    border: 0;
+    background: transparent; }
+
+.FilterModal ul, .UserModal ul {
+  padding: 20px;
+  margin: 0;
+  max-height: 40vh;
+  overflow: hidden;
+  overflow-y: scroll; }
+
+.FilterModal li, .UserModal li {
+  list-style: none;
+  padding: 13px 15px;
+  line-height: 20px;
+  font-size: 16px;
+  cursor: pointer; }
+  .FilterModal li:hover, .UserModal li:hover {
+    opacity: 0.5; }
+  .FilterModal li.isActive, .UserModal li.isActive {
+    background: #1FC26A;
+    color: #fff;
+    border-radius: 3px;
+    pointer-events: none; }
+
+.FilterModal .newFilterTrigger, .UserModal .newFilterTrigger {
+  border-top: 1px solid #EBEBE8;
+  padding: 20px 20px 0; }
+  .FilterModal .newFilterTrigger h4, .UserModal .newFilterTrigger h4 {
+    cursor: pointer;
+    color: #1FC26A; }
+
+#sortTable {
+  padding: 1.5vw 0;
+  border-top: solid 1px #EBEBE8;
+  margin-top: 1.5vw; }
+  #sortTable .selectBox {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px; }
+    #sortTable .selectBox:last-child {
+      margin-right: 0; }
+    #sortTable .selectBox select {
+      -webkit-appearance: none;
+      border-radius: 0;
+      border: 1px solid #EBEBE8;
+      background: transparent;
+      padding: 10px 15px;
+      padding-right: 35px;
+      outline: 0;
+      cursor: grab; }
+    #sortTable .selectBox::after {
+      background: url("../assets/icons/black/down_carrot.png");
+      content: "";
+      opacity: 0.5;
+      position: absolute;
+      background-size: cover;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%); }
