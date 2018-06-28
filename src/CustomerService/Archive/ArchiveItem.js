@@ -134,6 +134,17 @@ export default class ArchiveItem extends Component {
            </div>
          </div>
        )
+    } else {
+      return (
+        <div className="inner">
+          <div className="whiteCard">
+            <p className="boldText">{data['Company Name']}</p>
+            <p className="smallText">
+              <span>{data['Standing']}</span>
+            </p>
+          </div>
+        </div>
+      );
     }
   }
 }

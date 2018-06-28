@@ -97,6 +97,27 @@
           background: rgba($black, 0.15);
         }
       }
+
+
+
+      &.isActive {
+        &.very.tele .subInfo {
+          background: rgba($secondary, 0.75);
+        }
+        &.unhappy.tele .subInfo {
+          background: rgba($primary, 0.55);
+        }
+        &.crew.tele .subInfo {
+          background: rgba(#E2630D, 0.55);
+        }
+        &.new.tele .subInfo {
+          background: rgba(#1F92C2, 0.55);
+        }
+        &.satisfied.tele .subInfo {
+          background: rgba($black, 0.15);
+        }
+      }
+
       &.nonActive .subInfo {
         background: #EBEBE8;
         p {

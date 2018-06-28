@@ -26,6 +26,7 @@ export default class RecordView extends Component {
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleMain
+              baseId={this.props.baseId}
               changeRecordHandler={this.props.changeRecordHandler}
               company={this.props.currentRecord['Company Name']}
               pam={this.props.currentRecord['PAM']}
@@ -35,6 +36,7 @@ export default class RecordView extends Component {
               status={this.props.currentRecord['Status']}
               cpop={this.props.currentRecord['CPOP']}
               supplies={this.props.currentRecord['Addtl Supplies']}
+              changeSelectBlock={this.props.changeSelectBlock}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -43,7 +45,7 @@ export default class RecordView extends Component {
               title={this.props.currentRecord['Title']}
               altContact={this.props.currentRecord['Alternate Contact']}
               phone={this.props.currentRecord['Office Phone']}
-              ext={this.props.currentRecord['Extenstion']}
+              ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
@@ -57,6 +59,7 @@ export default class RecordView extends Component {
               lastVisit={this.props.currentRecord['Last Visit']}
               newSP={this.props.currentRecord['New SP Start']}
               cancel={this.props.currentRecord['Cancel Date']}
+              changeSelectBlock={this.props.changeSelectBlock}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -132,4 +135,6 @@ RecordView.propTypes ={
   controlsModalToggle: propTypes.func.isRequired,
   currentRecord: propTypes.object.isRequired,
   recordChanger: propTypes.func.isRequired,
+  changeSelectBlock: propTypes.func.isRequired,
+  baseId: propTypes.string.isRequired,
 }

@@ -2,6 +2,21 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
 export default class ModuleMain extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pamValue: this.props.pam,
+      repValue: this.props.rep,
+      statusValue: this.props.status,
+      cpopValue: this.props.cpop,
+      suppliesValue: this.props.supplies,
+    }
+  }
+  pamChange = e => {this.setState({pamValue: e.target.value});}
+  repChange = e => {this.setState({repValue: e.target.value});}
+  statusChange = e => {this.setState({statusValue: e.target.value});}
+  cpopChange = e => {this.setState({cpopValue: e.target.value});}
+  suppliesChange = e => {this.setState({suppliesValue: e.target.value});}
 
   // Render
   // ----------------------------------------------------
@@ -13,6 +28,8 @@ export default class ModuleMain extends Component {
     let status = this.props.status;
     let cpop = this.props.cpop;
     let supplies = this.props.supplies;
+
+
 
 
 
@@ -34,15 +51,8 @@ export default class ModuleMain extends Component {
             <div
               className="selectBlock"
               id="pam"
-              onChange={this.props.changeSelectBlock}
               >
-              <select id="pamSelect" value={this.props.pam}>
-                <option id="none"></option>
-                <option id="David+Rivera">David Rivera</option>
-                <option id="Lisa+Nice">Lisa Nice</option>
-                <option id="Veronica+Valentin">Veronica Valentin</option>
-                <option id="Old">Old</option>
-              </select>
+              {this.locationPAM}
             </div>
           </div>
 
@@ -51,18 +61,8 @@ export default class ModuleMain extends Component {
             <div
               className="selectBlock"
               id="rep"
-              onChange={this.props.changeSelectBlock}
               >
-              <select id="repSelect" value={this.props.rep}>
-                <option id="none"></option>
-                <option id="Tyler+Perkins">Tyler Perkins</option>
-                <option id="Nolan+Perkins">Nolan Perkins</option>
-                <option id="Rafael+Milanes">Rafael Milanes</option>
-                <option id="Lisa+Nice">Lisa Nice</option>
-                <option id="Cristy+Subler">Cristy Subler</option>
-                <option id="FR">FR</option>
-                <option id="Old">Old</option>
-              </select>
+              {this.locationSales}
             </div>
           </div>
 
@@ -83,9 +83,8 @@ export default class ModuleMain extends Component {
             <div
               className="selectBlock"
               id="status"
-              onChange={this.props.changeSelectBlock}
               >
-              <select id="statusSelect"  value={this.props.status}>
+              <select id="statusSelect"  value={this.state.statusValue} onChange={this.statusChange}>
                 <option id="none"></option>
                 <option id="Active">Active</option>
                 <option id="APPC">APPC</option>
@@ -100,9 +99,8 @@ export default class ModuleMain extends Component {
             <div
               className="selectBlock"
               id="cpop"
-              onChange={this.props.changeSelectBlock}
               >
-              <select id="cpopSelect"  value={this.props.cpop}>
+              <select id="cpopSelect"  value={this.state.cpopValue} onChange={this.cpopChange}>
                 <option id="none"></option>
                 <option id="Yes">Yes</option>
                 <option id="No">No</option>
@@ -114,9 +112,8 @@ export default class ModuleMain extends Component {
             <div
               className="selectBlock"
               id="supplies"
-              onChange={this.props.changeSelectBlock}
               >
-              <select id="suppliesSelect"  value={this.props.supplies}>
+              <select id="suppliesSelect"  value={this.state.suppliesValue} onChange={this.suppliesChange}>
                 <option id="none"></option>
                 <option id="Yes">Yes</option>
                 <option id="No">No</option>
@@ -126,6 +123,61 @@ export default class ModuleMain extends Component {
         </div>
       </div>
     );
+  }
+  get locationPAM() {
+    if (this.props.baseId === 'apps7GoAgK23yrOoY') {
+      return (
+        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+          <option id="none"></option>
+          <option id="David+Rivera">David Rivera</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="Veronica+Valentin">Veronica Valentin</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    } else {
+      return (
+        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+          <option id="none"></option>
+          <option id="Sergibeth+Monge">Sergibeth Monge</option>
+          <option id="Christy+Subler">Christy Subler</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    }
+  }
+  get locationSales() {
+    if (this.props.baseId === 'apps7GoAgK23yrOoY') {
+      return (
+        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+          <option id="none"></option>
+          <option id="Tyler+Perkins">Tyler Perkins</option>
+          <option id="Nolan+Perkins">Nolan Perkins</option>
+          <option id="Rafael+Milanes">Rafael Milanes</option>
+          <option id="Rob+Janke">Rob Janke</option>
+          <option id="Joel+Horwitz">Joel Horwitz</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="Cristy+Subler">Cristy Subler</option>
+          <option id="FR">FR</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    } else {
+      return (
+        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+          <option id="none"></option>
+          <option id="Rob+Janke">Rob Janke</option>
+          <option id="Cristy+Subler">Cristy Subler</option>
+          <option id="Joel+Horwitz">Joel Horwitz</option>
+          <option id="Tyler+Perkins">Tyler Perkins</option>
+          <option id="Nolan+Perkins">Nolan Perkins</option>
+          <option id="Rafael+Milanes">Rafael Milanes</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="FR">FR</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    }
   }
 }
 
@@ -139,4 +191,6 @@ ModuleMain.propTypes ={
   supplies: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
+  changeSelectBlock: propTypes.func.isRequired,
+  baseId: propTypes.string.isRequired,
 }

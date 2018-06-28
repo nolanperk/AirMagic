@@ -68,7 +68,7 @@ export default class Navbar extends Component {
   get downloadButton() {
     if (this.props.recordView) {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.exportRecord}>
+        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
           <img src={exportImg} alt="Export" />
         </div>
       );
@@ -88,6 +88,5 @@ Navbar.propTypes ={
   closeRecordHandler: propTypes.func.isRequired,
   switchTableHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
-  exportRecord: propTypes.func.isRequired,
   currentRecord: propTypes.array.isRequired,
 }

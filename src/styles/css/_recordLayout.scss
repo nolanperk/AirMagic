@@ -73,6 +73,135 @@
         text-align: center;
       }
     }
+
+    &.cardFull {
+      width: 100%;
+      padding-top: 2vw;
+      .fullInner {
+        border-top: 1px solid $gray;
+        padding-top: 2vw;
+
+        .inner {
+          padding: 2vw;
+
+          .loader {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+          }
+
+          .wideInner {
+            width: 100%;
+            display: flex;
+            h4 {
+              flex: 1 1 0;
+              // text-align: center;
+
+
+              em {
+                opacity: 0.5;
+                font-style: normal;
+                font-size: 11px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+              }
+              // &:first-child {text-align: left;}
+              // &:last-child {text-align: right;}
+            }
+          }
+
+          table {
+            margin-top: 15px;
+
+            .deleteIt {
+              text-align: center;
+              cursor: pointer;
+            }
+            tr {
+              border: solid 1px $gray;
+
+              td {
+                border-right: 1px solid $gray;
+
+                input {
+                  font-size: 13px;
+                  height: 100%;
+                  padding: 0 5px;
+                  outline: 0;
+
+                  &:focus {
+                    background: lighten($gray, 5%);
+                  }
+                }
+
+                select {
+                  padding: 0.3vw 5px;
+                  font-size: 13px;
+                  border: none;
+                  width: 100%;
+                  outline: 0;
+                  background: white;
+                  border-radius: 0;
+                  -webkit-appearance: none;
+                  background: transparent;
+                }
+              }
+
+              &.accountHeader {
+                background: $gray;
+                td {
+                  border-right: 1px solid $white;
+                  padding: 0 5px;
+                }
+                p {
+                  font-size: 12px;
+                  line-height: 28px;
+                  font-weight: bold;
+                }
+              }
+
+              &.accountFooter {
+                #addAccount {
+                  cursor: pointer;
+                  color: #E2630D;
+                }
+                background: rgba(#E2630D, 0.05);
+                h4 {
+                  font-size: 13px;
+                  padding: 12px 5px;
+
+                  em {
+                    opacity: 0.5;
+                    font-style: normal;
+                    font-size: 11px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                  }
+                }
+              }
+
+              input, p {
+                width: 100%;
+                border: 0;
+              }
+
+              td:nth-child(1) {
+                width: 29%;
+              }
+              td:nth-child(2), td:nth-child(3) {
+                width: 9%;
+              }
+              td:nth-child(4), td:nth-child(5) {
+                width: 12.5%;
+              }
+              td:nth-child(6), td:nth-child(7) {
+                width: 14%;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .inputBlock {

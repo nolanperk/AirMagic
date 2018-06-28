@@ -553,6 +553,16 @@ ul {
       background: rgba(31, 146, 194, 0.35); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.satisfied .subInfo {
       background: rgba(19, 19, 19, 0.15); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.very.tele .subInfo {
+      background: rgba(31, 194, 106, 0.75); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.unhappy.tele .subInfo {
+      background: rgba(195, 31, 47, 0.55); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.crew.tele .subInfo {
+      background: rgba(226, 99, 13, 0.55); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.new.tele .subInfo {
+      background: rgba(31, 146, 194, 0.55); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.satisfied.tele .subInfo {
+      background: rgba(19, 19, 19, 0.15); }
     .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo {
       background: #EBEBE8; }
       .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo p {
@@ -684,6 +694,89 @@ ul {
       .ModuleList .ModuleCard .cardTag .btn {
         width: 100%;
         text-align: center; }
+    .ModuleList .ModuleCard.cardFull {
+      width: 100%;
+      padding-top: 2vw; }
+      .ModuleList .ModuleCard.cardFull .fullInner {
+        border-top: 1px solid #EBEBE8;
+        padding-top: 2vw; }
+        .ModuleList .ModuleCard.cardFull .fullInner .inner {
+          padding: 2vw; }
+          .ModuleList .ModuleCard.cardFull .fullInner .inner .loader {
+            width: 50px;
+            height: 50px;
+            margin: auto; }
+          .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner {
+            width: 100%;
+            display: flex; }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner h4 {
+              flex: 1 1 0; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner h4 em {
+                opacity: 0.5;
+                font-style: normal;
+                font-size: 11px;
+                letter-spacing: 1px;
+                text-transform: uppercase; }
+          .ModuleList .ModuleCard.cardFull .fullInner .inner table {
+            margin-top: 15px; }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner table .deleteIt {
+              text-align: center;
+              cursor: pointer; }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner table tr {
+              border: solid 1px #EBEBE8; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td {
+                border-right: 1px solid #EBEBE8; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td input {
+                  font-size: 13px;
+                  height: 100%;
+                  padding: 0 5px;
+                  outline: 0; }
+                  .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td input:focus {
+                    background: #f7f7f6; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td select {
+                  padding: 0.3vw 5px;
+                  font-size: 13px;
+                  border: none;
+                  width: 100%;
+                  outline: 0;
+                  background: white;
+                  border-radius: 0;
+                  -webkit-appearance: none;
+                  background: transparent; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader {
+                background: #EBEBE8; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader td {
+                  border-right: 1px solid #fff;
+                  padding: 0 5px; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader p {
+                  font-size: 12px;
+                  line-height: 28px;
+                  font-weight: bold; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter {
+                background: rgba(226, 99, 13, 0.05); }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter #addAccount {
+                  cursor: pointer;
+                  color: #E2630D; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter h4 {
+                  font-size: 13px;
+                  padding: 12px 5px; }
+                  .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter h4 em {
+                    opacity: 0.5;
+                    font-style: normal;
+                    font-size: 11px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr input, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr p {
+                width: 100%;
+                border: 0; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(1) {
+                width: 29%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(2), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(3) {
+                width: 9%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(4), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(5) {
+                width: 12.5%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(6), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(7) {
+                width: 14%; }
   .ModuleList .inputBlock {
     display: inline-block;
     margin-bottom: 11px;
@@ -977,18 +1070,18 @@ ul {
     cursor: pointer;
     color: #1FC26A; }
 
-#sortTable {
+#sortTable, #exportForm {
   padding: 1.5vw 0;
   border-top: solid 1px #EBEBE8;
   margin-top: 1.5vw; }
-  #sortTable .selectBox {
+  #sortTable .selectBox, #exportForm .selectBox {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 20px; }
-    #sortTable .selectBox:last-child {
+    margin-right: 10px; }
+    #sortTable .selectBox:last-child, #exportForm .selectBox:last-child {
       margin-right: 0; }
-    #sortTable .selectBox select {
+    #sortTable .selectBox select, #exportForm .selectBox select {
       -webkit-appearance: none;
       border-radius: 0;
       border: 1px solid #EBEBE8;
@@ -997,7 +1090,7 @@ ul {
       padding-right: 35px;
       outline: 0;
       cursor: grab; }
-    #sortTable .selectBox::after {
+    #sortTable .selectBox::after, #exportForm .selectBox::after {
       background: url("../assets/icons/black/down_carrot.png");
       content: "";
       opacity: 0.5;
@@ -1009,3 +1102,11 @@ ul {
       right: 10px;
       top: 50%;
       transform: translateY(-50%); }
+    #sortTable .selectBox.mergeBox, #exportForm .selectBox.mergeBox {
+      margin-bottom: 25px; }
+
+#startRange.isHidden, #endRange.isHidden, #exportChoice.isHidden, #rangeBox.isHidden {
+  display: none; }
+
+#startRange, #endRange, #exportChoice, #rangeBox {
+  margin-bottom: 20px; }

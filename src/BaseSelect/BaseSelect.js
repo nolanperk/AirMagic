@@ -25,16 +25,16 @@ export default class BaseSelect extends Component {
               </Link>
             </li>
           <li className="whiteCard">
-            <Link to={`/`}>
+            <Link to={`/tampa/sales/`}>
               <div className="inner">
                 <div className="circleDot"></div>
                 <div className="baseIcon"></div>
-                <p>Tampa Sales Pipeline</p>
+                <p>Tampa Sales</p>
               </div>
             </Link>
           </li>
           <li className="whiteCard">
-            <Link to={`/`}>
+            <Link to={`/tampa/franchisees`}>
               <div className="inner">
                 <div className="circleDot"></div>
                 <div className="baseIcon"></div>
@@ -52,16 +52,16 @@ export default class BaseSelect extends Component {
             </Link>
           </li>
           <li className="whiteCard">
-            <Link to={`/`}>
+            <Link to={`/orlando/sales/`}>
               <div className="inner">
                 <div className="circleDot"></div>
                 <div className="baseIcon"></div>
-                <p>Orlando Sales Pipeline</p>
+                <p>Orlando Sales</p>
               </div>
             </Link>
           </li>
           <li className="whiteCard">
-            <Link to={`/`}>
+            <Link to={`/orlando/franchisees`}>
               <div className="inner">
                 <div className="circleDot"></div>
                 <div className="baseIcon"></div>

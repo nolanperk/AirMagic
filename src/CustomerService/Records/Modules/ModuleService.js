@@ -6,6 +6,14 @@ import phoneImg from '../../../assets/icons/black/phone.png';
 
 
 export default class ModuleService extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      standingValue: this.props.standing,
+    }
+  }
+  standingChange = e => {this.setState({standingValue: e.target.value});}
+
 
   // Render
   // ----------------------------------------------------
@@ -29,9 +37,8 @@ export default class ModuleService extends Component {
             <div
               className="selectBlock"
               id="standing"
-              onChange={this.props.changeRecordHandler}
               >
-              <select id="standingSelect" value={this.props.standing}>
+              <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
                 <option id="none"></option>
                 <option id="Very+Happy">Very Happy</option>
                 <option id="Happy">Happy</option>
@@ -146,4 +153,5 @@ ModuleService.propTypes ={
   newSP: propTypes.string,
   cancel: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
+  changeSelectBlock: propTypes.func.isRequired,
 }
