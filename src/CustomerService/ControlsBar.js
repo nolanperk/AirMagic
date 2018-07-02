@@ -13,6 +13,7 @@ export default class ControlsBar extends Component {
           newRecord={this.props.newRecord}
           saveRecordHandler={this.props.saveRecordHandler}
           arrowKeyHandler={this.props.arrowKeyHandler}
+          currentRecord={this.props.currentRecord}
         />
       );
     } else {
@@ -49,4 +50,5 @@ ControlsBar.propTypes ={
   controlsModalToggle: propTypes.func.isRequired,
   recordChanger: propTypes.func.isRequired,
   newRecordHandler: propTypes.func.isRequired,
+  currentRecord: propTypes.array.isRequired,
 }

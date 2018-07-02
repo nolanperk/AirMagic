@@ -44,7 +44,7 @@ export default class ModulePipeline extends Component {
           </div>
 
           <div className="inputBlock inputBlock--half">
-            <label>Appt Set By</label>
+            <label>Appt. Set By</label>
             <div
               className="selectBlock"
               id="setBy"
@@ -53,6 +53,8 @@ export default class ModulePipeline extends Component {
                 <option id="none"></option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
+                <option id="Sales+Rep">Sales Rep</option>
+                <option id="Outside+Company">Outside Company</option>
               </select>
             </div>
           </div>

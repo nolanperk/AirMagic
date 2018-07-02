@@ -73,7 +73,7 @@ export default class RecordView extends Component {
             <ModuleSchedule
               changeRecordHandler={this.props.changeRecordHandler}
               hoursPer={this.props.currentRecord['Hours Per']}
-              sqFtPer={this.props.currentRecord['SQ Ft. Per Hour']}
+              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
             />
@@ -94,7 +94,7 @@ export default class RecordView extends Component {
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
               changeSelectBlock={this.props.changeSelectBlock}
-              closed={this.props.currentRecord['Closed Date']}
+              closed={this.props.currentRecord['Close Date']}
               walkthrough={this.props.currentRecord['Walkthrough Date']}
               start={this.props.currentRecord['Start Date']}
               preCleanDate={this.props.currentRecord['Pre-Clean Date']}

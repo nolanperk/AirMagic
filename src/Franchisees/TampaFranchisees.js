@@ -915,6 +915,7 @@ export default class TampaSales extends Component {
           recordChanger={this.recordChanger}
           controlsModalToggle={this.controlsModalToggle}
           newRecordHandler={this.newRecordHandler}
+          currentRecord={this.state.currentRecord}
         />
       </div>
     );

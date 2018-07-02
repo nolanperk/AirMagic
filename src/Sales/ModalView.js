@@ -10,6 +10,7 @@ import NewNote from './Modals/NewNote';
 import ChangeUser from './Modals/ChangeUser';
 import ExportRecords from './Modals/ExportRecords';
 import RecordExport from './Modals/RecordExport';
+import MoveDatabase from './Modals/MoveDatabase';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -68,6 +69,13 @@ export default class ModalView extends Component {
           baseId={this.props.baseId}
         />
       )
+    } else if (this.props.modalType === 'moveDatabase') {
+      return (
+        <MoveDatabase
+          controlsModalToggle={this.props.controlsModalToggle}
+          moveDatabasesHandler={this.props.moveDatabasesHandler}
+        />
+      )
     }
   }
 
@@ -102,4 +110,5 @@ ModalView.propTypes = {
   userSubmitHandler: propTypes.func.isRequired,
   submitExport: propTypes.func.isRequired,
   exportRecord: propTypes.func.isRequired,
+  moveDatabasesHandler: propTypes.func.isRequired,
 }

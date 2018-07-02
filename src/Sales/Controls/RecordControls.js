@@ -8,6 +8,41 @@ import arrow_back from '../../assets/icons/black/arrow_back.png';
 
 export default class SortBy extends Component {
 
+  addCalendar = () => {
+    let record = this.props.currentRecord;
+
+    //subject
+    let finalSubject = 'Call ' + record['Main contact'] + ' at ' + record['Company Name'];
+
+    //callbackDate
+    let today  = new Date();
+    let todayTime;
+    if (today.getHours() > 11) {
+      if (today.getHours() === 12) {
+        todayTime = today.getHours() + ':' + today.getMinutes() + ' pm';
+      } else {
+        todayTime = (today.getHours() - 12) + ':' + today.getMinutes() + ' pm';
+      }
+    } else {
+      todayTime = today.getHours() + ':' + today.getMinutes() + ' am';
+    }
+    let callBackDate = (today.getMonth()+3) + '/' + today.getDate() + '/' + today.getFullYear() + ' ' + todayTime;
+    let finalDesc = "Write notes to yourself here. (" + window.location.href + ")";
+
+    let calData = {
+      subject: finalSubject,
+      description: finalDesc,
+      location: ' ',
+      begin: callBackDate,
+      end: callBackDate,
+      filename: finalSubject,
+    }
+
+    let cal = window.ics();
+    cal.addEvent(calData.subject, calData.description, calData.location, calData.begin, calData.end);
+    cal.download(calData.filename);
+  }
+
   // Render
   // ----------------------------------------------------
   render() {
@@ -30,7 +65,7 @@ export default class SortBy extends Component {
           <p>Previous Record</p>
         </div>
 
-        <div className="ControlsBar--btn saveBtn">
+        <div className="ControlsBar--btn saveBtn" onClick={this.addCalendar}>
           <div className={callBackClasses}>
             <img src={calendar} alt="callback" />
           </div>
@@ -57,5 +92,6 @@ SortBy.propTypes = {
   newRecord: propTypes.bool.isRequired,
   recordChanger: propTypes.func.isRequired,
   saveRecordHandler: propTypes.func.isRequired,
+  currentRecord: propTypes.array.isRequired,
   // arrowKeyHandler: propTypes.func.isRequired,
 }

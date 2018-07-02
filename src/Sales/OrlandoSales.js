@@ -166,7 +166,7 @@ export default class OrlandoSales extends Component {
       'County': null,
       'Employees': null,
       'Appt. Set Date': null,
-      'Appt Set By': null,
+      'Appt. Set By': null,
       'Appt. Date': null,
       'Close Date': null,
       'Proposal Date': null,
@@ -240,7 +240,7 @@ export default class OrlandoSales extends Component {
     else if (e.target.id === 'apptSet') {currentRecordState['Appt. Set Date'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
     else if (e.target.id === 'proposal') {currentRecordState['Proposal Date'] = e.target.value}
-    else if (e.target.id === 'closed') {currentRecordState['Closed Date'] = e.target.value}
+    else if (e.target.id === 'closed') {currentRecordState['Close Date'] = e.target.value}
     else if (e.target.id === 'walkthrough') {currentRecordState['Walkthrough Date'] = e.target.value}
     else if (e.target.id === 'start') {currentRecordState['Start Date'] = e.target.value}
     else if (e.target.id === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = e.target.value}
@@ -277,7 +277,7 @@ export default class OrlandoSales extends Component {
     else if (e.target.id === 'other') {currentRecordState['Other'] = e.target.value}
 
     else if (e.target.id === 'hoursPer') {currentRecordState['Hours Per'] = e.target.value}
-    else if (e.target.id === 'sqFtPer') {currentRecordState['SQ Ft. Per Hour'] = e.target.value}
+    else if (e.target.id === 'sqFtPer') {currentRecordState['SQ Ft. per Hour'] = e.target.value}
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
 
@@ -1039,6 +1039,7 @@ export default class OrlandoSales extends Component {
           recordChanger={this.recordChanger}
           controlsModalToggle={this.controlsModalToggle}
           newRecordHandler={this.newRecordHandler}
+          currentRecord={this.state.currentRecord}
         />
       </div>
     );

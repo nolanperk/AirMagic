@@ -7,6 +7,13 @@ import calendarImg from '../../../assets/icons/black/calendar.png';
 import dollarImg from '../../../assets/icons/black/dollar.png';
 
 export default class ModuleSales extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      setByValue: this.props.setBy,
+    }
+  }
+  setByChange = e => {this.setState({setByValue: e.target.value});}
 
   // Render
   // ----------------------------------------------------
@@ -24,58 +31,6 @@ export default class ModuleSales extends Component {
       <div className="ModuleCard">
         <div className="inner">
 
-          <div className="inputBlock inputBlock--half">
-            <label>Appt. Date</label>
-            <input
-              type="text"
-              value={apptDate}
-              id="apptDate"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>Appt. Set Date</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={apptSetDate}
-                id="apptSetDate"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>Proposal Date</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={proposal}
-                id="proposal"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>Closed Date</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={close}
-                id="close"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
 
 
           <div className="inputBlock inputBlock--half">
@@ -136,6 +91,76 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
+        <hr />
+
+          <div className="inputBlock inputBlock--half">
+            <label>Appt. Set Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={apptSetDate}
+                id="apptSetDate"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Appt. Set By</label>
+            <div
+              className="selectBlock"
+              id="setBy"
+              >
+              <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
+                <option id="none"></option>
+                <option id="Linda+Goldberg">Linda Goldberg</option>
+                <option id="Eric+Kleeman">Eric Kleeman</option>
+                <option id="Sales+Rep">Sales Rep</option>
+                <option id="Outside+Company">Outside Company</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>Appt. Date</label>
+            <input
+              type="text"
+              value={apptDate}
+              id="apptDate"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Proposal Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={proposal}
+                id="proposal"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Close Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={close}
+                id="close"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
 
 
         </div>
@@ -145,6 +170,7 @@ export default class ModuleSales extends Component {
 }
 
 ModuleSales.propTypes ={
+  setBy: propTypes.string,
   apptSetDate: propTypes.string,
   apptDate: propTypes.string,
   proposal: propTypes.string,

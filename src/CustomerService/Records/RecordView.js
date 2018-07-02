@@ -73,6 +73,7 @@ export default class RecordView extends Component {
             />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
+              setBy={this.props.currentRecord['Appt. Set By']}
               apptSetDate={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
               close={this.props.currentRecord['Close Date']}

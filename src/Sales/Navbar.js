@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import exit from '../assets/icons/white/exit.png';
 import hamburger from '../assets/icons/white/hamburger.png';
 import exportImg from '../assets/icons/primary/export.png';
+import sortImg from '../assets/icons/black/sort.png';
 
 export default class Navbar extends Component {
 
@@ -57,8 +58,14 @@ export default class Navbar extends Component {
   get downloadButton() {
     if (this.props.recordView) {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-          <img src={exportImg} alt="Export" />
+        <div class="rightButtons">
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
+            <img src={sortImg} alt="Export" />
+          </div>
+
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+            <img src={exportImg} alt="Export" />
+          </div>
         </div>
       );
     } else {
