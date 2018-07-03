@@ -6,6 +6,7 @@ import ApiConfig from './config'
 
 
 import BaseSelect from './BaseSelect/BaseSelect';
+import LoginForm from './BaseSelect/LoginForm';
 
 import TampaCustomers from './CustomerService/TampaCustomers';
 import TampaSales from './Sales/TampaSales';
@@ -44,6 +45,7 @@ class App extends Component {
 
       <BrowserRouter>
         <Switch>
+          <Route exact path='/login'  component={bindRouteParamsToProps()(LoginForm)} />
           <Route exact path='/' component={BaseSelect} />
 
           <Route exact path='/tampa/customer-service/:recordId' component={bindRouteParamsToProps()(TampaCustomers)} />

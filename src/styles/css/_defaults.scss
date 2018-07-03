@@ -208,3 +208,103 @@ ul {
     background: linear-gradient(top, rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }
 }
+
+#logoutBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#helpButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+	.btn {
+		margin-right: 20px;
+	}
+}
+
+
+#loginTable {
+	.inputBlock {
+    display: inline-block;
+    margin-bottom: 11px;
+    position: relative;
+		text-align: left;
+    &.inputBlock--full {
+			display: block;
+      flex-basis: 100%;
+    }
+
+    label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      @extend %sansB;
+      color: #8C7376;
+      width: 100%;
+    }
+
+    input, select, textarea {
+      border: solid 1px $medGray;
+      width: 100%;
+      padding: 0.5vw 0.35vw;
+      font-size: 14px;
+      outline: 0;
+      background: white;
+      border-radius: 0;
+
+      &:focus {
+        border: solid 1px darken($darkGray, 5%);
+      }
+    }
+
+    select {
+      -webkit-appearance: none;
+      padding: 0.3vw 0.35vw;
+      background: transparent;
+    }
+
+    input[type='checkbox'] {
+      background: blue;
+    }
+  }
+}
+
+.modal.isError--pw, .modal.isError--name {
+	.modalInner {
+		border: 5px solid $primary;
+		&::after {
+			content: "That name is not in our records!";
+	    position: absolute;
+	    top: 0;
+	    transform: translateY(-125%);
+	    color: #fff;
+	    background: #C31F2F;
+	    padding: 2vw;
+	    width: calc(100% - 4vw);
+	    left: 0;
+		}
+	}
+}
+
+.modal.isError--pw {
+	.modalInner {
+		&::after {
+			content: "Incorrect Password!";
+		}
+	}
+}
+
+.modal .LoginForm.modalInner .modalTitle {
+	width: 250px;
+}
+.modal .LoginForm.modalInner {
+	text-align: center;
+
+	.btn {
+		width: 100%;
+		margin-top: 20px;
+	}
+}

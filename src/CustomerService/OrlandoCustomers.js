@@ -1144,9 +1144,19 @@ export default class OrlandoCustomers extends Component {
       })
   }
 
-
   componentDidMount() {
-    this.loadData();
+    if (sessionStorage.getItem('isLogged') !== 'true') {
+      this.props.history.push('/login');
+    } else {
+      this.loadData();
+
+      if (sessionStorage.getItem('userInitials')) {
+        let usersInitials = sessionStorage.getItem('userInitials');
+        this.setState({
+          userName: usersInitials,
+        });
+      }
+    }
   }
 
 

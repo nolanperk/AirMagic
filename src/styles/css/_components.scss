@@ -38,9 +38,9 @@
   background: $secondary;
   @extend %card-hover;
 }
-.softGrad--secondary {
+.softGrad--black {
   @extend %softGradient;
-  background: $secondary;
+  background: $black;
   @extend %card-hover;
 }
 

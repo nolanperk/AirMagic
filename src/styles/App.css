@@ -3,7 +3,7 @@
   font-family: "proxima-nova", sans-serif;
   font-weight: 400; }
 
-.boldText, .Navbar .TabItem.isActive, .ModuleList .inputBlock label, .FilterModal li, .UserModal li {
+.boldText, #loginTable .inputBlock label, .Navbar .TabItem.isActive, .ModuleList .inputBlock label, .FilterModal li, .UserModal li {
   font-family: "proxima-nova", sans-serif;
   font-weight: 700; }
 
@@ -139,9 +139,9 @@ ul {
   #next p {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
     content: "";
     position: absolute;
     top: 0;
@@ -180,14 +180,82 @@ ul {
   background: linear-gradient(top, white 50%, rgba(255, 255, 255, 0) 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .ModuleList .ModuleCard .inner, .modal .modalInner {
+#logoutBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px; }
+
+#helpButton {
+  position: absolute;
+  top: 20px;
+  left: 20px; }
+  #helpButton .btn {
+    margin-right: 20px; }
+
+#loginTable .inputBlock {
+  display: inline-block;
+  margin-bottom: 11px;
+  position: relative;
+  text-align: left; }
+  #loginTable .inputBlock.inputBlock--full {
+    display: block;
+    flex-basis: 100%; }
+  #loginTable .inputBlock label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8C7376;
+    width: 100%; }
+  #loginTable .inputBlock input, #loginTable .inputBlock select, #loginTable .inputBlock textarea {
+    border: solid 1px #ebebeb;
+    width: 100%;
+    padding: 0.5vw 0.35vw;
+    font-size: 14px;
+    outline: 0;
+    background: white;
+    border-radius: 0; }
+    #loginTable .inputBlock input:focus, #loginTable .inputBlock select:focus, #loginTable .inputBlock textarea:focus {
+      border: solid 1px #cfcfcc; }
+  #loginTable .inputBlock select {
+    -webkit-appearance: none;
+    padding: 0.3vw 0.35vw;
+    background: transparent; }
+  #loginTable .inputBlock input[type='checkbox'] {
+    background: blue; }
+
+.modal.isError--pw .modalInner, .modal.isError--name .modalInner {
+  border: 5px solid #C31F2F; }
+  .modal.isError--pw .modalInner::after, .modal.isError--name .modalInner::after {
+    content: "That name is not in our records!";
+    position: absolute;
+    top: 0;
+    transform: translateY(-125%);
+    color: #fff;
+    background: #C31F2F;
+    padding: 2vw;
+    width: calc(100% - 4vw);
+    left: 0; }
+
+.modal.isError--pw .modalInner::after {
+  content: "Incorrect Password!"; }
+
+.modal .LoginForm.modalInner .modalTitle {
+  width: 250px; }
+
+.modal .LoginForm.modalInner {
+  text-align: center; }
+  .modal .LoginForm.modalInner .btn {
+    width: 100%;
+    margin-top: 20px; }
+
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .ModuleList .ModuleCard .inner, .modal .modalInner {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black {
   cursor: pointer; }
-  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover {
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover {
     transform: translateY(-5%);
     box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease; }
@@ -208,8 +276,8 @@ ul {
 .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
   background: #1FC26A; }
 
-.softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
-  background: #1FC26A; }
+.softGrad--black {
+  background: #131313; }
 
 .navIcon {
   display: inline-block;

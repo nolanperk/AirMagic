@@ -835,11 +835,20 @@ export default class TampaSales extends Component {
       })
   }
 
-
   componentDidMount() {
-    this.loadData();
-  }
+    if (sessionStorage.getItem('isLogged') !== 'true') {
+      this.props.history.push('/login');
+    } else {
+      this.loadData();
 
+      if (sessionStorage.getItem('userInitials')) {
+        let usersInitials = sessionStorage.getItem('userInitials');
+        this.setState({
+          userName: usersInitials,
+        });
+      }
+    }
+  }
 
   render() {
     const { loading, error, data } = this.state;
