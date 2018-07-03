@@ -207,7 +207,7 @@ ul {
     color: #8C7376;
     width: 100%; }
   #loginTable .inputBlock input, #loginTable .inputBlock select, #loginTable .inputBlock textarea {
-    border: solid 1px #ebebeb;
+    border: solid 1px #d2d2d2;
     width: 100%;
     padding: 0.5vw 0.35vw;
     font-size: 14px;
@@ -619,7 +619,7 @@ ul {
         width: 24px;
         margin-right: 2px; }
     .ArchiveItems .cardContainer .ArchiveItem.isActive .subInfo {
-      background: rgba(31, 194, 106, 0.35); }
+      background: rgba(31, 194, 167, 0.5); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.very .subInfo {
       background: rgba(31, 194, 106, 0.75); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.unhappy .subInfo {
@@ -627,7 +627,7 @@ ul {
     .ArchiveItems .cardContainer .ArchiveItem.isActive.crew .subInfo {
       background: rgba(226, 99, 13, 0.35); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.new .subInfo {
-      background: rgba(31, 146, 194, 0.35); }
+      background: rgba(31, 146, 194, 0.6); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.satisfied .subInfo {
       background: rgba(19, 19, 19, 0.15); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.very.tele .subInfo {
@@ -896,7 +896,7 @@ hr {
       color: #8C7376;
       width: 100%; }
     .ModuleList .inputBlock input, .ModuleList .inputBlock select, .ModuleList .inputBlock textarea {
-      border: solid 1px #ebebeb;
+      border: solid 1px #d2d2d2;
       width: 100%;
       padding: 0.5vw 0.35vw;
       font-size: 14px;
@@ -916,7 +916,7 @@ hr {
     flex-wrap: nowrap; }
     .ModuleList .inputWithTag .inputTag {
       flex-basis: 40px;
-      background: #F7F7F5;
+      background: #e8e8e8;
       position: relative; }
       .ModuleList .inputWithTag .inputTag a {
         position: absolute;
