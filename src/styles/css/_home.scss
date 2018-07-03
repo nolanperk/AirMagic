@@ -3,7 +3,7 @@
   position: absolute;
   width: 700px;
   left: 50%;
-  top: 50%;
+  top: 52%;
   transform: translate(-50%, -50%);
 
   h1 {
@@ -28,9 +28,9 @@
 
     .circleDot {
       margin: auto;
-      margin-bottom: 20px;
-      width: 85px;
-      height: 85px;
+      margin-bottom: 10px;
+      width: 60px;
+      height: 60px;
       border-radius: 100%;
       @extend %softGradient;
     }

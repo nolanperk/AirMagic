@@ -520,7 +520,7 @@ ul {
   position: absolute;
   width: 700px;
   left: 50%;
-  top: 50%;
+  top: 52%;
   transform: translate(-50%, -50%); }
   .BaseList h1 {
     margin-bottom: 2vw; }
@@ -535,9 +535,9 @@ ul {
       padding: 2.75vw; }
     .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
       margin: auto;
-      margin-bottom: 20px;
-      width: 85px;
-      height: 85px;
+      margin-bottom: 10px;
+      width: 60px;
+      height: 60px;
       border-radius: 100%; }
     .BaseList .whiteCard:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(1) .circleDot {
       background: #C31F68; }
