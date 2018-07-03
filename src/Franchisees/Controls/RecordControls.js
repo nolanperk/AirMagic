@@ -65,8 +65,8 @@ export default class SortBy extends Component {
           <p>Previous Record</p>
         </div>
 
-        <div className="ControlsBar--btn saveBtn" onClick={this.addCalendar}>
-          <div className={callBackClasses}>
+        <div className="ControlsBar--btn saveBtn">
+          <div className={callBackClasses} onClick={this.addCalendar}>
             <img src={calendar} alt="callback" />
           </div>
 
