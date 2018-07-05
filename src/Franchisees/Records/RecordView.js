@@ -49,7 +49,16 @@ export default class RecordView extends Component {
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
               changeSelectBlock={this.props.changeSelectBlock}
+              referral={this.props.currentRecord['Referral']}
+              packet={this.props.currentRecord['Packet Sent']}
+              standing={this.props.currentRecord['Standing']}
               contDate={this.props.currentRecord['Contact Date']}
+              apptDate={this.props.currentRecord['Appt. Date']}
+              attended={this.props.currentRecord['Attended']}
+              follow1={this.props.currentRecord['Follow Up 1']}
+              follow2={this.props.currentRecord['Follow Up 2']}
+
+
               fdd={this.props.currentRecord['FDD Sign Date']}
               sign={this.props.currentRecord['Sign Date']}
               graduation={this.props.currentRecord['Graduation Date']}

@@ -23,7 +23,7 @@ let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class TampaSales extends Component {
+export default class OrlandoFranchisees extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -31,7 +31,7 @@ export default class TampaSales extends Component {
       error: "",
       data: null,
       dataURL: 'https://api.airtable.com/v0/',
-      baseId: 'appRDy3SAb3YhjyEG',
+      baseId: 'appLxxBrc9m3yNXdQ',
       currentTable: 'Franchisees',
       listView: '',
       sortByLabel: 'SP+Name',
@@ -902,7 +902,7 @@ export default class TampaSales extends Component {
 
 
     return (
-      <div className="TampaSales">
+      <div className="OrlandoFranchisees">
         {this.modalShow}
         <Navbar
           currentRecord={this.state.currentRecord}

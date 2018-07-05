@@ -12,7 +12,7 @@ export default class SortBy extends Component {
     let record = this.props.currentRecord;
 
     //subject
-    let finalSubject = 'Call ' + record['Main contact'] + ' at ' + record['Company Name'];
+    let finalSubject = 'Call ' + record['SP Name'];
 
     //callbackDate
     let today  = new Date();

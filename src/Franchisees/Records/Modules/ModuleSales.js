@@ -12,10 +12,16 @@ export default class ModuleSales extends Component {
     this.state = {
       planValue: this.props.plan,
       arValue: this.props.ar,
+      attendedValue: this.props.attended,
+      packetValue: this.props.packet,
+      standingValue: this.props.standing,
     }
   }
   planChange = e => {this.setState({planValue: e.target.value});}
   arChange = e => {this.setState({arValue: e.target.value});}
+  attendedChange = e => {this.setState({attendedValue: e.target.value});}
+  standingChange = e => {this.setState({standingValue: e.target.value});}
+  packetChange = e => {this.setState({packetValue: e.target.value});}
   // Render
   // ----------------------------------------------------
   render() {
@@ -27,19 +33,135 @@ export default class ModuleSales extends Component {
     let ar = this.props.ar;
     let downPayment = this.props.downPayment;
 
+    let attended = this.props.attended;
+    let standing = this.props.standing;
+    let packet = this.props.packet;
+
+    let referral = this.props.referral;
+    let apptDate = this.props.apptDate;
+    let follow1 = this.props.follow1;
+    let follow2 = this.props.follow2;
+
     return (
       <div className="ModuleCard">
         <div className="inner">
 
           <div className="inputBlock inputBlock--half">
-            <label>Contact Date</label>
+            <label>Referral</label>
             <input
               type="text"
-              value={contDate}
-              id="contDate"
               onChange={this.props.changeRecordHandler}
+              value={referral}
+              id="referral"
             />
           </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Packet Sent</label>
+            <div
+              className="selectBlock"
+              id="packet"
+              >
+              <select id="packetSelect" value={this.state.packetValue} onChange={this.packetChange}>
+                <option id="none"></option>
+                <option id="Yes">Yes</option>
+                <option id="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Standing</label>
+            <div
+              className="selectBlock"
+              id="standing"
+              >
+              <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
+                <option id="none"></option>
+                <option id="Active">Active</option>
+                <option id="Former">Former</option>
+                <option id="Inactive">Inactive</option>
+                <option id="Interested">Interested</option>
+                <option id="Lost+Contact">Lost Contact</option>
+                <option id="No+Longer+Interested">No Longer Interested</option>
+                <option id="No+Call+or+Show">No Call / No Show</option>
+              </select>
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Contact Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={contDate}
+                id="contDate"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Appt. Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                onChange={this.props.changeRecordHandler}
+                value={apptDate}
+                id="apptDate"
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Attended</label>
+            <div
+              className="selectBlock"
+              id="attended"
+              >
+              <select id="attendedSelect" value={this.state.attendedValue} onChange={this.attendedChange}>
+                <option id="none"></option>
+                <option id="Yes">Yes</option>
+                <option id="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>1st Follow Up</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                onChange={this.props.changeRecordHandler}
+                value={follow1}
+                id="follow1"
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>2nd Follow Up</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                onChange={this.props.changeRecordHandler}
+                value={follow2}
+                id="follow2"
+              />
+            </div>
+          </div>
+
+
+          <hr />
+
           <div className="inputBlock inputBlock--half">
             <label>FDD Sign Date</label>
             <div className="inputWithTag">
@@ -147,4 +269,12 @@ ModuleSales.propTypes ={
   downPayment: propTypes.string,
   changeSelectBlock: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
+  referral: propTypes.string,
+  packet: propTypes.string,
+  standing: propTypes.string,
+  contDate: propTypes.string,
+  apptDate: propTypes.string,
+  attended: propTypes.string,
+  follow1: propTypes.string,
+  follow2: propTypes.string,
 }

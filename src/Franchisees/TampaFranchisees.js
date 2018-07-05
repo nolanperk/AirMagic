@@ -23,7 +23,7 @@ let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class TampaSales extends Component {
+export default class TampaFranchisees extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -31,7 +31,7 @@ export default class TampaSales extends Component {
       error: "",
       data: null,
       dataURL: 'https://api.airtable.com/v0/',
-      baseId: 'appBsaVxz2OicG5Zw',
+      baseId: 'appLxxBrc9m3yNXdQ',
       currentTable: 'Franchisees',
       listView: '',
       sortByLabel: 'SP+Name',
@@ -234,6 +234,11 @@ export default class TampaSales extends Component {
     else if (e.target.id === 'source') {currentRecordState['Source'] = e.target.value}
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
 
+    else if (e.target.id === 'referral') {currentRecordState['Referral'] = e.target.value}
+    else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
+    else if (e.target.id === 'follow1') {currentRecordState['Follow Up 1'] = e.target.value}
+    else if (e.target.id === 'follow2') {currentRecordState['Follow Up 2'] = e.target.value}
+
 
 
     this.setState({
@@ -371,6 +376,9 @@ export default class TampaSales extends Component {
       fullDataSet['Status'] = document.getElementById('statusSelect').value;
       fullDataSet['Franchise Level'] = document.getElementById('levelSelect').value;
       fullDataSet['Plan Type'] = document.getElementById('planSelect').value;
+      fullDataSet['Packet Sent'] = document.getElementById('packet').value;
+      fullDataSet['Attended'] = document.getElementById('attended').value;
+      fullDataSet['Standing'] = document.getElementById('standing').value;
 
 
       let finalPush = {"fields": fullDataSet}
@@ -414,6 +422,9 @@ export default class TampaSales extends Component {
       pushRecord['Status'] = document.getElementById('statusSelect').value;
       pushRecord['Franchise Level'] = document.getElementById('levelSelect').value;
       pushRecord['Plan Type'] = document.getElementById('planSelect').value;
+      pushRecord['Packet Sent'] = document.getElementById('packet').value;
+      pushRecord['Attended'] = document.getElementById('attended').value;
+      pushRecord['Standing'] = document.getElementById('standing').value;
 
 
       let finalPush = {"fields": pushRecord}
@@ -901,7 +912,7 @@ export default class TampaSales extends Component {
 
 
     return (
-      <div className="TampaSales">
+      <div className="TampaFranchisees">
         {this.modalShow}
         <Navbar
           currentRecord={this.state.currentRecord}
