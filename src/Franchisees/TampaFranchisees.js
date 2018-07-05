@@ -205,6 +205,32 @@ export default class TampaFranchisees extends Component {
     }
   }
 
+  calcVolume = e => {
+    currentRecordState = this.state.currentRecord;
+    let targetInput = e.target.closest(".inputWithTag").childNodes[1];
+    let gradDate = new Date(this.state.currentRecord['Graduation Date']);
+    let planType = document.getElementById('planSelect').value;
+    let dayCount;
+    let finalDate;
+    if (planType === 'Plan A' || planType === 'Plan B' || planType === 'Plan C') {
+      dayCount = 120;
+    } else if (planType === 'Plan D' || planType === 'Plan E') {
+      dayCount = 180;
+    } else {
+      dayCount = 210;
+    }
+
+    gradDate.setDate(gradDate.getDate() + dayCount);
+    finalDate = new Date(gradDate);
+    let volumeDueDate = (finalDate.getMonth()+1) + '/' + finalDate.getDate() + '/' + finalDate.getFullYear();
+
+    currentRecordState['Volume Due Date'] = volumeDueDate;
+    this.setState({
+      currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+  }
+
   changeRecordHandler = e => {
     currentRecordState = this.state.currentRecord;
 
@@ -236,8 +262,6 @@ export default class TampaFranchisees extends Component {
 
     else if (e.target.id === 'referral') {currentRecordState['Referral'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
-    else if (e.target.id === 'follow1') {currentRecordState['Follow Up 1'] = e.target.value}
-    else if (e.target.id === 'follow2') {currentRecordState['Follow Up 2'] = e.target.value}
 
 
 
@@ -1026,6 +1050,7 @@ export default class TampaFranchisees extends Component {
           recordChanger={this.recordChanger}
           changeNotesHandler={this.changeNotesHandler}
           baseId={this.state.baseId}
+          calcVolume={this.calcVolume}
         />
       );
     } else if (this.state.listIsVisible) {

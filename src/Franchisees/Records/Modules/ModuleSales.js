@@ -39,8 +39,6 @@ export default class ModuleSales extends Component {
 
     let referral = this.props.referral;
     let apptDate = this.props.apptDate;
-    let follow1 = this.props.follow1;
-    let follow2 = this.props.follow2;
 
     return (
       <div className="ModuleCard">
@@ -130,35 +128,6 @@ export default class ModuleSales extends Component {
             </div>
           </div>
 
-          <div className="inputBlock inputBlock--half">
-            <label>1st Follow Up</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                onChange={this.props.changeRecordHandler}
-                value={follow1}
-                id="follow1"
-              />
-            </div>
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>2nd Follow Up</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                onChange={this.props.changeRecordHandler}
-                value={follow2}
-                id="follow2"
-              />
-            </div>
-          </div>
-
 
           <hr />
 
@@ -222,6 +191,7 @@ export default class ModuleSales extends Component {
                 <option id="Plan+D">Plan D</option>
                 <option id="Plan+E">Plan E</option>
                 <option id="Plan+F">Plan F</option>
+                <option id="Plan+G">Plan G</option>
               </select>
             </div>
           </div>
@@ -275,6 +245,4 @@ ModuleSales.propTypes ={
   contDate: propTypes.string,
   apptDate: propTypes.string,
   attended: propTypes.string,
-  follow1: propTypes.string,
-  follow2: propTypes.string,
 }

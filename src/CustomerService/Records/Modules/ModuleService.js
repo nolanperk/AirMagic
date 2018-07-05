@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 import calendarImg from '../../../assets/icons/black/calendar.png';
 import phoneImg from '../../../assets/icons/black/phone.png';
+import emailImg from '../../../assets/icons/black/email.png';
 
 
 export default class ModuleService extends Component {
@@ -21,11 +22,13 @@ export default class ModuleService extends Component {
     let standing = this.props.standing;
     let lastCall = this.props.lastCall;
     let spName = this.props.spName;
+    let spEmail = this.props.spEmail;
     let spPhone = this.props.spPhone;
     let lastVisit = this.props.lastVisit;
     let newSP = this.props.newSP;
     let cancel = this.props.cancel;
 
+    let emailLink = 'mailto:' + spEmail;
     let spPhoneLink = 'tel:' + spPhone;
 
     return (
@@ -63,6 +66,23 @@ export default class ModuleService extends Component {
                 type="text"
                 value={lastCall}
                 id="lastCall"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>Last Visit</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={lastVisit}
+                id="lastVisit"
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -106,6 +126,22 @@ export default class ModuleService extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>SP Email</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <a href={emailLink}></a>
+                <img src={emailImg} />
+              </div>
+              <input
+                type="text"
+                id="spEmail"
+                value={spEmail}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
           <div className="inputBlock inputBlock--half">
             <label>SP Phone</label>
             <div className="inputWithTag">
@@ -117,23 +153,6 @@ export default class ModuleService extends Component {
                 type="text"
                 value={spPhone}
                 id="spPhone"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-
-
-          <div className="inputBlock inputBlock--half">
-            <label>Last Visit</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={lastVisit}
-                id="lastVisit"
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -151,6 +170,7 @@ ModuleService.propTypes ={
   spPhone: propTypes.string,
   lastVisit: propTypes.string,
   newSP: propTypes.string,
+  spEmail: propTypes.string,
   cancel: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,

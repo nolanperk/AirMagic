@@ -213,6 +213,7 @@ export default class TampaCustomers extends Component {
         'Proposal Date': null,
         'Walkthrough Date': null,
         'Start Date': null,
+        'SP Email': null,
         'Pre-Clean Date': null,
         'Pre-Clean Charge': null,
         'Monthly Amount': null,
@@ -368,6 +369,7 @@ export default class TampaCustomers extends Component {
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
     else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}
     else if (e.target.id === 'addr2') {currentRecordState['Address 2'] = e.target.value}
+    else if (e.target.id === 'spEmail') {currentRecordState['SP Email'] = e.target.value}
     else if (e.target.id === 'city') {currentRecordState['City'] = e.target.value}
     else if (e.target.id === 'zip') {currentRecordState['Zip'] = e.target.value}
     else if (e.target.id === 'county') {currentRecordState['County'] = e.target.value}

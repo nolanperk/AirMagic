@@ -35,6 +35,7 @@ export default class RecordView extends Component {
               ein={this.props.currentRecord['EIN']}
               volumeDate={this.props.currentRecord['Volume Due Date']}
               language={this.props.currentRecord['Languages']}
+              calcVolume={this.props.calcVolume}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -55,8 +56,6 @@ export default class RecordView extends Component {
               contDate={this.props.currentRecord['Contact Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
               attended={this.props.currentRecord['Attended']}
-              follow1={this.props.currentRecord['Follow Up 1']}
-              follow2={this.props.currentRecord['Follow Up 2']}
 
 
               fdd={this.props.currentRecord['FDD Sign Date']}
@@ -123,4 +122,5 @@ RecordView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  calcVolume: propTypes.func.isRequired,
 }

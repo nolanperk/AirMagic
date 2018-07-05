@@ -196,6 +196,7 @@ export default class OrlandoCustomers extends Component {
         'Lead Source': null,
         'Last Call': null,
         'SP Name': null,
+        'SP Email': null,
         'SP Phone': null,
         'Last Visit': null,
         'New SP Start': null,
@@ -364,6 +365,7 @@ export default class OrlandoCustomers extends Component {
     else if (e.target.id === 'spName') {currentRecordState['SP Name'] = e.target.value}
     else if (e.target.id === 'spPhone') {currentRecordState['SP Phone'] = e.target.value}
     else if (e.target.id === 'lastVisit') {currentRecordState['Last Visit'] = e.target.value}
+    else if (e.target.id === 'spEmail') {currentRecordState['SP Email'] = e.target.value}
     else if (e.target.id === 'newSP') {currentRecordState['New SP Start'] = e.target.value}
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
     else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}

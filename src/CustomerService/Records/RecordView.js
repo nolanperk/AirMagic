@@ -56,6 +56,7 @@ export default class RecordView extends Component {
               lastCall={this.props.currentRecord['Last Call']}
               spName={this.props.currentRecord['SP Name']}
               spPhone={this.props.currentRecord['SP Phone']}
+              spEmail={this.props.currentRecord['SP Email']}
               lastVisit={this.props.currentRecord['Last Visit']}
               newSP={this.props.currentRecord['New SP Start']}
               cancel={this.props.currentRecord['Cancel Date']}

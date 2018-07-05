@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 import numberImg from '../../../assets/icons/black/number.png';
 import calendarImg from '../../../assets/icons/black/calendar.png';
+import sortImg from '../../../assets/icons/black/sort.png';
 
 export default class ModuleMain extends Component {
   constructor(props) {
@@ -101,8 +102,8 @@ export default class ModuleMain extends Component {
           <div className="inputBlock inputBlock--half">
             <label>Volume Due</label>
             <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
+              <div className="inputTag" onClick={this.props.calcVolume}>
+                <img src={sortImg} />
               </div>
               <input
                 type="text"
@@ -135,6 +136,7 @@ ModuleMain.propTypes ={
   ein: propTypes.string,
   volumeDate: propTypes.string,
   language: propTypes.string,
+  calcVolume: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
 }
