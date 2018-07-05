@@ -508,13 +508,58 @@ export default class TampaFranchisees extends Component {
     })
   }
 
-  exportRecord = () => {
-    let mergeData = this.state.currentRecord;
-    console.log(mergeData);
+  exportRecord = e => {
+    e.preventDefault();
 
-    //Find a way to merge this into word!
+    let mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-merge');
+    let mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+    let mergeURL;
+    let finalURL;
+
+    if (mergeTemp !== 'none') {
+      let mergeData = this.state.currentRecord;
+
+      if (mergeType === 'Franchise Exports') {
+        mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', Mr_Ms: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: ''}
+
+        if (mergeTemp === 'franchise-customer-service') {mergeURL.id = '178012/zkvdiy';}
+        if (mergeTemp === 'level-5') {mergeURL.id = '178015/cxxm1m';}
+        if (mergeTemp === 'course-completion') {mergeURL.id = '178016/889yt9';}
+
+        let contactArr = mergeData['SP Name'].split(" ");
+        mergeURL.Mr_Ms = mergeData['Salutation'];
+        mergeURL.SP_Name = mergeData['SP Name'];
+        mergeURL.First_Name = contactArr[0];
+        mergeURL.Last_Name = contactArr[1];
+        mergeURL.Address = mergeData['Address 1'], + mergeData['Address 2'];
+        mergeURL.City = mergeData['City'];
+        mergeURL['Zip'] = mergeData['Zip'];
+
+        Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
+
+        finalURL = mergeURL.base + mergeURL.id + '?_use_get=1&';
+        if (mergeURL.Mr_Ms) {finalURL += 'Mr_Ms=' + mergeURL.Mr_Ms;  finalURL += '&';} else {finalURL += 'Mr_Ms=+';  finalURL += '&';}
+        if (mergeURL.SP_Name) {finalURL += 'SP_Name=' + mergeURL.SP_Name;  finalURL += '&';}  else {finalURL += 'SP_Name=+';  finalURL += '&';}
+        if (mergeURL.First_Name) {finalURL += 'First_Name=' + mergeURL.First_Name;  finalURL += '&';}  else {finalURL += 'First_Name=+';  finalURL += '&';}
+        if (mergeURL.Address) {finalURL += 'Address=' + mergeURL.Address;  finalURL += '&';}  else {finalURL += 'Address=+';  finalURL += '&';}
+        if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=+';  finalURL += '&';}
+        if (mergeURL['Zip']) {finalURL += 'Zip=' + mergeURL['Zip'];  finalURL += '&';}  else {finalURL += 'Zip=+';  finalURL += '&';}
+      }
+
+      console.log(encodeURI(finalURL));
+
+      return axios
+        .post(finalURL)
+        .then(response => {
+          this.setState({
+            activeModal: false,
+            modalType: '',
+          })
+          alert('Record has been exported as ' + mergeData['SP Name'] + ' DATE' + '.docx -- Visit "Dropbox/rmilanes/' + mergeType + '" to view the file.');
+
+        })
+    }
   }
-
   submitExport = e => {
     e.preventDefault();
     let startRange;
@@ -731,6 +776,11 @@ export default class TampaFranchisees extends Component {
           activeModal: true,
           modalType: 'exportList',
         });
+      } else if(e.target.id === 'recordExport') {
+        this.setState({
+          activeModal: true,
+          modalType: 'recordExport',
+        });
       } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
         this.setState({
           activeModal: true,
@@ -921,7 +971,6 @@ export default class TampaFranchisees extends Component {
           currentId= {this.state.currentId}
           recordChanges= {this.state.recordChanges}
           switchTableHandler= {this.switchTableHandler}
-          exportRecord={this.exportRecord}
           controlsModalToggle={this.controlsModalToggle}
         />
 
@@ -957,6 +1006,8 @@ export default class TampaFranchisees extends Component {
           userChangeHandler={this.userChangeHandler}
           userSubmitHandler={this.userSubmitHandler}
           submitExport={this.submitExport}
+          exportRecord={this.exportRecord}
+          baseId={this.state.baseId}
         />
         )
     }

@@ -635,17 +635,25 @@ export default class TampaSales extends Component {
       if (mergeType === 'Proposal') {
         mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: ''}
 
-        if (mergeTemp === 'tmp-standard') {mergeURL.id = '176796/ttfk6f';}
-        if (mergeTemp === 'tmp-once') {mergeURL.id = '176818/dj8795';}
-        if (mergeTemp === 'tmp-medical') {mergeURL.id = '176819/p5e3i3';}
+        if (mergeTemp === 'tmp-standard') {mergeURL.id = '177990/dl44vl';}
+        if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
+        if (mergeTemp === 'tmp-medical') {mergeURL.id = '177992/u7ybcx';}
+        if (mergeTemp === 'tmp-schools') {mergeURL.id = '177993/r57mym';}
+        if (mergeTemp === 'tmp-1x') {mergeURL.id = '177994/zwklbq';}
 
-        if (mergeTemp === 'nwp-standard') {mergeURL.id = '176823/w3kf2k';}
-        if (mergeTemp === 'nwp-once') {mergeURL.id = '176827/tuxx12';}
-        if (mergeTemp === 'nwp-medical') {mergeURL.id = '176824/x5uchr';}
+        if (mergeTemp === 'nwp-standard') {mergeURL.id = '177995/2r9k6c';}
+        if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
+        if (mergeTemp === 'nwp-medical') {mergeURL.id = '177997/qw4acl';}
+        if (mergeTemp === 'nwp-schools') {mergeURL.id = '177998/u6qxyj';}
+        if (mergeTemp === 'nwp-1x') {mergeURL.id = '177999/ycpgia';}
 
-        if (mergeTemp === 'ram-standard') {mergeURL.id = '176829/up6ytj';}
-        if (mergeTemp === 'ram-once') {mergeURL.id = '176830/t68ret';}
-        if (mergeTemp === 'ram-medical') {mergeURL.id = '176831/9m2s48';}
+        if (mergeTemp === 'ram-standard') {mergeURL.id = '177723/u7be1d';}
+        if (mergeTemp === 'ram-once') {mergeURL.id = '177722/u7nscy';}
+        if (mergeTemp === 'ram-medical') {mergeURL.id = '177718/gusxia';}
+        if (mergeTemp === 'ram-medical-1x') {mergeURL.id = '177719/49snjp';}
+        if (mergeTemp === 'ram-healthcare') {mergeURL.id = '177724/gr2r59';}
+        if (mergeTemp === 'ram-multi-tenant') {mergeURL.id = '177720/c6ncuf';}
+        if (mergeTemp === 'ram-schools') {mergeURL.id = '177725/pbf2q4';}
 
 
         let contactArr = mergeData['Main contact'].split(" ");
@@ -665,19 +673,18 @@ export default class TampaSales extends Component {
         Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
 
         finalURL = mergeURL.base + mergeURL.id + '?_use_get=1&';
-        if (mergeURL.MrMs) {finalURL += 'MrMs=' + mergeURL.MrMs;  finalURL += '&';} else {finalURL += 'MrMs=undefined';  finalURL += '&';}
-        if (mergeURL.Cont_First_Name) {finalURL += 'Cont_First_Name=' + mergeURL.Cont_First_Name;  finalURL += '&';}  else {finalURL += 'Cont_First_Name=undefined';  finalURL += '&';}
-        if (mergeURL.Cont_Last_Name) {finalURL += 'Cont_Last_Name=' + mergeURL.Cont_Last_Name;  finalURL += '&';} else {finalURL += 'Cont_Last_Name=undefined';  finalURL += '&';}
-        if (mergeURL.Contact_Title) {finalURL += 'Contact_Title=' + mergeURL.Contact_Title;  finalURL += '&';}  else {finalURL += 'Contact_Title=undefined';  finalURL += '&';}
-        if (mergeURL.Company) {finalURL += 'Company=' + mergeURL.Company;  finalURL += '&';}  else {finalURL += 'Company=undefined';  finalURL += '&';}
-        if (mergeURL.Address_Line_1) {finalURL += 'Address_Line_1=' + mergeURL.Address_Line_1;  finalURL += '&';}  else {finalURL += 'Address_Line_1=undefined';  finalURL += '&';}
-        if (mergeURL.Address_Line_2) {finalURL += 'Address_Line_2=' + mergeURL.Address_Line_2;  finalURL += '&';}  else {finalURL += 'Address_Line_2=undefined';  finalURL += '&';}
-        if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=undefined';  finalURL += '&';}
-        if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=undefined';  finalURL += '&';}
-        if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=undefined';  finalURL += '&';}
-        if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=undefined';  finalURL += '&';}
-        if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date;} else {finalURL += 'Proposal_Date=undefined';}
-
+        if (mergeURL.MrMs) {finalURL += 'MrMs=' + mergeURL.MrMs;  finalURL += '&';} else {finalURL += 'MrMs=+';  finalURL += '&';}
+        if (mergeURL.Cont_First_Name) {finalURL += 'Cont_First_Name=' + mergeURL.Cont_First_Name;  finalURL += '&';}  else {finalURL += 'Cont_First_Name=+';  finalURL += '&';}
+        if (mergeURL.Cont_Last_Name) {finalURL += 'Cont_Last_Name=' + mergeURL.Cont_Last_Name;  finalURL += '&';} else {finalURL += 'Cont_Last_Name=+';  finalURL += '&';}
+        if (mergeURL.Contact_Title) {finalURL += 'Contact_Title=' + mergeURL.Contact_Title;  finalURL += '&';}  else {finalURL += 'Contact_Title=+';  finalURL += '&';}
+        if (mergeURL.Company) {finalURL += 'Company=' + mergeURL.Company;  finalURL += '&';}  else {finalURL += 'Company=+';  finalURL += '&';}
+        if (mergeURL.Address_Line_1) {finalURL += 'Address_Line_1=' + mergeURL.Address_Line_1;  finalURL += '&';}  else {finalURL += 'Address_Line_1=+';  finalURL += '&';}
+        if (mergeURL.Address_Line_2) {finalURL += 'Address_Line_2=' + mergeURL.Address_Line_2;  finalURL += '&';}  else {finalURL += 'Address_Line_2=+';  finalURL += '&';}
+        if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=+';  finalURL += '&';}
+        if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=+';  finalURL += '&';}
+        if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=+';  finalURL += '&';}
+        if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=+';  finalURL += '&';}
+        if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date;} else {finalURL += 'Proposal_Date=+';}
       }
 
       console.log(encodeURI(finalURL));
@@ -689,7 +696,10 @@ export default class TampaSales extends Component {
             activeModal: false,
             modalType: '',
           })
-          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + mergeData['Proposal Date'] + '.docx -- Visit "Dropbox/Tampa/' + mergeType + '" to view the file.');
+          let finalDate;
+          if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
+          else {finalDate = 'DATE'}
+          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/Tampa/' + mergeType + '" to view the file.');
 
         })
     }

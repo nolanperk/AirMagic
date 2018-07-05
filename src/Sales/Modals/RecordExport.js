@@ -54,7 +54,14 @@ export default class RecordExport extends Component {
             data-merge="rwj-medical"
             data-type="Proposal">
             RWJ - Medical</option>
-
+          <option
+            data-merge="rwj-schools"
+            data-type="Proposal">
+            RWJ - Schools</option>
+          <option
+            data-merge="rwj-1x"
+            data-type="Proposal">
+            RWJ - 1 X Week</option>
           <option
             data-merge="rwj-once"
             data-type="Proposal">
@@ -71,6 +78,14 @@ export default class RecordExport extends Component {
             data-merge="jdh-medical"
             data-type="Proposal">
             JDH - Medical</option>
+          <option
+            data-merge="jdh-schools"
+            data-type="Proposal">
+            JDH - Schools</option>
+          <option
+            data-merge="jdh-1x"
+            data-type="Proposal">
+            JDH - 1 X Week</option>
           <option
             data-merge="jdh-once"
             data-type="Proposal">
@@ -95,6 +110,14 @@ export default class RecordExport extends Component {
             data-type="Proposal">
             TMP - Medical</option>
           <option
+            data-merge="tmp-schools"
+            data-type="Proposal">
+            TMP - Schools</option>
+          <option
+            data-merge="tmp-1x"
+            data-type="Proposal">
+            TMP - 1 X Week</option>
+          <option
             data-merge="tmp-once"
             data-type="Proposal">
             TMP - 1 X Only</option>
@@ -111,6 +134,14 @@ export default class RecordExport extends Component {
             data-type="Proposal">
             NWP - Medical</option>
           <option
+            data-merge="nwp-schools"
+            data-type="Proposal">
+            NWP - Schools</option>
+          <option
+            data-merge="nwp-1x"
+            data-type="Proposal">
+            NWP - 1 X Week</option>
+          <option
             data-merge="nwp-once"
             data-type="Proposal">
             NWP - 1 X Only</option>
@@ -121,15 +152,31 @@ export default class RecordExport extends Component {
           <option
             data-merge="ram-standard"
             data-type="Proposal">
-            RAM - Standard</option>
+            RAM - 062210 Standard</option>
+          <option
+            data-merge="ram-once"
+            data-type="Proposal">
+            RAM - 062210 1 X Week</option>
           <option
             data-merge="ram-medical"
             data-type="Proposal">
             RAM - Medical</option>
           <option
-            data-merge="ram-once"
+            data-merge="ram-medical-1x"
             data-type="Proposal">
-            RAM - 1 X Only</option>
+            RAM - Medical 1x</option>
+          <option
+            data-merge="ram-healthcare"
+            data-type="Proposal">
+            RAM - Healthcare</option>
+          <option
+            data-merge="ram-multi-tenant"
+            data-type="Proposal">
+            RAM - Multi-Tenant</option>
+          <option
+            data-merge="ram-schools"
+            data-type="Proposal">
+            RAM - Schools</option>
         </select>
       )
     }

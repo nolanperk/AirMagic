@@ -7,6 +7,7 @@ import SaveAlert from './Modals/SaveAlert';
 import SortBy from './Modals/SortBy';
 import FilterSearch from './Modals/FilterSearch';
 import NewNote from './Modals/NewNote';
+import RecordExport from './Modals/RecordExport';
 import ChangeUser from './Modals/ChangeUser';
 import ExportRecords from './Modals/ExportRecords';
 
@@ -51,6 +52,15 @@ export default class ModalView extends Component {
           userName={this.props.userName}
         />
       )
+    } else if (this.props.modalType === 'recordExport') {
+      return (
+        <RecordExport
+          controlsModalToggle={this.props.controlsModalToggle}
+          mergeRecord={this.props.mergeRecord}
+          exportRecord={this.props.exportRecord}
+          baseId={this.props.baseId}
+        />
+      )
     } else if (this.props.modalType === 'exportList') {
       return (
         <ExportRecords
@@ -90,4 +100,6 @@ ModalView.propTypes = {
   activeModal: propTypes.bool.isRequired,
   userSubmitHandler: propTypes.func.isRequired,
   submitExport: propTypes.func.isRequired,
+  mergeRecord: propTypes.func.isRequired,
+  exportRecord: propTypes.func.isRequired,
 }
