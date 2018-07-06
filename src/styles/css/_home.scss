@@ -26,6 +26,11 @@
       padding: 2.75vw;
     }
 
+    &.disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
     .circleDot {
       margin: auto;
       margin-bottom: 10px;

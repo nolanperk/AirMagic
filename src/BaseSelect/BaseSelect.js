@@ -57,7 +57,7 @@ export default class BaseSelect extends Component {
                 </div>
               </Link>
             </li>
-            <li className="whiteCard">
+            <li className="whiteCard disabled">
               <Link to={`/orlando/customer-service/`}>
                 <div className="inner">
                   <div className="circleDot"></div>
@@ -66,7 +66,7 @@ export default class BaseSelect extends Component {
                 </div>
               </Link>
             </li>
-            <li className="whiteCard">
+            <li className="whiteCard disabled">
               <Link to={`/orlando/sales/`}>
                 <div className="inner">
                   <div className="circleDot"></div>
@@ -75,7 +75,7 @@ export default class BaseSelect extends Component {
                 </div>
               </Link>
             </li>
-            <li className="whiteCard">
+            <li className="whiteCard disabled">
               <Link to={`/orlando/franchisees`}>
                 <div className="inner">
                   <div className="circleDot"></div>

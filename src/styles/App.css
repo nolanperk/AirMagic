@@ -533,6 +533,9 @@ ul {
       text-decoration: none; }
     .BaseList .whiteCard .inner, .BaseList .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList input .inner, .BaseList .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList select .inner {
       padding: 2.75vw; }
+    .BaseList .whiteCard.disabled, .BaseList .ControlsBar .ControlsBar--search input.disabled, .ControlsBar .ControlsBar--search .BaseList input.disabled, .BaseList .ControlsBar .ControlsBar--search select.disabled, .ControlsBar .ControlsBar--search .BaseList select.disabled {
+      opacity: 0.25;
+      pointer-events: none; }
     .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
       margin: auto;
       margin-bottom: 10px;
