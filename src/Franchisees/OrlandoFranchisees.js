@@ -33,7 +33,7 @@ export default class OrlandoFranchisees extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: 'appLxxBrc9m3yNXdQ',
       currentTable: 'Franchisees',
-      listView: '',
+      listView: 'view=Active',
       sortByLabel: 'SP+Name',
       sortByOrder: 'asc',
       currentRecord: [],

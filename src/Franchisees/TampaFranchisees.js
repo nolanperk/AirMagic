@@ -33,7 +33,7 @@ export default class TampaFranchisees extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: 'appBsaVxz2OicG5Zw',
       currentTable: 'Franchisees',
-      listView: '',
+      listView: 'view=Active',
       sortByLabel: 'SP+Name',
       sortByOrder: 'asc',
       currentRecord: [],

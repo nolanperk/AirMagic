@@ -28,7 +28,21 @@ export default class FilterSearch extends Component {
 
         <div className="filterSearch">
         </div>
-        {this.locationPAMs}
+        <ul id="filtersList">
+          <li
+            className="isActive"
+            onClick={this.selectFilterList}
+            id="All"
+          >No Filter</li>
+          <li
+            onClick={this.selectFilterList}
+            id="Active"
+          >Active</li>
+          <li
+            onClick={this.selectFilterList}
+            id="Prospective"
+          >Prospective</li>
+        </ul>
 
 
 
@@ -37,94 +51,6 @@ export default class FilterSearch extends Component {
         </div>
       </div>
     );
-  }
-
-  get locationPAMs() {
-    if (this.props.baseId === 'appBUKBn552B8SlbE') {
-      return (
-        <ul id="filtersList">
-          <li
-            className="isActive"
-            onClick={this.selectFilterList}
-            id="All"
-          >No Filter</li>
-          <li
-            onClick={this.selectFilterList}
-            id="All+Actives"
-          >All Actives</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Canceled"
-          >Canceled</li>
-          <li
-            onClick={this.selectFilterList}
-            id="New+Startups"
-          >New Startups</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Crew+Changes"
-          >Crew Changes</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Unhappy"
-          >Unhappy</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Happy"
-          >Happy</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Sergi"
-          >Sergi's Accounts</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Christy"
-          >Christy's Accounts</li>
-        </ul>
-      )
-    } else {
-      return (
-        <ul id="filtersList">
-          <li
-            className="isActive"
-            onClick={this.selectFilterList}
-            id="All"
-          >No Filter</li>
-          <li
-            onClick={this.selectFilterList}
-            id="All+Actives"
-          >All Actives</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Canceled"
-          >Canceled</li>
-          <li
-            onClick={this.selectFilterList}
-            id="New+Startups"
-          >New Startups</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Crew+Changes"
-          >Crew Changes</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Unhappy"
-          >Unhappy</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Happy"
-          >Happy</li>
-          <li
-            onClick={this.selectFilterList}
-            id="David"
-          >David's Accounts</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Lisa"
-          >Lisa's Accounts</li>
-        </ul>
-      )
-    }
   }
 }
 
