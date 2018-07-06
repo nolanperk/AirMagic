@@ -139,6 +139,77 @@ export default class OrlandoSales extends Component {
     this.props.history.push('/orlando/sales/' + key);
   }
 
+  moveDatabasesHandler = () => {
+    let currentRecordId = this.props.recordId;
+    this.setState({
+      loading: true,
+    });
+
+    let pushRecord = {
+      'Company Name': this.state.currentRecord['Company Name'],
+      'Main contact': this.state.currentRecord['Main contact'],
+      'Title': this.state.currentRecord['Title'],
+      'Alternate Contact': this.state.currentRecord['Alternate Contact'],
+      'Office Phone': this.state.currentRecord['Office Phone'],
+      'Extension': this.state.currentRecord['Extension'],
+      'Cell Phone': this.state.currentRecord['Cell Phone'],
+      'Email': this.state.currentRecord['Email'],
+      'Lead Source': this.state.currentRecord['Lead Source'],
+      'Cancel Date': this.state.currentRecord['Cancel Date'],
+      'Address 1': this.state.currentRecord['Address 1'],
+      'Address 2': this.state.currentRecord['Address 2'],
+      'City': this.state.currentRecord['City'],
+      'Zip': this.state.currentRecord['Zip'],
+      'County': this.state.currentRecord['County'],
+      'Employees': this.state.currentRecord['Employees'],
+      'Appt. Set Date': this.state.currentRecord['Appt. Set Date'],
+      'Appt Set By': this.state.currentRecord['Appt Set By'],
+      'Appt. Date': this.state.currentRecord['Appt. Date'],
+      'Close Date': this.state.currentRecord['Close Date'],
+      'Proposal Date': this.state.currentRecord['Proposal Date'],
+      'Walkthrough Date': this.state.currentRecord['Walkthrough Date'],
+      'Start Date': this.state.currentRecord['Start Date'],
+      'Pre-Clean Date': this.state.currentRecord['Pre-Clean Date'],
+      'Pre-Clean Charge': this.state.currentRecord['Pre-Clean Charge'],
+      'Monthly Amount': this.state.currentRecord['Monthly Amount'],
+      'Sq. Footage': this.state.currentRecord['Sq. Footage'],
+      'Actual Sq Footage': this.state.currentRecord['Actual Sq Footage'],
+      'Restrooms': this.state.currentRecord['Restrooms'],
+      'Ceramic': this.state.currentRecord['Ceramic'],
+      'Marble': this.state.currentRecord['Marble'],
+      'VCT': this.state.currentRecord['VCT'],
+      'Wood': this.state.currentRecord['Wood'],
+      'Wood Lam.': this.state.currentRecord['Wood Lam.'],
+      'Carpet': this.state.currentRecord['Carpet'],
+      'Other': this.state.currentRecord['Other'],
+      'Hours Per': this.state.currentRecord['Hours Per'],
+      'SQ Ft. per Hour': this.state.currentRecord['SQ Ft. per Hour'],
+      'Times per Week': this.state.currentRecord['Times per Week'],
+      'Days of Week': this.state.currentRecord['Days of Week'],
+      'Sales Rep': this.state.currentRecord['Sales Rep'],
+      'Notes': this.state.currentRecord['Notes'],
+      'Status': 'Active',
+      'Standing': 'New Customer',
+    }
+    let destinationURL;
+    let finalPush = {"fields": pushRecord}
+    axios
+    .post(this.state.dataURL + 'appBUKBn552B8SlbE/Customers/', finalPush)
+      .then(response => {
+        destinationURL = '/orlando/customer-service/' + response.data.id;
+        return axios
+          .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
+          .then(response => {
+            this.props.history.push(destinationURL);
+            this.loadData();
+            alert("The " + response.data['Company Name'] + " record has been moved to the Tampa Customers database.\n\n Let's go there now!");
+          });
+    })
+    .catch(response => {
+      console.error("error: ", response);
+    });
+  }
+
   newRecordHandler = ()  => {
     currentRecordState = {
       'Company Name': 'New Company',
@@ -837,6 +908,11 @@ export default class OrlandoSales extends Component {
           activeModal: true,
           modalType: 'recordExport',
         });
+      } else if(e.target.id === 'moveDatabase') {
+        this.setState({
+          activeModal: true,
+          modalType: 'moveDatabase',
+        });
       } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
         this.setState({
           activeModal: true,
@@ -1065,6 +1141,7 @@ export default class OrlandoSales extends Component {
           submitExport={this.submitExport}
           exportRecord={this.exportRecord}
           baseId={this.state.baseId}
+          moveDatabasesHandler={this.moveDatabasesHandler}
         />
         )
     }

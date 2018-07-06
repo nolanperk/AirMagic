@@ -158,8 +158,7 @@ export default class OrlandoFranchisees extends Component {
       'Sign Date': null,
       'Graduation Date': null,
       '$ Down': null,
-      'Address 1': null,
-      'Address 2': null,
+      'Address': null,
       'City': null,
       'Zip': null,
       'State': null,
@@ -204,7 +203,7 @@ export default class OrlandoFranchisees extends Component {
       })
     }
   }
-  
+
   calcVolume = e => {
     currentRecordState = this.state.currentRecord;
     let targetInput = e.target.closest(".inputWithTag").childNodes[1];
@@ -251,8 +250,7 @@ export default class OrlandoFranchisees extends Component {
     else if (e.target.id === 'sign') {currentRecordState['Sign Date'] = e.target.value}
     else if (e.target.id === 'graduation') {currentRecordState['Graduation Date'] = e.target.value}
     else if (e.target.id === 'downPayment') {currentRecordState['$ Down'] = e.target.value}
-    else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}
-    else if (e.target.id === 'addr2') {currentRecordState['Address 2'] = e.target.value}
+    else if (e.target.id === 'addr1') {currentRecordState['Address'] = e.target.value}
     else if (e.target.id === 'city') {currentRecordState['City'] = e.target.value}
     else if (e.target.id === 'zip') {currentRecordState['Zip'] = e.target.value}
     else if (e.target.id === 'state') {currentRecordState['State'] = e.target.value}
@@ -546,7 +544,7 @@ export default class OrlandoFranchisees extends Component {
         mergeURL.SP_Name = mergeData['SP Name'];
         mergeURL.First_Name = contactArr[0];
         mergeURL.Last_Name = contactArr[1];
-        mergeURL.Address = mergeData['Address 1'], + mergeData['Address 2'];
+        mergeURL.Address = mergeData['Address'];
         mergeURL.City = mergeData['City'];
         mergeURL['Zip'] = mergeData['Zip'];
 

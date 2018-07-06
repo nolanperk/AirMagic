@@ -67,8 +67,7 @@ export default class RecordView extends Component {
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
-              addr1={this.props.currentRecord['Address 1']}
-              addr2={this.props.currentRecord['Address 2']}
+              addr1={this.props.currentRecord['Address']}
               city={this.props.currentRecord['City']}
               zip={this.props.currentRecord['Zip']}
               state={this.props.currentRecord['State']}

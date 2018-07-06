@@ -37,20 +37,24 @@ export default class FilterSearch extends Component {
           >No Filter</li>
           <li
             onClick={this.selectFilterList}
-            id="APPC"
-          >APPC</li>
-          <li
-            onClick={this.selectFilterList}
             id="Prospects"
           >Prospects</li>
           <li
             onClick={this.selectFilterList}
-            id="Canceled+Pipeline"
-          >Canceled Pipeline</li>
+            id="APPC"
+          >APPC</li>
           <li
             onClick={this.selectFilterList}
-            id="APPC+Pipeline"
-          >APPC Pipeline</li>
+            id="Canceled"
+          >Canceled</li>
+          <li
+            onClick={this.selectFilterList}
+            id="From+Customer+Service+TM"
+          >From Customer Service TM</li>
+          <li
+            onClick={this.selectFilterList}
+            id="Cold+Calls"
+          >Cold Calls</li>
           <li
             onClick={this.selectFilterList}
             id="Valid+Numbers"

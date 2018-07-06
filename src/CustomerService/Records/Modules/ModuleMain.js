@@ -129,9 +129,8 @@ export default class ModuleMain extends Component {
       return (
         <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
           <option id="none"></option>
-          <option id="David+Rivera">David Rivera</option>
           <option id="Lisa+Nice">Lisa Nice</option>
-          <option id="Veronica+Valentin">Veronica Valentin</option>
+          <option id="David+Rivera">David Rivera</option>
           <option id="Old">Old</option>
         </select>
       )
@@ -154,9 +153,9 @@ export default class ModuleMain extends Component {
           <option id="Tyler+Perkins">Tyler Perkins</option>
           <option id="Nolan+Perkins">Nolan Perkins</option>
           <option id="Rafael+Milanes">Rafael Milanes</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
           <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
-          <option id="Lisa+Nice">Lisa Nice</option>
           <option id="Christy+Subler">Christy Subler</option>
           <option id="FR">FR</option>
           <option id="Old">Old</option>
@@ -167,8 +166,8 @@ export default class ModuleMain extends Component {
         <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
           <option id="none"></option>
           <option id="Rob+Janke">Rob Janke</option>
-          <option id="Christy+Subler">Christy Subler</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
+          <option id="Christy+Subler">Christy Subler</option>
           <option id="Tyler+Perkins">Tyler Perkins</option>
           <option id="Nolan+Perkins">Nolan Perkins</option>
           <option id="Rafael+Milanes">Rafael Milanes</option>

@@ -75,8 +75,9 @@ export default class ModuleSales extends Component {
               >
               <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
                 <option id="none"></option>
-                <option id="Active">Active</option>
+                <option id="Purchased">Purchased</option>
                 <option id="Former">Former</option>
+                <option id="Pending">Pending</option>
                 <option id="Inactive">Inactive</option>
                 <option id="Interested">Interested</option>
                 <option id="Lost+Contact">Lost Contact</option>

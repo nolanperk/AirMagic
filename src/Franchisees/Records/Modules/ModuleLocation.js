@@ -17,7 +17,6 @@ export default class ModuleLocation extends Component {
     let validateAddress;
     if (addr1) {
       let totalAddress = addr1;
-      if (addr2) {totalAddress = totalAddress + addr2;}
       if (city) {totalAddress = totalAddress + ', ' + city + ', ' + state;} else {totalAddress = totalAddress + ', ' + state;}
       if (zip) {totalAddress = totalAddress + ', ' + zip;}
       validateAddress = 'https://www.google.com/maps/search/?api=1&query=' + encodeURI(totalAddress);
@@ -29,20 +28,11 @@ export default class ModuleLocation extends Component {
         <div className="inner">
 
           <div className="inputBlock inputBlock--large">
-            <label>Address 1</label>
+            <label>Address</label>
             <input
               type="text"
               value={addr1}
               id="addr1"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-          <div className="inputBlock inputBlock--small">
-            <label>Address 2</label>
-            <input
-              type="text"
-              value={addr2}
-              id="addr2"
               onChange={this.props.changeRecordHandler}
             />
           </div>
@@ -96,7 +86,6 @@ export default class ModuleLocation extends Component {
 
 ModuleLocation.propTypes ={
   addr1: propTypes.string,
-  addr2: propTypes.string,
   company: propTypes.string,
   city: propTypes.string,
   zip: propTypes.string,

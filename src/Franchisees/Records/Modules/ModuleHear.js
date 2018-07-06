@@ -19,7 +19,7 @@ export default class ModuleService extends Component {
 
 
           <div className="inputBlock inputBlock--full">
-            <label>Special Notes</label>
+            <label>Source / Referral</label>
             <textarea
               className="NotesList"
               id="source"
