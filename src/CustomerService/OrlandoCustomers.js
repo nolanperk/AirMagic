@@ -860,71 +860,119 @@ export default class OrlandoCustomers extends Component {
   }
 
   submitExport = e => {
-    let propedURL = document.getElementById('exportList').getElementsByClassName('isActive')[0].getAttribute('data-fields');
-    let exportFileName = document.getElementById('exportList').getElementsByClassName('isActive')[0].getAttribute('data-name');
-    this.setState({
-      loading: true,
-      dataOffset: '',
-      data: [],
-    });
+    e.preventDefault();
+    let startRange;
+    let endRange;
+    let exportType;
+    let exportFields;
+    let exportFilter;
+    let urlExtends;
+    let downloadNow = 0;
+
+    let today  = new Date();
+    let currentMonth = today.getMonth()
+    let currentDay = today.getDate()
+    let currentYear = today.getFullYear()
 
     setTimeout((function() {
-      let loadAllData = setInterval(function() {
-        let preData = this.state.data;
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      let exportFileName = document.getElementById('rangeBy').value + ' - ' + currentMonth + '.' + currentDay + '.' + currentYear;
+      console.log(exportFileName);
 
-        if (this.state.dataOffset !== '') {
-          finalURL = finalURL + '?offset=' + this.state.dataOffset + '&' + propedURL;
-        } else {
-          finalURL = finalURL + '?' + propedURL;
-        }
-        return axios
-          .get(finalURL)
-          .then(response => {
-            this.setState({
-              data: preData.concat(response.data.records),
-              totalLoads: this.state.totalLoads + 1,
-              error: false,
-              dataOffset: response.data.offset,
-            });
-            console.log(response.data.offset);
-          }).catch(error => {
-            clearInterval(loadAllData)
-            this.setState({
-              loading: false,
-              dataOffset: '',
-            });
-            setTimeout((function() {
-              let items = this.state.data;
+      startRange = document.getElementById('startRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('year')[0].value;
+      endRange = document.getElementById('endRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('year')[0].value;
 
-              let newItems = items.map(obj =>{
-                let newItems = obj.fields;
-                // newItems.id = obj.id
-                 return newItems;
+      exportType = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-type');
+      exportFields = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-fields');
+      exportFilter = {'filter1': document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-1')};
+
+      if (exportType === 'multi') {
+        exportFilter.filter2 = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-2');
+        exportFilter.filter3 = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-3');
+      }
+
+      this.setState({
+        loading: true,
+        dataOffset: '',
+        data: [],
+      });
+
+      setTimeout((function() {
+        let loadAllData = setInterval(function() {
+          let preData = this.state.data;
+          finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+
+          if (this.state.dataOffset !== '') {finalURL = finalURL + '?offset=' + this.state.dataOffset + '&' + exportFields;}
+          else {finalURL = finalURL + '?' + exportFields}
+
+          if (exportType === 'multi') {
+            finalURL = finalURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
+          } else if (exportType === 'ranged') {
+            finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+          } else if (exportType === 'default') {
+            finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
+          }
+          console.log(finalURL);
+          return axios
+            .get(finalURL)
+            .then(response => {
+              this.setState({
+                data: preData.concat(response.data.records),
+                totalLoads: this.state.totalLoads + 1,
+                error: false,
+                dataOffset: response.data.offset,
               });
+              console.log(response.data.offset);
+            }).catch(error => {
+              downloadNow ++;
+              clearInterval(loadAllData);
+              if (downloadNow === 1) {
+                console.log(this.state.data);
+                this.setState({
+                  dataOffset: '',
+                });
+                setTimeout((function() {
+                  let items = this.state.data;
+
+                  let newItems = items.map(obj =>{
+                    let newItems = obj.fields;
+                    // newItems.id = obj.id
+                     return newItems;
+                  });
 
 
-              const replacer = (key, value) => value === null ? '' : value
-              const header = Object.keys(newItems[0])
-              let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-              csv.unshift(header.join(','))
-              csv = csv.join('\r\n')
+                  const replacer = (key, value) => value === null ? '' : value
+                  const header = Object.keys(newItems[0])
+                  let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                  csv.unshift(header.join(','))
+                  csv = csv.join('\r\n')
 
 
-              var fakeDownloadA = document.createElement('a');
-              fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-              fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+                  var fakeDownloadA = document.createElement('a');
+                  fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+                  fakeDownloadA.setAttribute('download', exportFileName + '.csv');
 
-              fakeDownloadA.style.display = 'none';
-              document.body.appendChild(fakeDownloadA);
+                  fakeDownloadA.style.display = 'none';
+                  document.body.appendChild(fakeDownloadA);
 
-              fakeDownloadA.click();
+                  fakeDownloadA.click();
 
-              document.body.removeChild(fakeDownloadA);
-            }).bind(this), 200);
+                  document.body.removeChild(fakeDownloadA);
 
-          })
-      }.bind(this), 350);
+                }).bind(this), 200);
+
+
+                setTimeout((function() {
+                  this.loadData();
+                  this.setState({
+                    loading: false,
+                    activeModal: false,
+                    modalType: '',
+                  });
+                }).bind(this), 200);
+              }
+            });
+        }.bind(this), 350);
+      }).bind(this), 100);
     }).bind(this), 50);
   }
 

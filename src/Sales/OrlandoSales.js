@@ -703,7 +703,7 @@ export default class OrlandoSales extends Component {
     let downloadNow = 0;
 
     let today  = new Date();
-    let currentMonth = today.getMonth() + 1;
+    let currentMonth = today.getMonth()
     let currentDay = today.getDate()
     let currentYear = today.getFullYear()
 
@@ -740,7 +740,7 @@ export default class OrlandoSales extends Component {
           if (exportType === 'multi') {
             finalURL = finalURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
           } else if (exportType === 'ranged') {
-            finalURL = finalURL + '&filterByFormula=AND(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22))';
+            finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
           } else if (exportType === 'default') {
             finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
           }
