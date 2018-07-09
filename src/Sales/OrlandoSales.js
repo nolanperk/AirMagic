@@ -188,6 +188,7 @@ export default class OrlandoSales extends Component {
       'Days of Week': this.state.currentRecord['Days of Week'],
       'Sales Rep': this.state.currentRecord['Sales Rep'],
       'Notes': this.state.currentRecord['Notes'],
+      'Special Notes': this.state.currentRecord['Special Notes'],
       'Status': 'Active',
       'Standing': 'New Customer',
     }

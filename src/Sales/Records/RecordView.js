@@ -10,6 +10,7 @@ import ModuleSales from './Modules/ModuleSales';
 import ModulePipeline from './Modules/ModulePipeline';
 import ModuleNumbers from './Modules/ModuleNumbers';
 import ModuleSchedule from './Modules/ModuleSchedule';
+import ModuleSpecial from './Modules/ModuleSpecial';
 
 
 export default class RecordView extends Component {
@@ -51,14 +52,10 @@ export default class RecordView extends Component {
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
             />
-            <ModulePipeline
+            <ModuleSpecial
+              changeNotesHandler={this.props.changeNotesHandler}
               changeRecordHandler={this.props.changeRecordHandler}
-              changeSelectBlock={this.props.changeSelectBlock}
-              callCount={this.props.currentRecord['Times Called']}
-              apptBy={this.props.currentRecord['Appt. Set By']}
-              apptSet={this.props.currentRecord['Appt. Set Date']}
-              apptDate={this.props.currentRecord['Appt. Date']}
-              proposal={this.props.currentRecord['Proposal Date']}
+              specialNotes={this.props.currentRecord['Special Notes']}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -69,6 +66,15 @@ export default class RecordView extends Component {
               county={this.props.currentRecord['County']}
               emp={this.props.currentRecord['Employees']}
               company={this.props.currentRecord['Company Name']}
+            />
+            <ModulePipeline
+              changeRecordHandler={this.props.changeRecordHandler}
+              changeSelectBlock={this.props.changeSelectBlock}
+              callCount={this.props.currentRecord['Times Called']}
+              apptBy={this.props.currentRecord['Appt. Set By']}
+              apptSet={this.props.currentRecord['Appt. Set Date']}
+              apptDate={this.props.currentRecord['Appt. Date']}
+              proposal={this.props.currentRecord['Proposal Date']}
             />
             <ModuleSchedule
               changeRecordHandler={this.props.changeRecordHandler}

@@ -189,6 +189,7 @@ export default class TampaSales extends Component {
       'Sales Rep': this.state.currentRecord['Sales Rep'],
       'Notes': this.state.currentRecord['Notes'],
       'Status': 'Active',
+      'Special Notes': this.state.currentRecord['Special Notes'],
       'Standing': 'New Customer',
     }
     let destinationURL;
@@ -224,6 +225,8 @@ export default class TampaSales extends Component {
       'Standing': null,
       'Recent Caller': null,
       'Appt. Set By': null,
+
+      'Special Notes': null,
 
       'Appt. Set Date': null,
       'Appt. Date': null,
@@ -321,6 +324,7 @@ export default class TampaSales extends Component {
     else if (e.target.id === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = e.target.value}
     else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
+
 
     else if (e.target.id === 'salutation') {currentRecordState['Salutation'] = e.target.value}
     else if (e.target.id === 'contact') {currentRecordState['Main contact'] = e.target.value}
