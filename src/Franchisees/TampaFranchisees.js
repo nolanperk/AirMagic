@@ -142,6 +142,7 @@ export default class TampaFranchisees extends Component {
   newRecordHandler = ()  => {
     currentRecordState = {
       'SP Name': 'New Franchisee',
+      'Number': '00-0000',
       'Company Name': null,
       'EIN': null,
       'Volume Due Date': null,
@@ -253,6 +254,7 @@ export default class TampaFranchisees extends Component {
     else if (e.target.id === 'addr1') {currentRecordState['Address'] = e.target.value}
     else if (e.target.id === 'city') {currentRecordState['City'] = e.target.value}
     else if (e.target.id === 'zip') {currentRecordState['Zip'] = e.target.value}
+    else if (e.target.id === 'spNumber') {currentRecordState['Number'] = e.target.value}
     else if (e.target.id === 'state') {currentRecordState['State'] = e.target.value}
     else if (e.target.id === 'county') {currentRecordState['County'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Source'] = e.target.value}

@@ -142,6 +142,7 @@ export default class OrlandoFranchisees extends Component {
   newRecordHandler = ()  => {
     currentRecordState = {
       'SP Name': 'New Franchisee',
+      'Number': '00-0000',
       'Company Name': null,
       'EIN': null,
       'Volume Due Date': null,
@@ -244,6 +245,7 @@ export default class OrlandoFranchisees extends Component {
     else if (e.target.id === 'partner') {currentRecordState['Partner Name'] = e.target.value}
     else if (e.target.id === 'partnerPhone') {currentRecordState['Partner Phone'] = e.target.value}
     else if (e.target.id === 'english') {currentRecordState['English Contact'] = e.target.value}
+    else if (e.target.id === 'spNumber') {currentRecordState['Number'] = e.target.value}
     else if (e.target.id === 'englishPhone') {currentRecordState['English Contact Phone'] = e.target.value}
     else if (e.target.id === 'contDate') {currentRecordState['Contact Date'] = e.target.value}
     else if (e.target.id === 'fdd') {currentRecordState['FDD Sign Date'] = e.target.value}

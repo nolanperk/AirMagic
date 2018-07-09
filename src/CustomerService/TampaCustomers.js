@@ -56,6 +56,7 @@ export default class TampaCustomers extends Component {
       searchQuery: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
+      currentSP: [],
     }
   }
 
@@ -75,6 +76,9 @@ export default class TampaCustomers extends Component {
             currentRecord: record,
             currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
           })
+          setTimeout((function() {
+            this.loadSPInfo();
+          }).bind(this), 500);
         }).bind(this), 0);
       } else {
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
@@ -173,6 +177,23 @@ export default class TampaCustomers extends Component {
     //   })
     //   sessionStorage.setItem('storedUser', this.state.userName);
     // }
+  }
+
+
+  loadSPInfo = () => {
+    let spURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?filterByFormula=IF(%7BNumber%7D%3D%22' + this.state.currentRecord['SP Number'] + '%22%2C+TRUE()%2C+FALSE())&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address';
+    console.log('spURL');
+    console.log(spURL);
+    return axios
+      .get(spURL)
+      .then(response => {
+        let spData = response.data.records[0].fields;
+        let spID = response.data.records[0].id;
+        spData['id'] = spID;
+        this.setState({
+          currentSP: spData,
+        });
+      });
   }
 
   openRecordHandler = (e, key, index)  => {
@@ -860,6 +881,22 @@ export default class TampaCustomers extends Component {
     }
   }
 
+  spChangeHandler = e => {
+    console.log(e.target.value);
+
+    if (this.props.spNumber !== e.target.value) {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['SP Number'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      });
+
+      this.loadSPInfo();
+    }
+  }
+
   submitExport = e => {
     e.preventDefault();
     let startRange;
@@ -1328,6 +1365,8 @@ export default class TampaCustomers extends Component {
           recordChanger={this.recordChanger}
           changeNotesHandler={this.changeNotesHandler}
           baseId={this.state.baseId}
+          spChangeHandler={this.spChangeHandler}
+          currentSP={this.state.currentSP}
         />
       );
     } else if (this.state.franchiseView) {

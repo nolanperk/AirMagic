@@ -102,61 +102,6 @@ export default class ModuleService extends Component {
               />
             </div>
           </div>
-          <div className="inputBlock inputBlock--half">
-            <label>New SP Start</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={newSP}
-                id="newSP"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>SP Name</label>
-            <input
-              type="text"
-              value={spName}
-              id="spName"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>SP Email</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <a href={emailLink}></a>
-                <img src={emailImg} />
-              </div>
-              <input
-                type="text"
-                id="spEmail"
-                value={spEmail}
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>SP Phone</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <a href={spPhoneLink}></a>
-                <img src={phoneImg} />
-              </div>
-              <input
-                type="text"
-                value={spPhone}
-                id="spPhone"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
         </div>
       </div>
     );

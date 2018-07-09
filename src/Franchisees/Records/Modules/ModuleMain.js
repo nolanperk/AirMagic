@@ -26,6 +26,7 @@ export default class ModuleMain extends Component {
     let language = this.props.language;
     let status = this.props.status;
     let level = this.props.level;
+    let spNumber = this.props.spNumber;
 
 
 
@@ -34,7 +35,16 @@ export default class ModuleMain extends Component {
     return (
       <div className="ModuleCard">
         <div className="inner">
-          <div className="inputBlock inputBlock--full">
+          <div className="inputBlock inputBlock--small">
+            <label>SP #</label>
+            <input
+              type="text"
+              onChange={this.props.changeRecordHandler}
+              value={spNumber}
+              id="spNumber"
+            />
+          </div>
+          <div className="inputBlock inputBlock--large">
             <label>SP Name</label>
             <input
               type="text"
@@ -132,6 +142,7 @@ export default class ModuleMain extends Component {
 
 ModuleMain.propTypes ={
   spName: propTypes.string,
+  spNumber: propTypes.string,
   status: propTypes.string,
   level: propTypes.string,
   company: propTypes.string,

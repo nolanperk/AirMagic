@@ -29,6 +29,7 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               changeSelectBlock={this.props.changeSelectBlock}
               spName={this.props.currentRecord['SP Name']}
+              spNumber={this.props.currentRecord['Number']}
               status={this.props.currentRecord['Status']}
               level={this.props.currentRecord['Franchise Level']}
               company={this.props.currentRecord['Company Name']}

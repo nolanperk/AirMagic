@@ -9,6 +9,7 @@ import ModuleLocation from './Modules/ModuleLocation';
 import ModuleSales from './Modules/ModuleSales';
 import ModuleService from './Modules/ModuleService';
 import ModuleNumbers from './Modules/ModuleNumbers';
+import ModuleSP from './Modules/ModuleSP';
 import ModuleSchedule from './Modules/ModuleSchedule';
 
 
@@ -54,13 +55,17 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               standing={this.props.currentRecord['Standing']}
               lastCall={this.props.currentRecord['Last Call']}
-              spName={this.props.currentRecord['SP Name']}
-              spPhone={this.props.currentRecord['SP Phone']}
-              spEmail={this.props.currentRecord['SP Email']}
               lastVisit={this.props.currentRecord['Last Visit']}
               newSP={this.props.currentRecord['New SP Start']}
               cancel={this.props.currentRecord['Cancel Date']}
               changeSelectBlock={this.props.changeSelectBlock}
+            />
+            <ModuleSP
+              changeRecordHandler={this.props.changeRecordHandler}
+              changeSelectBlock={this.props.changeSelectBlock}
+              spChangeHandler={this.props.spChangeHandler}
+              spNumber={this.props.currentRecord['SP Number']}
+              currentSP={this.props.currentSP}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -130,6 +135,7 @@ export default class RecordView extends Component {
 
 
 RecordView.propTypes ={
+  spChangeHandler: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.number.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
@@ -139,4 +145,5 @@ RecordView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  currentSP: propTypes.object.isRequired,
 }
