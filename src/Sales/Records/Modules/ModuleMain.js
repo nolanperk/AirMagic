@@ -73,8 +73,9 @@ export default class ModuleMain extends Component {
               >
               <select id="standingSelect"  value={this.state.standingValue} onChange={this.standingChange}>
                 <option id="none"></option>
-                <option id="Disconnected">Disconnected</option>
                 <option id="Left+VM">Left VM</option>
+                <option id="Left+Email">Left Email</option>
+                <option id="Disconnected">Disconnected</option>
                 <option id="In House">In House</option>
                 <option id="In Contact">In Contact</option>
               </select>

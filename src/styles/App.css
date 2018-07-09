@@ -570,6 +570,9 @@ ul {
     height: 20vw;
     margin-bottom: 5vw; } }
 
+#special {
+  font-size: 12px; }
+
 .ArchiveItems {
   width: 90%;
   margin: auto;
@@ -652,7 +655,7 @@ ul {
     width: 100%; }
 
 .FranchiseInfoItems .tableHeader {
-  border-bottom: 1px solid #EBEBE8;
+  border-bottom: 1px solid #d2d2d2;
   background: #F7F7F5;
   display: flex;
   flex-wrap: nowrap;
@@ -683,7 +686,7 @@ ul {
     flex-grow: 1;
     flex-shrink: 1;
     border: 0;
-    border-bottom: 1px solid #EBEBE8;
+    border-bottom: 1px solid #d2d2d2;
     margin-left: 10px;
     margin-right: 10px;
     background: transparent; }
@@ -776,7 +779,7 @@ hr {
       justify-content: space-between; }
     .ModuleList .ModuleCard .cardTag {
       padding: 15px 0;
-      border-top: 1px solid #EBEBE8;
+      border-top: 1px solid #d2d2d2;
       width: 100%; }
       .ModuleList .ModuleCard .cardTag .btn {
         width: 100%;
@@ -785,7 +788,7 @@ hr {
       width: 100%;
       padding-top: 2vw; }
       .ModuleList .ModuleCard.cardFull .fullInner {
-        border-top: 1px solid #EBEBE8;
+        border-top: 1px solid #d2d2d2;
         padding-top: 2vw; }
         .ModuleList .ModuleCard.cardFull .fullInner .inner {
           padding: 2vw; }
@@ -812,7 +815,7 @@ hr {
             .ModuleList .ModuleCard.cardFull .fullInner .inner table tr {
               border: solid 1px #EBEBE8; }
               .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td {
-                border-right: 1px solid #EBEBE8; }
+                border-right: 1px solid #d2d2d2; }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td input {
                   font-size: 13px;
                   height: 100%;
@@ -1046,13 +1049,17 @@ hr {
 
 @media only screen and (max-width: 1140px) {
   .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
-    padding: 50px 20px 20px; }
+    padding: 7.5vw 20px 20px; }
   .RecordNotes .addNotesBox {
     bottom: 90px; }
   .RecordNotes .addNotesBox .navIcon {
     padding: 20px; }
     .RecordNotes .addNotesBox .navIcon img {
       width: 20px; } }
+
+@media only screen and (max-width: 767px) {
+  .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
+    padding: 11vw 20px 20px; } }
 
 .modal {
   background: rgba(247, 247, 245, 0.9);
@@ -1079,7 +1086,7 @@ hr {
       font-size: 16px;
       border: none;
       margin: 30px 0 10px;
-      outline: solid #EBEBE8 1px;
+      outline: solid #d2d2d2 1px;
       background: #fcfcfc;
       transition: all 0.5s ease;
       color: #626255;
@@ -1110,7 +1117,7 @@ hr {
 
 .FilterModal .filterSearch, .UserModal .filterSearch {
   border: none;
-  border-bottom: 1px solid #EBEBE8;
+  border-bottom: 1px solid #d2d2d2;
   width: 100%;
   padding: 15px;
   position: relative; }
@@ -1151,7 +1158,7 @@ hr {
     pointer-events: none; }
 
 .FilterModal .newFilterTrigger, .UserModal .newFilterTrigger {
-  border-top: 1px solid #EBEBE8;
+  border-top: 1px solid #d2d2d2;
   padding: 20px 20px 0; }
   .FilterModal .newFilterTrigger h4, .UserModal .newFilterTrigger h4 {
     cursor: pointer;
@@ -1171,7 +1178,7 @@ hr {
     #sortTable .selectBox select, #exportForm .selectBox select {
       -webkit-appearance: none;
       border-radius: 0;
-      border: 1px solid #EBEBE8;
+      border: 1px solid #d2d2d2;
       background: transparent;
       padding: 10px 15px;
       padding-right: 35px;

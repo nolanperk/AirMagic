@@ -134,7 +134,7 @@
 
 .FranchiseInfoItems {
   .tableHeader {
-    border-bottom: 1px solid $gray;
+    border-bottom: 1px solid $medGray;
     background: $offWhite;
     display: flex;
     flex-wrap: nowrap;
@@ -171,7 +171,7 @@
       flex-grow: 1;
       flex-shrink: 1;
       border: 0;
-      border-bottom: 1px solid $gray;
+      border-bottom: 1px solid $medGray;
       margin-left: 10px;
       margin-right: 10px;
       background: transparent;

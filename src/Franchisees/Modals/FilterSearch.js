@@ -40,6 +40,10 @@ export default class FilterSearch extends Component {
           >Active</li>
           <li
             onClick={this.selectFilterList}
+            id="Past+And+Present"
+          >Past & Present</li>
+          <li
+            onClick={this.selectFilterList}
             id="Prospective"
           >Prospective</li>
         </ul>

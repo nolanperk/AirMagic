@@ -74,7 +74,7 @@ hr {
     }
     .cardTag {
       padding: 15px 0;
-      border-top: 1px solid $gray;
+      border-top: 1px solid $medGray;
       width: 100%;
       .btn {
         width: 100%;
@@ -86,7 +86,7 @@ hr {
       width: 100%;
       padding-top: 2vw;
       .fullInner {
-        border-top: 1px solid $gray;
+        border-top: 1px solid $medGray;
         padding-top: 2vw;
 
         .inner {
@@ -129,7 +129,7 @@ hr {
               border: solid 1px $gray;
 
               td {
-                border-right: 1px solid $gray;
+                border-right: 1px solid $medGray;
 
                 input {
                   font-size: 13px;

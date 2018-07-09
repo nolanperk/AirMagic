@@ -71,6 +71,7 @@ export default class ModuleMain extends Component {
             <textarea
               className="NotesList"
               id="special"
+              rows='3'
               value={special}
               onChange={this.props.changeNotesHandler}>
               {special}

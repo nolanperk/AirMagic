@@ -29,7 +29,7 @@ export default class ExportRecords extends Component {
   render() {
     let today  = new Date();
 
-    let currentMonth = today.getMonth()
+    let currentMonth = today.getMonth() + 1;
     let currentDay = today.getDate()
     let currentYear = today.getFullYear()
 
@@ -71,7 +71,7 @@ export default class ExportRecords extends Component {
               <option
                 data-filter-type="ranged"
                 data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"
-                data-filter-1="Proposal+Date">
+                data-filter-1="Close+Date">
                 Sales Report</option>
               <option
                 data-filter-type="ranged"

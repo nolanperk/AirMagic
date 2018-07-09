@@ -703,7 +703,7 @@ export default class OrlandoSales extends Component {
     let downloadNow = 0;
 
     let today  = new Date();
-    let currentMonth = today.getMonth()
+    let currentMonth = today.getMonth() + 1;
     let currentDay = today.getDate()
     let currentYear = today.getFullYear()
 
