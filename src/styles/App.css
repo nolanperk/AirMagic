@@ -694,7 +694,7 @@ ul {
   .ArchiveItems .cardContainer .ArchiveItem {
     width: 20%; } }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1140px) {
   .ArchiveItems .cardContainer .ArchiveItem {
     width: 25%; }
   .ArchiveItems {
@@ -943,7 +943,7 @@ hr {
   .RecordNotes, .RecordNotes .NotesList, .RecordNotes .NotesNav {
     width: 35%; } }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1140px) {
   .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
     width: 100%; }
   .ModuleContainer {
@@ -1044,7 +1044,7 @@ hr {
         width: 100%;
         display: block; }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1140px) {
   .RecordNotes .NotesList, .RecordNotes .NotesList:focus {
     padding: 50px 20px 20px; }
   .RecordNotes .addNotesBox {
