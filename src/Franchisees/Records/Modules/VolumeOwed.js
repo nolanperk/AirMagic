@@ -24,9 +24,8 @@ export default class VolumeOwed extends Component {
       let pushRecordId = this.state.currentAccount.id;
 
       let finalPush = {"fields": pushRecord}
-
       axios
-      .put('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + pushRecordId + '&sort%5B0%5D%5Bfield%5D=SortNumber', finalPush)
+      .patch('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + pushRecordId, finalPush)
         .then(response => {
         this.setState({
           recordChanges: false,
