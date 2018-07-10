@@ -15,11 +15,17 @@ import ModuleSchedule from './Modules/ModuleSchedule';
 
 export default class RecordView extends Component {
 
+
+  componentDidMount() {
+    this.props.loadSPInfo();
+  }
+
   // Render
   // ----------------------------------------------------
   render() {
     const { index, data } = this.props;
     this.gridLayout()
+
 
 
     return (
@@ -60,13 +66,6 @@ export default class RecordView extends Component {
               cancel={this.props.currentRecord['Cancel Date']}
               changeSelectBlock={this.props.changeSelectBlock}
             />
-            <ModuleSP
-              changeRecordHandler={this.props.changeRecordHandler}
-              changeSelectBlock={this.props.changeSelectBlock}
-              spChangeHandler={this.props.spChangeHandler}
-              spNumber={this.props.currentRecord['SP Number']}
-              currentSP={this.props.currentSP}
-            />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
               addr1={this.props.currentRecord['Address 1']}
@@ -76,6 +75,14 @@ export default class RecordView extends Component {
               county={this.props.currentRecord['County']}
               emp={this.props.currentRecord['Employees']}
               company={this.props.currentRecord['Company Name']}
+            />
+            <ModuleSP
+              changeRecordHandler={this.props.changeRecordHandler}
+              changeSelectBlock={this.props.changeSelectBlock}
+              spChangeHandler={this.props.spChangeHandler}
+              spNumber={this.props.currentRecord['SP Number']}
+              currentSP={this.props.currentSP}
+              spList={this.props.spList}
             />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
@@ -136,6 +143,7 @@ export default class RecordView extends Component {
 
 RecordView.propTypes ={
   spChangeHandler: propTypes.func.isRequired,
+  loadSPInfo: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.number.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
@@ -146,4 +154,5 @@ RecordView.propTypes ={
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
   currentSP: propTypes.object.isRequired,
+  spList: propTypes.object.isRequired,
 }

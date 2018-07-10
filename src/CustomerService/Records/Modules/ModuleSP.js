@@ -9,53 +9,11 @@ import SPListItem from './SPListItem';
 
 
 export default class ModuleSP extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      currentSP: [],
-      spList: [],
-      spListOffset: '',
-    }
-  }
-
-  loadList = () => {
-    let finalURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
-    let downloadNow = 0;
-
-    console.log(finalURL);
-    let loadAllData = setInterval(function() {
-      if (this.state.spListOffset !== '') {finalURL = finalURL + '&offset=' + this.state.spListOffset;}
-      let preData = this.state.spList;
-      console.log(finalURL);
-      return axios
-        .get(finalURL)
-        .then(response => {
-          downloadNow ++;
-          this.setState({
-            spList: preData.concat(response.data.records),
-            spListOffset: response.data.offset,
-          });
-          console.log(response.data.offset);
-        }).catch(error => {
-          downloadNow ++;
-          clearInterval(loadAllData);
-        });
-    }.bind(this), 500);
-
-  };
-
-  componentDidMount() {
-    this.loadList();
-    this.state = {
-      spNumberValue: this.props.spNumber,
-    }
-  }
-
 
   // Render
   // ----------------------------------------------------
   render() {
-    const { spList } = this.state;
+    const { spList } = this.props;
 
     let spNumber = this.props.spNumber;
 
@@ -84,9 +42,9 @@ export default class ModuleSP extends Component {
           {this.partnerPhone}
           {this.englishName}
           {this.englishPhone}
-          <br />
-          {this.addressBtn}
-          <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+          <div className="cardTag">
+            <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+          </div>
 
 
         </div>
@@ -96,8 +54,8 @@ export default class ModuleSP extends Component {
 
   spListItem(spList, index) {
     return <SPListItem
-        key={this.state.spList.id}
-        id={this.state.spList.id}
+        key={this.props.spList.id}
+        id={this.props.spList.id}
         spList={spList.fields}
         index={index}
       />
@@ -220,4 +178,5 @@ ModuleSP.propTypes ={
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   currentSP: propTypes.object.isRequired,
+  spList: propTypes.object.isRequired,
 }

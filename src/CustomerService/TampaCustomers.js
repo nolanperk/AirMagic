@@ -57,6 +57,8 @@ export default class TampaCustomers extends Component {
       newRecord: false,
       listIsVisible: props.recordId == null,
       currentSP: [],
+      spList: [],
+      spListOffset: '',
     }
   }
 
@@ -76,9 +78,6 @@ export default class TampaCustomers extends Component {
             currentRecord: record,
             currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
           })
-          setTimeout((function() {
-            this.loadSPInfo();
-          }).bind(this), 500);
         }).bind(this), 0);
       } else {
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
@@ -178,6 +177,32 @@ export default class TampaCustomers extends Component {
     //   sessionStorage.setItem('storedUser', this.state.userName);
     // }
   }
+
+
+  loadSPList = () => {
+    let finalURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
+    let downloadNow = 0;
+
+    let loadAllData = setInterval(function() {
+      if (this.state.spListOffset !== '') {finalURL = finalURL + '&offset=' + this.state.spListOffset;}
+      let preData = this.state.spList;
+      return axios
+        .get(finalURL)
+        .then(response => {
+          downloadNow ++;
+          this.setState({
+            spList: preData.concat(response.data.records),
+            spListOffset: response.data.offset,
+          });
+          console.log(response.data.offset);
+        }).catch(error => {
+          downloadNow ++;
+          clearInterval(loadAllData);
+          sessionStorage.setItem('tampaSPLoaded', true);
+          sessionStorage.setItem('tampaSPList', this.state.spList);
+        });
+    }.bind(this), 500);
+  };
 
 
   loadSPInfo = () => {
@@ -1245,6 +1270,15 @@ export default class TampaCustomers extends Component {
           userName: usersInitials,
         });
       }
+
+
+      if (sessionStorage.getItem('tampaSPLoaded') !== true) {
+        this.loadSPList();
+      } else {
+        this.setState({
+          spList: sessionStorage.getItem('tampaSPList')
+        });
+      }
     }
   }
 
@@ -1367,6 +1401,8 @@ export default class TampaCustomers extends Component {
           baseId={this.state.baseId}
           spChangeHandler={this.spChangeHandler}
           currentSP={this.state.currentSP}
+          spList={this.state.spList}
+          loadSPInfo={this.loadSPInfo}
         />
       );
     } else if (this.state.franchiseView) {
