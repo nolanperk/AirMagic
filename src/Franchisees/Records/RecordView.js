@@ -86,6 +86,7 @@ export default class RecordView extends Component {
               ar={this.props.currentRecord['Additional Revenue']}
               currentRecord={this.props.currentRecord}
               baseId={this.props.baseId}
+              spName={this.props.currentRecord['SP Name']}
             />
 
           </div>

@@ -15,12 +15,16 @@ export default class VolumeItem extends Component {
     this.props.typeChangeHandler(e.target.value, this.props.index);
   }
   percChange = e => {
-    rpRevenue = (parseInt(e.target.value.replace('%', '')) / 100) * this.props.volumeData['Amount'];
-    this.setState({
-      percValue: e.target.value,
-      filledRev: rpRevenue
-    });
-    this.props.rpSumCalc(e.target.value, this.props.index)
+    if (this.props.volumeData['Amount'] !== undefined) {
+      rpRevenue = (parseInt(e.target.value.replace('%', '')) / 100) * this.props.volumeData['Amount'];
+    } else {
+      rpRevenue = 0;
+    }
+      this.setState({
+        percValue: e.target.value,
+        filledRev: rpRevenue
+      });
+      this.props.rpSumCalc(e.target.value, this.props.index)
   }
 
   componentDidMount () {

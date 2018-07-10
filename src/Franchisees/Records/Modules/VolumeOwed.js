@@ -26,7 +26,7 @@ export default class VolumeOwed extends Component {
       let finalPush = {"fields": pushRecord}
 
       axios
-      .put('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + pushRecordId, finalPush)
+      .put('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + pushRecordId + '&sort%5B0%5D%5Bfield%5D=SortNumber', finalPush)
         .then(response => {
         this.setState({
           recordChanges: false,
@@ -128,7 +128,7 @@ export default class VolumeOwed extends Component {
       'RP Revenue': null,
       'Start Date': null,
       'Stop Date': null,
-      'Short SP Name': this.state.volumeData[this.state.volumeData.length - 1].fields['Short SP Name'],
+      'Short SP Name': this.props.spName,
     };
     let finalPush = {"fields": pushRecord}
 
@@ -366,4 +366,5 @@ VolumeOwed.propTypes ={
   ar: propTypes.string,
   plan: propTypes.string,
   baseId: propTypes.string.isRequired,
+  spName: propTypes.string.isRequired,
 }
