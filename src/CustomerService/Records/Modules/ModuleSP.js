@@ -37,6 +37,7 @@ export default class ModuleSP extends Component {
               id="status"
               >
               <select id="spSelector" value={this.props.spNumber} onChange={this.props.spChangeHandler}>
+                <option value="none">Select SP</option>
                 {spList.map((e, i) => this.spListItem(e, i))}
               </select>
             </div>
@@ -53,9 +54,7 @@ export default class ModuleSP extends Component {
           {this.partnerPhone}
           {this.englishName}
           {this.englishPhone}
-          <div className="cardTag">
-            <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
-          </div>
+          {this.spButton}
 
 
         </div>
@@ -173,12 +172,19 @@ export default class ModuleSP extends Component {
     }
   }
 
-  get addressBtn() {
-    if (this.props.currentSP['Address']) {
-      let validateAddress = 'https://www.google.com/maps/search/?api=1&query=' + encodeURI(this.props.currentSP['Address']);
+  get spButton() {
+    if (this.props.baseId === 'appBUKBn552B8SlbE') {
       return (
-        <a className="btn softGrad--secondary" href={validateAddress} target="_blank">SP Address</a>
-      );
+        <div className="cardTag">
+          <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+        </div>
+      )
+    } else {
+      return (
+        <div className="cardTag">
+          <a className="btn softGrad--primary" href={'/orlando/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+        </div>
+      )
     }
   }
 }
@@ -186,6 +192,7 @@ export default class ModuleSP extends Component {
 ModuleSP.propTypes ={
   spChangeHandler: propTypes.func.isRequired,
   spNumber: propTypes.string,
+  baseId: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   currentSP: propTypes.object.isRequired,

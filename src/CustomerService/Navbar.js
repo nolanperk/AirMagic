@@ -8,6 +8,11 @@ import exportImg from '../assets/icons/primary/export.png';
 
 export default class Navbar extends Component {
 
+  revertMemory = () => {
+    sessionStorage.removeItem('innerOffset'); //reset it!
+    sessionStorage.removeItem('innerClosedID'); //reset it!
+  }
+
   // Render
   // ----------------------------------------------------
   render() {
@@ -58,7 +63,7 @@ export default class Navbar extends Component {
     } else {
       return (
         <Link to={`/`}>
-          <div className="navIcon softGrad--primary" onClick={this.props.closeRecordHandler}>
+          <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
             <img src={hamburger} alt="databases" />
           </div>
         </Link>

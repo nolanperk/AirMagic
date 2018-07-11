@@ -479,11 +479,6 @@ export default class TampaSales extends Component {
             // window.location.reload();
           }).bind(this), 10);
         }
-
-
-
-        // sessionStorage.setItem('innerClosedID', this.props.recordId);
-        // sessionStorage.setItem('innerOffset', this.state.dataOffset);
       } else {
         console.log(this.state.data.length - 1 + ' / ' + dataIndex);
       }

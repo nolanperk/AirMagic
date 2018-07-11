@@ -83,6 +83,7 @@ export default class RecordView extends Component {
               spNumber={this.props.currentRecord['SP Number']}
               currentSP={this.props.currentSP}
               spList={this.props.spList}
+              baseId={this.props.baseId}
             />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}

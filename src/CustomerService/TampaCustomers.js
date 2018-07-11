@@ -147,38 +147,6 @@ export default class TampaCustomers extends Component {
     }).bind(this), 50);
   }
 
-  // storedUserCheck = () => {
-  //   if (sessionStorage.getItem('storedUser')) {
-  //     this.setState({
-  //       userName: sessionStorage.getItem('storedUser'),
-  //     })
-  //   }
-  // }
-  userChangeHandler = () => {
-    // let userTable = document.getElementById('userList')
-    // let newUserValue = userTable.options[userTable.selectedIndex].id;
-    //
-    // if (newUserValue !== this.state.userName) {
-    //   this.setState({
-    //     userName: newUserValue,
-    //   })
-    //   sessionStorage.setItem('storedUser', this.state.userName);
-    // }
-  }
-
-  userSubmitHandler = () => {
-    // let userTable = document.getElementById('userList')
-    // let newUserValue = userTable.options[userTable.selectedIndex].id;
-    //
-    // if (newUserValue !== this.state.userName) {
-    //   this.setState({
-    //     userName: newUserValue,
-    //   })
-    //   sessionStorage.setItem('storedUser', this.state.userName);
-    // }
-  }
-
-
   loadSPList = () => {
     let finalURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
     let downloadNow = 0;
@@ -206,22 +174,51 @@ export default class TampaCustomers extends Component {
 
 
   loadSPInfo = () => {
-    let spURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?filterByFormula=IF(%7BNumber%7D%3D%22' + this.state.currentRecord['SP Number'] + '%22%2C+TRUE()%2C+FALSE())&fields%5B%5D=SP+Name&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address';
-    console.log('spURL');
-    console.log(spURL);
-    return axios
-      .get(spURL)
-      .then(response => {
-        let spData = response.data.records[0].fields;
-        let spID = response.data.records[0].id;
-        spData['id'] = spID;
-        this.setState({
-          currentSP: spData,
+    if (this.state.currentRecord['SP Number'] != null) {
+      let spURL = 'https://api.airtable.com/v0/appBsaVxz2OicG5Zw/Franchisees?filterByFormula=IF(%7BNumber%7D%3D%22' + this.state.currentRecord['SP Number'] + '%22%2C+TRUE()%2C+FALSE())&fields%5B%5D=SP+Name&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address';
+      console.log('spURL');
+      console.log(spURL);
+      return axios
+        .get(spURL)
+        .then(response => {
+          let spData = response.data.records[0].fields;
+          let spID = response.data.records[0].id;
+          spData['id'] = spID;
+          this.setState({
+            currentSP: spData,
+          });
         });
+    } else {
+      this.setState({
+        currentSP: {},
       });
+    }
+  }
+
+
+  spChangeHandler = e => {
+    console.log(e.target.value);
+
+    if (this.props.spNumber !== e.target.value) {
+      if (e.target.value !== 'none') {
+        currentRecordState = this.state.currentRecord;
+        currentRecordState['SP Number'] = e.target.value;
+
+        this.setState({
+          currentRecord: currentRecordState,
+          recordChanges: true,
+        });
+
+        this.loadSPInfo();
+      }
+    }
   }
 
   openRecordHandler = (e, key, index)  => {
+    if (this.state.data.length > 100) {
+      sessionStorage.setItem('innerClosedID', this.props.recordId);
+      sessionStorage.setItem('innerOffset', this.state.dataOffset);
+    }
     this.props.history.push('/tampa/customer-service/' + key);
   }
 
@@ -503,6 +500,10 @@ export default class TampaCustomers extends Component {
         currentId: this.props.recordId,
       });
     } else {
+      if (this.state.data.length > 100) {
+        sessionStorage.setItem('innerClosedID', this.props.recordId);
+        sessionStorage.setItem('innerOffset', this.state.dataOffset);
+      }
       this.props.history.push('/tampa/customer-service/');
       this.setState({
           activeModal: false,
@@ -524,30 +525,46 @@ export default class TampaCustomers extends Component {
     } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
       dataIndex ++;
     }
-
-    if (this.state.recordChanges) {
-      this.setState({
-        activeModal: true,
-        modalType: 'saveAlert',
-        recordChanger: true,
-        currentId: this.props.recordId,
-      });
-    } else {
-      this.setState({
-        loading: true,
-      });
-
-      this.props.history.push('/tampa/customer-service/' + this.state.data[dataIndex].id);
-
-      setTimeout((function() {
-        this.setState({
-          loading: false,
-        });
-
-
-        // window.location.reload();
-      }).bind(this), 10);
+    if ((this.state.data.length - 1) < dataIndex) {
+      console.log(dataIndex + ' / ' + this.state.data.length);
+      this.loadMoreRecords();
     }
+
+    let loadMoreChanger = setInterval(function() {
+      if ((this.state.data.length - 1) >= dataIndex) {
+        clearInterval(loadMoreChanger);
+        console.log('clearing it out!');
+
+        if (this.state.recordChanges) {
+          this.setState({
+            activeModal: true,
+            modalType: 'saveAlert',
+            recordChanger: true,
+            currentId: this.props.recordId,
+          });
+        } else {
+          this.setState({
+            loading: true,
+          });
+
+          this.props.history.push('/tampa/customer-service/' + this.state.data[dataIndex].id);
+
+          setTimeout((function() {
+            this.setState({
+              loading: false,
+            });
+
+            setTimeout((function() {
+              document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
+            }).bind(this), 500);
+
+            // window.location.reload();
+          }).bind(this), 10);
+        }
+      } else {
+        console.log(this.state.data.length - 1 + ' / ' + dataIndex);
+      }
+    }.bind(this), 50);
   }
 
   arrowKeyHandler = e => {
@@ -907,22 +924,6 @@ export default class TampaCustomers extends Component {
     }
   }
 
-  spChangeHandler = e => {
-    console.log(e.target.value);
-
-    if (this.props.spNumber !== e.target.value) {
-      currentRecordState = this.state.currentRecord;
-      currentRecordState['SP Number'] = e.target.value;
-
-      this.setState({
-        currentRecord: currentRecordState,
-        recordChanges: true,
-      });
-
-      this.loadSPInfo();
-    }
-  }
-
   submitExport = e => {
     e.preventDefault();
     let startRange;
@@ -1052,7 +1053,10 @@ export default class TampaCustomers extends Component {
         loading: true
       });
     }
+
+    //initial load
     setTimeout((function() {
+      console.log('loading');
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
         finalURL = finalURL + '?';
@@ -1076,7 +1080,6 @@ export default class TampaCustomers extends Component {
       return axios
       .get(finalURL)
       .then(response => {
-        console.log(response);
         this.setState({
           data: response.data.records,
           //put it here
@@ -1102,6 +1105,83 @@ export default class TampaCustomers extends Component {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
             document.title = "Tampa Sales | AirMagic";
+          }
+
+          //keep going if we were on 100+ internally
+          if (sessionStorage.getItem('innerOffset') != null) {
+            this.setState({
+              loading: true,
+            });
+            let savedOffset = sessionStorage.getItem('innerOffset').split('/')[1];
+            console.log(savedOffset);
+
+            let exitChangerLoadMore = setInterval(function() {
+              if (this.state.dataOffset.includes(savedOffset)) {
+                clearInterval(exitChangerLoadMore);
+                console.log('cleared!');
+                setTimeout((function() {
+                  if (this.state.recordView === false) {
+                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
+                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
+                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
+                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
+                    }
+                  }
+                  sessionStorage.removeItem('innerOffset'); //reset it!
+                  sessionStorage.removeItem('innerClosedID'); //reset it!
+
+                  setTimeout((function() {
+                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
+                    // console.log();
+                  }).bind(this), 1000);
+                }).bind(this), 500);
+              } else {
+                console.log('loadmore!');
+                let preData = this.state.data;
+                this.setState({
+                  loadingMore: true,
+                });
+                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+                  finalURL = finalURL + '?';
+
+                  if (this.state.dataOffset !== '') {
+                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.listView !== '') {
+                    finalURL = finalURL + this.state.listView;
+                    if (this.state.sortByLabel !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.sortByLabel !== '') {
+                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+                  }
+                }
+                return axios
+                  .get(finalURL)
+                  .then(response => {
+                    // console.log(response.data.records);
+
+                    this.setState({
+                      data: preData.concat(response.data.records),
+                      //put it here
+                      totalLoads: this.state.totalLoads + 1,
+                      loading: false,
+                      error: false,
+                      dataOffset: response.data.offset,
+                    });
+                    setTimeout((function() {
+                      this.setState({
+                        loadingMore: false,
+                      });
+                    }).bind(this), 500);
+                  })
+              }
+            }.bind(this), 500);
           }
         }).bind(this), 100);
       })
