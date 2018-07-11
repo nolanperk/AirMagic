@@ -68,25 +68,66 @@ export default class TampaSales extends Component {
           })
         }).bind(this), 0);
       } else {
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
-        return axios
-          .get(finalURL)
-          .then(response => {
-            console.log(response);
+        this.setState({
+          loading: true,
+        });
+        let loadUntilFound = setInterval(function() {
+          if (this.state.data.filter(e => e.id === this.props.recordId)[0]) {
+            clearInterval(loadUntilFound);
+            console.log('cleared!');
+            const record = this.state.data.filter(e => e.id === this.props.recordId)[0].fields;
             this.setState({
               recordView: true,
+              currentRecord: record,
+              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
               loading: false,
-              error: false,
-              currentRecord: response.data.fields,
             });
-          })
-          .catch(error => {
-            console.error("error: ", error);
+          } else {
+            console.log('loadmore!');
+            let preData = this.state.data;
             this.setState({
-              error: `${error}`,
-              loading: false,
+              loadingMore: true,
             });
-          });
+            finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+            if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+              finalURL = finalURL + '?';
+
+              if (this.state.dataOffset !== '') {
+                finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                  finalURL = finalURL + '&';
+                }
+              }
+              if (this.state.listView !== '') {
+                finalURL = finalURL + this.state.listView;
+                if (this.state.sortByLabel !== '') {
+                  finalURL = finalURL + '&';
+                }
+              }
+              if (this.state.sortByLabel !== '') {
+                finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+              }
+            }
+            return axios
+              .get(finalURL)
+              .then(response => {
+                // console.log(response.data.records);
+
+                this.setState({
+                  data: preData.concat(response.data.records),
+                  //put it here
+                  totalLoads: this.state.totalLoads + 1,
+                  error: false,
+                  dataOffset: response.data.offset,
+                });
+                setTimeout((function() {
+                  this.setState({
+                    loadingMore: false,
+                  });
+                }).bind(this), 500);
+              })
+          }
+        }.bind(this), 500);
       }
     }
   }
@@ -104,18 +145,16 @@ export default class TampaSales extends Component {
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
 
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
-
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2C%7B' + searchBy + '%7D))';
+        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2C%7B' + searchBy + '%7D))';
+        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       }
-      console.log(finalURL);
 
       return axios
       .get(finalURL)
@@ -136,6 +175,10 @@ export default class TampaSales extends Component {
   }
 
   openRecordHandler = (e, key, index)  => {
+    if (this.state.data.length > 100) {
+      sessionStorage.setItem('innerClosedID', this.props.recordId);
+      sessionStorage.setItem('innerOffset', this.state.dataOffset);
+    }
     this.props.history.push('/tampa/sales/' + key);
   }
 
@@ -375,6 +418,10 @@ export default class TampaSales extends Component {
         currentId: this.props.recordId,
       });
     } else {
+      if (this.state.data.length > 100) {
+        sessionStorage.setItem('innerClosedID', this.props.recordId);
+        sessionStorage.setItem('innerOffset', this.state.dataOffset);
+      }
       this.props.history.push('/tampa/sales/');
       this.setState({
           activeModal: false,
@@ -396,30 +443,51 @@ export default class TampaSales extends Component {
     } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
       dataIndex ++;
     }
-
-    if (this.state.recordChanges) {
-      this.setState({
-        activeModal: true,
-        modalType: 'saveAlert',
-        recordChanger: true,
-        currentId: this.props.recordId,
-      });
-    } else {
-      this.setState({
-        loading: true,
-      });
-
-      this.props.history.push('/tampa/sales/' + this.state.data[dataIndex].id);
-
-      setTimeout((function() {
-        // this.setState({
-        //   loading: false,
-        // });
-
-        //this is not ideal, but it fixes the select boxes from having issues!
-        window.location.reload();
-      }).bind(this), 10);
+    if ((this.state.data.length - 1) < dataIndex) {
+      console.log(dataIndex + ' / ' + this.state.data.length);
+      this.loadMoreRecords();
     }
+
+    let loadMoreChanger = setInterval(function() {
+      if ((this.state.data.length - 1) >= dataIndex) {
+        clearInterval(loadMoreChanger);
+        console.log('clearing it out!');
+
+        if (this.state.recordChanges) {
+          this.setState({
+            activeModal: true,
+            modalType: 'saveAlert',
+            recordChanger: true,
+            currentId: this.props.recordId,
+          });
+        } else {
+          this.setState({
+            loading: true,
+          });
+
+          this.props.history.push('/tampa/sales/' + this.state.data[dataIndex].id);
+
+          setTimeout((function() {
+            this.setState({
+              loading: false,
+            });
+
+            setTimeout((function() {
+              document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
+            }).bind(this), 500);
+
+            // window.location.reload();
+          }).bind(this), 10);
+        }
+
+
+
+        // sessionStorage.setItem('innerClosedID', this.props.recordId);
+        // sessionStorage.setItem('innerOffset', this.state.dataOffset);
+      } else {
+        console.log(this.state.data.length - 1 + ' / ' + dataIndex);
+      }
+    }.bind(this), 50);
   }
 
   arrowKeyHandler = e => {
@@ -600,6 +668,7 @@ export default class TampaSales extends Component {
       })
       .catch(response => {
         console.error("error: ", response);
+        alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
       });
     }
   }
@@ -828,31 +897,43 @@ export default class TampaSales extends Component {
 
 
   loadData = () => {
-    this.setState({ loading: true });
-    finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-      finalURL = finalURL + '?';
-
-      if (this.state.dataOffset !== '') {
-        finalURL = finalURL + 'offset=' + this.state.dataOffset;
-        if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-          finalURL = finalURL + '&';
-        }
-      }
-      if (this.state.listView !== '') {
-        finalURL = finalURL + this.state.listView;
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + '&';
-        }
-      }
-      if (this.state.sortByLabel !== '') {
-        finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-      }
+    if (sessionStorage.getItem('listView') != null) {
+      this.setState({
+        loading: true,
+        listView: sessionStorage.getItem('listView')
+      });
+    } else {
+      this.setState({
+        loading: true
+      });
     }
-    return axios
+
+    //initial load
+    setTimeout((function() {
+      console.log('loading');
+      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+        finalURL = finalURL + '?';
+
+        if (this.state.dataOffset !== '') {
+          finalURL = finalURL + 'offset=' + this.state.dataOffset;
+          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+            finalURL = finalURL + '&';
+          }
+        }
+        if (this.state.listView !== '') {
+          finalURL = finalURL + this.state.listView;
+          if (this.state.sortByLabel !== '') {
+            finalURL = finalURL + '&';
+          }
+        }
+        if (this.state.sortByLabel !== '') {
+          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+        }
+      }
+      return axios
       .get(finalURL)
       .then(response => {
-        console.log(response);
         this.setState({
           data: response.data.records,
           //put it here
@@ -879,6 +960,83 @@ export default class TampaSales extends Component {
           } else {
             document.title = "Tampa Sales | AirMagic";
           }
+
+          //keep going if we were on 100+ internally
+          if (sessionStorage.getItem('innerOffset') != null) {
+            this.setState({
+              loading: true,
+            });
+            let savedOffset = sessionStorage.getItem('innerOffset').split('/')[1];
+            console.log(savedOffset);
+
+            let exitChangerLoadMore = setInterval(function() {
+              if (this.state.dataOffset.includes(savedOffset)) {
+                clearInterval(exitChangerLoadMore);
+                console.log('cleared!');
+                setTimeout((function() {
+                  if (this.state.recordView === false) {
+                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
+                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
+                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
+                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
+                    }
+                  }
+                  sessionStorage.removeItem('innerOffset'); //reset it!
+                  sessionStorage.removeItem('innerClosedID'); //reset it!
+
+                  setTimeout((function() {
+                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
+                    // console.log();
+                  }).bind(this), 1000);
+                }).bind(this), 500);
+              } else {
+                console.log('loadmore!');
+                let preData = this.state.data;
+                this.setState({
+                  loadingMore: true,
+                });
+                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+                  finalURL = finalURL + '?';
+
+                  if (this.state.dataOffset !== '') {
+                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.listView !== '') {
+                    finalURL = finalURL + this.state.listView;
+                    if (this.state.sortByLabel !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.sortByLabel !== '') {
+                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+                  }
+                }
+                return axios
+                  .get(finalURL)
+                  .then(response => {
+                    // console.log(response.data.records);
+
+                    this.setState({
+                      data: preData.concat(response.data.records),
+                      //put it here
+                      totalLoads: this.state.totalLoads + 1,
+                      loading: false,
+                      error: false,
+                      dataOffset: response.data.offset,
+                    });
+                    setTimeout((function() {
+                      this.setState({
+                        loadingMore: false,
+                      });
+                    }).bind(this), 500);
+                  })
+              }
+            }.bind(this), 500);
+          }
         }).bind(this), 100);
       })
       .catch(error => {
@@ -888,6 +1046,7 @@ export default class TampaSales extends Component {
           loading: false,
         });
       });
+    }).bind(this), 10);
   };
 
 
@@ -990,13 +1149,20 @@ export default class TampaSales extends Component {
     });
     if (filterId === "none") {
       this.setState({listView: ''});
+      setTimeout((function() {
+        sessionStorage.removeItem('listView');
+      }).bind(this), 50);
     } else {
       this.setState({listView: 'view=' + filterId});
+      setTimeout((function() {
+        sessionStorage.setItem('listView', this.state.listView);
+      }).bind(this), 50);
     }
     setTimeout((function() {
       console.log(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?offset=' + this.state.dataOffset + this.state.listView);
       this.loadData();
     }).bind(this), 250);
+
   }
 
   loadMoreRecords = () => {
@@ -1050,7 +1216,6 @@ export default class TampaSales extends Component {
       this.props.history.push('/login');
     } else {
       this.loadData();
-
       if (sessionStorage.getItem('userInitials')) {
         let usersInitials = sessionStorage.getItem('userInitials');
         this.setState({

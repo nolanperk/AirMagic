@@ -10,6 +10,15 @@ import SPListItem from './SPListItem';
 
 export default class ModuleSP extends Component {
 
+  copyName = () => {
+    let copyText = document.getElementById("copyBody");
+    copyText.style.display = 'inline';
+    copyText.select();
+    document.execCommand("copy");
+    copyText.style.display = 'none';
+    alert("Copied  " + copyText.value + "'s Name!");
+  }
+
   // Render
   // ----------------------------------------------------
   render() {
@@ -33,6 +42,8 @@ export default class ModuleSP extends Component {
             </div>
           </div>
 
+          <a onClick={this.copyName}>Copy Name</a>
+          <input className="hiddenSPName" id="copyBody" value={this.props.currentSP['SP Name']} />
           <hr />
 
           {this.homePhone}

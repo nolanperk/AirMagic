@@ -7,16 +7,29 @@ export default class ModuleMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      statusValue: this.props.status,
-      standingValue: this.props.standing,
-      recentCallerValue: this.props.recentCaller,
-      repValue: this.props.rep,
+      statusValue: '',
+      standingValue: '',
+      recentCallerValue: '',
+      repValue: '',
     }
   }
+
+
   statusChange = e => {this.setState({statusValue: e.target.value});}
   standingChange = e => {this.setState({standingValue: e.target.value});}
   recentCallerChange = e => {this.setState({recentCallerValue: e.target.value});}
   repChange = e => {this.setState({repValue: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        statusValue: this.props.status,
+        standingValue: this.props.standing,
+        recentCallerValue: this.props.recentCaller,
+        repValue: this.props.rep,
+      })
+    }).bind(this), 50);
+  }
 
   // Render
   // ----------------------------------------------------
@@ -31,7 +44,6 @@ export default class ModuleMain extends Component {
     let callDate = this.props.callDate;
     let callBack = this.props.callBack;
     let website = this.props.website;
-
 
 
 
@@ -58,6 +70,7 @@ export default class ModuleMain extends Component {
               <select id="statusSelect" value={this.state.statusValue} onChange={this.statusChange}>
                 <option id="none"></option>
                 <option id="Prospect">Prospect</option>
+                <option id="Appointment+Set">Appointment Set</option>
                 <option id="APPC">APPC</option>
                 <option id="Closed">Closed</option>
                 <option id="Canceled">Canceled</option>
@@ -76,8 +89,8 @@ export default class ModuleMain extends Component {
                 <option id="Left+VM">Left VM</option>
                 <option id="Left+Email">Left Email</option>
                 <option id="Disconnected">Disconnected</option>
-                <option id="In House">In House</option>
-                <option id="In Contact">In Contact</option>
+                <option id="In+House">In House</option>
+                <option id="In+Contract">In Contract</option>
               </select>
             </div>
           </div>

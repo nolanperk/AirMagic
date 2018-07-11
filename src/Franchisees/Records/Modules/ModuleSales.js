@@ -22,6 +22,18 @@ export default class ModuleSales extends Component {
   attendedChange = e => {this.setState({attendedValue: e.target.value});}
   standingChange = e => {this.setState({standingValue: e.target.value});}
   packetChange = e => {this.setState({packetValue: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        planValue: this.props.plan,
+        arValue: this.props.ar,
+        attendedValue: this.props.attended,
+        packetValue: this.props.packet,
+        standingValue: this.props.standing,
+      })
+    }).bind(this), 50);
+  }
   // Render
   // ----------------------------------------------------
   render() {

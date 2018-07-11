@@ -494,12 +494,11 @@ export default class OrlandoCustomers extends Component {
       this.props.history.push('/orlando/customer-service/' + this.state.data[dataIndex].id);
 
       setTimeout((function() {
-        // this.setState({
-        //   loading: false,
-        // });
+        this.setState({
+          loading: false,
+        });
 
-        //this is not ideal, but it fixes the select boxes from having issues!
-        window.location.reload();
+        // window.location.reload();
       }).bind(this), 10);
     }
   }
@@ -978,28 +977,38 @@ export default class OrlandoCustomers extends Component {
 
 
   loadData = () => {
-    this.setState({ loading: true });
-    finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-      finalURL = finalURL + '?';
-
-      if (this.state.dataOffset !== '') {
-        finalURL = finalURL + 'offset=' + this.state.dataOffset;
-        if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-          finalURL = finalURL + '&';
-        }
-      }
-      if (this.state.listView !== '') {
-        finalURL = finalURL + this.state.listView;
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + '&';
-        }
-      }
-      if (this.state.sortByLabel !== '') {
-        finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-      }
+    if (sessionStorage.getItem('listView') != null) {
+      this.setState({
+        loading: true,
+        listView: sessionStorage.getItem('listView')
+      });
+    } else {
+      this.setState({
+        loading: true
+      });
     }
-    return axios
+    setTimeout((function() {
+      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+        finalURL = finalURL + '?';
+
+        if (this.state.dataOffset !== '') {
+          finalURL = finalURL + 'offset=' + this.state.dataOffset;
+          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+            finalURL = finalURL + '&';
+          }
+        }
+        if (this.state.listView !== '') {
+          finalURL = finalURL + this.state.listView;
+          if (this.state.sortByLabel !== '') {
+            finalURL = finalURL + '&';
+          }
+        }
+        if (this.state.sortByLabel !== '') {
+          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+        }
+      }
+      return axios
       .get(finalURL)
       .then(response => {
         console.log(response);
@@ -1019,10 +1028,6 @@ export default class OrlandoCustomers extends Component {
           document.getElementById('sortBtn').className='ControlsBar--btn isActive';
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
         }
-        if (this.state.currentTable !== 'Customers') {
-          document.getElementById('franchise-info').className="TabItem isActive";
-          document.getElementById('customers').className="TabItem";
-        }
         setTimeout((function() {
           this.setState({
             loadingMore: false,
@@ -1031,7 +1036,7 @@ export default class OrlandoCustomers extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Orlando Customer Service | AirMagic";
+            document.title = "Tampa Sales | AirMagic";
           }
         }).bind(this), 100);
       })
@@ -1042,6 +1047,7 @@ export default class OrlandoCustomers extends Component {
           loading: false,
         });
       });
+    }).bind(this), 10);
   };
 
 
@@ -1139,13 +1145,20 @@ export default class OrlandoCustomers extends Component {
     });
     if (filterId === "none") {
       this.setState({listView: ''});
+      setTimeout((function() {
+        sessionStorage.removeItem('listView');
+      }).bind(this), 50);
     } else {
       this.setState({listView: 'view=' + filterId});
+      setTimeout((function() {
+        sessionStorage.setItem('listView', this.state.listView);
+      }).bind(this), 50);
     }
     setTimeout((function() {
       console.log(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?offset=' + this.state.dataOffset + this.state.listView);
       this.loadData();
     }).bind(this), 250);
+
   }
 
   loadMoreRecords = () => {

@@ -583,6 +583,9 @@ ul {
     position: relative;
     transition: all 0.5s ease;
     cursor: pointer; }
+    .ArchiveItems .cardContainer .ArchiveItem.recentlyClosed {
+      background: #1FC26A;
+      transition: all 0.5s ease; }
     .ArchiveItems .cardContainer .ArchiveItem:hover {
       transform: translateY(-5%);
       background: none;
@@ -726,6 +729,9 @@ ul {
 
 .ControlsBar.recordControls {
   width: 60%; }
+
+.hiddenSPName {
+  display: none; }
 
 hr {
   width: 100%;

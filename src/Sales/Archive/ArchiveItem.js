@@ -35,7 +35,7 @@ export default class ArchiveItem extends Component {
 
 
     return (
-      <div className={classNames} onClick={()=>this.props.openRecordHandler(data, this.props.id, index)} key={this.props.id} index={this.props.index} data={data}>
+      <div className={classNames} onClick={()=>this.props.openRecordHandler(data, this.props.id, index)} key={this.props.id} id={this.props.id} index={this.props.index} data={data}>
         {this.cardContent}
       </div>
     );

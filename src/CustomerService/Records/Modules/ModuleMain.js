@@ -18,6 +18,18 @@ export default class ModuleMain extends Component {
   cpopChange = e => {this.setState({cpopValue: e.target.value});}
   suppliesChange = e => {this.setState({suppliesValue: e.target.value});}
 
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        pamValue: this.props.pam,
+        repValue: this.props.rep,
+        statusValue: this.props.status,
+        cpopValue: this.props.cpop,
+        suppliesValue: this.props.supplies,
+      })
+    }).bind(this), 50);
+  }
+
   // Render
   // ----------------------------------------------------
   render() {

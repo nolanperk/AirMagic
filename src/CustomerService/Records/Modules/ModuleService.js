@@ -15,6 +15,14 @@ export default class ModuleService extends Component {
   }
   standingChange = e => {this.setState({standingValue: e.target.value});}
 
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        standingValue: this.props.standing,
+      })
+    }).bind(this), 50);
+  }
+
 
   // Render
   // ----------------------------------------------------
@@ -83,6 +91,22 @@ export default class ModuleService extends Component {
                 type="text"
                 value={lastVisit}
                 id="lastVisit"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>New SP Start</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={newSP}
+                id="newSP"
                 onChange={this.props.changeRecordHandler}
               />
             </div>

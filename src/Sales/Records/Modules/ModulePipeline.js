@@ -14,7 +14,16 @@ export default class ModulePipeline extends Component {
       setByValue: this.props.setBy,
     }
   }
+
   setByChange = e => {this.setState({setByValue: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        setByValue: this.props.setBy,
+      })
+    }).bind(this), 50);
+  }
   // Render
   // ----------------------------------------------------
   render() {
@@ -23,6 +32,7 @@ export default class ModulePipeline extends Component {
     let apptSet = this.props.apptSet;
     let apptDate = this.props.apptDate;
     let proposal = this.props.proposal;
+    let apptTime = this.props.apptTime;
 
     return (
       <div className="ModuleCard">
@@ -49,7 +59,7 @@ export default class ModulePipeline extends Component {
               className="selectBlock"
               id="setBy"
               >
-              <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
+              <select id="setBySelect" value={this.state.setByValue ? this.state.setByValue : 'none'} onChange={this.setByChange}>
                 <option id="none"></option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
@@ -87,6 +97,17 @@ export default class ModulePipeline extends Component {
               />
             </div>
           </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Appt Time</label>
+            <input
+              type="text"
+              onChange={this.props.changeRecordHandler}
+              value={apptTime}
+              id="apptTime"
+            />
+          </div>
+
           <div className="inputBlock inputBlock--half">
             <label>Proposal Date</label>
             <div className="inputWithTag">
@@ -113,6 +134,7 @@ ModulePipeline.propTypes ={
   callCount: propTypes.string,
   apptBy: propTypes.string,
   apptSet: propTypes.string,
+  apptTime: propTypes.string,
   apptDate: propTypes.string,
   proposal: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,

@@ -23,7 +23,7 @@ export default class SortBy extends Component {
         <div id="sortTable">
           <div className="selectBox">
             <select id="sortLabel">
-              <option id="Company+Name">Name</option>
+              <option id="Company+Name">Company Name</option>
               <option id="Main+contact">Contact</option>
               <option id="Address+1">Address</option>
               <option id="Proposal+Date">Proposal Date</option>

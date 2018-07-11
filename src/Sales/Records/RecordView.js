@@ -52,10 +52,15 @@ export default class RecordView extends Component {
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
             />
-            <ModuleSpecial
-              changeNotesHandler={this.props.changeNotesHandler}
+            <ModulePipeline
               changeRecordHandler={this.props.changeRecordHandler}
-              specialNotes={this.props.currentRecord['Special Notes']}
+              changeSelectBlock={this.props.changeSelectBlock}
+              callCount={this.props.currentRecord['Times Called']}
+              apptBy={this.props.currentRecord['Appt. Set By']}
+              apptSet={this.props.currentRecord['Appt. Set Date']}
+              apptDate={this.props.currentRecord['Appt. Date']}
+              apptTime={this.props.currentRecord['Appt. Time']}
+              proposal={this.props.currentRecord['Proposal Date']}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -67,14 +72,10 @@ export default class RecordView extends Component {
               emp={this.props.currentRecord['Employees']}
               company={this.props.currentRecord['Company Name']}
             />
-            <ModulePipeline
+            <ModuleSpecial
+              changeNotesHandler={this.props.changeNotesHandler}
               changeRecordHandler={this.props.changeRecordHandler}
-              changeSelectBlock={this.props.changeSelectBlock}
-              callCount={this.props.currentRecord['Times Called']}
-              apptBy={this.props.currentRecord['Appt. Set By']}
-              apptSet={this.props.currentRecord['Appt. Set Date']}
-              apptDate={this.props.currentRecord['Appt. Date']}
-              proposal={this.props.currentRecord['Proposal Date']}
+              specialNotes={this.props.currentRecord['Special Notes']}
             />
             <ModuleSchedule
               changeRecordHandler={this.props.changeRecordHandler}

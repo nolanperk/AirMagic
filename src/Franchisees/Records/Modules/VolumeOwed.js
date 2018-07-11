@@ -83,7 +83,7 @@ export default class VolumeOwed extends Component {
     });
     setTimeout((function() {
       finalURL = 'https://api.airtable.com/v0/' + this.props.baseId + '/Accounts';
-      let urlFormula = '?filterByFormula=IF(%7BShort+SP+Name%7D=%22' + this.props.currentRecord["SP Name"].replace(/ /g, '+') + '%22%2C+TRUE()%2C+FALSE())';
+      let urlFormula = '?filterByFormula=IF(%7BShort+SP+Name%7D=%22' + this.props.currentRecord["SP Name"].replace(/ /g, '+') + '%22%2C+TRUE()%2C+FALSE())' + '&sort%5B0%5D%5Bfield%5D=Start+Date';
       finalURL += urlFormula;
 
       console.log(finalURL);

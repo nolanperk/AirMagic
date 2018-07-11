@@ -15,6 +15,14 @@ export default class ModuleSales extends Component {
   }
   setByChange = e => {this.setState({setByValue: e.target.value});}
 
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        setByValue: this.props.setBy,
+      })
+    }).bind(this), 50);
+  }
+
   // Render
   // ----------------------------------------------------
   render() {

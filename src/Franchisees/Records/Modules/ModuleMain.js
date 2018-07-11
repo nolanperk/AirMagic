@@ -13,8 +13,18 @@ export default class ModuleMain extends Component {
       statusValue: this.props.status,
     }
   }
+
   levelChange = e => {this.setState({levelValue: e.target.value});}
   statusChange = e => {this.setState({statusValue: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        levelValue: this.props.level,
+        statusValue: this.props.status,
+      })
+    }).bind(this), 50);
+  }
 
   // Render
   // ----------------------------------------------------
