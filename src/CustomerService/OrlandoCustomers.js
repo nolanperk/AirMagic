@@ -748,7 +748,7 @@ export default class OrlandoCustomers extends Component {
       })
       .catch(response => {
         console.error("error: ", response);
-        alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
+        // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
       });
     }
   }

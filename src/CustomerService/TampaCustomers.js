@@ -749,7 +749,7 @@ export default class TampaCustomers extends Component {
       })
       .catch(response => {
         console.error("error: ", response);
-        alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
+        // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
       });
     }
   }
@@ -1101,7 +1101,7 @@ export default class TampaCustomers extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Tampa Sales | AirMagic";
+            document.title = "Tampa Customers | AirMagic";
           }
 
           //keep going if we were on 100+ internally

@@ -11,13 +11,22 @@ export default class ModuleService extends Component {
     super(props);
     this.state = {
       standingValue: this.props.standing,
+      pamValue: this.props.pam,
+      statusValue: this.props.status,
+      repValue: this.props.rep,
     }
   }
+  statusChange = e => {this.setState({statusValue: e.target.value});}
+  pamChange = e => {this.setState({pamValue: e.target.value});}
+  repChange = e => {this.setState({repValue: e.target.value});}
   standingChange = e => {this.setState({standingValue: e.target.value});}
 
   componentDidMount() {
     setTimeout((function() {
       this.setState({
+        statusValue: this.props.status,
+        pamValue: this.props.pam,
+        repValue: this.props.rep,
         standingValue: this.props.standing,
       })
     }).bind(this), 50);
@@ -28,119 +37,195 @@ export default class ModuleService extends Component {
   // ----------------------------------------------------
   render() {
     let standing = this.props.standing;
+    let special = this.props.special;
     let lastCall = this.props.lastCall;
-    let spName = this.props.spName;
-    let spEmail = this.props.spEmail;
-    let spPhone = this.props.spPhone;
+    let setBy = this.props.setBy
+    let pam = this.props.pam
+    let rep = this.props.rep
     let lastVisit = this.props.lastVisit;
-    let newSP = this.props.newSP;
-    let cancel = this.props.cancel;
-
-    let emailLink = 'mailto:' + spEmail;
-    let spPhoneLink = 'tel:' + spPhone;
 
     return (
       <div className="ModuleCard">
         <div className="inner">
 
+
+
+        <div className="inputBlock inputBlock--half">
+          <label>Status</label>
+          <div
+            className="selectBlock"
+            id="status"
+            >
+            <select id="statusSelect"  value={this.state.statusValue} onChange={this.statusChange}>
+              <option id="none"></option>
+              <option id="Active">Active</option>
+              <option id="APPC">APPC</option>
+              <option id="Additional">Additional</option>
+              <option id="Canceled">Canceled</option>
+              <option id="DNC">DNC</option>
+            </select>
+          </div>
+        </div>
+        <div className="inputBlock inputBlock--half">
+          <label>Standing</label>
+          <div
+            className="selectBlock"
+            id="standing"
+            >
+            <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
+              <option id="none"></option>
+              <option id="Very+Happy">Very Happy</option>
+              <option id="Happy">Happy</option>
+              <option id="Satisfied">Satisfied</option>
+              <option id="Unhappy">Unhappy</option>
+              <option id="New+Customer">New Customer</option>
+              <option id="Canceled">Canceled</option>
+              <option id="Crew+Change">Crew Change</option>
+              <option id="Completed+Work">Completed Work</option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div className="inputBlock inputBlock--half">
+          <label>Last Call</label>
+          <div className="inputWithTag">
+            <div className="inputTag">
+              <img src={calendarImg} />
+            </div>
+            <input
+              type="text"
+              value={lastCall}
+              id="lastCall"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+
+        <div className="inputBlock inputBlock--half">
+          <label>Last Visit</label>
+          <div className="inputWithTag">
+            <div className="inputTag">
+              <img src={calendarImg} />
+            </div>
+            <input
+              type="text"
+              value={lastVisit}
+              id="lastVisit"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+
+
+
           <div className="inputBlock inputBlock--half">
-            <label>Standing</label>
+            <label>PAM</label>
             <div
               className="selectBlock"
-              id="standing"
+              id="pam"
               >
-              <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
-                <option id="none"></option>
-                <option id="Very+Happy">Very Happy</option>
-                <option id="Happy">Happy</option>
-                <option id="Satisfied">Satisfied</option>
-                <option id="Unhappy">Unhappy</option>
-                <option id="New+Customer">New Customer</option>
-                <option id="Canceled">Canceled</option>
-                <option id="Crew+Change">Crew Change</option>
-                <option id="Completed+Work">Completed Work</option>
-              </select>
-            </div>
-          </div>
-
-
-          <div className="inputBlock inputBlock--half">
-            <label>Last Call</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={lastCall}
-                id="lastCall"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-
-
-          <div className="inputBlock inputBlock--half">
-            <label>Last Visit</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={lastVisit}
-                id="lastVisit"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-
-          <div className="inputBlock inputBlock--half">
-            <label>New SP Start</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={newSP}
-                id="newSP"
-                onChange={this.props.changeRecordHandler}
-              />
+              {this.locationPAM}
             </div>
           </div>
 
           <div className="inputBlock inputBlock--half">
-            <label>Cancel Date</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} />
-              </div>
-              <input
-                type="text"
-                value={cancel}
-                id="cancel"
-                onChange={this.props.changeRecordHandler}
-              />
+            <label>Sales Rep</label>
+            <div
+              className="selectBlock"
+              id="rep"
+              >
+              {this.locationSales}
             </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--full">
+            <label>Special Notes</label>
+            <textarea
+              className="NotesList"
+              id="special"
+              rows='3'
+              value={special}
+              onChange={this.props.changeNotesHandler}>
+              {special}
+            </textarea>
           </div>
         </div>
       </div>
     );
   }
+  get locationPAM() {
+    if (this.props.baseId === 'apps7GoAgK23yrOoY') {
+      return (
+        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+          <option id="none"></option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="David+Rivera">David Rivera</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    } else {
+      return (
+        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+          <option id="none"></option>
+          <option id="Sergibeth+Monge">Sergibeth Monge</option>
+          <option id="Christy+Subler">Christy Subler</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    }
+  }
+  get locationSales() {
+    if (this.props.baseId === 'apps7GoAgK23yrOoY') {
+      return (
+        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+          <option id="none"></option>
+          <option id="Tyler+Perkins">Tyler Perkins</option>
+          <option id="Nolan+Perkins">Nolan Perkins</option>
+          <option id="Rafael+Milanes">Rafael Milanes</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="Rob+Janke">Rob Janke</option>
+          <option id="Joel+Horwitz">Joel Horwitz</option>
+          <option id="Christy+Subler">Christy Subler</option>
+          <option id="FR">FR</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    } else {
+      return (
+        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+          <option id="none"></option>
+          <option id="Rob+Janke">Rob Janke</option>
+          <option id="Joel+Horwitz">Joel Horwitz</option>
+          <option id="Christy+Subler">Christy Subler</option>
+          <option id="Tyler+Perkins">Tyler Perkins</option>
+          <option id="Nolan+Perkins">Nolan Perkins</option>
+          <option id="Rafael+Milanes">Rafael Milanes</option>
+          <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="FR">FR</option>
+          <option id="Old">Old</option>
+        </select>
+      )
+    }
+  }
 }
 
 ModuleService.propTypes ={
   standing: propTypes.string,
+  status: propTypes.string,
+  setBy: propTypes.string,
+  pam: propTypes.string,
+  rep: propTypes.string,
+  changeNotesHandler: propTypes.func.isRequired,
+  special: propTypes.string,
+
   lastCall: propTypes.string,
   spName: propTypes.string,
   spPhone: propTypes.string,
   lastVisit: propTypes.string,
-  newSP: propTypes.string,
   spEmail: propTypes.string,
-  cancel: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
 }

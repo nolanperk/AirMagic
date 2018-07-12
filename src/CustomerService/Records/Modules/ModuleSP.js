@@ -50,10 +50,6 @@ export default class ModuleSP extends Component {
           {this.homePhone}
           {this.cellPhone}
           {this.emailLink}
-          {this.partnerName}
-          {this.partnerPhone}
-          {this.englishName}
-          {this.englishPhone}
           {this.spButton}
 
 
@@ -83,6 +79,17 @@ export default class ModuleSP extends Component {
           />
         </div>
       );
+    } else {
+      return (
+        <div className="inputBlock inputBlock--half">
+          <label>Home Phone</label>
+          <input
+            disabled
+            type="text"
+            value=" "
+          />
+        </div>
+      );
     }
   }
   get cellPhone() {
@@ -94,6 +101,17 @@ export default class ModuleSP extends Component {
             disabled
             type="text"
             value={this.props.currentSP['Cellphone']}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="inputBlock inputBlock--half">
+          <label>Cellphone</label>
+          <input
+            disabled
+            type="text"
+            value=" "
           />
         </div>
       );
@@ -111,61 +129,14 @@ export default class ModuleSP extends Component {
           />
         </div>
       );
-    }
-  }
-  get partnerName() {
-    if (this.props.currentSP['Partner Name']) {
+    } else {
       return (
-        <div className="inputBlock inputBlock--half">
-          <label>Partner Name</label>
+        <div className="inputBlock inputBlock--full">
+          <label>Email</label>
           <input
             disabled
             type="text"
-            value={this.props.currentSP['Partner Name'] ? this.props.currentSP['Partner Name'] : ''}
-          />
-        </div>
-      );
-    }
-  }
-
-  get partnerPhone() {
-    if (this.props.currentSP['Partner Phone']) {
-      return (
-        <div className="inputBlock inputBlock--half">
-          <label>Partner Phone</label>
-          <input
-            disabled
-            type="text"
-            value={this.props.currentSP['Partner Phone'] ? this.props.currentSP['Partner Phone'] : ''}
-          />
-        </div>
-      );
-    }
-  }
-  get englishName() {
-    if (this.props.currentSP['English Name']) {
-      return (
-        <div className="inputBlock inputBlock--half">
-          <label>English Name</label>
-          <input
-            disabled
-            type="text"
-            value={this.props.currentSP['English Name'] ? this.props.currentSP['English Name'] : ''}
-          />
-        </div>
-      );
-    }
-  }
-
-  get englishPhone() {
-    if (this.props.currentSP['English Phone']) {
-      return (
-        <div className="inputBlock inputBlock--half">
-          <label>English Phone</label>
-          <input
-            disabled
-            type="text"
-            value={this.props.currentSP['English Phone'] ? this.props.currentSP['English Phone'] : ''}
+            value=" "
           />
         </div>
       );

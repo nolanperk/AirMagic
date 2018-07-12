@@ -33,20 +33,8 @@ export default class RecordView extends Component {
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleMain
-              baseId={this.props.baseId}
               changeRecordHandler={this.props.changeRecordHandler}
               company={this.props.currentRecord['Company Name']}
-              pam={this.props.currentRecord['PAM']}
-              rep={this.props.currentRecord['Sales Rep']}
-              changeNotesHandler={this.props.changeNotesHandler}
-              special={this.props.currentRecord['Special Notes']}
-              status={this.props.currentRecord['Status']}
-              cpop={this.props.currentRecord['CPOP']}
-              supplies={this.props.currentRecord['Addtl Supplies']}
-              changeSelectBlock={this.props.changeSelectBlock}
-            />
-            <ModuleContact
-              changeRecordHandler={this.props.changeRecordHandler}
               salutation={this.props.currentRecord['Salutation']}
               contact={this.props.currentRecord['Main contact']}
               title={this.props.currentRecord['Title']}
@@ -55,15 +43,52 @@ export default class RecordView extends Component {
               ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
-              source={this.props.currentRecord['Lead Source']}
+            />
+            <ModuleSP
+              changeRecordHandler={this.props.changeRecordHandler}
+              changeSelectBlock={this.props.changeSelectBlock}
+              spChangeHandler={this.props.spChangeHandler}
+              spNumber={this.props.currentRecord['SP Number']}
+              currentSP={this.props.currentSP}
+              spList={this.props.spList}
+              baseId={this.props.baseId}
             />
             <ModuleService
               changeRecordHandler={this.props.changeRecordHandler}
+              baseId={this.props.baseId}
               standing={this.props.currentRecord['Standing']}
               lastCall={this.props.currentRecord['Last Call']}
+              pam={this.props.currentRecord['PAM']}
+              rep={this.props.currentRecord['Sales Rep']}
+              status={this.props.currentRecord['Status']}
+              changeNotesHandler={this.props.changeNotesHandler}
+              special={this.props.currentRecord['Special Notes']}
               lastVisit={this.props.currentRecord['Last Visit']}
-              newSP={this.props.currentRecord['New SP Start']}
-              cancel={this.props.currentRecord['Cancel Date']}
+              changeSelectBlock={this.props.changeSelectBlock}
+            />
+            <ModuleSchedule
+              amount={this.props.currentRecord['Monthly Amount']}
+              changeRecordHandler={this.props.changeRecordHandler}
+              hoursPer={this.props.currentRecord['Hours Per']}
+              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
+              timesPerWeek={this.props.currentRecord['Times per Week']}
+              weekDays={this.props.currentRecord['Days of Week']}
+            />
+            <ModuleNumbers
+              changeRecordHandler={this.props.changeRecordHandler}
+              sqFt={this.props.currentRecord['Sq. Footage']}
+              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
+              restrooms={this.props.currentRecord['Restrooms']}
+              ceramic={this.props.currentRecord['Ceramic']}
+              marble={this.props.currentRecord['Marble']}
+              vct={this.props.currentRecord['VCT']}
+              wood={this.props.currentRecord['Wood']}
+              woodLam={this.props.currentRecord['Wood Lam.']}
+              carpet={this.props.currentRecord['Carpet']}
+              other={this.props.currentRecord['Other']}
+
+              cpop={this.props.currentRecord['CPOP']}
+              supplies={this.props.currentRecord['Addtl Supplies']}
               changeSelectBlock={this.props.changeSelectBlock}
             />
             <ModuleLocation
@@ -76,17 +101,11 @@ export default class RecordView extends Component {
               emp={this.props.currentRecord['Employees']}
               company={this.props.currentRecord['Company Name']}
             />
-            <ModuleSP
-              changeRecordHandler={this.props.changeRecordHandler}
-              changeSelectBlock={this.props.changeSelectBlock}
-              spChangeHandler={this.props.spChangeHandler}
-              spNumber={this.props.currentRecord['SP Number']}
-              currentSP={this.props.currentSP}
-              spList={this.props.spList}
-              baseId={this.props.baseId}
-            />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
+              newSP={this.props.currentRecord['New SP Start']}
+              cancel={this.props.currentRecord['Cancel Date']}
+
               setBy={this.props.currentRecord['Appt. Set By']}
               apptSetDate={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
@@ -96,27 +115,8 @@ export default class RecordView extends Component {
               start={this.props.currentRecord['Start Date']}
               preCleanDate={this.props.currentRecord['Pre-Clean Date']}
               preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
-            />
-            <ModuleNumbers
-              changeRecordHandler={this.props.changeRecordHandler}
-              amount={this.props.currentRecord['Monthly Amount']}
-              sqFt={this.props.currentRecord['Sq. Footage']}
-              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
-              restrooms={this.props.currentRecord['Restrooms']}
-              ceramic={this.props.currentRecord['Ceramic']}
-              marble={this.props.currentRecord['Marble']}
-              vct={this.props.currentRecord['VCT']}
-              wood={this.props.currentRecord['Wood']}
-              woodLam={this.props.currentRecord['Wood Lam.']}
-              carpet={this.props.currentRecord['Carpet']}
-              other={this.props.currentRecord['Other']}
-            />
-            <ModuleSchedule
-              changeRecordHandler={this.props.changeRecordHandler}
-              hoursPer={this.props.currentRecord['Hours Per']}
-              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
-              timesPerWeek={this.props.currentRecord['Times per Week']}
-              weekDays={this.props.currentRecord['Days of Week']}
+
+              source={this.props.currentRecord['Lead Source']}
             />
           </div>
         </div>

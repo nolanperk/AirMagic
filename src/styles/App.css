@@ -899,6 +899,8 @@ hr {
       flex-basis: 35%; }
     .ModuleList .inputBlock.inputBlock--quart {
       flex-basis: 22%; }
+    .ModuleList .inputBlock.inputBlock--75 {
+      flex-basis: 73%; }
     .ModuleList .inputBlock.inputBlock--large {
       flex-basis: 61%; }
     .ModuleList .inputBlock label {

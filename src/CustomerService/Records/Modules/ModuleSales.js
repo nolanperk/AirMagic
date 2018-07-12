@@ -34,12 +34,45 @@ export default class ModuleSales extends Component {
     let start = this.props.start;
     let preCleanDate = this.props.preCleanDate;
     let preCleanCharge = this.props.preCleanCharge;
+    let source = this.props.source;
+    let newSP = this.props.newSP;
+    let cancel = this.props.cancel;
 
     return (
       <div className="ModuleCard">
         <div className="inner">
 
+          <div className="inputBlock inputBlock--half">
+            <label>New SP Start</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={newSP}
+                id="newSP"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+            </div>
 
+            <div className="inputBlock inputBlock--half">
+            <label>Cancel Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={cancel}
+                id="cancel"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <hr />
 
           <div className="inputBlock inputBlock--half">
             <label>Walkthrough</label>
@@ -101,6 +134,25 @@ export default class ModuleSales extends Component {
           </div>
         <hr />
 
+
+
+
+        <div className="inputBlock inputBlock--half">
+          <label>Appt. Set By</label>
+          <div
+            className="selectBlock"
+            id="setBy"
+            >
+            <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
+              <option id="none"></option>
+              <option id="Linda+Goldberg">Linda Goldberg</option>
+              <option id="Eric+Kleeman">Eric Kleeman</option>
+              <option id="Sales+Rep">Sales Rep</option>
+              <option id="Outside+Company">Outside Company</option>
+            </select>
+          </div>
+        </div>
+
           <div className="inputBlock inputBlock--half">
             <label>Appt. Set Date</label>
             <div className="inputWithTag">
@@ -113,21 +165,6 @@ export default class ModuleSales extends Component {
                 id="apptSetDate"
                 onChange={this.props.changeRecordHandler}
               />
-            </div>
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>Appt. Set By</label>
-            <div
-              className="selectBlock"
-              id="setBy"
-              >
-              <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
-                <option id="none"></option>
-                <option id="Linda+Goldberg">Linda Goldberg</option>
-                <option id="Eric+Kleeman">Eric Kleeman</option>
-                <option id="Sales+Rep">Sales Rep</option>
-                <option id="Outside+Company">Outside Company</option>
-              </select>
             </div>
           </div>
 
@@ -170,6 +207,16 @@ export default class ModuleSales extends Component {
             </div>
           </div>
 
+          <div className="inputBlock inputBlock--half">
+            <label>Lead Source</label>
+            <input
+              type="text"
+              id="source"
+              value={source}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
 
         </div>
       </div>
@@ -178,8 +225,11 @@ export default class ModuleSales extends Component {
 }
 
 ModuleSales.propTypes ={
+  newSP: propTypes.string,
+  cancel: propTypes.string,
   setBy: propTypes.string,
   apptSetDate: propTypes.string,
+  source: propTypes.string,
   apptDate: propTypes.string,
   proposal: propTypes.string,
   close: propTypes.string,

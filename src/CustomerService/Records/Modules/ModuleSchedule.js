@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
+import dollarImg from '../../../assets/icons/black/dollar.png';
+
 export default class ModuleSchedule extends Component {
 
   // Render
   // ----------------------------------------------------
   render() {
+    let sqFt = this.props.sqFt;
+    let sqFtReal = this.props.sqFtReal;
+    let amount = this.props.amount;
     let hoursPer = this.props.hoursPer;
     let sqFtPer = this.props.sqFtPer;
     let timesPerWeek = this.props.timesPerWeek;
@@ -15,23 +20,20 @@ export default class ModuleSchedule extends Component {
       <div className="ModuleCard">
         <div className="inner">
 
+
           <div className="inputBlock inputBlock--half">
-            <label>Hours Per</label>
-            <input
-              type="text"
-              value={hoursPer}
-              id="hoursPer"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>Sq Ft. / Hour</label>
-            <input
-              type="text"
-              value={sqFtPer}
-              id="sqFtPer"
-              onChange={this.props.changeRecordHandler}
-            />
+            <label>Monthly Amount</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={amount}
+                id="amount"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
           </div>
 
           <div className="inputBlock inputBlock--half">
@@ -54,6 +56,44 @@ export default class ModuleSchedule extends Component {
             />
           </div>
 
+          <div className="inputBlock inputBlock--half">
+            <label>Sq. Footage</label>
+            <input
+              type="text"
+              value={sqFt}
+              id="sqFt"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Actual Sq. Ft.</label>
+            <input
+              type="text"
+              value={sqFtReal}
+              id="sqFtReal"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Hours Per</label>
+            <input
+              type="text"
+              value={hoursPer}
+              id="hoursPer"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Sq Ft. / Hour</label>
+            <input
+              type="text"
+              value={sqFtPer}
+              id="sqFtPer"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
         </div>
       </div>
     );
@@ -61,6 +101,9 @@ export default class ModuleSchedule extends Component {
 }
 
 ModuleSchedule.propTypes ={
+  sqFt: propTypes.string,
+  sqFtReal: propTypes.string,
+  amount: propTypes.string,
   hoursPer: propTypes.string,
   sqFtPer: propTypes.string,
   timesPerWeek: propTypes.string,

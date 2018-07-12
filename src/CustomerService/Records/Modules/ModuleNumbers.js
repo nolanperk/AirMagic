@@ -4,16 +4,30 @@ import propTypes from 'prop-types';
 
 import calendarImg from '../../../assets/icons/black/calendar.png';
 import phoneImg from '../../../assets/icons/black/phone.png';
-import dollarImg from '../../../assets/icons/black/dollar.png';
 
 export default class ModuleNumbers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cpopValue: this.props.cpop,
+      suppliesValue: this.props.supplies,
+    }
+  }
+  cpopChange = e => {this.setState({cpopValue: e.target.value});}
+  suppliesChange = e => {this.setState({suppliesValue: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        cpopValue: this.props.cpop,
+        suppliesValue: this.props.supplies,
+      })
+    }).bind(this), 50);
+  }
 
   // Render
   // ----------------------------------------------------
   render() {
-    let amount = this.props.amount;
-    let sqFt = this.props.sqFt;
-    let sqFtReal = this.props.sqFtReal;
     let restrooms = this.props.restrooms;
     let ceramic = this.props.ceramic;
     let marble = this.props.marble;
@@ -26,41 +40,6 @@ export default class ModuleNumbers extends Component {
     return (
       <div className="ModuleCard">
         <div className="inner">
-
-
-          <div className="inputBlock inputBlock--full">
-            <label>Monthly Amount</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={dollarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={amount}
-                id="amount"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>Sq. Footage</label>
-            <input
-              type="text"
-              value={sqFt}
-              id="sqFt"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-          <div className="inputBlock inputBlock--half">
-            <label>Actual Sq. Ft.</label>
-            <input
-              type="text"
-              value={sqFtReal}
-              id="sqFtReal"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
 
 
           <div className="inputBlock inputBlock--quart">
@@ -140,9 +119,33 @@ export default class ModuleNumbers extends Component {
             />
           </div>
 
-          <div className="inputBlock inputBlock--quart"></div>
 
-
+          <div className="inputBlock inputBlock--half">
+            <label>CPOP</label>
+            <div
+              className="selectBlock"
+              id="cpop"
+              >
+              <select id="cpopSelect"  value={this.state.cpopValue} onChange={this.cpopChange}>
+                <option id="none"></option>
+                <option id="Yes">Yes</option>
+                <option id="No">No</option>
+              </select>
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Supplies</label>
+            <div
+              className="selectBlock"
+              id="supplies"
+              >
+              <select id="suppliesSelect"  value={this.state.suppliesValue} onChange={this.suppliesChange}>
+                <option id="none"></option>
+                <option id="Yes">Yes</option>
+                <option id="No">No</option>
+              </select>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -151,9 +154,6 @@ export default class ModuleNumbers extends Component {
 }
 
 ModuleNumbers.propTypes ={
-  amount: propTypes.string,
-  sqFt: propTypes.string,
-  sqFtReal: propTypes.string,
   restrooms: propTypes.string,
   ceramic: propTypes.string,
   marble: propTypes.string,
@@ -163,4 +163,8 @@ ModuleNumbers.propTypes ={
   carpet: propTypes.string,
   other: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
+
+  cpop: propTypes.string,
+  supplies: propTypes.string,
+  changeSelectBlock: propTypes.func.isRequired,
 }
