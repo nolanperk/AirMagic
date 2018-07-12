@@ -424,6 +424,7 @@ export default class TampaFranchisees extends Component {
       fullDataSet['Packet Sent'] = document.getElementById('packet').value;
       fullDataSet['Attended'] = document.getElementById('attended').value;
       fullDataSet['Standing'] = document.getElementById('standing').value;
+      fullDataSet['Additional Revenue'] = document.getElementById('arSelect').value;
 
 
       let finalPush = {"fields": fullDataSet}
@@ -470,6 +471,7 @@ export default class TampaFranchisees extends Component {
       pushRecord['Packet Sent'] = document.getElementById('packet').value;
       pushRecord['Attended'] = document.getElementById('attended').value;
       pushRecord['Standing'] = document.getElementById('standing').value;
+      pushRecord['Additional Revenue'] = document.getElementById('arSelect').value;
 
 
       let finalPush = {"fields": pushRecord}

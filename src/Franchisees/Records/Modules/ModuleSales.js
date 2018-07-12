@@ -209,7 +209,7 @@ export default class ModuleSales extends Component {
             </div>
           </div>
           <div className="inputBlock inputBlock--half">
-            <label>Aditional Rev?</label>
+            <label>ADDITIONAL REV?</label>
             <div
               className="selectBlock"
               id="ar"

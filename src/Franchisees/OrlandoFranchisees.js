@@ -418,6 +418,10 @@ export default class OrlandoFranchisees extends Component {
       fullDataSet['Status'] = document.getElementById('statusSelect').value;
       fullDataSet['Franchise Level'] = document.getElementById('levelSelect').value;
       fullDataSet['Plan Type'] = document.getElementById('planSelect').value;
+      fullDataSet['Packet Sent'] = document.getElementById('packet').value;
+      fullDataSet['Attended'] = document.getElementById('attended').value;
+      fullDataSet['Standing'] = document.getElementById('standing').value;
+      fullDataSet['Additional Revenue'] = document.getElementById('arSelect').value;
 
 
       let finalPush = {"fields": fullDataSet}
@@ -461,6 +465,10 @@ export default class OrlandoFranchisees extends Component {
       pushRecord['Status'] = document.getElementById('statusSelect').value;
       pushRecord['Franchise Level'] = document.getElementById('levelSelect').value;
       pushRecord['Plan Type'] = document.getElementById('planSelect').value;
+      pushRecord['Packet Sent'] = document.getElementById('packet').value;
+      pushRecord['Attended'] = document.getElementById('attended').value;
+      pushRecord['Standing'] = document.getElementById('standing').value;
+      pushRecord['Additional Revenue'] = document.getElementById('arSelect').value;
 
 
       let finalPush = {"fields": pushRecord}

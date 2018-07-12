@@ -303,6 +303,8 @@ ul {
     vertical-align: middle;
     z-index: 1;
     position: relative; }
+  .Navbar select {
+    position: absolute; }
   .Navbar h4 {
     margin-left: 1vw; }
   .Navbar .TabList {
