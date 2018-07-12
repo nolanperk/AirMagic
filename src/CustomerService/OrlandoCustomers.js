@@ -1480,6 +1480,7 @@ export default class OrlandoCustomers extends Component {
           userChangeHandler={this.userChangeHandler}
           userSubmitHandler={this.userSubmitHandler}
           submitExport={this.submitExport}
+          exportRecord={this.exportRecord}
         />
         )
     }
