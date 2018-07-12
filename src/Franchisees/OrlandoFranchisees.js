@@ -104,18 +104,15 @@ export default class OrlandoFranchisees extends Component {
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
-
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
-
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2C%7B' + searchBy + '%7D))';
+        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2C%7B' + searchBy + '%7D))';
+        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       }
-      console.log(finalURL);
 
       return axios
       .get(finalURL)

@@ -68,66 +68,25 @@ export default class TampaSales extends Component {
           })
         }).bind(this), 0);
       } else {
-        this.setState({
-          loading: true,
-        });
-        let loadUntilFound = setInterval(function() {
-          if (this.state.data.filter(e => e.id === this.props.recordId)[0]) {
-            clearInterval(loadUntilFound);
-            console.log('cleared!');
-            const record = this.state.data.filter(e => e.id === this.props.recordId)[0].fields;
+        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
+        return axios
+          .get(finalURL)
+          .then(response => {
+            console.log(response);
             this.setState({
               recordView: true,
-              currentRecord: record,
-              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+              loading: false,
+              error: false,
+              currentRecord: response.data.fields,
+            });
+          })
+          .catch(error => {
+            console.error("error: ", error);
+            this.setState({
+              error: `${error}`,
               loading: false,
             });
-          } else {
-            console.log('loadmore!');
-            let preData = this.state.data;
-            this.setState({
-              loadingMore: true,
-            });
-            finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-            if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-              finalURL = finalURL + '?';
-
-              if (this.state.dataOffset !== '') {
-                finalURL = finalURL + 'offset=' + this.state.dataOffset;
-                if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-                  finalURL = finalURL + '&';
-                }
-              }
-              if (this.state.listView !== '') {
-                finalURL = finalURL + this.state.listView;
-                if (this.state.sortByLabel !== '') {
-                  finalURL = finalURL + '&';
-                }
-              }
-              if (this.state.sortByLabel !== '') {
-                finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-              }
-            }
-            return axios
-              .get(finalURL)
-              .then(response => {
-                // console.log(response.data.records);
-
-                this.setState({
-                  data: preData.concat(response.data.records),
-                  //put it here
-                  totalLoads: this.state.totalLoads + 1,
-                  error: false,
-                  dataOffset: response.data.offset,
-                });
-                setTimeout((function() {
-                  this.setState({
-                    loadingMore: false,
-                  });
-                }).bind(this), 500);
-              })
-          }
-        }.bind(this), 500);
+          });
       }
     }
   }
@@ -147,7 +106,6 @@ export default class TampaSales extends Component {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
-
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
@@ -170,7 +128,6 @@ export default class TampaSales extends Component {
           document.getElementById('searchBy').value = searchByValue;
         }).bind(this), 50);
       })
-
     }).bind(this), 50);
   }
 
@@ -1051,6 +1008,7 @@ export default class TampaSales extends Component {
       loading: true,
       dataOffset: '',
     });
+    sessionStorage.removeItem('isSearching');
     this.loadData();
   }
 
