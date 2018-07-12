@@ -204,7 +204,7 @@ export default class OrlandoSales extends Component {
           .then(response => {
             this.props.history.push(destinationURL);
             this.loadData();
-            alert("The " + response.data['Company Name'] + " record has been moved to the Tampa Customers database.\n\n Let's go there now!");
+            alert("The " + response.data['Company Name'] + " record has been moved to the Orlando Customers database.\n\n Let's go there now!");
           });
     })
     .catch(response => {
@@ -709,7 +709,7 @@ export default class OrlandoSales extends Component {
           let finalDate;
           if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
           else {finalDate = 'DATE'}
-          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/Tampa/' + mergeType + '" to view the file.');
+          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/Orlando/' + mergeType + '" to view the file.');
 
         })
     }
@@ -847,25 +847,30 @@ export default class OrlandoSales extends Component {
 
     //initial load
     setTimeout((function() {
-      console.log('loading');
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
         finalURL = finalURL + '?';
 
         if (this.state.dataOffset !== '') {
           finalURL = finalURL + 'offset=' + this.state.dataOffset;
-          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+          if (this.state.sortByLabel !== '' || this.state.listView !== '' || sessionStorage.getItem('jumpLetters')) {
             finalURL = finalURL + '&';
           }
         }
-        if (this.state.listView !== '') {
-          finalURL = finalURL + this.state.listView;
-          if (this.state.sortByLabel !== '') {
-            finalURL = finalURL + '&';
+        if (sessionStorage.getItem('jumpLetters')) {
+          sessionStorage.removeItem('listView');
+          finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+        } else {
+          if (this.state.listView !== '') {
+            finalURL = finalURL + this.state.listView;
+            if (this.state.sortByLabel !== '') {
+              finalURL = finalURL + '&';
+            }
+            if (this.state.sortByLabel !== '') {
+              finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+            }
           }
-        }
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
         }
       }
       return axios
@@ -888,6 +893,9 @@ export default class OrlandoSales extends Component {
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
         }
         setTimeout((function() {
+          if (sessionStorage.getItem('jumpLetters')) {
+            document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
+          }
           this.setState({
             loadingMore: false,
           });
@@ -895,7 +903,7 @@ export default class OrlandoSales extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Tampa Sales | AirMagic";
+            document.title = "Orlando Sales | AirMagic";
           }
 
           //keep going if we were on 100+ internally
@@ -916,6 +924,9 @@ export default class OrlandoSales extends Component {
                       window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
                       document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
                       console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
+                    }
+                    if (sessionStorage.getItem('jumpLetters')) {
+                      document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
                     }
                   }
                   sessionStorage.removeItem('innerOffset'); //reset it!

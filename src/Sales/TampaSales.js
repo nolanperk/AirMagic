@@ -853,7 +853,7 @@ export default class TampaSales extends Component {
   jumpLetters = e => {
     console.log(e.target.value);
     if (e.target.value !== 'none') {
-      let jumpFormula = "filterByFormula=(FIND(%27" + e.target.value + "%27%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C+1)))";
+      let jumpFormula = e.target.value;
       sessionStorage.setItem('jumpLetters', jumpFormula);
     } else {
       sessionStorage.removeItem('jumpLetters');
@@ -863,182 +863,167 @@ export default class TampaSales extends Component {
 
 
   loadData = () => {
-    if (sessionStorage.getItem('jumpLetters')) {
-      console.log(sessionStorage.getItem('jumpLetters'));
-      sessionStorage.removeItem('listView');
-      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?' + sessionStorage.getItem('jumpLetters');
-      console.log(finalURL);
-      return axios
-        .get(finalURL)
-        .then(response => {
-          console.log(response);
-          this.setState({
-            recordView: true,
-            loading: false,
-            error: false,
-            currentRecord: response.data.fields,
-          });
-        })
-        .catch(error => {
-          console.error("error: ", error);
-          this.setState({
-            error: `${error}`,
-            loading: false,
-          });
-        });
-
-      // sessionStorage.removeItem('jumpLetters')
+    if (sessionStorage.getItem('listView') != null) {
+      this.setState({
+        loading: true,
+        listView: sessionStorage.getItem('listView')
+      });
     } else {
-      if (sessionStorage.getItem('listView') != null) {
-        this.setState({
-          loading: true,
-          listView: sessionStorage.getItem('listView')
-        });
-      } else {
-        this.setState({
-          loading: true
-        });
-      }
+      this.setState({
+        loading: true
+      });
+    }
 
-      //initial load
-      setTimeout((function() {
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-        if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-          finalURL = finalURL + '?';
+    //initial load
+    setTimeout((function() {
+      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
 
-          if (this.state.dataOffset !== '') {
-            finalURL = finalURL + 'offset=' + this.state.dataOffset;
-            if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-              finalURL = finalURL + '&';
-            }
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
+        finalURL = finalURL + '?';
+
+        if (this.state.dataOffset !== '') {
+          finalURL = finalURL + 'offset=' + this.state.dataOffset;
+          if (this.state.sortByLabel !== '' || this.state.listView !== '' || sessionStorage.getItem('jumpLetters')) {
+            finalURL = finalURL + '&';
           }
+        }
+        if (sessionStorage.getItem('jumpLetters')) {
+          sessionStorage.removeItem('listView');
+          finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+        } else {
           if (this.state.listView !== '') {
             finalURL = finalURL + this.state.listView;
             if (this.state.sortByLabel !== '') {
               finalURL = finalURL + '&';
             }
-          }
-          if (this.state.sortByLabel !== '') {
-            finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+            if (this.state.sortByLabel !== '') {
+              finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+            }
           }
         }
-        return axios
-        .get(finalURL)
-        .then(response => {
+      }
+      return axios
+      .get(finalURL)
+      .then(response => {
+        this.setState({
+          data: response.data.records,
+          //put it here
+          loading: false,
+          error: false,
+          loadingMore: true,
+          dataOffset: response.data.offset,
+        });
+        if (this.state.listView !== '') {
+          document.getElementById('filterBtn').className='ControlsBar--btn isActive';
+          document.getElementById('filterBtn').getElementsByTagName('p')[0].innerHTML=this.state.listView.replace('view=', '').replace('+', ' ');
+        }
+        if (this.state.sortByLabel !== 'Company+Name') {
+          document.getElementById('sortBtn').className='ControlsBar--btn isActive';
+          document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
+        }
+        setTimeout((function() {
+          if (sessionStorage.getItem('jumpLetters')) {
+            document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
+          }
           this.setState({
-            data: response.data.records,
-            //put it here
-            loading: false,
-            error: false,
-            loadingMore: true,
-            dataOffset: response.data.offset,
+            loadingMore: false,
           });
-          if (this.state.listView !== '') {
-            document.getElementById('filterBtn').className='ControlsBar--btn isActive';
-            document.getElementById('filterBtn').getElementsByTagName('p')[0].innerHTML=this.state.listView.replace('view=', '').replace('+', ' ');
+
+          if (this.state.recordView) {
+            document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
+          } else {
+            document.title = "Tampa Sales | AirMagic";
           }
-          if (this.state.sortByLabel !== 'Company+Name') {
-            document.getElementById('sortBtn').className='ControlsBar--btn isActive';
-            document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
-          }
-          setTimeout((function() {
+
+          //keep going if we were on 100+ internally
+          if (sessionStorage.getItem('innerOffset') != null) {
             this.setState({
-              loadingMore: false,
+              loading: true,
             });
+            let savedOffset = sessionStorage.getItem('innerOffset').split('/')[1];
+            console.log(savedOffset);
 
-            if (this.state.recordView) {
-              document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
-            } else {
-              document.title = "Tampa Sales | AirMagic";
-            }
-
-            //keep going if we were on 100+ internally
-            if (sessionStorage.getItem('innerOffset') != null) {
-              this.setState({
-                loading: true,
-              });
-              let savedOffset = sessionStorage.getItem('innerOffset').split('/')[1];
-              console.log(savedOffset);
-
-              let exitChangerLoadMore = setInterval(function() {
-                if (this.state.dataOffset.includes(savedOffset)) {
-                  clearInterval(exitChangerLoadMore);
-                  console.log('cleared!');
-                  setTimeout((function() {
-                    if (this.state.recordView === false) {
-                      if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
-                        window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
-                        document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
-                        console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                      }
+            let exitChangerLoadMore = setInterval(function() {
+              if (this.state.dataOffset.includes(savedOffset)) {
+                clearInterval(exitChangerLoadMore);
+                console.log('cleared!');
+                setTimeout((function() {
+                  if (this.state.recordView === false) {
+                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
+                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
+                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
+                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
                     }
-                    sessionStorage.removeItem('innerOffset'); //reset it!
-                    sessionStorage.removeItem('innerClosedID'); //reset it!
-
-                    setTimeout((function() {
-                      // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
-                      // console.log();
-                    }).bind(this), 1000);
-                  }).bind(this), 500);
-                } else {
-                  console.log('loadmore!');
-                  let preData = this.state.data;
-                  this.setState({
-                    loadingMore: true,
-                  });
-                  finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-                  if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-                    finalURL = finalURL + '?';
-
-                    if (this.state.dataOffset !== '') {
-                      finalURL = finalURL + 'offset=' + this.state.dataOffset;
-                      if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-                        finalURL = finalURL + '&';
-                      }
-                    }
-                    if (this.state.listView !== '') {
-                      finalURL = finalURL + this.state.listView;
-                      if (this.state.sortByLabel !== '') {
-                        finalURL = finalURL + '&';
-                      }
-                    }
-                    if (this.state.sortByLabel !== '') {
-                      finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+                    if (sessionStorage.getItem('jumpLetters')) {
+                      document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
                     }
                   }
-                  return axios
-                    .get(finalURL)
-                    .then(response => {
-                      // console.log(response.data.records);
+                  sessionStorage.removeItem('innerOffset'); //reset it!
+                  sessionStorage.removeItem('innerClosedID'); //reset it!
 
-                      this.setState({
-                        data: preData.concat(response.data.records),
-                        //put it here
-                        totalLoads: this.state.totalLoads + 1,
-                        loading: false,
-                        error: false,
-                        dataOffset: response.data.offset,
-                      });
-                      setTimeout((function() {
-                        this.setState({
-                          loadingMore: false,
-                        });
-                      }).bind(this), 500);
-                    })
+                  setTimeout((function() {
+                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
+                    // console.log();
+                  }).bind(this), 1000);
+                }).bind(this), 500);
+              } else {
+                console.log('loadmore!');
+                let preData = this.state.data;
+                this.setState({
+                  loadingMore: true,
+                });
+                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+                  finalURL = finalURL + '?';
+
+                  if (this.state.dataOffset !== '') {
+                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.listView !== '') {
+                    finalURL = finalURL + this.state.listView;
+                    if (this.state.sortByLabel !== '') {
+                      finalURL = finalURL + '&';
+                    }
+                  }
+                  if (this.state.sortByLabel !== '') {
+                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+                  }
                 }
-              }.bind(this), 500);
-            }
-          }).bind(this), 100);
-        })
-        .catch(error => {
-          console.error("error: ", error);
-          this.setState({
-            error: `${error}`,
-            loading: false,
-          });
+                return axios
+                  .get(finalURL)
+                  .then(response => {
+                    // console.log(response.data.records);
+
+                    this.setState({
+                      data: preData.concat(response.data.records),
+                      //put it here
+                      totalLoads: this.state.totalLoads + 1,
+                      loading: false,
+                      error: false,
+                      dataOffset: response.data.offset,
+                    });
+                    setTimeout((function() {
+                      this.setState({
+                        loadingMore: false,
+                      });
+                    }).bind(this), 500);
+                  })
+              }
+            }.bind(this), 500);
+          }
+        }).bind(this), 100);
+      })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          error: `${error}`,
+          loading: false,
         });
-      }).bind(this), 10);
-    }
+      });
+    }).bind(this), 10);
   };
 
 

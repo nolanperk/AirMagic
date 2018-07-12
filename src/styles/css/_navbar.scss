@@ -11,11 +11,64 @@
     z-index: 1;
     position: relative;
   }
+  .inputBlock {
+    display: inline-block;
+    margin-bottom: 11px;
+    position: relative;
+    margin-left: 20px;
 
-  select {
-    position: absolute;
+    .selectBlock {
+      position: relative;
+      &::after {
+        background: url('../assets/icons/black/down_carrot.png');
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        background-size: cover;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      @extend %sansB;
+      color: #8C7376;
+      width: 100%;
+    }
+
+    select {
+      border: solid 1px $medGray;
+      width: 100%;
+      padding: 0.5vw 0.35vw;
+      font-size: 14px;
+      outline: 0;
+      background: white;
+      border-radius: 0;
+
+      &:focus {
+        border: solid 1px darken($darkGray, 5%);
+      }
+    }
+
+    select {
+      -webkit-appearance: none;
+      padding: 0.3vw 0.35vw;
+      background: $white;
+      padding-right: 30px;
+    }
+
+    input[type='checkbox'] {
+      background: blue;
+    }
+
   }
-
   h4 {
     margin-left: 1vw;
   }
@@ -76,9 +129,22 @@
   }
 }
 
+
+
+.recordNav {
+  .inputBlock {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .Navbar h4 {
     margin-left: 10px;
     font-size: 16px;
+  }
+  .Navbar {
+    .inputBlock {
+      display: none;
+    }
   }
 }

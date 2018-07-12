@@ -3,7 +3,7 @@
   font-family: "proxima-nova", sans-serif;
   font-weight: 400; }
 
-.boldText, #loginTable .inputBlock label, .Navbar .TabItem.isActive, .ModuleList .inputBlock label, .FilterModal li, .UserModal li {
+.boldText, #loginTable .inputBlock label, .Navbar .inputBlock label, .Navbar .TabItem.isActive, .ModuleList .inputBlock label, .FilterModal li, .UserModal li {
   font-family: "proxima-nova", sans-serif;
   font-weight: 700; }
 
@@ -303,8 +303,48 @@ ul {
     vertical-align: middle;
     z-index: 1;
     position: relative; }
-  .Navbar select {
-    position: absolute; }
+  .Navbar .inputBlock {
+    display: inline-block;
+    margin-bottom: 11px;
+    position: relative;
+    margin-left: 20px; }
+    .Navbar .inputBlock .selectBlock {
+      position: relative; }
+      .Navbar .inputBlock .selectBlock::after {
+        background: url("../assets/icons/black/down_carrot.png");
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        background-size: cover;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%); }
+    .Navbar .inputBlock label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8C7376;
+      width: 100%; }
+    .Navbar .inputBlock select {
+      border: solid 1px #d2d2d2;
+      width: 100%;
+      padding: 0.5vw 0.35vw;
+      font-size: 14px;
+      outline: 0;
+      background: white;
+      border-radius: 0; }
+      .Navbar .inputBlock select:focus {
+        border: solid 1px #cfcfcc; }
+    .Navbar .inputBlock select {
+      -webkit-appearance: none;
+      padding: 0.3vw 0.35vw;
+      background: #fff;
+      padding-right: 30px; }
+    .Navbar .inputBlock input[type='checkbox'] {
+      background: blue; }
   .Navbar h4 {
     margin-left: 1vw; }
   .Navbar .TabList {
@@ -344,10 +384,15 @@ ul {
       float: none;
       margin-left: 20px; }
 
+.recordNav .inputBlock {
+  display: none; }
+
 @media only screen and (max-width: 767px) {
   .Navbar h4 {
     margin-left: 10px;
-    font-size: 16px; } }
+    font-size: 16px; }
+  .Navbar .inputBlock {
+    display: none; } }
 
 .ControlsBar {
   position: fixed;
