@@ -833,6 +833,19 @@ export default class OrlandoSales extends Component {
   }
 
 
+
+
+  jumpLetters = e => {
+    console.log(e.target.value);
+    if (e.target.value !== 'none') {
+      let jumpFormula = e.target.value;
+      sessionStorage.setItem('jumpLetters', jumpFormula);
+    } else {
+      sessionStorage.removeItem('jumpLetters');
+    }
+    window.location.reload();
+  }
+
   loadData = () => {
     if (sessionStorage.getItem('listView') != null) {
       this.setState({
@@ -1236,6 +1249,7 @@ export default class OrlandoSales extends Component {
           recordChanges= {this.state.recordChanges}
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
+          jumpLetters={this.jumpLetters}
         />
 
         {this.currentView}
