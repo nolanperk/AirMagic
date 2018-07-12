@@ -826,36 +826,36 @@ export default class OrlandoCustomers extends Component {
 
 
       if (mergeType === 'Account Acceptance') {
-        mergeURL.id = '176886/8jbqkq';
+        mergeURL.id = '176884/i87kfg';
         fileLocation += '/Account Acceptance Forms/'
       }
       if (mergeType === 'Account Cancelation') {
-        mergeURL.id = '176887/1dmywl';
+        mergeURL.id = '176886/8jbqkq';
         fileLocation += '/Account Cancelation Forms/'
       }
       if (mergeType === 'Account Credit') {
-        mergeURL.id = '176895/7nb3c3'
+        mergeURL.id = '176887/1dmywl'
         fileLocation += '/Account Credits/'
       }
       if (mergeType === 'Account Changes') {
-        mergeURL.id = '176888/i4j16z' //
+        mergeURL.id = '176895/7nb3c3' //
         fileLocation += '/Account Increase Decrease Letters/'
       }
       if (mergeType === 'Offer Sheet') {
-        mergeURL.id = '176889/hfxfr4';//
+        mergeURL.id = '176888/i4j16z';//
         fileLocation += '/Account Offer Sheets/'
       }
       if (mergeType === 'Account Relinquish') {
-        mergeURL.id = '176890/m75y2p';
+        mergeURL.id = '176889/hfxfr4';
         fileLocation += '/Account Relinquish Forms/'
       }
       if (mergeType === 'Account Welcome Letter') {
-        mergeURL.id = '176892/z7ddwz';//
+        mergeURL.id = '176890/m75y2p';//
         fileLocation += '/'
       }
       if (mergeType === 'Bid Sheets') {
         let contactArr = mergeData['Main contact'].split(" ");
-        mergeURL.id = '176867/7me778';
+        mergeURL.id = '176892/z7ddwz';
         fileLocation += '/Bid Sheets/'
       }
       if (mergeType === 'Crew Change') {

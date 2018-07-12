@@ -176,13 +176,13 @@ export default class ModuleSP extends Component {
     if (this.props.baseId === 'appBUKBn552B8SlbE') {
       return (
         <div className="cardTag">
-          <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+          <a className="btn softGrad--primary" href={'/orlando/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
         </div>
       )
     } else {
       return (
         <div className="cardTag">
-          <a className="btn softGrad--primary" href={'/orlando/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
+          <a className="btn softGrad--primary" href={'/tampa/franchisees/' + this.props.currentSP['id']} target="_blank">View SP Record</a>
         </div>
       )
     }

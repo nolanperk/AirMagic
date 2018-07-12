@@ -12,6 +12,7 @@ export default class Navbar extends Component {
   revertMemory = () => {
     sessionStorage.removeItem('innerOffset'); //reset it!
     sessionStorage.removeItem('innerClosedID'); //reset it!
+    sessionStorage.removeItem('listView');
   }
 
   // Render
