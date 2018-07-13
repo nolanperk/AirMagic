@@ -13,6 +13,7 @@ export default class Navbar extends Component {
     sessionStorage.removeItem('innerOffset'); //reset it!
     sessionStorage.removeItem('innerClosedID'); //reset it!
     sessionStorage.removeItem('listView');
+    sessionStorage.removeItem('jumpLetters');
   }
 
   // Render

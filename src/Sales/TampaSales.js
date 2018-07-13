@@ -883,22 +883,22 @@ export default class TampaSales extends Component {
 
         if (this.state.dataOffset !== '') {
           finalURL = finalURL + 'offset=' + this.state.dataOffset;
-          if (this.state.sortByLabel !== '' || this.state.listView !== '' || sessionStorage.getItem('jumpLetters')) {
+          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
             finalURL = finalURL + '&';
           }
         }
+        if (this.state.listView !== '') {
+          finalURL = finalURL + this.state.listView;
+          if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
+            finalURL = finalURL + '&';
+          }
+        }
+
         if (sessionStorage.getItem('jumpLetters')) {
-          sessionStorage.removeItem('listView');
           finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
         } else {
-          if (this.state.listView !== '') {
-            finalURL = finalURL + this.state.listView;
-            if (this.state.sortByLabel !== '') {
-              finalURL = finalURL + '&';
-            }
-            if (this.state.sortByLabel !== '') {
-              finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-            }
+          if (this.state.sortByLabel !== '') {
+            finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
           }
         }
       }
@@ -953,9 +953,6 @@ export default class TampaSales extends Component {
                       window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
                       document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
                       console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                    }
-                    if (sessionStorage.getItem('jumpLetters')) {
-                      document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
                     }
                   }
                   sessionStorage.removeItem('innerOffset'); //reset it!
