@@ -33,7 +33,7 @@ export default class TampaSales extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: 'appEX8GXgcD2ln4dB',
       currentTable: 'Sales',
-      listView: '',
+      listView: 'view=All',
       sortByLabel: 'Company+Name',
       sortByOrder: 'asc',
       currentRecord: [],
@@ -401,7 +401,7 @@ export default class TampaSales extends Component {
     } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
       dataIndex ++;
     }
-    if ((this.state.data.length - 1) < dataIndex) {
+    if ((this.state.data.length - 1) <= dataIndex) {
       console.log(dataIndex + ' / ' + this.state.data.length);
       this.loadMoreRecords();
     }
@@ -1146,7 +1146,7 @@ export default class TampaSales extends Component {
       loadingMore: true,
     });
     finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
       finalURL = finalURL + '?';
 
       if (this.state.dataOffset !== '') {
@@ -1157,12 +1157,17 @@ export default class TampaSales extends Component {
       }
       if (this.state.listView !== '') {
         finalURL = finalURL + this.state.listView;
-        if (this.state.sortByLabel !== '') {
+        if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
           finalURL = finalURL + '&';
         }
       }
-      if (this.state.sortByLabel !== '') {
-        finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+
+      if (sessionStorage.getItem('jumpLetters')) {
+        finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+      } else {
+        if (this.state.sortByLabel !== '') {
+          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+        }
       }
     }
     return axios
