@@ -52,7 +52,6 @@ export default class TampaSales extends Component {
       searchQuery: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
-      currentLetter: 'none',
     }
   }
 
@@ -180,7 +179,7 @@ export default class TampaSales extends Component {
       'Marble': this.state.currentRecord['Marble'],
       'VCT': this.state.currentRecord['VCT'],
       'Wood': this.state.currentRecord['Wood'],
-      'Wood Lam.': this.state.currentRecord['Wood Lam.'],
+      'Wood Lam': this.state.currentRecord['Wood Lam'],
       'Carpet': this.state.currentRecord['Carpet'],
       'Other': this.state.currentRecord['Other'],
       'Hours Per': this.state.currentRecord['Hours Per'],

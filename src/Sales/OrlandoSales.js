@@ -180,7 +180,7 @@ export default class OrlandoSales extends Component {
       'Marble': this.state.currentRecord['Marble'],
       'VCT': this.state.currentRecord['VCT'],
       'Wood': this.state.currentRecord['Wood'],
-      'Wood Lam.': this.state.currentRecord['Wood Lam.'],
+      'Wood Lam': this.state.currentRecord['Wood Lam'],
       'Carpet': this.state.currentRecord['Carpet'],
       'Other': this.state.currentRecord['Other'],
       'Hours Per': this.state.currentRecord['Hours Per'],
@@ -255,7 +255,7 @@ export default class OrlandoSales extends Component {
       'Marble': null,
       'VCT': null,
       'Wood': null,
-      'Wood Lam.': null,
+      'Wood Lam': null,
       'Carpet': null,
       'Other': null,
       'Hours Per': null,
@@ -345,7 +345,7 @@ export default class OrlandoSales extends Component {
     else if (e.target.id === 'marble') {currentRecordState['Marble'] = e.target.value}
     else if (e.target.id === 'vct') {currentRecordState['VCT'] = e.target.value}
     else if (e.target.id === 'wood') {currentRecordState['Wood'] = e.target.value}
-    else if (e.target.id === 'woodLam') {currentRecordState['Wood Lam.'] = e.target.value}
+    else if (e.target.id === 'woodLam') {currentRecordState['Wood Lam'] = e.target.value}
     else if (e.target.id === 'carpet') {currentRecordState['Carpet'] = e.target.value}
     else if (e.target.id === 'other') {currentRecordState['Other'] = e.target.value}
 

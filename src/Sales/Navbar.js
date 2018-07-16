@@ -41,35 +41,7 @@ export default class Navbar extends Component {
           <h4>{navTitle}</h4>
           <div className="inputBlock">
             <div className="selectBlock">
-              <select id="jumpLetters" value={this.props.currentLetter} onChange={this.props.jumpLetters}>
-                <option value="none">Jump to Letter</option>
-                <option value="a">A</option>
-                <option value="b">B</option>
-                <option value="c">C</option>
-                <option value="d">D</option>
-                <option value="e">E</option>
-                <option value="f">F</option>
-                <option value="g">G</option>
-                <option value="h">H</option>
-                <option value="i">I</option>
-                <option value="j">J</option>
-                <option value="k">K</option>
-                <option value="l">L</option>
-                <option value="m">M</option>
-                <option value="n">N</option>
-                <option value="o">O</option>
-                <option value="p">P</option>
-                <option value="q">Q</option>
-                <option value="r">R</option>
-                <option value="s">S</option>
-                <option value="t">T</option>
-                <option value="u">U</option>
-                <option value="v">V</option>
-                <option value="w">W</option>
-                <option value="x">X</option>
-                <option value="y">Y</option>
-                <option value="z">Z</option>
-              </select>
+              {this.viewSelects}
             </div>
           </div>
           {this.downloadButton}
@@ -77,6 +49,49 @@ export default class Navbar extends Component {
       </div>
 
     );
+  }
+  get viewSelects() {
+    if (this.props.recordView) {
+      return (
+        <select id="viewSelect" value={this.props.currentView} onChange={this.props.viewSelect}>
+          <option value="default">Default View</option>
+          <option value="appointment">Appointment View</option>
+          <option value="inside">Inside Sales View</option>
+        </select>
+      );
+    } else {
+      return (
+        <select id="jumpLetters" value={this.props.currentLetter} onChange={this.props.jumpLetters}>
+          <option value="none">Jump to Letter</option>
+          <option value="a">A</option>
+          <option value="b">B</option>
+          <option value="c">C</option>
+          <option value="d">D</option>
+          <option value="e">E</option>
+          <option value="f">F</option>
+          <option value="g">G</option>
+          <option value="h">H</option>
+          <option value="i">I</option>
+          <option value="j">J</option>
+          <option value="k">K</option>
+          <option value="l">L</option>
+          <option value="m">M</option>
+          <option value="n">N</option>
+          <option value="o">O</option>
+          <option value="p">P</option>
+          <option value="q">Q</option>
+          <option value="r">R</option>
+          <option value="s">S</option>
+          <option value="t">T</option>
+          <option value="u">U</option>
+          <option value="v">V</option>
+          <option value="w">W</option>
+          <option value="x">X</option>
+          <option value="y">Y</option>
+          <option value="z">Z</option>
+        </select>
+      );
+    }
   }
   get closeButton() {
     if (this.props.recordView) {
@@ -121,6 +136,8 @@ export default class Navbar extends Component {
 
 Navbar.propTypes ={
   recordView: propTypes.bool.isRequired,
+  viewSelect: propTypes.func.isRequired,
+  currentView: propTypes.string.isRequired,
   jumpLetters: propTypes.func.isRequired,
   currentLetter: propTypes.string.isRequired,
   closeRecordHandler: propTypes.func.isRequired,
