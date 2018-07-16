@@ -10,17 +10,13 @@ export default class ListContent extends Component {
   render() {
     const { index, data } = this.props;
 
-    if (this.props.searchQuery !== '') {
-      console.log('yo');
-    }
-
     this.gridLayout();
     if (this.props.searchQuery !== '') {
       return (
         <div className="ArchiveItems">
           <div className="btn softGrad--primary" onClick={this.props.clearSearch}>Clear Search</div>
           <div className="cardContainer">
-            {data.map((e, i) => this.archiveItem(e, i))}
+            {data ? data.map((e, i) => this.archiveItem(e, i)) : ''}
           </div>
         </div>
       );
@@ -28,7 +24,7 @@ export default class ListContent extends Component {
       return (
         <div className="ArchiveItems">
           <div className="cardContainer">
-            {data.map((e, i) => this.archiveItem(e, i))}
+            {data ? data.map((e, i) => this.archiveItem(e, i)) : ''}
           </div>
         </div>
       );

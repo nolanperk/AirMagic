@@ -13,17 +13,19 @@ import loader from '../assets/loader.gif';
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
 import ListContent from './Archive/ListContent';
-import ControlsBar from './ControlsBar';
-import ModalView from './ModalView';
+import ControlsBar from '../Globals/ControlsBar';
+import ModalView from '../Globals/ModalView';
+import FranchiseView from './FranchiseView';
 
 let currentRecordState = [];
+let currentFranchiseState = [];
 let revertState = [];
 let dataIndex = [];
 let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class TampaSales extends Component {
+export default class CustomerService extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -31,9 +33,9 @@ export default class TampaSales extends Component {
       error: "",
       data: null,
       dataURL: 'https://api.airtable.com/v0/',
-      baseId: 'appEX8GXgcD2ln4dB',
-      currentTable: 'Sales',
-      listView: 'view=All',
+      baseId: '',
+      currentTable: 'Customers',
+      listView: 'view=All+Actives',
       sortByLabel: 'Company+Name',
       sortByOrder: 'asc',
       currentRecord: [],
@@ -41,9 +43,11 @@ export default class TampaSales extends Component {
       currentId: [],
       fallbackRecord: [],
       recordView: false,
+      franchiseView: false,
       recordChanges: false,
       activeModal: false,
       modalType: '',
+      currentFranchise: [],
       recordChanger: false,
       dataOffset: '',
       loadingMore: false,
@@ -52,21 +56,27 @@ export default class TampaSales extends Component {
       searchQuery: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
+      currentSP: [],
+      spList: [],
+      spListOffset: '',
     }
   }
 
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.loading && !nextState.loading && this.props.recordId != null) {
-      if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
-        this.props.recordId;
-        const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
-        setTimeout((function() {
-          this.setState({
-            recordView: true,
-            currentRecord: record,
-            currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-          })
-        }).bind(this), 0);
+    if (this.state.loading && !nextState.loading) {
+      if (this.props.recordId != null) {
+        if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
+          this.props.recordId;
+          const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
+          setTimeout((function() {
+            this.setState({
+              recordView: true,
+              currentRecord: record,
+              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+            })
+          }).bind(this), 0);
+        }
+      } else if (this.props.citySet != null) {
       } else {
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
         return axios
@@ -89,6 +99,24 @@ export default class TampaSales extends Component {
           });
       }
     }
+  }
+
+  componentWillMount() {
+    console.log(this.props.citySet);
+    if (this.props.citySet === 'tampa') {
+      this.setState({
+        loading: false,
+        baseId: 'apps7GoAgK23yrOoY',
+      });
+    } else if(this.props.citySet === 'orlando') {
+      this.setState({
+        loading: false,
+        baseId: 'appBUKBn552B8SlbE',
+      });
+    }
+    setTimeout((function() {
+      console.log('loading data from ' + this.state.baseId);
+    }).bind(this), 50);
   }
 
 
@@ -128,7 +156,88 @@ export default class TampaSales extends Component {
           document.getElementById('searchBy').value = searchByValue;
         }).bind(this), 50);
       })
+
     }).bind(this), 50);
+  }
+
+  loadSPList = () => {
+    let franchCityBase;
+    if (this.props.citySet === 'tampa') {
+      franchCityBase = 'appBsaVxz2OicG5Zw';
+    } else if (this.props.citySet === 'orlando') {
+      franchCityBase = 'appLxxBrc9m3yNXdQ';
+    }
+
+    let finalURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
+    let downloadNow = 0;
+
+    let loadAllData = setInterval(function() {
+      if (this.state.spListOffset !== '') {finalURL = finalURL + '&offset=' + this.state.spListOffset;}
+      let preData = this.state.spList;
+      return axios
+        .get(finalURL)
+        .then(response => {
+          downloadNow ++;
+          this.setState({
+            spList: preData.concat(response.data.records),
+            spListOffset: response.data.offset,
+          });
+          console.log(response.data.offset);
+        }).catch(error => {
+          downloadNow ++;
+          clearInterval(loadAllData);
+          sessionStorage.setItem('tampaSPLoaded', true);
+          sessionStorage.setItem('tampaSPList', this.state.spList);
+        });
+    }.bind(this), 500);
+  };
+
+
+  loadSPInfo = () => {
+    let franchCityBase;
+    if (this.props.citySet === 'tampa') {
+      franchCityBase = 'appBsaVxz2OicG5Zw';
+    } else if (this.props.citySet === 'orlando') {
+      franchCityBase = 'appLxxBrc9m3yNXdQ';
+    }
+    if (this.state.currentRecord['SP Number'] != null) {
+      let spURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?filterByFormula=IF(%7BNumber%7D%3D%22' + this.state.currentRecord['SP Number'] + '%22%2C+TRUE()%2C+FALSE())&fields%5B%5D=SP+Name&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address';
+      console.log('spURL');
+      console.log(spURL);
+      return axios
+        .get(spURL)
+        .then(response => {
+          let spData = response.data.records[0].fields;
+          let spID = response.data.records[0].id;
+          spData['id'] = spID;
+          this.setState({
+            currentSP: spData,
+          });
+        });
+    } else {
+      this.setState({
+        currentSP: {},
+      });
+    }
+  }
+
+
+  spChangeHandler = e => {
+    console.log(e.target.value);
+
+    if (this.props.spNumber !== e.target.value) {
+      if (e.target.value !== 'none') {
+        currentRecordState = this.state.currentRecord;
+        currentRecordState['SP Number'] = e.target.value;
+
+        this.setState({
+          currentRecord: currentRecordState,
+          recordChanges: true,
+        });
+
+        this.loadSPInfo();
+      }
+    }
   }
 
   openRecordHandler = (e, key, index)  => {
@@ -136,154 +245,157 @@ export default class TampaSales extends Component {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
       sessionStorage.setItem('innerOffset', this.state.dataOffset);
     }
-    this.props.history.push('/tampa/sales/' + key);
-  }
-
-  moveDatabasesHandler = () => {
-    let currentRecordId = this.props.recordId;
-    this.setState({
-      loading: true,
-    });
-
-    let pushRecord = {
-      'Company Name': this.state.currentRecord['Company Name'],
-      'Main contact': this.state.currentRecord['Main contact'],
-      'Title': this.state.currentRecord['Title'],
-      'Alternate Contact': this.state.currentRecord['Alternate Contact'],
-      'Office Phone': this.state.currentRecord['Office Phone'],
-      'Extension': this.state.currentRecord['Extension'],
-      'Cell Phone': this.state.currentRecord['Cell Phone'],
-      'Email': this.state.currentRecord['Email'],
-      'Lead Source': this.state.currentRecord['Lead Source'],
-      'Cancel Date': this.state.currentRecord['Cancel Date'],
-      'Address 1': this.state.currentRecord['Address 1'],
-      'Address 2': this.state.currentRecord['Address 2'],
-      'City': this.state.currentRecord['City'],
-      'Zip': this.state.currentRecord['Zip'],
-      'County': this.state.currentRecord['County'],
-      'Employees': this.state.currentRecord['Employees'],
-      'Appt. Set Date': this.state.currentRecord['Appt. Set Date'],
-      'Appt Set By': this.state.currentRecord['Appt Set By'],
-      'Appt. Date': this.state.currentRecord['Appt. Date'],
-      'Close Date': this.state.currentRecord['Close Date'],
-      'Proposal Date': this.state.currentRecord['Proposal Date'],
-      'Walkthrough Date': this.state.currentRecord['Walkthrough Date'],
-      'Start Date': this.state.currentRecord['Start Date'],
-      'Pre-Clean Date': this.state.currentRecord['Pre-Clean Date'],
-      'Pre-Clean Charge': this.state.currentRecord['Pre-Clean Charge'],
-      'Monthly Amount': this.state.currentRecord['Monthly Amount'],
-      'Sq. Footage': this.state.currentRecord['Sq. Footage'],
-      'Actual Sq Footage': this.state.currentRecord['Actual Sq Footage'],
-      'Restrooms': this.state.currentRecord['Restrooms'],
-      'Ceramic': this.state.currentRecord['Ceramic'],
-      'Marble': this.state.currentRecord['Marble'],
-      'VCT': this.state.currentRecord['VCT'],
-      'Wood': this.state.currentRecord['Wood'],
-      'Wood Lam': this.state.currentRecord['Wood Lam'],
-      'Carpet': this.state.currentRecord['Carpet'],
-      'Other': this.state.currentRecord['Other'],
-      'Hours Per': this.state.currentRecord['Hours Per'],
-      'SQ Ft. per Hour': this.state.currentRecord['SQ Ft. per Hour'],
-      'Times per Week': this.state.currentRecord['Times per Week'],
-      'Days of Week': this.state.currentRecord['Days of Week'],
-      'Sales Rep': this.state.currentRecord['Sales Rep'],
-      'Notes': this.state.currentRecord['Notes'],
-      'Status': 'Active',
-      'Special Notes': this.state.currentRecord['Special Notes'],
-      'Standing': 'New Customer',
-    }
-    let destinationURL;
-    let finalPush = {"fields": pushRecord}
-    axios
-    .post(this.state.dataURL + 'apps7GoAgK23yrOoY/Customers/', finalPush)
-      .then(response => {
-        destinationURL = '/tampa/customer-service/' + response.data.id;
-        return axios
-          .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
-          .then(response => {
-            this.props.history.push(destinationURL);
-            this.loadData();
-            alert("The " + response.data['Company Name'] + " record has been moved to the Tampa Customers database.\n\n Let's go there now!");
-          });
-    })
-    .catch(response => {
-      console.error("error: ", response);
-    });
+    this.props.history.push('/' + this.props.citySet + '/customer-service/' + key);
   }
 
   newRecordHandler = ()  => {
-    currentRecordState = {
-      'Company Name': 'New Company',
-      'Industry': null,
-      'Times Called': null,
-      'Recent Call Date': null,
-      'Callback Date': null,
-      'Website': null,
+    if (!this.state.franchiseView) {
+      currentRecordState = {
+        'Company Name': 'New Company',
+        'CPOP': null,
+        'Addtl Supplies': null,
+        'Salutation': null,
+        'Main contact': null,
+        'Title': null,
+        'Alternate Contact': null,
+        'Office Phone': null,
+        'Extension': null,
+        'Cell Phone': null,
+        'Email': null,
+        'Lead Source': null,
+        'Last Call': null,
+        'SP Name': null,
+        'SP Phone': null,
+        'Last Visit': null,
+        'New SP Start': null,
+        'Cancel Date': null,
+        'Address 1': null,
+        'Address 2': null,
+        'City': null,
+        'Zip': null,
+        'County': null,
+        'Employees': null,
+        'Appt. Set Date': null,
+        'Appt. Set By': null,
+        'Appt. Date': null,
+        'Close Date': null,
+        'Proposal Date': null,
+        'Walkthrough Date': null,
+        'Start Date': null,
+        'SP Email': null,
+        'Pre-Clean Date': null,
+        'Pre-Clean Charge': null,
+        'Monthly Amount': null,
+        'Sq. Footage': null,
+        'Actual Sq Footage': null,
+        'Restrooms': null,
+        'Ceramic': null,
+        'Marble': null,
+        'VCT': null,
+        'Wood': null,
+        'Wood Lam.': null,
+        'Carpet': null,
+        'Other': null,
+        'Hours Per': null,
+        'SQ Ft. per Hour': null,
+        'Times per Week': null,
+        'Days of Week': null,
+        'PAM': null,
+        'Sales Rep': null,
+        'Status': null,
+        'Standing': null,
+      };
 
-      'Status': null,
-      'Sales Rep': null,
-      'Standing': null,
-      'Recent Caller': null,
-      'Appt. Set By': null,
+      console.log(currentRecordState);
 
-      'Special Notes': null,
+      this.setState({
+        recordView: true,
+        newRecord: true,
+        currentRecord: currentRecordState,
+      })
 
-      'Appt. Set Date': null,
-      'Appt. Date': null,
-      'Proposal Date': null,
-      'Close Date': null,
-      'Walkthrough Date': null,
-      'Start Date': null,
-      'Pre-Clean Date': null,
-      'Pre-Clean Charge': null,
-      'Cancel Date': null,
+      setTimeout((function() {
+        console.log(this.state.currentRecord);
+      }).bind(this), 250);
+    } else {
+      currentFranchiseState = {
+        'Provider Name': '',
+        'PROV #': '',
+        'Home Number': '',
+        'Cell Number': '',
+        'Alternate Contact': '',
+        'Alternate Contact Phone': '',
+      }
+      let pushRecord = currentFranchiseState;
+      let finalPush = {"fields": pushRecord}
 
-      'Salutation': null,
-      'Main contact': null,
-      'Title': null,
-      'Alternate Contact': null,
-      'Office Phone': null,
-      'Extension': null,
-      'Cell Phone': null,
-      'Email': null,
-      'Lead Source': null,
+      axios
+      .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
+        .then(response => {
+          this.setState({
+            recordChanges: false,
+            // loading: true,
+            data: this.state.data.concat(response.data),
+            // data: this.state.data.push(response.data),
+          });
+        })
+        .catch(response => {
+          console.error("error: ", response);
+        });
 
-      'Address 1': null,
-      'Address 2': null,
-      'City': null,
-      'Zip': null,
-      'County': null,
-      'Employees': null,
+    }
+  }
 
-      'Monthly Amount': null,
-      'Sq. Footage': null,
-      'Actual Sq Footage': null,
-      'Restrooms': null,
-      'Ceramic': null,
-      'Marble': null,
-      'VCT': null,
-      'Wood': null,
-      'Wood Lam': null,
-      'Carpet': null,
-      'Other': null,
 
-      'Hours Per': null,
-      'SQ Ft. per Hour': null,
-      'Times per Week': null,
-      'Days of Week': null,
-    };
 
-    console.log(currentRecordState);
+  switchTableHandler = (e) => {
+    if (e.target.id === "customers") {
+      if (this.state.currentTable !== 'Customers') {
+        if (this.state.recordChanges) {
+          let franchDataSet = this.state.data;
+          let pushRecord = this.state.currentFranchise;
+          let pushRecordId = franchDataSet[this.state.currentId].id;
 
-    this.setState({
-      recordView: true,
-      newRecord: true,
-      currentRecord: currentRecordState,
-    })
+          let finalPush = {"fields": pushRecord}
+          axios
+          .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
+            .then(response => {
+            this.setState({
+              recordChanges: false,
+            });
+          })
+          .catch(response => {
+            console.error("error: ", response);
+          });
+        }
+        this.setState({
+          currentTable: 'Customers',
+          franchiseView: false,
+          sortByLabel: 'Company+Name',
+          sortByOrder: 'asc',
+          recordChanges: false,
+          dataOffset: '',
+          listView: 'view=All+Actives',
+        });
+        setTimeout((function() {
+          this.loadData();
+        }).bind(this), 50);
+      }
+    } else {
+      if (this.state.currentTable !== 'Franchise%20Info') {
 
-    setTimeout((function() {
-      console.log(this.state.currentRecord);
-    }).bind(this), 250);
+        this.setState({
+          sortByLabel: '',
+          listView: '',
+          dataOffset: '',
+          currentTable: 'Franchise%20Info',
+          franchiseView: true,
+        });
+        setTimeout((function() {
+          this.loadData();
+        }).bind(this), 50);
+      }
+    }
   }
   changeNotesHandler = e => {
     if (e.target.id === 'special') {
@@ -309,23 +421,6 @@ export default class TampaSales extends Component {
     currentRecordState = this.state.currentRecord;
 
     if (e.target.id === 'company') {currentRecordState['Company Name'] = e.target.value}
-    else if (e.target.id === 'industry') {currentRecordState['Industry'] = e.target.value}
-    else if (e.target.id === 'callCount') {currentRecordState['Times Called'] = e.target.value}
-    else if (e.target.id === 'callDate') {currentRecordState['Recent Call Date'] = e.target.value}
-    else if (e.target.id === 'callBack') {currentRecordState['Callback Date'] = e.target.value}
-    else if (e.target.id === 'website') {currentRecordState['Website'] = e.target.value}
-
-    else if (e.target.id === 'apptSet') {currentRecordState['Appt. Set Date'] = e.target.value}
-    else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
-    else if (e.target.id === 'proposal') {currentRecordState['Proposal Date'] = e.target.value}
-    else if (e.target.id === 'closed') {currentRecordState['Close Date'] = e.target.value}
-    else if (e.target.id === 'walkthrough') {currentRecordState['Walkthrough Date'] = e.target.value}
-    else if (e.target.id === 'start') {currentRecordState['Start Date'] = e.target.value}
-    else if (e.target.id === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = e.target.value}
-    else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
-    else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
-
-
     else if (e.target.id === 'salutation') {currentRecordState['Salutation'] = e.target.value}
     else if (e.target.id === 'contact') {currentRecordState['Main contact'] = e.target.value}
     else if (e.target.id === 'title') {currentRecordState['Title'] = e.target.value}
@@ -335,14 +430,28 @@ export default class TampaSales extends Component {
     else if (e.target.id === 'cell') {currentRecordState['Cell Phone'] = e.target.value}
     else if (e.target.id === 'email') {currentRecordState['Email'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Lead Source'] = e.target.value}
-
+    else if (e.target.id === 'lastCall') {currentRecordState['Last Call'] = e.target.value}
+    else if (e.target.id === 'spName') {currentRecordState['SP Name'] = e.target.value}
+    else if (e.target.id === 'spPhone') {currentRecordState['SP Phone'] = e.target.value}
+    else if (e.target.id === 'lastVisit') {currentRecordState['Last Visit'] = e.target.value}
+    else if (e.target.id === 'newSP') {currentRecordState['New SP Start'] = e.target.value}
+    else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
     else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}
     else if (e.target.id === 'addr2') {currentRecordState['Address 2'] = e.target.value}
+    else if (e.target.id === 'spEmail') {currentRecordState['SP Email'] = e.target.value}
     else if (e.target.id === 'city') {currentRecordState['City'] = e.target.value}
     else if (e.target.id === 'zip') {currentRecordState['Zip'] = e.target.value}
     else if (e.target.id === 'county') {currentRecordState['County'] = e.target.value}
     else if (e.target.id === 'emp') {currentRecordState['Employees'] = e.target.value}
-
+    else if (e.target.id === 'apptSetDate') {currentRecordState['Appt. Set Date'] = e.target.value}
+    else if (e.target.id === 'apptSetBy') {currentRecordState['Appt. Set By'] = e.target.value}
+    else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
+    else if (e.target.id === 'close') {currentRecordState['Close Date'] = e.target.value}
+    else if (e.target.id === 'proposal') {currentRecordState['Proposal Date'] = e.target.value}
+    else if (e.target.id === 'walkthrough') {currentRecordState['Walkthrough Date'] = e.target.value}
+    else if (e.target.id === 'start') {currentRecordState['Start Date'] = e.target.value}
+    else if (e.target.id === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = e.target.value}
+    else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
     else if (e.target.id === 'amount') {currentRecordState['Monthly Amount'] = e.target.value}
     else if (e.target.id === 'sqFt') {currentRecordState['Sq. Footage'] = e.target.value}
     else if (e.target.id === 'sqFtReal') {currentRecordState['Actual Sq Footage'] = e.target.value}
@@ -351,10 +460,9 @@ export default class TampaSales extends Component {
     else if (e.target.id === 'marble') {currentRecordState['Marble'] = e.target.value}
     else if (e.target.id === 'vct') {currentRecordState['VCT'] = e.target.value}
     else if (e.target.id === 'wood') {currentRecordState['Wood'] = e.target.value}
-    else if (e.target.id === 'woodLam') {currentRecordState['Wood Lam'] = e.target.value}
+    else if (e.target.id === 'woodLam') {currentRecordState['Wood Lam.'] = e.target.value}
     else if (e.target.id === 'carpet') {currentRecordState['Carpet'] = e.target.value}
     else if (e.target.id === 'other') {currentRecordState['Other'] = e.target.value}
-
     else if (e.target.id === 'hoursPer') {currentRecordState['Hours Per'] = e.target.value}
     else if (e.target.id === 'sqFtPer') {currentRecordState['SQ Ft. per Hour'] = e.target.value}
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
@@ -363,6 +471,49 @@ export default class TampaSales extends Component {
 
     this.setState({
       currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+  }
+  editingFranchise = (e, key, index) => {
+    if (this.state.recordChanges) {
+      let franchDataSet = this.state.data;
+      let pushRecord = this.state.currentFranchise;
+      let pushRecordId = franchDataSet[this.state.currentId].id;
+
+      let finalPush = {"fields": pushRecord}
+
+      axios
+      .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
+        .then(response => {
+        this.setState({
+          recordChanges: false,
+        });
+      })
+      .catch(response => {
+        console.error("error: ", response);
+      });
+    }
+    setTimeout((function() {
+      this.setState({
+        currentFranchise: e,
+        currentId: index,
+      });
+    }).bind(this), 100);
+
+  }
+
+  changeFranchiseHandler = e => {
+    currentFranchiseState = this.state.currentFranchise;
+
+    if (e.target.id === 'name') {currentFranchiseState['Provider Name'] = e.target.value}
+    else if (e.target.id === 'prov') {currentFranchiseState['PROV #'] = e.target.value}
+    else if (e.target.id === 'home') {currentFranchiseState['Home Number'] = e.target.value}
+    else if (e.target.id === 'cell') {currentFranchiseState['Cell Number'] = e.target.value}
+    else if (e.target.id === 'alt') {currentFranchiseState['Alternate Contact'] = e.target.value}
+    else if (e.target.id === 'altPhone') {currentFranchiseState['Alternate Contact Phone'] = e.target.value}
+
+    this.setState({
+      currentFranchise: currentFranchiseState,
       recordChanges: true,
     })
   }
@@ -379,7 +530,7 @@ export default class TampaSales extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/tampa/sales/');
+      this.props.history.push('/' + this.props.citySet + '/customer-service/');
       this.setState({
           activeModal: false,
           modalType: '',
@@ -400,7 +551,7 @@ export default class TampaSales extends Component {
     } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
       dataIndex ++;
     }
-    if ((this.state.data.length - 1) <= dataIndex) {
+    if ((this.state.data.length - 1) < dataIndex) {
       console.log(dataIndex + ' / ' + this.state.data.length);
       this.loadMoreRecords();
     }
@@ -422,7 +573,7 @@ export default class TampaSales extends Component {
             loading: true,
           });
 
-          this.props.history.push('/tampa/sales/' + this.state.data[dataIndex].id);
+          this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -470,7 +621,7 @@ export default class TampaSales extends Component {
 
           if (this.state.recordChanger) {
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/tampa/sales/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
             this.setState({
               data: fullDataSet,
               recordChanger: false,
@@ -481,7 +632,7 @@ export default class TampaSales extends Component {
 
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/tampa/sales/');
+            this.props.history.push('/' + this.props.citySet + '/customer-service/');
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -513,10 +664,12 @@ export default class TampaSales extends Component {
   saveRecordHandler = () => {
     if (this.state.newRecord) {
       let fullDataSet = this.state.currentRecord;
-      fullDataSet["Status"] = document.getElementById('statusSelect').value;
+      fullDataSet["PAM"] = document.getElementById('pamSelect').value;
       fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
+      fullDataSet["Status"] = document.getElementById('statusSelect').value;
       fullDataSet["Standing"] = document.getElementById('standingSelect').value;
-      fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
+      fullDataSet["CPOP"] = document.getElementById('cpopSelect').value;
+      fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
       fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
 
 
@@ -552,17 +705,22 @@ export default class TampaSales extends Component {
         pushRecordId = fullDataSet[fallbackRecordIndex].id
       } else {
         pushRecord = this.state.currentRecord;
-        pushRecordId = this.props.recordId;
+        if (this.state.currentTable === 'Customers') {
+          pushRecordId = this.props.recordId;
+        } else {
+          pushRecordId = this.state.currentId;
+        }
       }
-      pushRecord["Status"] = document.getElementById('statusSelect').value;
+      pushRecord["PAM"] = document.getElementById('pamSelect').value;
       pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
+      pushRecord["Status"] = document.getElementById('statusSelect').value;
       pushRecord["Standing"] = document.getElementById('standingSelect').value;
-      pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
+      pushRecord["CPOP"] = document.getElementById('cpopSelect').value;
+      pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
       pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
 
 
       let finalPush = {"fields": pushRecord}
-      console.log(finalPush);
       axios
       .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
         .then(response => {
@@ -571,18 +729,18 @@ export default class TampaSales extends Component {
             loading: true,
           })
           if (this.state.recordChanger) {
-            this.props.history.push('/tampa/sales/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
             setTimeout((function() {
               this.setState({
                 recordChanger: false,
                 activeModal: false,
-                modalType: '',
                 recordChanges: false,
+                modalType: '',
               });
             }).bind(this), 10);
           } else {
             if (this.state.modalType === 'saveAlert') {
-              this.props.history.push('/tampa/sales/');
+              this.props.history.push('/' + this.props.citySet + '/customer-service/');
               this.setState({
                 data: fullDataSet,
                 recordView: false,
@@ -644,73 +802,190 @@ export default class TampaSales extends Component {
     })
   }
 
-
-
   exportRecord = e => {
     e.preventDefault();
 
-    let mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-merge');
+    let mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
     let mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
-    let mergeURL;
-    let finalURL;
+    let mergeURL; let finalURL;
+    let fileLocation = 'Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase();
 
     if (mergeTemp !== 'none') {
       let mergeData = this.state.currentRecord;
-
-      if (mergeType === 'Proposal') {
-        mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: ''}
-
-        if (mergeTemp === 'tmp-standard') {mergeURL.id = '177990/dl44vl';}
-        if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
-        if (mergeTemp === 'tmp-medical') {mergeURL.id = '177992/u7ybcx';}
-        if (mergeTemp === 'tmp-schools') {mergeURL.id = '177993/r57mym';}
-        if (mergeTemp === 'tmp-1x') {mergeURL.id = '177994/zwklbq';}
-
-        if (mergeTemp === 'nwp-standard') {mergeURL.id = '177995/2r9k6c';}
-        if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
-        if (mergeTemp === 'nwp-medical') {mergeURL.id = '177997/qw4acl';}
-        if (mergeTemp === 'nwp-schools') {mergeURL.id = '177998/u6qxyj';}
-        if (mergeTemp === 'nwp-1x') {mergeURL.id = '177999/ycpgia';}
-
-        if (mergeTemp === 'ram-standard') {mergeURL.id = '177723/u7be1d';}
-        if (mergeTemp === 'ram-once') {mergeURL.id = '177722/u7nscy';}
-        if (mergeTemp === 'ram-medical') {mergeURL.id = '177718/gusxia';}
-        if (mergeTemp === 'ram-medical-1x') {mergeURL.id = '177719/49snjp';}
-        if (mergeTemp === 'ram-healthcare') {mergeURL.id = '177724/gr2r59';}
-        if (mergeTemp === 'ram-multi-tenant') {mergeURL.id = '177720/c6ncuf';}
-        if (mergeTemp === 'ram-schools') {mergeURL.id = '177725/pbf2q4';}
-
-
-        let contactArr = mergeData['Main contact'].split(" ");
-        mergeURL.MrMs = mergeData['Salutation'];
-        mergeURL.Cont_First_Name = contactArr[0];
-        mergeURL.Cont_Last_Name = contactArr[1];
-        mergeURL.Contact_Title = mergeData['Title'];
-        mergeURL.Company = mergeData['Company Name'];
-        mergeURL.Address_Line_1 = mergeData['Address 1'];
-        mergeURL.Address_Line_2 = mergeData['Address 2'];
-        mergeURL.City = mergeData['City'];
-        mergeURL.Zip_Code = mergeData['Zip'];
-        mergeURL.Amount = mergeData['Monthly Amount'];
-        mergeURL.Days_Serviced = mergeData['Times per Week'] + 'Week';
-        mergeURL.Proposal_Date = mergeData['Proposal Date'];
-
-        Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
-
-        finalURL = mergeURL.base + mergeURL.id + '?_use_get=1&';
-        if (mergeURL.MrMs) {finalURL += 'MrMs=' + mergeURL.MrMs;  finalURL += '&';} else {finalURL += 'MrMs=+';  finalURL += '&';}
-        if (mergeURL.Cont_First_Name) {finalURL += 'Cont_First_Name=' + mergeURL.Cont_First_Name;  finalURL += '&';}  else {finalURL += 'Cont_First_Name=+';  finalURL += '&';}
-        if (mergeURL.Cont_Last_Name) {finalURL += 'Cont_Last_Name=' + mergeURL.Cont_Last_Name;  finalURL += '&';} else {finalURL += 'Cont_Last_Name=+';  finalURL += '&';}
-        if (mergeURL.Contact_Title) {finalURL += 'Contact_Title=' + mergeURL.Contact_Title;  finalURL += '&';}  else {finalURL += 'Contact_Title=+';  finalURL += '&';}
-        if (mergeURL.Company) {finalURL += 'Company=' + mergeURL.Company;  finalURL += '&';}  else {finalURL += 'Company=+';  finalURL += '&';}
-        if (mergeURL.Address_Line_1) {finalURL += 'Address_Line_1=' + mergeURL.Address_Line_1;  finalURL += '&';}  else {finalURL += 'Address_Line_1=+';  finalURL += '&';}
-        if (mergeURL.Address_Line_2) {finalURL += 'Address_Line_2=' + mergeURL.Address_Line_2;  finalURL += '&';}  else {finalURL += 'Address_Line_2=+';  finalURL += '&';}
-        if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=+';  finalURL += '&';}
-        if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=+';  finalURL += '&';}
-        if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=+';  finalURL += '&';}
-        if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=+';  finalURL += '&';}
-        if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date;} else {finalURL += 'Proposal_Date=+';}
+      let contactArr = mergeData['Main contact'].split(" ");
+      mergeURL = {
+        base: 'https://www.webmerge.me/merge/',
+        id: '',
+        Company: mergeData['Company Name'],
+        Address_Line_1: mergeData['Address 1'],
+        Address_Line_2: mergeData['Address 2'],
+        City: mergeData['City'],
+        Zip_Code: mergeData['Zip'],
+        Amount: mergeData['Monthly Amount'],
+        Days_Serviced: mergeData['Times per Week'] + 'Week',
+        Days_of_Week: mergeData['Days of Week'],
+        Fran_Start_Date: mergeData['Start Date'],
+        Servicer: mergeData['SP Name'],
+        Cont_First_Name: contactArr[0],
+        Cont_Last_Name: contactArr[1],
+        B_O_Phone: mergeData['SP Phone'],
+        PAM: mergeData['PAM'],
+        Office_Phone: mergeData['Office Phone'],
+        Cnty: mergeData['County'],
+        Account_Rep: mergeData['Sales Rep'],
+        Main_Phone: mergeData['Office Phone'],
+        Actual_sqft: mergeData['Actual Sq Footage'],
+        Walktrhough_Date: mergeData['Walkthrough Date'],
+        PreCleaning_Date: mergeData['Pre-Clean Date'],
+        Yearly: mergeData['Monthly Amount'] * 12,
+        Rst_6: mergeData['Restrooms'],
+        Supplies: mergeData['CPOP'],
+        Monthly: mergeData['Addtl Supplies'],
+        MrMs: mergeData['Salutation'],
+        Appt_Date: mergeData['Appt, Date'],
+        Telemarketer: mergeData['Appt. Set By'],
+        Contact_Title: mergeData['Title'],
+        Office_Phone_Ext: mergeData['Extension'],
+        New_SP_Start_Date: mergeData['New SP Start'],
+        PreCleaning_Charge: mergeData['Pre-Clean Charge'],
       }
+      Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
+
+      if (this.props.citySet === 'tampa') { // IF IS IN TAMPA
+        if (mergeType === 'Account Acceptance') {
+          mergeURL.id = '176851/7cbtgt';
+          fileLocation += '/Account acceptance forms/'
+        }
+        if (mergeType === 'Account Cancelation') {
+          mergeURL.id = '176854/gyf26a';
+          fileLocation += '/Account Cancelations/'
+        }
+        if (mergeType === 'Account Credit') {
+          mergeURL.id = '176857/9fp8tm';
+          fileLocation += '/Account Credits/'
+        }
+        if (mergeType === 'Account Changes') {
+          mergeURL.id = '176858/mw3hec';
+          fileLocation += '/Account Changes/'
+        }
+        if (mergeType === 'Offer Sheet') {
+          mergeURL.id = '176861/4cm3qr';
+          fileLocation += '/Account Offer Sheets/'
+        }
+        if (mergeType === 'Account Relinquish') {
+          mergeURL.id = '176863/fnavgg';
+          fileLocation += '/Account Offer Sheets/Account Relinquish Forms/'
+        }
+        if (mergeType === 'Account Welcome Letter') {
+          mergeURL.id = '176866/veq52p';
+          fileLocation += '/Account Welcome Letter/'
+        }
+        if (mergeType === 'Bid Sheets') {
+          let contactArr = mergeData['Main contact'].split(" ");
+          mergeURL.id = '176867/7me778';
+          fileLocation += '/Bid Sheets/'
+        }
+        if (mergeType === 'Crew Change') {
+          mergeURL.id = '176869/p94ixw';
+          fileLocation += '/Crew change request forms/'
+        }
+        if (mergeType === 'Crew Change Request') {
+          mergeURL.id = '176875/g1kj1k';
+          fileLocation += '/Crew Changes/'
+        }
+        if (mergeType === 'Account Additional') {
+          mergeURL.id = '176852/tw1e77';
+          fileLocation += '/Account Additional Service/';
+        }
+        if (mergeType === 'Additional Service Order') {
+          mergeURL.id = '176853/i7b8m6';
+          fileLocation += '/Account Additional Service/'
+        }
+      } else if (this.props.citySet === 'orlando') { // IF IS IN ORLANDO
+        if (mergeType === 'Account Acceptance') {
+          mergeURL.id = '176884/i87kfg';
+          fileLocation += '/Account Acceptance Forms/'
+        }
+        if (mergeType === 'Account Cancelation') {
+          mergeURL.id = '176886/8jbqkq';
+          fileLocation += '/Account Cancelation Forms/'
+        }
+        if (mergeType === 'Account Credit') {
+          mergeURL.id = '176887/1dmywl'
+          fileLocation += '/Account Credits/'
+        }
+        if (mergeType === 'Account Changes') {
+          mergeURL.id = '176895/7nb3c3';
+          fileLocation += '/Account Increase Decrease Letters/'
+        }
+        if (mergeType === 'Offer Sheet') {
+          mergeURL.id = '176888/i4j16z';
+          fileLocation += '/Account Offer Sheets/'
+        }
+        if (mergeType === 'Account Relinquish') {
+          mergeURL.id = '176889/hfxfr4';
+          fileLocation += '/Account Relinquish Forms/'
+        }
+        if (mergeType === 'Account Welcome Letter') {
+          mergeURL.id = '176890/m75y2p';
+          fileLocation += '/'
+        }
+        if (mergeType === 'Bid Sheets') {
+          let contactArr = mergeData['Main contact'].split(" ");
+          mergeURL.id = '176892/z7ddwz';
+          fileLocation += '/Bid Sheets/'
+        }
+        if (mergeType === 'Crew Change') {
+          mergeURL.id = '176893/p5tzwq';
+          fileLocation += '/Accounting Crew Change Form/'
+        }
+        if (mergeType === 'Crew Change Request') {
+          mergeURL.id = '176894/p5wdbe';
+          fileLocation += '/Crew Changes/'
+        }
+        if (mergeType === 'Account Additional') {
+          mergeURL.id = '176885/qbk4tu';
+          fileLocation += '/Additional Service Agreements/'
+        }
+        if (mergeType === 'Additional Service Order') {
+          mergeURL.id = '176891/izyjga';
+          fileLocation += '/Additional Service Forms/'
+        }
+      }
+
+      finalURL = mergeURL.base + mergeURL.id + '?_use_get=1&';
+      if (mergeURL.Company) {finalURL += 'Company=' + mergeURL.Company;  finalURL += '&';}  else {finalURL += 'Company=+';  finalURL += '&';}
+      if (mergeURL.Address_Line_1) {finalURL += 'Address_Line_1=' + mergeURL.Address_Line_1;  finalURL += '&';}  else {finalURL += 'Address_Line_1=+';  finalURL += '&';}
+      if (mergeURL.Address_Line_2) {finalURL += 'Address_Line_2=' + mergeURL.Address_Line_2;  finalURL += '&';}  else {finalURL += 'Address_Line_2=+';  finalURL += '&';}
+      if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=+';  finalURL += '&';}
+      if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=+';  finalURL += '&';}
+      if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=+';  finalURL += '&';}
+      if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=+';  finalURL += '&';}
+      if (mergeURL.Days_of_Week) {finalURL += 'Days_of_Week=' + mergeURL.Days_of_Week;  finalURL += '&';}  else {finalURL += 'Days_of_Week=+';  finalURL += '&';}
+      if (mergeURL.Fran_Start_Date) {finalURL += 'Fran_Start_Date=' + mergeURL.Fran_Start_Date;  finalURL += '&';} else {finalURL += 'Fran_Start_Date=+';  finalURL += '&';}
+      if (mergeURL.Servicer) {finalURL += 'Servicer=' + mergeURL.Servicer;  finalURL += '&';} else {finalURL += 'Servicer=+';  finalURL += '&';}
+      if (mergeURL.Cont_First_Name) {finalURL += 'Cont_First_Name=' + mergeURL.Cont_First_Name;  finalURL += '&';}  else {finalURL += 'Cont_First_Name=+';  finalURL += '&';}
+      if (mergeURL.Cont_Last_Name) {finalURL += 'Cont_Last_Name=' + mergeURL.Cont_Last_Name;  finalURL += '&';} else {finalURL += 'Cont_Last_Name=+';  finalURL += '&';}
+      if (mergeURL.B_O_Phone) {finalURL += 'B_O_Phone=' + mergeURL.B_O_Phone;  finalURL += '&';} else {finalURL += 'B_O_Phone=+';  finalURL += '&';}
+      if (mergeURL.PAM) {finalURL += 'PAM=' + mergeURL.PAM;  finalURL += '&';} else {finalURL += 'PAM=+';  finalURL += '&';}
+      if (mergeURL.Office_Phone) {finalURL += 'Office_Phone=' + mergeURL.Office_Phone;  finalURL += '&';} else {finalURL += 'Office_Phone=+';  finalURL += '&';}
+      if (mergeURL.Cnty) {finalURL += 'Cnty=' + mergeURL.Cnty;  finalURL += '&';} else {finalURL += 'Cnty=+';  finalURL += '&';}
+      if (mergeURL.Account_Rep) {finalURL += 'Account_Rep=' + mergeURL.Account_Rep;  finalURL += '&';} else {finalURL += 'Account_Rep=+';  finalURL += '&';}
+      if (mergeURL.Main_Phone) {finalURL += 'Main_Phone=' + mergeURL.Main_Phone;  finalURL += '&';} else {finalURL += 'Main_Phone=+';  finalURL += '&';}
+      if (mergeURL.Actual_sqft) {finalURL += 'Actual_sqft=' + mergeURL.Actual_sqft;  finalURL += '&';}  else {finalURL += 'Actual_sqft=+';  finalURL += '&';}
+      if (mergeURL.Walktrhough_Date) {finalURL += 'Walktrhough_Date=' + mergeURL.Walktrhough_Date;  finalURL += '&';}  else {finalURL += 'Walktrhough_Date=+';  finalURL += '&';}
+      if (mergeURL.PreCleaning_Date) {finalURL += 'PreCleaning_Date=' + mergeURL.PreCleaning_Date;  finalURL += '&';}  else {finalURL += 'PreCleaning_Date=+';  finalURL += '&';}
+      if (mergeURL.Yearly) {finalURL += 'Yearly=' + mergeURL.Yearly;  finalURL += '&';}  else {finalURL += 'Yearly=+';  finalURL += '&';}
+      if (mergeURL.Rst_6) {finalURL += 'Rst_6=' + mergeURL.Rst_6;  finalURL += '&';}  else {finalURL += 'Rst_6=+';  finalURL += '&';}
+      if (mergeURL.Supplies) {finalURL += 'Supplies=' + mergeURL.Supplies;  finalURL += '&';}  else {finalURL += 'Supplies=+';  finalURL += '&';}
+      if (mergeURL.Monthly) {finalURL += 'Monthly=' + mergeURL.Monthly;  finalURL += '&';}  else {finalURL += 'Monthly=+';  finalURL += '&';}
+      if (mergeURL.MrMs) {finalURL += 'MrMs=' + mergeURL.MrMs;  finalURL += '&';}  else {finalURL += 'MrMs=+';  finalURL += '&';}
+      if (mergeURL.Appt_Date) {finalURL += 'Appt_Date=' + mergeURL.Appt_Date;  finalURL += '&';}  else {finalURL += 'Appt_Date=+';  finalURL += '&';}
+      if (mergeURL.Telemarketer) {finalURL += 'Telemarketer=' + mergeURL.Telemarketer;  finalURL += '&';} else {finalURL += 'Telemarketer=+';  finalURL += '&';}
+      if (mergeURL.Contact_Title) {finalURL += 'Contact_Title=' + mergeURL.Contact_Title;  finalURL += '&';} else {finalURL += 'Contact_Title=+';  finalURL += '&';}
+      if (mergeURL.Office_Phone_Ext) {finalURL += 'Office_Phone_Ext=' + mergeURL.Office_Phone_Ext;  finalURL += '&';}  else {finalURL += 'Office_Phone_Ext=+';  finalURL += '&';}
+      if (mergeURL.New_SP_Start_Date) {finalURL += 'New_SP_Start_Date=' + mergeURL.New_SP_Start_Date;  finalURL += '&';} else {finalURL += 'New_SP_Start_Date=+';  finalURL += '&';}
+      if (mergeURL.PreCleaning_Charge) {finalURL += 'PreCleaning_Charge=' + mergeURL.PreCleaning_Charge;  finalURL += '&';} else {finalURL += 'PreCleaning_Charge=+';  finalURL += '&';}
 
       console.log(encodeURI(finalURL));
 
@@ -721,10 +996,7 @@ export default class TampaSales extends Component {
             activeModal: false,
             modalType: '',
           })
-          let finalDate;
-          if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
-          else {finalDate = 'DATE'}
-          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/Tampa/' + mergeType + '" to view the file.');
+          alert("Record has been exported as " + mergeData['Company Name'] + " DATE.docx -- Visit " + fileLocation + " to view the file.");
 
         })
     }
@@ -848,19 +1120,6 @@ export default class TampaSales extends Component {
   }
 
 
-
-  jumpLetters = e => {
-    console.log(e.target.value);
-    if (e.target.value !== 'none') {
-      let jumpFormula = e.target.value;
-      sessionStorage.setItem('jumpLetters', jumpFormula);
-    } else {
-      sessionStorage.removeItem('jumpLetters');
-    }
-    window.location.reload();
-  }
-
-
   loadData = () => {
     if (sessionStorage.getItem('listView') != null) {
       this.setState({
@@ -875,9 +1134,9 @@ export default class TampaSales extends Component {
 
     //initial load
     setTimeout((function() {
+      console.log('loading');
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-
-      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
         finalURL = finalURL + '?';
 
         if (this.state.dataOffset !== '') {
@@ -888,17 +1147,12 @@ export default class TampaSales extends Component {
         }
         if (this.state.listView !== '') {
           finalURL = finalURL + this.state.listView;
-          if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
+          if (this.state.sortByLabel !== '') {
             finalURL = finalURL + '&';
           }
         }
-
-        if (sessionStorage.getItem('jumpLetters')) {
-          finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
-        } else {
-          if (this.state.sortByLabel !== '') {
-            finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-          }
+        if (this.state.sortByLabel !== '') {
+          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
         }
       }
       return axios
@@ -906,7 +1160,6 @@ export default class TampaSales extends Component {
       .then(response => {
         this.setState({
           data: response.data.records,
-          //put it here
           loading: false,
           error: false,
           loadingMore: true,
@@ -921,9 +1174,6 @@ export default class TampaSales extends Component {
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
         }
         setTimeout((function() {
-          if (sessionStorage.getItem('jumpLetters')) {
-            document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
-          }
           this.setState({
             loadingMore: false,
           });
@@ -931,10 +1181,10 @@ export default class TampaSales extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Tampa Sales | AirMagic";
+            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers | AirMagic";
           }
 
-          //keep going if we were on 100+ internally
+          //keep going if we we're on 100+ internally
           if (sessionStorage.getItem('innerOffset') != null) {
             this.setState({
               loading: true,
@@ -1029,7 +1279,6 @@ export default class TampaSales extends Component {
       loading: true,
       dataOffset: '',
     });
-    sessionStorage.removeItem('isSearching');
     this.loadData();
   }
 
@@ -1057,11 +1306,6 @@ export default class TampaSales extends Component {
         this.setState({
           activeModal: true,
           modalType: 'recordExport',
-        });
-      } else if(e.target.id === 'moveDatabase') {
-        this.setState({
-          activeModal: true,
-          modalType: 'moveDatabase',
         });
       } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
         this.setState({
@@ -1145,7 +1389,7 @@ export default class TampaSales extends Component {
       loadingMore: true,
     });
     finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
+    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
       finalURL = finalURL + '?';
 
       if (this.state.dataOffset !== '') {
@@ -1156,17 +1400,12 @@ export default class TampaSales extends Component {
       }
       if (this.state.listView !== '') {
         finalURL = finalURL + this.state.listView;
-        if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
+        if (this.state.sortByLabel !== '') {
           finalURL = finalURL + '&';
         }
       }
-
-      if (sessionStorage.getItem('jumpLetters')) {
-        finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
-      } else {
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-        }
+      if (this.state.sortByLabel !== '') {
+        finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
       }
     }
     return axios
@@ -1195,15 +1434,24 @@ export default class TampaSales extends Component {
       this.props.history.push('/login');
     } else {
       this.loadData();
+
       if (sessionStorage.getItem('userInitials')) {
         let usersInitials = sessionStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });
       }
+
+
+      if (sessionStorage.getItem('tampaSPLoaded') !== true) {
+        this.loadSPList();
+      } else {
+        this.setState({
+          spList: sessionStorage.getItem('tampaSPList')
+        });
+      }
     }
   }
-
 
   render() {
     const { loading, error, data } = this.state;
@@ -1246,17 +1494,18 @@ export default class TampaSales extends Component {
 
     document.addEventListener('keydown', (event) => {
       let keyName = event.key;
-      if (keyName === 'Escape' && this.state.recordView) {
-        this.closeRecordHandler();
-      } else if (keyName === 'Escape' && this.state.activeModal) {
-        console.log('exit!');
+      if (keyName === 'Escape' && this.state.activeModal) {
         this.controlsModalToggle();
+      } else {
+        if (keyName === 'Escape' && this.state.recordView) {
+          this.closeRecordHandler();
+        }
       }
     });
 
 
     return (
-      <div className="TampaSales">
+      <div className="Customers">
         {this.modalShow}
         <Navbar
           currentRecord={this.state.currentRecord}
@@ -1266,7 +1515,7 @@ export default class TampaSales extends Component {
           recordChanges= {this.state.recordChanges}
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
-          jumpLetters={this.jumpLetters}
+          citySet={this.props.citySet}
         />
 
         {this.currentView}
@@ -1274,12 +1523,14 @@ export default class TampaSales extends Component {
         <ControlsBar
           searchHandler={this.searchHandler}
           recordView={this.state.recordView}
+          franchiseView={this.state.franchiseView}
           newRecord={this.state.newRecord}
           saveRecordHandler={this.saveRecordHandler}
           recordChanger={this.recordChanger}
           controlsModalToggle={this.controlsModalToggle}
           newRecordHandler={this.newRecordHandler}
           currentRecord={this.state.currentRecord}
+          currentTable={this.state.currentTable}
         />
       </div>
     );
@@ -1293,6 +1544,7 @@ export default class TampaSales extends Component {
           revertRecordHandler={this.revertRecordHandler}
           saveRecordHandler={this.saveRecordHandler}
           selectFilterHandler={this.selectFilterHandler}
+          mergeRecord={this.mergeRecord}
           controlsModalToggle={this.controlsModalToggle}
           sortSubmitHandler={this.sortSubmitHandler}
           currentId= {this.state.currentId}
@@ -1302,10 +1554,9 @@ export default class TampaSales extends Component {
           userSubmitHandler={this.userSubmitHandler}
           submitExport={this.submitExport}
           exportRecord={this.exportRecord}
-          baseId={this.state.baseId}
-          moveDatabasesHandler={this.moveDatabasesHandler}
+          currentTable={this.state.currentTable}
         />
-      )
+        )
     }
   }
 
@@ -1322,6 +1573,19 @@ export default class TampaSales extends Component {
           recordChanger={this.recordChanger}
           changeNotesHandler={this.changeNotesHandler}
           baseId={this.state.baseId}
+          spChangeHandler={this.spChangeHandler}
+          currentSP={this.state.currentSP}
+          spList={this.state.spList}
+          loadSPInfo={this.loadSPInfo}
+        />
+      );
+    } else if (this.state.franchiseView) {
+      return (
+        <FranchiseView
+          data={this.state.data}
+          isLoading={this.state.loading}
+          changeFranchiseHandler={this.changeFranchiseHandler}
+          editingFranchise={this.editingFranchise}
         />
       );
     } else if (this.state.listIsVisible) {

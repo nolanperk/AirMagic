@@ -8,13 +8,13 @@ import ApiConfig from './config'
 import BaseSelect from './BaseSelect/BaseSelect';
 import LoginForm from './BaseSelect/Log';
 
-import TampaCustomers from './CustomerService/TampaCustomers';
-import TampaSales from './Sales/TampaSales';
-import TampaFranchisees from './Franchisees/TampaFranchisees';
+import CustomerService from './CustomerService/CustomerService';
+import Sales from './Sales/Sales';
+import Franchisees from './Franchisees/Franchisees';
 
-import OrlandoCustomers from './CustomerService/OrlandoCustomers';
-import OrlandoSales from './Sales/OrlandoSales';
-import OrlandoFranchisees from './Franchisees/OrlandoFranchisees';
+// import OrlandoCustomers from './CustomerService/OrlandoCustomers';
+// import OrlandoSales from './Sales/OrlandoSales';
+// import OrlandoFranchisees from './Franchisees/OrlandoFranchisees';
 
 
 // import bindRouteParamsToProps from 'helpers/bindRouteParamsToProps';
@@ -48,19 +48,13 @@ class App extends Component {
           <Route exact path='/login'  component={bindRouteParamsToProps()(LoginForm)} />
           <Route exact path='/' component={BaseSelect} />
 
-          <Route exact path='/tampa/customer-service/:recordId' component={bindRouteParamsToProps()(TampaCustomers)} />
-          <Route path='/tampa/customer-service/' component={TampaCustomers} />
-          <Route exact path='/tampa/sales/:recordId' component={bindRouteParamsToProps()(TampaSales)} />
-          <Route path='/tampa/sales/' component={TampaSales} />
-          <Route exact path='/tampa/franchisees/:recordId' component={bindRouteParamsToProps()(TampaFranchisees)} />
-          <Route path='/tampa/franchisees/' component={TampaFranchisees} />
+          <Route exact path='/:citySet/customer-service/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
+          <Route path='/:citySet/customer-service/' component={bindRouteParamsToProps()(CustomerService)} />
+          <Route exact path='/:citySet/sales/:recordId' component={bindRouteParamsToProps()(Sales)} />
+          <Route path='/:citySet/sales/' component={bindRouteParamsToProps()(Sales)} />
+          <Route exact path='/:citySet/franchisees/:recordId' component={bindRouteParamsToProps()(Franchisees)} />
+          <Route path='/:citySet/franchisees/' component={bindRouteParamsToProps()(Franchisees)} />
 
-          <Route exact path='/orlando/customer-service/:recordId' component={bindRouteParamsToProps()(OrlandoCustomers)} />
-          <Route path='/orlando/customer-service/' component={OrlandoCustomers} />
-          <Route exact path='/orlando/sales/:recordId' component={bindRouteParamsToProps()(OrlandoSales)} />
-          <Route path='/orlando/sales/' component={OrlandoSales} />
-          <Route exact path='/orlando/franchisees/:recordId' component={bindRouteParamsToProps()(OrlandoFranchisees)} />
-          <Route path='/orlando/franchisees/' component={OrlandoFranchisees} />
         </Switch>
       </BrowserRouter>
 

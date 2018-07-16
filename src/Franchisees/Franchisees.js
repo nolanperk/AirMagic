@@ -13,8 +13,8 @@ import loader from '../assets/loader.gif';
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
 import ListContent from './Archive/ListContent';
-import ControlsBar from './ControlsBar';
-import ModalView from './ModalView';
+import ControlsBar from '../Globals/ControlsBar';
+import ModalView from '../Globals/ModalView';
 
 let currentRecordState = [];
 let revertState = [];
@@ -23,7 +23,7 @@ let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class OrlandoFranchisees extends Component {
+export default class Franchisees extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -31,7 +31,7 @@ export default class OrlandoFranchisees extends Component {
       error: "",
       data: null,
       dataURL: 'https://api.airtable.com/v0/',
-      baseId: 'appLxxBrc9m3yNXdQ',
+      baseId: '',
       currentTable: 'Franchisees',
       listView: 'view=Active',
       sortByLabel: 'SP+Name',
@@ -56,17 +56,20 @@ export default class OrlandoFranchisees extends Component {
   }
 
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.loading && !nextState.loading && this.props.recordId != null) {
-      if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
-        this.props.recordId;
-        const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
-        setTimeout((function() {
-          this.setState({
-            recordView: true,
-            currentRecord: record,
-            currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-          })
-        }).bind(this), 0);
+    if (this.state.loading && !nextState.loading) {
+      if (this.props.recordId != null) {
+        if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
+          this.props.recordId;
+          const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
+          setTimeout((function() {
+            this.setState({
+              recordView: true,
+              currentRecord: record,
+              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+            })
+          }).bind(this), 0);
+        }
+      } else if (this.props.citySet != null) {
       } else {
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
         return axios
@@ -89,6 +92,24 @@ export default class OrlandoFranchisees extends Component {
           });
       }
     }
+  }
+
+  componentWillMount() {
+    console.log(this.props.citySet);
+    if (this.props.citySet === 'tampa') {
+      this.setState({
+        loading: false,
+        baseId: 'appBsaVxz2OicG5Zw',
+      });
+    } else if(this.props.citySet === 'orlando') {
+      this.setState({
+        loading: false,
+        baseId: 'appLxxBrc9m3yNXdQ',
+      });
+    }
+    setTimeout((function() {
+      console.log('loading data from ' + this.state.baseId);
+    }).bind(this), 50);
   }
 
 
@@ -137,7 +158,7 @@ export default class OrlandoFranchisees extends Component {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
       sessionStorage.setItem('innerOffset', this.state.dataOffset);
     }
-    this.props.history.push('/orlando/franchisees/' + key);
+    this.props.history.push('/' + this.props.citySet + '/franchisees/' + key);
   }
 
   newRecordHandler = ()  => {
@@ -246,7 +267,6 @@ export default class OrlandoFranchisees extends Component {
     else if (e.target.id === 'partner') {currentRecordState['Partner Name'] = e.target.value}
     else if (e.target.id === 'partnerPhone') {currentRecordState['Partner Phone'] = e.target.value}
     else if (e.target.id === 'english') {currentRecordState['English Contact'] = e.target.value}
-    else if (e.target.id === 'spNumber') {currentRecordState['Number'] = e.target.value}
     else if (e.target.id === 'englishPhone') {currentRecordState['English Contact Phone'] = e.target.value}
     else if (e.target.id === 'contDate') {currentRecordState['Contact Date'] = e.target.value}
     else if (e.target.id === 'fdd') {currentRecordState['FDD Sign Date'] = e.target.value}
@@ -256,10 +276,14 @@ export default class OrlandoFranchisees extends Component {
     else if (e.target.id === 'addr1') {currentRecordState['Address'] = e.target.value}
     else if (e.target.id === 'city') {currentRecordState['City'] = e.target.value}
     else if (e.target.id === 'zip') {currentRecordState['Zip'] = e.target.value}
+    else if (e.target.id === 'spNumber') {currentRecordState['Number'] = e.target.value}
     else if (e.target.id === 'state') {currentRecordState['State'] = e.target.value}
     else if (e.target.id === 'county') {currentRecordState['County'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Source'] = e.target.value}
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
+
+    else if (e.target.id === 'referral') {currentRecordState['Referral'] = e.target.value}
+    else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
 
 
 
@@ -281,7 +305,7 @@ export default class OrlandoFranchisees extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/orlando/franchisees/');
+      this.props.history.push('/' + this.props.citySet + '/franchisees/');
       this.setState({
           activeModal: false,
           modalType: '',
@@ -324,7 +348,7 @@ export default class OrlandoFranchisees extends Component {
             loading: true,
           });
 
-          this.props.history.push('/orlando/franchisees/' + this.state.data[dataIndex].id);
+          this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -372,7 +396,7 @@ export default class OrlandoFranchisees extends Component {
 
           if (this.state.recordChanger) {
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/orlando/franchisees/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
             this.setState({
               data: fullDataSet,
               recordChanger: false,
@@ -383,7 +407,7 @@ export default class OrlandoFranchisees extends Component {
 
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/orlando/franchisees/');
+            this.props.history.push('/' + this.props.citySet + '/franchisees/');
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -480,7 +504,7 @@ export default class OrlandoFranchisees extends Component {
             loading: true,
           })
           if (this.state.recordChanger) {
-            this.props.history.push('/orlando/franchisees/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
             setTimeout((function() {
               this.setState({
                 recordChanger: false,
@@ -491,7 +515,7 @@ export default class OrlandoFranchisees extends Component {
             }).bind(this), 10);
           } else {
             if (this.state.modalType === 'saveAlert') {
-              this.props.history.push('/orlando/franchisees/');
+              this.props.history.push('/' + this.props.citySet + '/franchisees/');
               this.setState({
                 data: fullDataSet,
                 recordView: false,
@@ -605,7 +629,6 @@ export default class OrlandoFranchisees extends Component {
         })
     }
   }
-
   submitExport = e => {
     e.preventDefault();
     let startRange;
@@ -786,7 +809,7 @@ export default class OrlandoFranchisees extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Tampa Sales | AirMagic";
+            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Sales | AirMagic";
           }
 
           //keep going if we were on 100+ internally
@@ -877,6 +900,7 @@ export default class OrlandoFranchisees extends Component {
     }).bind(this), 10);
   };
 
+
   clearSearch = () => {
     this.setState({
       searchQuery: '',
@@ -930,7 +954,7 @@ export default class OrlandoFranchisees extends Component {
         });
         setTimeout((function() {
           if (this.state.sortByLabel !== '') {
-            document.getElementById('sortLabel').value=document.getElementById(this.state.sortByLabel).innerHTML;
+            document.getElementById('sortLabel').value = document.getElementById(this.state.sortByLabel).innerHTML;
           }
         }).bind(this), 50);
       }
@@ -1048,7 +1072,6 @@ export default class OrlandoFranchisees extends Component {
     }
   }
 
-
   render() {
     const { loading, error, data } = this.state;
 
@@ -1100,7 +1123,7 @@ export default class OrlandoFranchisees extends Component {
 
 
     return (
-      <div className="OrlandoFranchisees">
+      <div className="Franchisees">
         {this.modalShow}
         <Navbar
           currentRecord={this.state.currentRecord}
@@ -1123,6 +1146,7 @@ export default class OrlandoFranchisees extends Component {
           controlsModalToggle={this.controlsModalToggle}
           newRecordHandler={this.newRecordHandler}
           currentRecord={this.state.currentRecord}
+          currentTable={this.state.currentTable}
         />
       </div>
     );
@@ -1146,6 +1170,7 @@ export default class OrlandoFranchisees extends Component {
           submitExport={this.submitExport}
           exportRecord={this.exportRecord}
           baseId={this.state.baseId}
+          currentTable={this.state.currentTable}
         />
         )
     }

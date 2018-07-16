@@ -3,13 +3,14 @@ import propTypes from 'prop-types';
 
 import exit from '../assets/icons/white/exit.png';
 
-import SaveAlert from './Modals/SaveAlert';
-import SortBy from './Modals/SortBy';
-import FilterSearch from './Modals/FilterSearch';
-import NewNote from './Modals/NewNote';
-import ChangeUser from './Modals/ChangeUser';
-import ExportRecords from './Modals/ExportRecords';
-import RecordExport from './Modals/RecordExport';
+import SaveAlert from '../Globals/Modals/SaveAlert';
+import SortBy from '../Globals/Modals/SortBy';
+import FilterSearch from '../Globals/Modals/FilterSearch';
+import NewNote from '../Globals/Modals/NewNote';
+import ChangeUser from '../Globals/Modals/ChangeUser';
+import ExportRecords from '../Globals/Modals/ExportRecords';
+import RecordExport from '../Globals/Modals/RecordExport';
+import MoveDatabase from '../Globals/Modals/MoveDatabase';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -25,6 +26,7 @@ export default class ModalView extends Component {
         <FilterSearch
           controlsModalToggle={this.props.controlsModalToggle}
           selectFilterHandler={this.props.selectFilterHandler}
+          currentTable={this.props.currentTable}
           baseId={this.props.baseId}
         />
       );
@@ -33,6 +35,7 @@ export default class ModalView extends Component {
         <SortBy
           controlsModalToggle={this.props.controlsModalToggle}
           sortSubmitHandler={this.props.sortSubmitHandler}
+          currentTable={this.props.currentTable}
         />
       );
     } else if (this.props.modalType === 'addNotes') {
@@ -66,6 +69,13 @@ export default class ModalView extends Component {
           mergeRecord={this.props.mergeRecord}
           exportRecord={this.props.exportRecord}
           baseId={this.props.baseId}
+        />
+      )
+    } else if (this.props.modalType === 'moveDatabase') {
+      return (
+        <MoveDatabase
+          controlsModalToggle={this.props.controlsModalToggle}
+          moveDatabasesHandler={this.props.moveDatabasesHandler}
         />
       )
     }
@@ -102,4 +112,6 @@ ModalView.propTypes = {
   userSubmitHandler: propTypes.func.isRequired,
   submitExport: propTypes.func.isRequired,
   exportRecord: propTypes.func.isRequired,
+  moveDatabasesHandler: propTypes.func,
+  currentTable: propTypes.string.isRequired,
 }

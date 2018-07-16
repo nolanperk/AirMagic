@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import RecordControls from './Controls/RecordControls';
-import ArchiveControls from './Controls/ArchiveControls';
+import RecordControls from '../Globals/Controls/RecordControls';
+import ArchiveControls from '../Globals/Controls/ArchiveControls';
 
 export default class ControlsBar extends Component {
   controlsBar = () => {
@@ -14,6 +14,7 @@ export default class ControlsBar extends Component {
           saveRecordHandler={this.props.saveRecordHandler}
           arrowKeyHandler={this.props.arrowKeyHandler}
           currentRecord={this.props.currentRecord}
+          currentTable={this.props.currentTable}
         />
       );
     } else {
@@ -51,4 +52,5 @@ ControlsBar.propTypes ={
   recordChanger: propTypes.func.isRequired,
   newRecordHandler: propTypes.func.isRequired,
   currentRecord: propTypes.array.isRequired,
+  currentTable: propTypes.string.isRequired,
 }

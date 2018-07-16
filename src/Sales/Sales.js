@@ -13,8 +13,8 @@ import loader from '../assets/loader.gif';
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
 import ListContent from './Archive/ListContent';
-import ControlsBar from './ControlsBar';
-import ModalView from './ModalView';
+import ControlsBar from '../Globals/ControlsBar';
+import ModalView from '../Globals/ModalView';
 
 let currentRecordState = [];
 let revertState = [];
@@ -23,7 +23,7 @@ let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class OrlandoSales extends Component {
+export default class Sales extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -31,7 +31,7 @@ export default class OrlandoSales extends Component {
       error: "",
       data: null,
       dataURL: 'https://api.airtable.com/v0/',
-      baseId: 'appXNufXR9nQARjgs',
+      baseId: '',
       currentTable: 'Sales',
       listView: 'view=All',
       sortByLabel: 'Company+Name',
@@ -56,17 +56,20 @@ export default class OrlandoSales extends Component {
   }
 
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.loading && !nextState.loading && this.props.recordId != null) {
-      if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
-        this.props.recordId;
-        const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
-        setTimeout((function() {
-          this.setState({
-            recordView: true,
-            currentRecord: record,
-            currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-          })
-        }).bind(this), 0);
+    if (this.state.loading && !nextState.loading) {
+      if (this.props.recordId != null) {
+        if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
+          this.props.recordId;
+          const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
+          setTimeout((function() {
+            this.setState({
+              recordView: true,
+              currentRecord: record,
+              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+            })
+          }).bind(this), 0);
+        }
+      } else if (this.props.citySet != null) {
       } else {
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
         return axios
@@ -89,6 +92,24 @@ export default class OrlandoSales extends Component {
           });
       }
     }
+  }
+
+  componentWillMount() {
+    console.log(this.props.citySet);
+    if (this.props.citySet === 'tampa') {
+      this.setState({
+        loading: false,
+        baseId: 'appEX8GXgcD2ln4dB',
+      });
+    } else if(this.props.citySet === 'orlando') {
+      this.setState({
+        loading: false,
+        baseId: 'appXNufXR9nQARjgs',
+      });
+    }
+    setTimeout((function() {
+      console.log('loading data from ' + this.state.baseId);
+    }).bind(this), 50);
   }
 
 
@@ -128,7 +149,6 @@ export default class OrlandoSales extends Component {
           document.getElementById('searchBy').value = searchByValue;
         }).bind(this), 50);
       })
-
     }).bind(this), 50);
   }
 
@@ -137,7 +157,7 @@ export default class OrlandoSales extends Component {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
       sessionStorage.setItem('innerOffset', this.state.dataOffset);
     }
-    this.props.history.push('/orlando/sales/' + key);
+    this.props.history.push('/' + this.props.citySet + '/sales/' + key);
   }
 
   moveDatabasesHandler = () => {
@@ -189,22 +209,29 @@ export default class OrlandoSales extends Component {
       'Days of Week': this.state.currentRecord['Days of Week'],
       'Sales Rep': this.state.currentRecord['Sales Rep'],
       'Notes': this.state.currentRecord['Notes'],
-      'Special Notes': this.state.currentRecord['Special Notes'],
       'Status': 'Active',
+      'Special Notes': this.state.currentRecord['Special Notes'],
       'Standing': 'New Customer',
     }
     let destinationURL;
     let finalPush = {"fields": pushRecord}
+
+    let customerBase;
+    if (this.props.citySet === 'tampa') {
+      customerBase = 'apps7GoAgK23yrOoY';
+    } else if (this.props.citySet === 'orlando') {
+      customerBase = 'appBUKBn552B8SlbE';
+    }
     axios
-    .post(this.state.dataURL + 'appBUKBn552B8SlbE/Customers/', finalPush)
+    .post(this.state.dataURL + customerBase + '/Customers/', finalPush)
       .then(response => {
-        destinationURL = '/orlando/customer-service/' + response.data.id;
+        destinationURL = '/' + this.props.citySet + '/customer-service/' + response.data.id;
         return axios
           .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
           .then(response => {
             this.props.history.push(destinationURL);
             this.loadData();
-            alert("The " + response.data['Company Name'] + " record has been moved to the Orlando Customers database.\n\n Let's go there now!");
+            alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
           });
     })
     .catch(response => {
@@ -215,8 +242,30 @@ export default class OrlandoSales extends Component {
   newRecordHandler = ()  => {
     currentRecordState = {
       'Company Name': 'New Company',
-      'CPOP': null,
-      'Addtl Supplies': null,
+      'Industry': null,
+      'Times Called': null,
+      'Recent Call Date': null,
+      'Callback Date': null,
+      'Website': null,
+
+      'Status': null,
+      'Sales Rep': null,
+      'Standing': null,
+      'Recent Caller': null,
+      'Appt. Set By': null,
+
+      'Special Notes': null,
+
+      'Appt. Set Date': null,
+      'Appt. Date': null,
+      'Proposal Date': null,
+      'Close Date': null,
+      'Walkthrough Date': null,
+      'Start Date': null,
+      'Pre-Clean Date': null,
+      'Pre-Clean Charge': null,
+      'Cancel Date': null,
+
       'Salutation': null,
       'Main contact': null,
       'Title': null,
@@ -226,27 +275,14 @@ export default class OrlandoSales extends Component {
       'Cell Phone': null,
       'Email': null,
       'Lead Source': null,
-      'Last Call': null,
-      'SP Name': null,
-      'SP Phone': null,
-      'Last Visit': null,
-      'New SP Start': null,
-      'Cancel Date': null,
+
       'Address 1': null,
       'Address 2': null,
       'City': null,
       'Zip': null,
       'County': null,
       'Employees': null,
-      'Appt. Set Date': null,
-      'Appt. Set By': null,
-      'Appt. Date': null,
-      'Close Date': null,
-      'Proposal Date': null,
-      'Walkthrough Date': null,
-      'Start Date': null,
-      'Pre-Clean Date': null,
-      'Pre-Clean Charge': null,
+
       'Monthly Amount': null,
       'Sq. Footage': null,
       'Actual Sq Footage': null,
@@ -258,14 +294,11 @@ export default class OrlandoSales extends Component {
       'Wood Lam': null,
       'Carpet': null,
       'Other': null,
+
       'Hours Per': null,
       'SQ Ft. per Hour': null,
       'Times per Week': null,
       'Days of Week': null,
-      'PAM': null,
-      'Sales Rep': null,
-      'Status': null,
-      'Standing': null,
     };
 
     console.log(currentRecordState);
@@ -320,6 +353,7 @@ export default class OrlandoSales extends Component {
     else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
 
+
     else if (e.target.id === 'salutation') {currentRecordState['Salutation'] = e.target.value}
     else if (e.target.id === 'contact') {currentRecordState['Main contact'] = e.target.value}
     else if (e.target.id === 'title') {currentRecordState['Title'] = e.target.value}
@@ -373,7 +407,7 @@ export default class OrlandoSales extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/orlando/sales/');
+      this.props.history.push('/' + this.props.citySet + '/sales/');
       this.setState({
           activeModal: false,
           modalType: '',
@@ -416,7 +450,7 @@ export default class OrlandoSales extends Component {
             loading: true,
           });
 
-          this.props.history.push('/orlando/sales/' + this.state.data[dataIndex].id);
+          this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -464,7 +498,7 @@ export default class OrlandoSales extends Component {
 
           if (this.state.recordChanger) {
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/orlando/sales/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
             this.setState({
               data: fullDataSet,
               recordChanger: false,
@@ -475,7 +509,7 @@ export default class OrlandoSales extends Component {
 
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/orlando/sales/');
+            this.props.history.push('/' + this.props.citySet + '/sales/');
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -565,7 +599,7 @@ export default class OrlandoSales extends Component {
             loading: true,
           })
           if (this.state.recordChanger) {
-            this.props.history.push('/orlando/sales/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
             setTimeout((function() {
               this.setState({
                 recordChanger: false,
@@ -576,7 +610,7 @@ export default class OrlandoSales extends Component {
             }).bind(this), 10);
           } else {
             if (this.state.modalType === 'saveAlert') {
-              this.props.history.push('/orlando/sales/');
+              this.props.history.push('/' + this.props.citySet + '/sales/');
               this.setState({
                 data: fullDataSet,
                 recordView: false,
@@ -654,17 +688,26 @@ export default class OrlandoSales extends Component {
       if (mergeType === 'Proposal') {
         mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: ''}
 
-        if (mergeTemp === 'jdh-standard') {mergeURL.id = '178005/iu7f5a';}
-        if (mergeTemp === 'jdh-once') {mergeURL.id = '178006/8x13jx';}
-        if (mergeTemp === 'jdh-medical') {mergeURL.id = '178007/fge48u';}
-        if (mergeTemp === 'jdh-schools') {mergeURL.id = '178008/r26mm9';}
-        if (mergeTemp === 'jdh-1x') {mergeURL.id = '178009/5ksv9d';}
+        if (mergeTemp === 'tmp-standard') {mergeURL.id = '177990/dl44vl';}
+        if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
+        if (mergeTemp === 'tmp-medical') {mergeURL.id = '177992/u7ybcx';}
+        if (mergeTemp === 'tmp-schools') {mergeURL.id = '177993/r57mym';}
+        if (mergeTemp === 'tmp-1x') {mergeURL.id = '177994/zwklbq';}
 
-        if (mergeTemp === 'rwj-standard') {mergeURL.id = '178000/7az53e';}
-        if (mergeTemp === 'rwj-once') {mergeURL.id = '178001/4sqqsv';}
-        if (mergeTemp === 'rwj-medical') {mergeURL.id = '178002/d3fzfn';}
-        if (mergeTemp === 'rwj-schools') {mergeURL.id = '178003/rpdz68';}
-        if (mergeTemp === 'rwj-1x') {mergeURL.id = '178004/ipcmka';}
+        if (mergeTemp === 'nwp-standard') {mergeURL.id = '177995/2r9k6c';}
+        if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
+        if (mergeTemp === 'nwp-medical') {mergeURL.id = '177997/qw4acl';}
+        if (mergeTemp === 'nwp-schools') {mergeURL.id = '177998/u6qxyj';}
+        if (mergeTemp === 'nwp-1x') {mergeURL.id = '177999/ycpgia';}
+
+        if (mergeTemp === 'ram-standard') {mergeURL.id = '177723/u7be1d';}
+        if (mergeTemp === 'ram-once') {mergeURL.id = '177722/u7nscy';}
+        if (mergeTemp === 'ram-medical') {mergeURL.id = '177718/gusxia';}
+        if (mergeTemp === 'ram-medical-1x') {mergeURL.id = '177719/49snjp';}
+        if (mergeTemp === 'ram-healthcare') {mergeURL.id = '177724/gr2r59';}
+        if (mergeTemp === 'ram-multi-tenant') {mergeURL.id = '177720/c6ncuf';}
+        if (mergeTemp === 'ram-schools') {mergeURL.id = '177725/pbf2q4';}
+
 
         let contactArr = mergeData['Main contact'].split(" ");
         mergeURL.MrMs = mergeData['Salutation'];
@@ -709,7 +752,7 @@ export default class OrlandoSales extends Component {
           let finalDate;
           if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
           else {finalDate = 'DATE'}
-          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/Orlando/' + mergeType + '" to view the file.');
+          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.');
 
         })
     }
@@ -834,7 +877,6 @@ export default class OrlandoSales extends Component {
 
 
 
-
   jumpLetters = e => {
     console.log(e.target.value);
     if (e.target.value !== 'none') {
@@ -845,6 +887,7 @@ export default class OrlandoSales extends Component {
     }
     window.location.reload();
   }
+
 
   loadData = () => {
     if (sessionStorage.getItem('listView') != null) {
@@ -916,7 +959,7 @@ export default class OrlandoSales extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
           } else {
-            document.title = "Orlando Sales | AirMagic";
+            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Sales | AirMagic";
           }
 
           //keep going if we were on 100+ internally
@@ -937,9 +980,6 @@ export default class OrlandoSales extends Component {
                       window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
                       document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
                       console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                    }
-                    if (sessionStorage.getItem('jumpLetters')) {
-                      document.getElementById('jumpLetters').value = sessionStorage.getItem('jumpLetters');
                     }
                   }
                   sessionStorage.removeItem('innerOffset'); //reset it!
@@ -1017,6 +1057,7 @@ export default class OrlandoSales extends Component {
       loading: true,
       dataOffset: '',
     });
+    sessionStorage.removeItem('isSearching');
     this.loadData();
   }
 
@@ -1182,7 +1223,6 @@ export default class OrlandoSales extends Component {
       this.props.history.push('/login');
     } else {
       this.loadData();
-
       if (sessionStorage.getItem('userInitials')) {
         let usersInitials = sessionStorage.getItem('userInitials');
         this.setState({
@@ -1244,7 +1284,7 @@ export default class OrlandoSales extends Component {
 
 
     return (
-      <div className="OrlandoSales">
+      <div className="Sales">
         {this.modalShow}
         <Navbar
           currentRecord={this.state.currentRecord}
@@ -1255,6 +1295,7 @@ export default class OrlandoSales extends Component {
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
           jumpLetters={this.jumpLetters}
+          citySet={this.props.citySet}
         />
 
         {this.currentView}
@@ -1268,6 +1309,7 @@ export default class OrlandoSales extends Component {
           controlsModalToggle={this.controlsModalToggle}
           newRecordHandler={this.newRecordHandler}
           currentRecord={this.state.currentRecord}
+          currentTable={this.state.currentTable}
         />
       </div>
     );
@@ -1292,8 +1334,9 @@ export default class OrlandoSales extends Component {
           exportRecord={this.exportRecord}
           baseId={this.state.baseId}
           moveDatabasesHandler={this.moveDatabasesHandler}
+          currentTable={this.state.currentTable}
         />
-        )
+      )
     }
   }
 

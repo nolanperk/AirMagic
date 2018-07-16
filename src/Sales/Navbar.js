@@ -20,13 +20,14 @@ export default class Navbar extends Component {
   // ----------------------------------------------------
   render() {
     let navClass = "";
-    let navTitle = "Sales Pipeline";
+    let navTitle = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Sales Pipeline";
 
-
+    let preTitle;
     if (this.props.recordView) {
       navClass = 'recordNav';
       const currentRecord = this.props.currentRecord;
-      navTitle = currentRecord["Company Name"]
+      navTitle = currentRecord["Company Name"];
+      preTitle = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + ' Sales Pipeline';
     } else {
       navClass = 'normalNav';
     }
@@ -38,12 +39,11 @@ export default class Navbar extends Component {
       <div className={navClass}>
         <div className="Navbar">
           {this.closeButton}
-          <h4>{navTitle}</h4>
-          <div className="inputBlock">
-            <div className="selectBlock">
-              {this.viewSelects}
-            </div>
-          </div>
+          <h4>
+            <span>{preTitle}</span>
+            {this.props.recordView ? <br /> : ''}
+            {navTitle}
+          </h4>
           {this.downloadButton}
         </div>
       </div>
@@ -114,6 +114,12 @@ export default class Navbar extends Component {
     if (this.props.recordView) {
       return (
         <div className="rightButtons">
+          <div className="inputBlock">
+            <div className="selectBlock">
+              {this.viewSelects}
+            </div>
+          </div>
+
           <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
             <img src={sortImg} alt="Export" />
           </div>
@@ -125,8 +131,16 @@ export default class Navbar extends Component {
       );
     } else {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
-          <img src={exportImg} alt="Export" />
+        <div className="rightButtons">
+          <div className="inputBlock">
+            <div className="selectBlock">
+              {this.viewSelects}
+            </div>
+          </div>
+          
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
+            <img src={exportImg} alt="Export" />
+          </div>
         </div>
       );
     }
@@ -144,4 +158,5 @@ Navbar.propTypes ={
   switchTableHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
   currentRecord: propTypes.array.isRequired,
+  citySet: propTypes.string.isRequired,
 }
