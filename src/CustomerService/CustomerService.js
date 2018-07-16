@@ -67,6 +67,8 @@ export default class CustomerService extends Component {
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.loading && !nextState.loading) {
       if (this.props.recordId != null) {
+        console.log(this.props.recordId);
+        console.log(nextState.data.filter(e => e.id === this.props.recordId));
         if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
           this.props.recordId;
           const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
@@ -77,10 +79,32 @@ export default class CustomerService extends Component {
               currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
             })
           }).bind(this), 0);
+        } else {
+          finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
+          return axios
+            .get(finalURL)
+            .then(response => {
+              console.log(response);
+              this.setState({
+                recordView: true,
+                loading: false,
+                error: false,
+                currentRecord: response.data.fields,
+              });
+            })
+            .catch(error => {
+              console.error("error: ", error);
+              this.setState({
+                error: `${error}`,
+                loading: false,
+              });
+            });
         }
       } else if (this.props.citySet != null) {
+        console.log('yo-2');
       } else {
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
+        console.log('yo-3');
+        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
         return axios
           .get(finalURL)
           .then(response => {

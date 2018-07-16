@@ -14,6 +14,7 @@ import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
 import InsideSalesView from './Records/InsideSalesView';
 import AppointmentView from './Records/AppointmentView';
+import ProposalView from './Records/ProposalView';
 import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
@@ -1428,6 +1429,22 @@ export default class Sales extends Component {
       } else if (this.state.currentRecordView === 'inside') {
         return (
           <InsideSalesView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      } else if (this.state.currentRecordView === 'proposal') {
+        return (
+          <ProposalView
             isLoading={this.state.loading}
             controlsModalToggle={this.controlsModalToggle}
             currentId={this.state.currentId}

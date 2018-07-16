@@ -59,8 +59,9 @@ export default class Navbar extends Component {
       return (
         <select id="viewSelect" value={this.props.currentRecordView} onChange={this.props.viewSelect}>
           <option value="default">Default View</option>
-          <option value="appointment">Appointment View</option>
           <option value="inside">Inside Sales View</option>
+          <option value="appointment">Appointment View</option>
+          <option value="proposal">Proposal View</option>
         </select>
       );
     } else {

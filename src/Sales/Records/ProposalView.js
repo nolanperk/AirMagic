@@ -7,18 +7,13 @@ import ModuleMain from './Modules/ModuleMain';
 import ModuleContact from './Modules/ModuleContact';
 import ModuleLocation from './Modules/ModuleLocation';
 import ModuleSales from './Modules/ModuleSales';
-import ModuleService from './Modules/ModuleService';
+import ModulePipeline from './Modules/ModulePipeline';
 import ModuleNumbers from './Modules/ModuleNumbers';
-import ModuleSP from './Modules/ModuleSP';
 import ModuleSchedule from './Modules/ModuleSchedule';
+import ModuleSpecial from './Modules/ModuleSpecial';
 
 
-export default class AccountingView extends Component {
-
-
-  componentDidMount() {
-    this.props.loadSPInfo();
-  }
+export default class ProposalView extends Component {
 
   // Render
   // ----------------------------------------------------
@@ -27,38 +22,49 @@ export default class AccountingView extends Component {
     this.gridLayout()
 
 
-
     return (
       <div className="RecordView" key={this.props.currentId}>
         <div className="ModuleContainer">
-          <div className="ModuleList">
-            <ModuleMain
+          <div className="ModuleList fullWidthCards">
+            <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
-              company={this.props.currentRecord['Company Name']}
+              salutation={this.props.currentRecord['Salutation']}
+              contact={this.props.currentRecord['Main contact']}
+              title={this.props.currentRecord['Title']}
+              altContact={this.props.currentRecord['Alternate Contact']}
+              phone={this.props.currentRecord['Office Phone']}
+              ext={this.props.currentRecord['Extension']}
+              cell={this.props.currentRecord['Cell Phone']}
+              email={this.props.currentRecord['Email']}
+              source={this.props.currentRecord['Lead Source']}
             />
-            <ModuleSP
+            <ModuleSpecial
+              changeNotesHandler={this.props.changeNotesHandler}
               changeRecordHandler={this.props.changeRecordHandler}
-              changeSelectBlock={this.props.changeSelectBlock}
-              spChangeHandler={this.props.spChangeHandler}
-              spNumber={this.props.currentRecord['SP Number']}
-              currentSP={this.props.currentSP}
-              spList={this.props.spList}
-              baseId={this.props.baseId}
+              currentRecordView={this.props.currentRecordView}
+              specialNotes={this.props.currentRecord['Special Notes']}
             />
             <ModuleSchedule
-              amount={this.props.currentRecord['Monthly Amount']}
-              weekDays={this.props.currentRecord['Days of Week']}
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               timesPerWeek={this.props.currentRecord['Times per Week']}
+              weekDays={this.props.currentRecord['Days of Week']}
             />
-            <ModuleSales
+            <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
-              newSP={this.props.currentRecord['New SP Start']}
-              cancel={this.props.currentRecord['Cancel Date']}
-              start={this.props.currentRecord['Start Date']}
               currentRecordView={this.props.currentRecordView}
+              amount={this.props.currentRecord['Monthly Amount']}
+              sqFt={this.props.currentRecord['Sq. Footage']}
+              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
+              restrooms={this.props.currentRecord['Restrooms']}
+              ceramic={this.props.currentRecord['Ceramic']}
+              marble={this.props.currentRecord['Marble']}
+              vct={this.props.currentRecord['VCT']}
+              wood={this.props.currentRecord['Wood']}
+              woodLam={this.props.currentRecord['Wood Lam.']}
+              carpet={this.props.currentRecord['Carpet']}
+              other={this.props.currentRecord['Other']}
             />
           </div>
         </div>
@@ -84,9 +90,8 @@ export default class AccountingView extends Component {
 }
 
 
-AccountingView.propTypes ={
-  spChangeHandler: propTypes.func.isRequired,
-  loadSPInfo: propTypes.func.isRequired,
+ProposalView.propTypes ={
+  currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.number.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
@@ -96,7 +101,4 @@ AccountingView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
-  currentSP: propTypes.object.isRequired,
-  spList: propTypes.object.isRequired,
-  currentRecordView: propTypes.string.isRequired,
 }
