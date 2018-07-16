@@ -58,7 +58,6 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               changeSelectBlock={this.props.changeSelectBlock}
-              callCount={this.props.currentRecord['Times Called']}
               apptBy={this.props.currentRecord['Appt. Set By']}
               apptSet={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}

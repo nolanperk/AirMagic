@@ -12,6 +12,10 @@ export default class Navbar extends Component {
     sessionStorage.removeItem('innerOffset'); //reset it!
     sessionStorage.removeItem('innerClosedID'); //reset it
     sessionStorage.removeItem('listView');
+    sessionStorage.removeItem('serviceView');
+    this.setState({
+      currentRecordView: 'default'
+    });
   }
 
   // Render
@@ -59,6 +63,16 @@ export default class Navbar extends Component {
 
     );
   }
+  get viewSelects() {
+    if (this.props.recordView) {
+      return (
+        <select id="viewSelect" value={this.props.currentRecordView} onChange={this.props.viewSelect}>
+          <option value="default">Default View</option>
+          <option value="accounting">Accounting View</option>
+        </select>
+      );
+    }
+  }
   get closeButton() {
     if (this.props.recordView) {
       return (
@@ -79,8 +93,15 @@ export default class Navbar extends Component {
   get downloadButton() {
     if (this.props.recordView) {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-          <img src={exportImg} alt="Export" />
+        <div className="rightButtons">
+          <div className="inputBlock">
+            <div className="selectBlock">
+              {this.viewSelects}
+            </div>
+          </div>
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+            <img src={exportImg} alt="Export" />
+          </div>
         </div>
       );
     } else {
@@ -96,6 +117,8 @@ export default class Navbar extends Component {
 
 Navbar.propTypes ={
   recordView: propTypes.bool.isRequired,
+  viewSelect: propTypes.func.isRequired,
+  currentRecordView: propTypes.string.isRequired,
   closeRecordHandler: propTypes.func.isRequired,
   switchTableHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,

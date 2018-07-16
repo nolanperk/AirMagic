@@ -27,31 +27,14 @@ export default class ModulePipeline extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-    let callCount = this.props.callCount;
     let setBy = this.props.apptBy;
     let apptSet = this.props.apptSet;
     let apptDate = this.props.apptDate;
-    let proposal = this.props.proposal;
     let apptTime = this.props.apptTime;
 
     return (
       <div className="ModuleCard">
         <div className="inner">
-
-          <div className="inputBlock inputBlock--full">
-            <label>Times Called</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={numberImg} />
-              </div>
-              <input
-                type="text"
-                id="callCount"
-                value={callCount}
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
 
           <div className="inputBlock inputBlock--half">
             <label>Appt. Set By</label>
@@ -108,25 +91,34 @@ export default class ModulePipeline extends Component {
             />
           </div>
 
-          <div className="inputBlock inputBlock--half">
-            <label>Proposal Date</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={calendarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={proposal}
-                id="proposal"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
+          {this.ModuleProposal}
 
 
         </div>
       </div>
     );
+  }
+
+  get ModuleProposal() {
+    let proposal = this.props.proposal;
+    if (this.props.currentRecordView === 'default') {
+      return (
+        <div className="inputBlock inputBlock--half">
+          <label>Proposal Date</label>
+          <div className="inputWithTag">
+            <div className="inputTag">
+              <img src={calendarImg} alt="" />
+            </div>
+            <input
+              type="text"
+              value={proposal}
+              id="proposal"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+      );
+    }
   }
 }
 

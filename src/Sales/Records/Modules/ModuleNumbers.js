@@ -123,16 +123,103 @@ export default class ModuleNumbers extends Component {
           </div>
 
           <div className="inputBlock inputBlock--quart"></div>
+        </div>
+      );
+    } else if (this.props.currentRecordView === 'inside') {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--half">
+            <label>Sq. Footage</label>
+            <input
+              type="text"
+              value={sqFt}
+              id="sqFt"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
 
 
+          <div className="inputBlock inputBlock--half">
+            <label>Restrooms</label>
+            <input
+              type="text"
+              value={restrooms}
+              id="restrooms"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
 
+          <div className="inputBlock inputBlock--quart">
+            <label>Ceramic</label>
+            <input
+              type="text"
+              value={ceramic}
+              id="ceramic"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Marble</label>
+            <input
+              type="text"
+              value={marble}
+              id="marble"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>VCT</label>
+            <input
+              type="text"
+              value={vct}
+              id="vct"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Wood</label>
+            <input
+              type="text"
+              value={wood}
+              id="wood"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>Lam.</label>
+            <input
+              type="text"
+              value={woodLam}
+              id="woodLam"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Carpet</label>
+            <input
+              type="text"
+              value={carpet}
+              id="carpet"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>Other</label>
+            <input
+              type="text"
+              value={other}
+              id="other"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
         </div>
       );
     } else {
       return (
         <div className="inner">
-
-
           <div className="inputBlock inputBlock--full">
             <label>Monthly Amount</label>
             <div className="inputWithTag">
@@ -244,11 +331,6 @@ export default class ModuleNumbers extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
-
-          <div className="inputBlock inputBlock--quart"></div>
-
-
-
         </div>
       );
     }

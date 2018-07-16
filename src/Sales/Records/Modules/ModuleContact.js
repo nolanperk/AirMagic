@@ -74,6 +74,111 @@ export default class ModuleContact extends Component {
           </div>
         </div>
       );
+    } if (this.props.currentRecordView === 'inside') {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--quart">
+            <label>Salutation</label>
+            <input
+              type="text"
+              id="salutation"
+              value={salutation}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--75">
+            <label>Main Contact</label>
+            <input
+              type="text"
+              id="contact"
+              value={contact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Contact Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Alt. Contact</label>
+            <input
+              type="text"
+              id="altContact"
+              value={altContact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--large">
+            <label>Office Phone</label>
+            <div className="inputWithTag">
+                <div className="inputTag">
+                  <a href={officeLink}></a>
+                  <img src={phoneImg} />
+                </div>
+              <input
+                type="text"
+                id="phone"
+                value={phone}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--small">
+            <label>Extension</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={numberImg} />
+              </div>
+              <input
+                type="text"
+                id="ext"
+                value={ext}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Cell Phone</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <a href={cellLink}></a>
+                <img src={phoneImg} />
+              </div>
+              <input
+                type="text"
+                id="cell"
+                value={cell}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--full">
+            <label>Email</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <a href={emailLink}></a>
+                <img src={emailImg} />
+              </div>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="inner">

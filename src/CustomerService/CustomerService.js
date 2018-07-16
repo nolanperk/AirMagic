@@ -12,6 +12,7 @@ import loader from '../assets/loader.gif';
 
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
+import AccountingView from './Records/AccountingView';
 import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
@@ -59,6 +60,7 @@ export default class CustomerService extends Component {
       currentSP: [],
       spList: [],
       spListOffset: '',
+      currentRecordView: 'default',
     }
   }
 
@@ -1120,6 +1122,24 @@ export default class CustomerService extends Component {
   }
 
 
+
+  viewSelect = e => {
+    console.log(e.target.value);
+    if (e.target.value !== 'default') {
+      let selectedView = e.target.value;
+      sessionStorage.setItem('serviceView', selectedView);
+      this.setState({
+        currentRecordView: sessionStorage.getItem('serviceView')
+      });
+    } else {
+      sessionStorage.removeItem('serviceView');
+      this.setState({
+        currentRecordView: 'default'
+      });
+    }
+    // window.location.reload();
+  }
+
   loadData = () => {
     if (sessionStorage.getItem('listView') != null) {
       this.setState({
@@ -1443,6 +1463,16 @@ export default class CustomerService extends Component {
       }
 
 
+      if (sessionStorage.getItem('serviceView')) {
+        this.setState({
+          currentRecordView: sessionStorage.getItem('serviceView')
+        });
+      } else {
+        this.setState({
+          currentRecordView: 'default'
+        });
+      }
+
       if (sessionStorage.getItem('tampaSPLoaded') !== true) {
         this.loadSPList();
       } else {
@@ -1516,6 +1546,8 @@ export default class CustomerService extends Component {
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
           citySet={this.props.citySet}
+          currentRecordView={this.state.currentRecordView}
+          viewSelect={this.viewSelect}
         />
 
         {this.currentView}
@@ -1562,23 +1594,47 @@ export default class CustomerService extends Component {
 
   get currentView() {
     if (this.state.recordView) {
-      return (
-        <RecordView
-          isLoading={this.state.loading}
-          controlsModalToggle={this.controlsModalToggle}
-          currentId={this.state.currentId}
-          recordChanges= {this.state.recordChanges}
-          currentRecord={this.state.currentRecord}
-          changeRecordHandler={this.changeRecordHandler}
-          recordChanger={this.recordChanger}
-          changeNotesHandler={this.changeNotesHandler}
-          baseId={this.state.baseId}
-          spChangeHandler={this.spChangeHandler}
-          currentSP={this.state.currentSP}
-          spList={this.state.spList}
-          loadSPInfo={this.loadSPInfo}
-        />
-      );
+      if (this.state.currentRecordView === 'default') {
+        return (
+          <RecordView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            spChangeHandler={this.spChangeHandler}
+            currentSP={this.state.currentSP}
+            spList={this.state.spList}
+            loadSPInfo={this.loadSPInfo}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      } else if (this.state.currentRecordView === 'accounting') {
+        return (
+          <AccountingView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            spChangeHandler={this.spChangeHandler}
+            currentSP={this.state.currentSP}
+            spList={this.state.spList}
+            loadSPInfo={this.loadSPInfo}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      }
     } else if (this.state.franchiseView) {
       return (
         <FranchiseView

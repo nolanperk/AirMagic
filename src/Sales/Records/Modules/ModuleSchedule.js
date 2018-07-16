@@ -18,7 +18,7 @@ export default class ModuleSchedule extends Component {
     let sqFtPer = this.props.sqFtPer;
     let timesPerWeek = this.props.timesPerWeek;
     let weekDays = this.props.weekDays;
-    if (this.props.currentRecordView === 'appointment') {
+    if (this.props.currentRecordView === 'appointment' || this.props.currentRecordView === 'inside') {
       return (
         <div className="inner">
           <div className="inputBlock inputBlock--half">

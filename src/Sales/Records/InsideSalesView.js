@@ -34,12 +34,9 @@ export default class InsideSalesView extends Component {
               company={this.props.currentRecord['Company Name']}
               status={this.props.currentRecord['Status']}
               standing={this.props.currentRecord['Standing']}
-              industry={this.props.currentRecord['Industry']}
               rep={this.props.currentRecord['Sales Rep']}
               recentCaller={this.props.currentRecord['Recent Caller']}
               callDate={this.props.currentRecord['Recent Call Date']}
-              callBack={this.props.currentRecord['Callback Date']}
-              website={this.props.currentRecord['Website']}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -52,18 +49,15 @@ export default class InsideSalesView extends Component {
               ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
-              source={this.props.currentRecord['Lead Source']}
             />
             <ModulePipeline
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               changeSelectBlock={this.props.changeSelectBlock}
-              callCount={this.props.currentRecord['Times Called']}
               apptBy={this.props.currentRecord['Appt. Set By']}
               apptSet={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
-              proposal={this.props.currentRecord['Proposal Date']}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -76,26 +70,16 @@ export default class InsideSalesView extends Component {
               emp={this.props.currentRecord['Employees']}
               company={this.props.currentRecord['Company Name']}
             />
-            <ModuleSpecial
-              changeNotesHandler={this.props.changeNotesHandler}
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              specialNotes={this.props.currentRecord['Special Notes']}
-            />
             <ModuleSchedule
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
-              hoursPer={this.props.currentRecord['Hours Per']}
-              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
-              amount={this.props.currentRecord['Monthly Amount']}
               sqFt={this.props.currentRecord['Sq. Footage']}
-              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
               restrooms={this.props.currentRecord['Restrooms']}
               ceramic={this.props.currentRecord['Ceramic']}
               marble={this.props.currentRecord['Marble']}
@@ -104,17 +88,6 @@ export default class InsideSalesView extends Component {
               woodLam={this.props.currentRecord['Wood Lam.']}
               carpet={this.props.currentRecord['Carpet']}
               other={this.props.currentRecord['Other']}
-            />
-            <ModuleSales
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              changeSelectBlock={this.props.changeSelectBlock}
-              closed={this.props.currentRecord['Close Date']}
-              walkthrough={this.props.currentRecord['Walkthrough Date']}
-              start={this.props.currentRecord['Start Date']}
-              preCleanDate={this.props.currentRecord['Pre-Clean Date']}
-              preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
-              cancel={this.props.currentRecord['Cancel Date']}
             />
           </div>
         </div>

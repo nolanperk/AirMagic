@@ -14,6 +14,10 @@ export default class Navbar extends Component {
     sessionStorage.removeItem('innerClosedID'); //reset it!
     sessionStorage.removeItem('listView');
     sessionStorage.removeItem('jumpLetters');
+    sessionStorage.removeItem('salesView');
+    this.setState({
+      currentRecordView: 'default'
+    });
   }
 
   // Render

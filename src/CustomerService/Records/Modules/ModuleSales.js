@@ -26,6 +26,16 @@ export default class ModuleSales extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+
+    return (
+      <div className="ModuleCard">
+        {this.AccountingView}
+      </div>
+    );
+  }
+
+
+  get AccountingView() {
     let apptSetDate = this.props.apptSetDate;
     let apptDate = this.props.apptDate;
     let proposal = this.props.proposal;
@@ -37,9 +47,57 @@ export default class ModuleSales extends Component {
     let source = this.props.source;
     let newSP = this.props.newSP;
     let cancel = this.props.cancel;
+    if (this.props.currentRecordView === 'accounting') {
+      return (
+        <div className="inner">
 
-    return (
-      <div className="ModuleCard">
+          <div className="inputBlock inputBlock--half">
+            <label>Start Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={start}
+                id="start"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>New SP Start</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={newSP}
+                id="newSP"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+            </div>
+
+            <div className="inputBlock inputBlock--half">
+            <label>Cancel Date</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={cancel}
+                id="cancel"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
         <div className="inner">
 
           <div className="inputBlock inputBlock--half">
@@ -216,12 +274,11 @@ export default class ModuleSales extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
-
-
         </div>
-      </div>
-    );
+      );
+    }
   }
+
 }
 
 ModuleSales.propTypes ={

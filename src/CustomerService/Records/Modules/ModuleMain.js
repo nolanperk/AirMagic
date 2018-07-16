@@ -10,6 +10,15 @@ export default class ModuleMain extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+
+    return (
+      <div className="ModuleCard">
+        {this.AccountingView}
+      </div>
+    );
+  }
+
+  get AccountingView() {
     let company = this.props.company;
     let cpop = this.props.cpop;
     let supplies = this.props.supplies;
@@ -26,12 +35,22 @@ export default class ModuleMain extends Component {
     let officeLink = 'tel:' + phone;
     let cellLink = 'tel:' + cell;
     let emailLink = 'mailto:' + email;
-
-
-
-
-    return (
-      <div className="ModuleCard">
+    if (this.props.currentRecordView === 'accounting') {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--full">
+            <label>Company Name</label>
+            <input
+              type="text"
+              onChange={this.props.changeRecordHandler}
+              value={company}
+              id="company"
+            />
+          </div>
+        </div>
+      );
+    } else {
+      return (
         <div className="inner">
           <div className="inputBlock inputBlock--full">
             <label>Company Name</label>
@@ -147,13 +166,14 @@ export default class ModuleMain extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 ModuleMain.propTypes ={
   company: propTypes.string,
+  currentRecordView: propTypes.string.isRequired,
 
   salutation: propTypes.string,
   contact: propTypes.string,
