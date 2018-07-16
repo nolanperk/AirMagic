@@ -227,6 +227,10 @@ hr {
     margin-bottom: 11px;
     position: relative;
 
+    &.isHidden {
+      display: none;
+    }
+
     .selectBlock {
       position: relative;
       &::after {
@@ -305,6 +309,10 @@ hr {
       flex-basis: 40px;
       background: #e8e8e8;
       position: relative;
+
+      &.selectable {
+        cursor: pointer;
+      }
 
       a {
         position: absolute;

@@ -566,43 +566,123 @@ export default class Sales extends Component {
     });
   }
 
+
+
+
+  autoPricing = () => {
+    let fullDataSet = this.state.currentRecord;
+
+
+    let sqFtReal = parseInt(fullDataSet['Actual Sq Footage']);
+    let cleanSpeed = fullDataSet['SQ Ft. per Hour'];
+    let timesPerWeek = parseInt(fullDataSet['Times per Week'].substring(0,1));
+    let hourlyPrice;
+    let autoPrice;
+
+    if (timesPerWeek === 1) {
+      hourlyPrice = 20;
+    } else if (timesPerWeek === 2) {
+      hourlyPrice = 19;
+    } else if (timesPerWeek === 3) {
+      hourlyPrice = 18;
+    } else if (timesPerWeek === 4) {
+      hourlyPrice = 17.5;
+    } else if (timesPerWeek === 5) {
+      hourlyPrice = 17;
+    } else if (timesPerWeek === 6) {
+      hourlyPrice = 17.25;
+    } else if (timesPerWeek === 7) {
+      hourlyPrice = 17.5;
+    } else {
+      hourlyPrice = 0;
+    }
+    console.log('(sqFtReal / cleanSpeed) * timesPerWeek * hourlyPrice * 4.3');
+    autoPrice = (parseInt(sqFtReal) / cleanSpeed) * timesPerWeek * hourlyPrice * 4.3;
+    console.log(autoPrice);
+    autoPrice = Math.round(autoPrice/5)*5;
+    console.log(autoPrice);
+
+    let hoursPer = (parseInt(sqFtReal) / cleanSpeed);
+    hoursPer = hoursPer.toFixed(2);
+
+    fullDataSet['Hours Per'] = hoursPer;
+    fullDataSet['Monthly Amount'] = autoPrice;
+
+    this.setState({
+      currentRecord: fullDataSet,
+    });
+
+  }
+
+  timesPerWeekChange = e => {
+    console.log(e.target.value);
+    let fullDataSet = this.state.currentRecord;
+    fullDataSet['Times per Week'] = document.getElementById('timesPerWeekSelect').value;
+
+    if (e.target.value === 'other') {
+      this.setState({
+        recordChanges: true,
+        currentRecord: fullDataSet,
+      });
+    } else {
+      this.setState({
+        recordChanges: true,
+        currentRecord: fullDataSet,
+      });
+    }
+  }
+
   saveRecordHandler = () => {
     if (this.state.newRecord) {
       let fullDataSet = this.state.currentRecord;
       fullDataSet["Status"] = document.getElementById('statusSelect').value;
-      fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
-      fullDataSet["Standing"] = document.getElementById('standingSelect').value;
-      fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
-      fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
-
-
-      let finalPush = {"fields": fullDataSet}
-      console.log(finalPush);
-      axios
-      .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
-        .then(response => {
-        if (this.state.activeModal && this.state.modalType === 'saveAlert') {
-          this.setState({
-            recordView: false,
-            currentRecord: []
-          });
-        }
+      if (this.state.currentRecordView !== 'default') {
         this.setState({
-          data: this.state.data.push(response),
-          activeModal: false,
-          modalType: '',
-          newRecord: false,
-          currentRecord: [],
-          recordChanges: false,
+          currentRecordView: 'default',
+        })
+      }
+      setTimeout((function() {
+        fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
+        fullDataSet["Standing"] = document.getElementById('standingSelect').value;
+        fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
+        fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
+
+
+        let finalPush = {"fields": fullDataSet}
+        console.log(finalPush);
+        axios
+        .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
+          .then(response => {
+          if (this.state.activeModal && this.state.modalType === 'saveAlert') {
+            this.setState({
+              recordView: false,
+              currentRecord: []
+            });
+          }
+          this.setState({
+            data: this.state.data.push(response),
+            activeModal: false,
+            modalType: '',
+            newRecord: false,
+            currentRecord: [],
+            recordChanges: false,
+          });
+
+          if (this.state.currentRecordView !== 'default') {
+            this.setState({
+              currentRecordView: sessionStorage.getItem('salesView'),
+            })
+          }
+        })
+        .catch(response => {
+          console.error("error: ", response);
         });
-      })
-      .catch(response => {
-        console.error("error: ", response);
-      });
+      }).bind(this), 10);
     } else {
       let fullDataSet = this.state.data;
       let pushRecordId;
       let pushRecord;
+
       if (this.state.recordChanger) {
         pushRecord = fullDataSet[fallbackRecordIndex].fields
         pushRecordId = fullDataSet[fallbackRecordIndex].id
@@ -610,74 +690,88 @@ export default class Sales extends Component {
         pushRecord = this.state.currentRecord;
         pushRecordId = this.props.recordId;
       }
-      pushRecord["Status"] = document.getElementById('statusSelect').value;
-      pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
-      pushRecord["Standing"] = document.getElementById('standingSelect').value;
-      pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
-      pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
+      if (this.state.currentRecordView !== 'default') {
+        this.setState({
+          currentRecordView: 'default',
+        })
+      }
+      setTimeout((function() {
+        pushRecord["Status"] = document.getElementById('statusSelect').value;
+        pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
+        pushRecord["Standing"] = document.getElementById('standingSelect').value;
+        pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
+        pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
 
 
-      let finalPush = {"fields": pushRecord}
-      console.log(finalPush);
-      axios
-      .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
-        .then(response => {
-        if (this.state.activeModal) {
-          this.setState({
-            loading: true,
-          })
-          if (this.state.recordChanger) {
-            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+        let finalPush = {"fields": pushRecord}
+        console.log(finalPush);
+        axios
+        .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
+          .then(response => {
+          if (this.state.activeModal) {
+            this.setState({
+              loading: true,
+            })
+            if (this.state.recordChanger) {
+              this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+              setTimeout((function() {
+                this.setState({
+                  recordChanger: false,
+                  activeModal: false,
+                  modalType: '',
+                  recordChanges: false,
+                });
+              }).bind(this), 10);
+            } else {
+              if (this.state.modalType === 'saveAlert') {
+                this.props.history.push('/' + this.props.citySet + '/sales/');
+                this.setState({
+                  data: fullDataSet,
+                  recordView: false,
+                  currentRecord: [],
+                });
+
+                this.setState({
+                  recordView: false,
+                  currentRecord: []
+                });
+              } else {
+                this.setState({
+                  activeModal: false,
+                  modalType: '',
+                });
+              }
+              this.setState({
+                fallbackRecord: [],
+                recordChanges: false,
+                currentRecord: this.state.data[dataIndex].fields,
+                loading: false,
+              });
+            }
             setTimeout((function() {
               this.setState({
-                recordChanger: false,
-                activeModal: false,
-                modalType: '',
-                recordChanges: false,
+                loading: false,
               });
             }).bind(this), 10);
           } else {
-            if (this.state.modalType === 'saveAlert') {
-              this.props.history.push('/' + this.props.citySet + '/sales/');
-              this.setState({
-                data: fullDataSet,
-                recordView: false,
-                currentRecord: [],
-              });
-
-              this.setState({
-                recordView: false,
-                currentRecord: []
-              });
-            } else {
-              this.setState({
-                activeModal: false,
-                modalType: '',
-              });
-            }
+            alert('Record Saved');
             this.setState({
-              fallbackRecord: [],
               recordChanges: false,
-              currentRecord: this.state.data[dataIndex].fields,
-              loading: false,
-            });
+            })
+
+            if (this.state.currentRecordView !== 'default') {
+              this.setState({
+                currentRecordView: sessionStorage.getItem('salesView'),
+              })
+            }
           }
-          setTimeout((function() {
-            this.setState({
-              loading: false,
-            });
-          }).bind(this), 10);
-        } else {
-          alert('Record Saved');
-          this.setState({
-            recordChanges: false,
-          })
-        }
-      })
-      .catch(response => {
-        console.error("error: ", response);
-        // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
-      });
+        })
+        .catch(response => {
+          console.error("error: ", response);
+          // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
+        });
+      }).bind(this), 10);
+
     }
   }
 
@@ -1408,6 +1502,8 @@ export default class Sales extends Component {
             baseId={this.state.baseId}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            timesPerWeekChange={this.timesPerWeekChange}
+            autoPricing={this.autoPricing}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -1424,6 +1520,8 @@ export default class Sales extends Component {
             baseId={this.state.baseId}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            timesPerWeekChange={this.timesPerWeekChange}
+            autoPricing={this.autoPricing}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -1440,6 +1538,8 @@ export default class Sales extends Component {
             baseId={this.state.baseId}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            timesPerWeekChange={this.timesPerWeekChange}
+            autoPricing={this.autoPricing}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -1456,6 +1556,8 @@ export default class Sales extends Component {
             baseId={this.state.baseId}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            timesPerWeekChange={this.timesPerWeekChange}
+            autoPricing={this.autoPricing}
           />
         );
       }

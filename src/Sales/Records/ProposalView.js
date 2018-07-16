@@ -50,6 +50,9 @@ export default class ProposalView extends Component {
               currentRecordView={this.props.currentRecordView}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
+              timesPerWeekChange={this.props.timesPerWeekChange}
+              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
+              hoursPer={this.props.currentRecord['Hours Per']}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
@@ -65,6 +68,11 @@ export default class ProposalView extends Component {
               woodLam={this.props.currentRecord['Wood Lam.']}
               carpet={this.props.currentRecord['Carpet']}
               other={this.props.currentRecord['Other']}
+
+              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
+              timesPerWeek={this.props.currentRecord['Times per Week']}
+
+              autoPricing={this.props.autoPricing}
             />
           </div>
         </div>
@@ -101,4 +109,6 @@ ProposalView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  timesPerWeekChange: propTypes.func.isRequired,
+  autoPricing: propTypes.func.isRequired,
 }

@@ -690,38 +690,52 @@ export default class CustomerService extends Component {
   saveRecordHandler = () => {
     if (this.state.newRecord) {
       let fullDataSet = this.state.currentRecord;
-      fullDataSet["PAM"] = document.getElementById('pamSelect').value;
-      fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
-      fullDataSet["Status"] = document.getElementById('statusSelect').value;
-      fullDataSet["Standing"] = document.getElementById('standingSelect').value;
-      fullDataSet["CPOP"] = document.getElementById('cpopSelect').value;
-      fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
-      fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
 
-
-      let finalPush = {"fields": fullDataSet}
-      console.log(finalPush);
-      axios
-      .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
-        .then(response => {
-        if (this.state.activeModal && this.state.modalType === 'saveAlert') {
-          this.setState({
-            recordView: false,
-            currentRecord: []
-          });
-        }
+      if (this.state.currentRecordView !== 'default') {
         this.setState({
-          data: this.state.data.push(response),
-          activeModal: false,
-          modalType: '',
-          newRecord: false,
-          currentRecord: [],
-          recordChanges: false,
+          currentRecordView: 'default',
+        })
+      }
+      setTimeout((function() {
+        fullDataSet["PAM"] = document.getElementById('pamSelect').value;
+        fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
+        fullDataSet["Status"] = document.getElementById('statusSelect').value;
+        fullDataSet["Standing"] = document.getElementById('standingSelect').value;
+        fullDataSet["CPOP"] = document.getElementById('cpopSelect').value;
+        fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
+        fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
+
+
+        let finalPush = {"fields": fullDataSet}
+        console.log(finalPush);
+        axios
+        .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
+          .then(response => {
+          if (this.state.activeModal && this.state.modalType === 'saveAlert') {
+            this.setState({
+              recordView: false,
+              currentRecord: []
+            });
+          }
+          this.setState({
+            data: this.state.data.push(response),
+            activeModal: false,
+            modalType: '',
+            newRecord: false,
+            currentRecord: [],
+            recordChanges: false,
+          });
+
+          if (this.state.currentRecordView !== 'default') {
+            this.setState({
+              currentRecordView: sessionStorage.getItem('serviceView'),
+            })
+          }
+        })
+        .catch(response => {
+          console.error("error: ", response);
         });
-      })
-      .catch(response => {
-        console.error("error: ", response);
-      });
+      }).bind(this), 10);
     } else {
       let fullDataSet = this.state.data;
       let pushRecordId;
@@ -737,75 +751,88 @@ export default class CustomerService extends Component {
           pushRecordId = this.state.currentId;
         }
       }
-      pushRecord["PAM"] = document.getElementById('pamSelect').value;
-      pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
-      pushRecord["Status"] = document.getElementById('statusSelect').value;
-      pushRecord["Standing"] = document.getElementById('standingSelect').value;
-      pushRecord["CPOP"] = document.getElementById('cpopSelect').value;
-      pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
-      pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
+      if (this.state.currentRecordView !== 'default') {
+        this.setState({
+          currentRecordView: 'default',
+        })
+      }
+      setTimeout((function() {
+        pushRecord["PAM"] = document.getElementById('pamSelect').value;
+        pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
+        pushRecord["Status"] = document.getElementById('statusSelect').value;
+        pushRecord["Standing"] = document.getElementById('standingSelect').value;
+        pushRecord["CPOP"] = document.getElementById('cpopSelect').value;
+        pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
+        pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
 
 
-      let finalPush = {"fields": pushRecord}
-      axios
-      .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
-        .then(response => {
-        if (this.state.activeModal) {
-          this.setState({
-            loading: true,
-          })
-          if (this.state.recordChanger) {
-            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+        let finalPush = {"fields": pushRecord}
+        axios
+        .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
+          .then(response => {
+          if (this.state.activeModal) {
+            this.setState({
+              loading: true,
+            })
+            if (this.state.recordChanger) {
+              this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+              setTimeout((function() {
+                this.setState({
+                  recordChanger: false,
+                  activeModal: false,
+                  recordChanges: false,
+                  modalType: '',
+                });
+              }).bind(this), 10);
+            } else {
+              if (this.state.modalType === 'saveAlert') {
+                this.props.history.push('/' + this.props.citySet + '/customer-service/');
+                this.setState({
+                  data: fullDataSet,
+                  recordView: false,
+                  currentRecord: [],
+                });
+
+                this.setState({
+                  recordView: false,
+                  currentRecord: []
+                });
+              } else {
+                this.setState({
+                  activeModal: false,
+                  modalType: '',
+                });
+              }
+              this.setState({
+                fallbackRecord: [],
+                recordChanges: false,
+                currentRecord: this.state.data[dataIndex].fields,
+                loading: false,
+              });
+            }
             setTimeout((function() {
               this.setState({
-                recordChanger: false,
-                activeModal: false,
-                recordChanges: false,
-                modalType: '',
+                loading: false,
               });
             }).bind(this), 10);
           } else {
-            if (this.state.modalType === 'saveAlert') {
-              this.props.history.push('/' + this.props.citySet + '/customer-service/');
-              this.setState({
-                data: fullDataSet,
-                recordView: false,
-                currentRecord: [],
-              });
-
-              this.setState({
-                recordView: false,
-                currentRecord: []
-              });
-            } else {
-              this.setState({
-                activeModal: false,
-                modalType: '',
-              });
-            }
+            alert('Record Saved');
             this.setState({
-              fallbackRecord: [],
               recordChanges: false,
-              currentRecord: this.state.data[dataIndex].fields,
-              loading: false,
-            });
+            })
+
+            if (this.state.currentRecordView !== 'default') {
+              this.setState({
+                currentRecordView: sessionStorage.getItem('serviceView'),
+              })
+            }
           }
-          setTimeout((function() {
-            this.setState({
-              loading: false,
-            });
-          }).bind(this), 10);
-        } else {
-          alert('Record Saved');
-          this.setState({
-            recordChanges: false,
-          })
-        }
-      })
-      .catch(response => {
-        console.error("error: ", response);
-        // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
-      });
+        })
+        .catch(response => {
+          console.error("error: ", response);
+          // alert('******************************************************There was an error saving the record. Do not leave the page. Please get Nolan to take a look.******************************************************')
+        });
+      }).bind(this), 10);
     }
   }
 

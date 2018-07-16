@@ -46,7 +46,10 @@ export default class ModulePipeline extends Component {
                 <option id="none"></option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
-                <option id="Sales+Rep">Sales Rep</option>
+                <option id="Joel+Horwitz">Joel Horwitz</option>
+                <option id="Rob+Janke">Rob Janke</option>
+                <option id="Tyler+Perkins">Tyler Perkins</option>
+                <option id="Nolan+Perkins">Nolan Perkins</option>
                 <option id="Outside+Company">Outside Company</option>
               </select>
             </div>

@@ -88,6 +88,7 @@ export default class RecordView extends Component {
               sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
+              timesPerWeekChange={this.props.timesPerWeekChange}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
@@ -103,6 +104,7 @@ export default class RecordView extends Component {
               woodLam={this.props.currentRecord['Wood Lam.']}
               carpet={this.props.currentRecord['Carpet']}
               other={this.props.currentRecord['Other']}
+              autoPricing={this.props.autoPricing}
             />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
@@ -114,6 +116,7 @@ export default class RecordView extends Component {
               preCleanDate={this.props.currentRecord['Pre-Clean Date']}
               preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
               cancel={this.props.currentRecord['Cancel Date']}
+              timesPerWeek={this.props.currentRecord['Times per Week']}
             />
           </div>
         </div>
@@ -150,4 +153,6 @@ RecordView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  timesPerWeekChange: propTypes.func.isRequired,
+  autoPricing: propTypes.func.isRequired,
 }

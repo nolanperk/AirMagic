@@ -8,6 +8,7 @@ import dollarImg from '../../../assets/icons/black/dollar.png';
 
 export default class ModuleNumbers extends Component {
 
+
   // Render
   // ----------------------------------------------------
   render() {
@@ -223,7 +224,7 @@ export default class ModuleNumbers extends Component {
           <div className="inputBlock inputBlock--full">
             <label>Monthly Amount</label>
             <div className="inputWithTag">
-              <div className="inputTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
                 <img src={dollarImg} alt="" />
               </div>
               <input
@@ -350,4 +351,7 @@ ModuleNumbers.propTypes ={
   carpet: propTypes.string,
   other: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
+  sqFtPer: propTypes.string,
+  timesPerWeek: propTypes.string,
+  autoPricing: propTypes.func.isRequired,
 }

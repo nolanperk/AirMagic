@@ -940,6 +940,8 @@ hr {
     display: inline-block;
     margin-bottom: 11px;
     position: relative; }
+    .ModuleList .inputBlock.isHidden {
+      display: none; }
     .ModuleList .inputBlock .selectBlock {
       position: relative; }
       .ModuleList .inputBlock .selectBlock::after {
@@ -995,6 +997,8 @@ hr {
       flex-basis: 40px;
       background: #e8e8e8;
       position: relative; }
+      .ModuleList .inputWithTag .inputTag.selectable {
+        cursor: pointer; }
       .ModuleList .inputWithTag .inputTag a {
         position: absolute;
         width: 100%;

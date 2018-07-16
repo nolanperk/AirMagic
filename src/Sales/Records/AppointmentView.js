@@ -45,6 +45,7 @@ export default class AppointmentView extends Component {
               currentRecordView={this.props.currentRecordView}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
+              timesPerWeekChange={this.props.timesPerWeekChange}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
@@ -60,6 +61,8 @@ export default class AppointmentView extends Component {
               woodLam={this.props.currentRecord['Wood Lam.']}
               carpet={this.props.currentRecord['Carpet']}
               other={this.props.currentRecord['Other']}
+              autoPricing={this.props.autoPricing}
+              timesPerWeek={this.props.currentRecord['Times per Week']}
             />
           </div>
         </div>
@@ -96,4 +99,6 @@ AppointmentView.propTypes ={
   recordChanger: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  timesPerWeekChange: propTypes.func.isRequired,
+  autoPricing: propTypes.func.isRequired,
 }

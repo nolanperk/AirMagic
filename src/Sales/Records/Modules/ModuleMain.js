@@ -79,15 +79,6 @@ export default class ModuleMain extends Component {
   }
 
 
-
-
-
-
-
-
-
-
-
   get salesMain() {
     let status = this.props.status;
     let standing = this.props.standing;
