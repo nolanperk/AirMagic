@@ -64,6 +64,12 @@ hr {
   padding-top: 7vw;
   margin-bottom: 3vw;
 
+  &.fullWidthCards {
+    .ModuleCard {
+      width: 100%;
+    }
+  }
+
   .ModuleCard {
     padding: 0.8vw;
     width: 50%;

@@ -12,6 +12,8 @@ import loader from '../assets/loader.gif';
 
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
+import InsideSalesView from './Records/InsideSalesView';
+import AppointmentView from './Records/AppointmentView';
 import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
@@ -52,12 +54,15 @@ export default class Sales extends Component {
       searchQuery: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
+      currentRecordView: 'default',
     }
   }
 
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.loading && !nextState.loading) {
       if (this.props.recordId != null) {
+        console.log(this.props.recordId);
+        console.log(nextState.data.filter(e => e.id === this.props.recordId));
         if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
           this.props.recordId;
           const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
@@ -68,10 +73,32 @@ export default class Sales extends Component {
               currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
             })
           }).bind(this), 0);
+        } else {
+          finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
+          return axios
+            .get(finalURL)
+            .then(response => {
+              console.log(response);
+              this.setState({
+                recordView: true,
+                loading: false,
+                error: false,
+                currentRecord: response.data.fields,
+              });
+            })
+            .catch(error => {
+              console.error("error: ", error);
+              this.setState({
+                error: `${error}`,
+                loading: false,
+              });
+            });
         }
       } else if (this.props.citySet != null) {
+        console.log('yo-2');
       } else {
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;;
+        console.log('yo-3');
+        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
         return axios
           .get(finalURL)
           .then(response => {
@@ -875,7 +902,22 @@ export default class Sales extends Component {
     }).bind(this), 50);
   }
 
-
+  viewSelect = e => {
+    console.log(e.target.value);
+    if (e.target.value !== 'default') {
+      let selectedView = e.target.value;
+      sessionStorage.setItem('salesView', selectedView);
+      this.setState({
+        currentRecordView: sessionStorage.getItem('salesView')
+      });
+    } else {
+      sessionStorage.removeItem('salesView');
+      this.setState({
+        currentRecordView: 'default'
+      });
+    }
+    // window.location.reload();
+  }
 
   jumpLetters = e => {
     console.log(e.target.value);
@@ -1138,9 +1180,6 @@ export default class Sales extends Component {
     }).bind(this), 100);
   }
 
-
-
-
   selectFilterHandler = e => {
     let filterId = document.getElementById('filtersList').getElementsByClassName('isActive')[0].id;
 
@@ -1229,6 +1268,16 @@ export default class Sales extends Component {
           userName: usersInitials,
         });
       }
+
+      if (sessionStorage.getItem('salesView')) {
+        this.setState({
+          currentRecordView: sessionStorage.getItem('salesView')
+        });
+      } else {
+        this.setState({
+          currentRecordView: 'default'
+        });
+      }
     }
   }
 
@@ -1296,6 +1345,8 @@ export default class Sales extends Component {
           controlsModalToggle={this.controlsModalToggle}
           jumpLetters={this.jumpLetters}
           citySet={this.props.citySet}
+          currentRecordView={this.state.currentRecordView}
+          viewSelect={this.viewSelect}
         />
 
         {this.currentView}
@@ -1342,19 +1393,55 @@ export default class Sales extends Component {
 
   get currentView() {
     if (this.state.recordView) {
-      return (
-        <RecordView
-          isLoading={this.state.loading}
-          controlsModalToggle={this.controlsModalToggle}
-          currentId={this.state.currentId}
-          recordChanges= {this.state.recordChanges}
-          currentRecord={this.state.currentRecord}
-          changeRecordHandler={this.changeRecordHandler}
-          recordChanger={this.recordChanger}
-          changeNotesHandler={this.changeNotesHandler}
-          baseId={this.state.baseId}
-        />
-      );
+      if (this.state.currentRecordView === 'default') {
+        return (
+          <RecordView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      } else if (this.state.currentRecordView === 'appointment') {
+        return (
+          <AppointmentView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      } else if (this.state.currentRecordView === 'inside') {
+        return (
+          <InsideSalesView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
+        );
+      }
     } else if (this.state.listIsVisible) {
       return (
         <div className="listArea">

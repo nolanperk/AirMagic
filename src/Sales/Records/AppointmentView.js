@@ -13,7 +13,7 @@ import ModuleSchedule from './Modules/ModuleSchedule';
 import ModuleSpecial from './Modules/ModuleSpecial';
 
 
-export default class RecordView extends Component {
+export default class AppointmentView extends Component {
 
   // Render
   // ----------------------------------------------------
@@ -25,22 +25,7 @@ export default class RecordView extends Component {
     return (
       <div className="RecordView" key={this.props.currentId}>
         <div className="ModuleContainer">
-          <div className="ModuleList">
-            <ModuleMain
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              changeSelectBlock={this.props.changeSelectBlock}
-              baseId={this.props.baseId}
-              company={this.props.currentRecord['Company Name']}
-              status={this.props.currentRecord['Status']}
-              standing={this.props.currentRecord['Standing']}
-              industry={this.props.currentRecord['Industry']}
-              rep={this.props.currentRecord['Sales Rep']}
-              recentCaller={this.props.currentRecord['Recent Caller']}
-              callDate={this.props.currentRecord['Recent Call Date']}
-              callBack={this.props.currentRecord['Callback Date']}
-              website={this.props.currentRecord['Website']}
-            />
+          <div className="ModuleList fullWidthCards">
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
@@ -48,33 +33,6 @@ export default class RecordView extends Component {
               contact={this.props.currentRecord['Main contact']}
               title={this.props.currentRecord['Title']}
               altContact={this.props.currentRecord['Alternate Contact']}
-              phone={this.props.currentRecord['Office Phone']}
-              ext={this.props.currentRecord['Extension']}
-              cell={this.props.currentRecord['Cell Phone']}
-              email={this.props.currentRecord['Email']}
-              source={this.props.currentRecord['Lead Source']}
-            />
-            <ModulePipeline
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              changeSelectBlock={this.props.changeSelectBlock}
-              callCount={this.props.currentRecord['Times Called']}
-              apptBy={this.props.currentRecord['Appt. Set By']}
-              apptSet={this.props.currentRecord['Appt. Set Date']}
-              apptDate={this.props.currentRecord['Appt. Date']}
-              apptTime={this.props.currentRecord['Appt. Time']}
-              proposal={this.props.currentRecord['Proposal Date']}
-            />
-            <ModuleLocation
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              addr1={this.props.currentRecord['Address 1']}
-              addr2={this.props.currentRecord['Address 2']}
-              city={this.props.currentRecord['City']}
-              zip={this.props.currentRecord['Zip']}
-              county={this.props.currentRecord['County']}
-              emp={this.props.currentRecord['Employees']}
-              company={this.props.currentRecord['Company Name']}
             />
             <ModuleSpecial
               changeNotesHandler={this.props.changeNotesHandler}
@@ -85,8 +43,6 @@ export default class RecordView extends Component {
             <ModuleSchedule
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
-              hoursPer={this.props.currentRecord['Hours Per']}
-              sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
             />
@@ -104,17 +60,6 @@ export default class RecordView extends Component {
               woodLam={this.props.currentRecord['Wood Lam.']}
               carpet={this.props.currentRecord['Carpet']}
               other={this.props.currentRecord['Other']}
-            />
-            <ModuleSales
-              changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
-              changeSelectBlock={this.props.changeSelectBlock}
-              closed={this.props.currentRecord['Close Date']}
-              walkthrough={this.props.currentRecord['Walkthrough Date']}
-              start={this.props.currentRecord['Start Date']}
-              preCleanDate={this.props.currentRecord['Pre-Clean Date']}
-              preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
-              cancel={this.props.currentRecord['Cancel Date']}
             />
           </div>
         </div>
@@ -140,7 +85,7 @@ export default class RecordView extends Component {
 }
 
 
-RecordView.propTypes ={
+AppointmentView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.number.isRequired,

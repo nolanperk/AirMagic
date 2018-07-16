@@ -834,6 +834,8 @@ hr {
   margin: auto;
   padding-top: 7vw;
   margin-bottom: 3vw; }
+  .ModuleList.fullWidthCards .ModuleCard {
+    width: 100%; }
   .ModuleList .ModuleCard {
     padding: 0.8vw;
     width: 50%; }

@@ -10,6 +10,15 @@ export default class ModuleContact extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+
+    return (
+      <div className="ModuleCard">
+        {this.ContactType}
+      </div>
+    );
+  }
+
+  get ContactType() {
     let salutation = this.props.salutation;
     let contact = this.props.contact;
     let title = this.props.title;
@@ -23,12 +32,10 @@ export default class ModuleContact extends Component {
     let officeLink = 'tel:' + phone;
     let cellLink = 'tel:' + cell;
     let emailLink = 'mailto:' + email;
-
-    return (
-      <div className="ModuleCard">
+    if (this.props.currentRecordView === 'appointment') {
+      return (
         <div className="inner">
-
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--quart">
             <label>Salutation</label>
             <input
               type="text"
@@ -37,7 +44,7 @@ export default class ModuleContact extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--75">
             <label>Main Contact</label>
             <input
               type="text"
@@ -47,6 +54,47 @@ export default class ModuleContact extends Component {
             />
           </div>
 
+          <div className="inputBlock inputBlock--half">
+            <label>Contact Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Alt. Contact</label>
+            <input
+              type="text"
+              id="altContact"
+              value={altContact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--quart">
+            <label>Salutation</label>
+            <input
+              type="text"
+              id="salutation"
+              value={salutation}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--75">
+            <label>Main Contact</label>
+            <input
+              type="text"
+              id="contact"
+              value={contact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
 
           <div className="inputBlock inputBlock--half">
             <label>Contact Title</label>
@@ -138,19 +186,14 @@ export default class ModuleContact extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
-
-
-
-
-
-
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 ModuleContact.propTypes ={
+  currentRecordView: propTypes.string.isRequired,
   salutation: propTypes.string,
   contact: propTypes.string,
   title: propTypes.string,

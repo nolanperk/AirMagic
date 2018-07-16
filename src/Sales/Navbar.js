@@ -53,7 +53,7 @@ export default class Navbar extends Component {
   get viewSelects() {
     if (this.props.recordView) {
       return (
-        <select id="viewSelect" value={this.props.currentView} onChange={this.props.viewSelect}>
+        <select id="viewSelect" value={this.props.currentRecordView} onChange={this.props.viewSelect}>
           <option value="default">Default View</option>
           <option value="appointment">Appointment View</option>
           <option value="inside">Inside Sales View</option>
@@ -137,7 +137,7 @@ export default class Navbar extends Component {
               {this.viewSelects}
             </div>
           </div>
-          
+
           <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
             <img src={exportImg} alt="Export" />
           </div>
@@ -151,7 +151,7 @@ export default class Navbar extends Component {
 Navbar.propTypes ={
   recordView: propTypes.bool.isRequired,
   viewSelect: propTypes.func.isRequired,
-  currentView: propTypes.string.isRequired,
+  currentRecordView: propTypes.string.isRequired,
   jumpLetters: propTypes.func.isRequired,
   currentLetter: propTypes.string.isRequired,
   closeRecordHandler: propTypes.func.isRequired,

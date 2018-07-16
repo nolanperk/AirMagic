@@ -13,7 +13,7 @@ import ModuleSchedule from './Modules/ModuleSchedule';
 import ModuleSpecial from './Modules/ModuleSpecial';
 
 
-export default class RecordView extends Component {
+export default class InsideSalesView extends Component {
 
   // Render
   // ----------------------------------------------------
@@ -140,7 +140,7 @@ export default class RecordView extends Component {
 }
 
 
-RecordView.propTypes ={
+InsideSalesView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.number.isRequired,

@@ -11,6 +11,15 @@ export default class ModuleNumbers extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+
+    return (
+      <div className="ModuleCard">
+        {this.SalesNumber}
+      </div>
+    );
+  }
+
+  get SalesNumber() {
     let amount = this.props.amount;
     let sqFt = this.props.sqFt;
     let sqFtReal = this.props.sqFtReal;
@@ -22,9 +31,105 @@ export default class ModuleNumbers extends Component {
     let woodLam = this.props.woodLam;
     let carpet = this.props.carpet;
     let other = this.props.other;
+    if (this.props.currentRecordView === 'appointment') {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--half">
+            <label>Actual Sq. Ft.</label>
+            <input
+              type="text"
+              value={sqFtReal}
+              id="sqFtReal"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
 
-    return (
-      <div className="ModuleCard">
+
+          <div className="inputBlock inputBlock--half">
+            <label>Restrooms</label>
+            <input
+              type="text"
+              value={restrooms}
+              id="restrooms"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Ceramic</label>
+            <input
+              type="text"
+              value={ceramic}
+              id="ceramic"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Marble</label>
+            <input
+              type="text"
+              value={marble}
+              id="marble"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>VCT</label>
+            <input
+              type="text"
+              value={vct}
+              id="vct"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Wood</label>
+            <input
+              type="text"
+              value={wood}
+              id="wood"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>Lam.</label>
+            <input
+              type="text"
+              value={woodLam}
+              id="woodLam"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Carpet</label>
+            <input
+              type="text"
+              value={carpet}
+              id="carpet"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>Other</label>
+            <input
+              type="text"
+              value={other}
+              id="other"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+          <div className="inputBlock inputBlock--quart"></div>
+
+
+
+        </div>
+      );
+    } else {
+      return (
         <div className="inner">
 
 
@@ -145,8 +250,8 @@ export default class ModuleNumbers extends Component {
 
 
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
