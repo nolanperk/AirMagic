@@ -18,13 +18,14 @@ export default class Navbar extends Component {
   // ----------------------------------------------------
   render() {
     let navClass = "";
-    let navTitle = "Franchisees";
+    let navTitle = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Franchisees";
 
-
+    let preTitle;
     if (this.props.recordView) {
       navClass = 'recordNav';
       const currentRecord = this.props.currentRecord;
-      navTitle = currentRecord["SP Name"]
+      navTitle = currentRecord["SP Name"];
+      preTitle = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + ' Franchisees';
     } else {
       navClass = 'normalNav';
     }
@@ -36,7 +37,11 @@ export default class Navbar extends Component {
       <div className={navClass}>
         <div className="Navbar">
           {this.closeButton}
-          <h4>{navTitle}</h4>
+          <h4>
+            <span>{preTitle}</span>
+            {this.props.recordView ? <br /> : ''}
+            {navTitle}
+          </h4>
           {this.downloadButton}
         </div>
       </div>
@@ -84,5 +89,6 @@ Navbar.propTypes ={
   switchTableHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
   exportRecord: propTypes.func.isRequired,
+  citySet: propTypes.string.isRequired,
   currentRecord: propTypes.array.isRequired,
 }

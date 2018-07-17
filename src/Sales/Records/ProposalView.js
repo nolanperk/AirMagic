@@ -25,7 +25,7 @@ export default class ProposalView extends Component {
     return (
       <div className="RecordView" key={this.props.currentId}>
         <div className="ModuleContainer">
-          <div className="ModuleList fullWidthCards">
+          <div className="ModuleList">
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}

@@ -1157,6 +1157,7 @@ export default class Franchisees extends Component {
           recordChanges= {this.state.recordChanges}
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
+          citySet={this.props.citySet}
         />
 
         {this.currentView}

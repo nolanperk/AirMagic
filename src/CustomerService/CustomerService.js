@@ -227,13 +227,15 @@ export default class CustomerService extends Component {
       franchCityBase = 'appLxxBrc9m3yNXdQ';
     }
     if (this.state.currentRecord['SP Number'] != null) {
-      let spInfoRecord = this.state.spList.filter(e => e.fields['Number'] === this.state.currentRecord['SP Number'])[0];
-      let spData = spInfoRecord.fields;
-      let spID = spInfoRecord.id;
-      spData['id'] = spID;
-      this.setState({
-        currentSP: spData,
-      });
+      setTimeout((function() {
+        let spInfoRecord = this.state.spList.filter(e => e.fields['Number'] === this.state.currentRecord['SP Number'])[0];
+        let spData = spInfoRecord.fields;
+        let spID = spInfoRecord.id;
+        spData['id'] = spID;
+        this.setState({
+          currentSP: spData,
+        });
+      }).bind(this), 50);
     } else {
       this.setState({
         currentSP: {},

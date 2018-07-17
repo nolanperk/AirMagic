@@ -830,6 +830,19 @@ export default class Sales extends Component {
         if (mergeTemp === 'ram-multi-tenant') {mergeURL.id = '177720/c6ncuf';}
         if (mergeTemp === 'ram-schools') {mergeURL.id = '177725/pbf2q4';}
 
+        if (mergeTemp === 'jdh-standard') {mergeURL.id = '178005/iu7f5a';}
+        if (mergeTemp === 'jdh-once') {mergeURL.id = '178006/8x13jx';}
+        if (mergeTemp === 'jdh-medical') {mergeURL.id = '178007/fge48u';}
+        if (mergeTemp === 'jdh-schools') {mergeURL.id = '178008/r26mm9';}
+        if (mergeTemp === 'jdh-1x') {mergeURL.id = '178009/5ksv9d';}
+
+        if (mergeTemp === 'rwj-standard') {mergeURL.id = '178000/7az53e';}
+        if (mergeTemp === 'rwj-once') {mergeURL.id = '178001/4sqqsv';}
+        if (mergeTemp === 'rwj-medical') {mergeURL.id = '178002/d3fzfn';}
+        if (mergeTemp === 'rwj-schools') {mergeURL.id = '178003/rpdz68';}
+        if (mergeTemp === 'rwj-1x') {mergeURL.id = '178004/ipcmka';}
+
+
 
         let contactArr = mergeData['Main contact'].split(" ");
         mergeURL.MrMs = mergeData['Salutation'];

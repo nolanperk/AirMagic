@@ -30,9 +30,23 @@ export default class ModuleSchedule extends Component {
 
   componentDidMount() {
     setTimeout((function() {
-      this.setState({
-        timesPerWeekValue: this.props.timesPerWeek,
-      })
+      if (this.props.timesPerWeek !== '1x' ||
+      this.props.timesPerWeek !== '2x' ||
+      this.props.timesPerWeek !== '3x' ||
+      this.props.timesPerWeek !== '4x' ||
+      this.props.timesPerWeek !== '5x' ||
+      this.props.timesPerWeek !== '6x' ||
+      this.props.timesPerWeek !== '7x') {
+        this.setState({
+          timesPerWeekValue: this.props.timesPerWeek,
+          timesClasses: 'inputBlock inputBlock--half'
+        })
+      } else {
+        this.setState({
+          timesPerWeekValue: this.props.timesPerWeek,
+          timesClasses: 'inputBlock inputBlock--half isHidden'
+        })
+      }
     }).bind(this), 50);
   }
 
