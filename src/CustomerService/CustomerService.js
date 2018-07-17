@@ -194,7 +194,7 @@ export default class CustomerService extends Component {
       franchCityBase = 'appLxxBrc9m3yNXdQ';
     }
 
-    let finalURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
+    let finalURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
     let downloadNow = 0;
 
     let loadAllData = setInterval(function() {
@@ -227,19 +227,13 @@ export default class CustomerService extends Component {
       franchCityBase = 'appLxxBrc9m3yNXdQ';
     }
     if (this.state.currentRecord['SP Number'] != null) {
-      let spURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?filterByFormula=IF(%7BNumber%7D%3D%22' + this.state.currentRecord['SP Number'] + '%22%2C+TRUE()%2C+FALSE())&fields%5B%5D=SP+Name&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address';
-      console.log('spURL');
-      console.log(spURL);
-      return axios
-        .get(spURL)
-        .then(response => {
-          let spData = response.data.records[0].fields;
-          let spID = response.data.records[0].id;
-          spData['id'] = spID;
-          this.setState({
-            currentSP: spData,
-          });
-        });
+      let spInfoRecord = this.state.spList.filter(e => e.fields['Number'] === this.state.currentRecord['SP Number'])[0];
+      let spData = spInfoRecord.fields;
+      let spID = spInfoRecord.id;
+      spData['id'] = spID;
+      this.setState({
+        currentSP: spData,
+      });
     } else {
       this.setState({
         currentSP: {},
