@@ -65,6 +65,8 @@ export default class RecordView extends Component {
               special={this.props.currentRecord['Special Notes']}
               lastVisit={this.props.currentRecord['Last Visit']}
               changeSelectBlock={this.props.changeSelectBlock}
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleSchedule
               amount={this.props.currentRecord['Monthly Amount']}
@@ -117,6 +119,8 @@ export default class RecordView extends Component {
               preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
 
               source={this.props.currentRecord['Lead Source']}
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
           </div>
         </div>
@@ -146,7 +150,7 @@ RecordView.propTypes ={
   spChangeHandler: propTypes.func.isRequired,
   loadSPInfo: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -156,4 +160,6 @@ RecordView.propTypes ={
   baseId: propTypes.string.isRequired,
   currentSP: propTypes.object.isRequired,
   spList: propTypes.object.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

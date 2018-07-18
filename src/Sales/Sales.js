@@ -62,8 +62,6 @@ export default class Sales extends Component {
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.loading && !nextState.loading) {
       if (this.props.recordId != null) {
-        console.log(this.props.recordId);
-        console.log(nextState.data.filter(e => e.id === this.props.recordId));
         if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
           this.props.recordId;
           const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
@@ -75,6 +73,7 @@ export default class Sales extends Component {
             })
           }).bind(this), 0);
         } else {
+          console.log('componentWillUpdate() - record');
           finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
           return axios
             .get(finalURL)
@@ -100,6 +99,7 @@ export default class Sales extends Component {
       } else {
         console.log('yo-3');
         finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
+        console.log('componentWillUpdate() - list');
         return axios
           .get(finalURL)
           .then(response => {
@@ -162,7 +162,7 @@ export default class Sales extends Component {
       } else {
         finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       }
-
+      console.log('searchHandler()');
       return axios
       .get(finalURL)
       .then(response => {
@@ -178,6 +178,64 @@ export default class Sales extends Component {
         }).bind(this), 50);
       })
     }).bind(this), 50);
+  }
+
+  hideDayPicker = () => {
+    let getTheBlock = document.getElementById(this.state.pickerId).closest('.inputWithTag').previousElementSibling.previousElementSibling;
+    getTheBlock.className = 'pickWrapper';
+    this.setState({
+      pickerId: null,
+    })
+  }
+  handleDayClick = day => {
+    currentRecordState = this.state.currentRecord;
+    let newSelectedDay = new Date(day);
+    let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
+
+
+    if (this.state.pickerId === 'closed') {currentRecordState['Close Date'] = finalDate}
+    else if (this.state.pickerId === 'walkthrough') {currentRecordState['Walkthrough Date'] = finalDate}
+    else if (this.state.pickerId === 'start') {currentRecordState['Start Date'] = finalDate}
+    else if (this.state.pickerId === 'cancel') {currentRecordState['Cancel Date'] = finalDate}
+    else if (this.state.pickerId === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = finalDate}
+    else if (this.state.pickerId === 'apptSet') {currentRecordState['Appt. Set Date'] = finalDate}
+    else if (this.state.pickerId === 'apptDate') {currentRecordState['Appt. Date'] = finalDate}
+    else if (this.state.pickerId === 'proposal') {currentRecordState['Proposal Date'] = finalDate}
+    else if (this.state.pickerId === 'callDate') {currentRecordState['Recent Call Date'] = finalDate}
+    else if (this.state.pickerId === 'callBack') {currentRecordState['Callback Date'] = finalDate}
+
+    this.setState({
+      currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+
+    setTimeout((function() {
+      console.log('yooo');
+      this.hideDayPicker();
+    }).bind(this), 50);
+  }
+  toggleDayPicker = e => {
+    let dayID = e.target.closest('.inputWithTag').getElementsByTagName('input')[0].id;
+    let cardParent = e.target.closest('.inputWithTag').closest('.inputBlock').closest('.inner').closest('.ModuleCard');
+    let pickerBlock = e.target.closest('.inputWithTag').previousElementSibling.previousElementSibling;
+
+    if (pickerBlock.className === 'pickWrapper isActive' || pickerBlock.className === 'pickWrapper isActive cardOnRight') {
+      this.hideDayPicker();
+    } else {
+      if (this.state.pickerId != null) {
+        this.hideDayPicker();
+      }
+      setTimeout((function() {
+        if (cardParent.style.left !== '0px') {
+          pickerBlock.className = 'pickWrapper isActive cardOnRight';
+        } else {
+          pickerBlock.className = 'pickWrapper isActive';
+        }
+        this.setState({
+          pickerId: dayID,
+        })
+      }).bind(this), 50);
+    }
   }
 
   openRecordHandler = (e, key, index)  => {
@@ -254,6 +312,8 @@ export default class Sales extends Component {
     .post(this.state.dataURL + customerBase + '/Customers/', finalPush)
       .then(response => {
         destinationURL = '/' + this.props.citySet + '/customer-service/' + response.data.id;
+        console.log('moveDatabasesHandler()');
+
         return axios
           .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
           .then(response => {
@@ -512,6 +572,7 @@ export default class Sales extends Component {
     let fullDataSet = this.state.data;
 
     if (!this.state.newRecord) {
+      console.log('revertRecordHandler()');
       return axios
       .get(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId)
       .then(response => {
@@ -876,6 +937,7 @@ export default class Sales extends Component {
       }
 
       console.log(encodeURI(finalURL));
+      console.log('exportRecord()');
 
       return axios
         .post(finalURL)
@@ -946,6 +1008,7 @@ export default class Sales extends Component {
             finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
           }
           console.log(finalURL);
+          console.log('submitExport()');
           return axios
             .get(finalURL)
             .then(response => {
@@ -1079,6 +1142,7 @@ export default class Sales extends Component {
           }
         }
       }
+      console.log('loadData()');
       return axios
       .get(finalURL)
       .then(response => {
@@ -1166,6 +1230,7 @@ export default class Sales extends Component {
                     finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
                   }
                 }
+                console.log('loadData() - More');
                 return axios
                   .get(finalURL)
                   .then(response => {
@@ -1344,6 +1409,7 @@ export default class Sales extends Component {
         }
       }
     }
+    console.log('loadMoreRecords()');
     return axios
       .get(finalURL)
       .then(response => {
@@ -1517,6 +1583,8 @@ export default class Sales extends Component {
             viewSelect={this.viewSelect}
             timesPerWeekChange={this.timesPerWeekChange}
             autoPricing={this.autoPricing}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -1535,6 +1603,8 @@ export default class Sales extends Component {
             viewSelect={this.viewSelect}
             timesPerWeekChange={this.timesPerWeekChange}
             autoPricing={this.autoPricing}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -1553,6 +1623,8 @@ export default class Sales extends Component {
             viewSelect={this.viewSelect}
             timesPerWeekChange={this.timesPerWeekChange}
             autoPricing={this.autoPricing}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -1571,6 +1643,8 @@ export default class Sales extends Component {
             viewSelect={this.viewSelect}
             timesPerWeekChange={this.timesPerWeekChange}
             autoPricing={this.autoPricing}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       }

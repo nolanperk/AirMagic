@@ -39,6 +39,14 @@ export default class ProposalView extends Component {
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
             />
+            <ModulePipeline
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              proposal={this.props.currentRecord['Proposal Date']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
+            />
             <ModuleSpecial
               changeNotesHandler={this.props.changeNotesHandler}
               changeRecordHandler={this.props.changeRecordHandler}
@@ -101,7 +109,7 @@ export default class ProposalView extends Component {
 ProposalView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -111,4 +119,6 @@ ProposalView.propTypes ={
   baseId: propTypes.string.isRequired,
   timesPerWeekChange: propTypes.func.isRequired,
   autoPricing: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

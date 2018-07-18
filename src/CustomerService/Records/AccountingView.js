@@ -59,6 +59,8 @@ export default class AccountingView extends Component {
               cancel={this.props.currentRecord['Cancel Date']}
               start={this.props.currentRecord['Start Date']}
               currentRecordView={this.props.currentRecordView}
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
           </div>
         </div>
@@ -88,7 +90,7 @@ AccountingView.propTypes ={
   spChangeHandler: propTypes.func.isRequired,
   loadSPInfo: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -99,4 +101,6 @@ AccountingView.propTypes ={
   currentSP: propTypes.object.isRequired,
   spList: propTypes.object.isRequired,
   currentRecordView: propTypes.string.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

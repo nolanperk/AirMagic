@@ -37,6 +37,9 @@ export default class InsideSalesView extends Component {
               rep={this.props.currentRecord['Sales Rep']}
               recentCaller={this.props.currentRecord['Recent Caller']}
               callDate={this.props.currentRecord['Recent Call Date']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -58,6 +61,9 @@ export default class InsideSalesView extends Component {
               apptSet={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -119,7 +125,7 @@ export default class InsideSalesView extends Component {
 InsideSalesView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -129,4 +135,6 @@ InsideSalesView.propTypes ={
   baseId: propTypes.string.isRequired,
   timesPerWeekChange: propTypes.func.isRequired,
   autoPricing: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

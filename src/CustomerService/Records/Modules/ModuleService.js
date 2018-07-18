@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
 
 import calendarImg from '../../../assets/icons/black/calendar.png';
 import phoneImg from '../../../assets/icons/black/phone.png';
@@ -87,10 +90,12 @@ export default class ModuleService extends Component {
         </div>
 
 
-
         <div className="inputBlock inputBlock--half">
+          <div class="pickWrapper">
+            <DayPicker onDayClick={this.props.handleDayClick} />
+          </div>
           <label>Last Call</label>
-          <div className="inputWithTag">
+          <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
             <div className="inputTag">
               <img src={calendarImg} />
             </div>
@@ -104,8 +109,11 @@ export default class ModuleService extends Component {
         </div>
 
         <div className="inputBlock inputBlock--half">
+          <div class="pickWrapper">
+            <DayPicker onDayClick={this.props.handleDayClick} />
+          </div>
           <label>Last Visit</label>
-          <div className="inputWithTag">
+          <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
             <div className="inputTag">
               <img src={calendarImg} />
             </div>
@@ -228,4 +236,6 @@ ModuleService.propTypes ={
   spEmail: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

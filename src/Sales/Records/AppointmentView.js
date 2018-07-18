@@ -91,7 +91,7 @@ export default class AppointmentView extends Component {
 AppointmentView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -101,4 +101,6 @@ AppointmentView.propTypes ={
   baseId: propTypes.string.isRequired,
   timesPerWeekChange: propTypes.func.isRequired,
   autoPricing: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

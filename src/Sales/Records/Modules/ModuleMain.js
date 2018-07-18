@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 import calendarImg from '../../../assets/icons/black/calendar.png';
 
@@ -162,8 +164,11 @@ export default class ModuleMain extends Component {
 
 
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Recent Call Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -250,8 +255,11 @@ export default class ModuleMain extends Component {
 
 
             <div className="inputBlock inputBlock--half">
+              <div class="pickWrapper">
+                <DayPicker onDayClick={this.props.handleDayClick} />
+              </div>
               <label>Recent Call Date</label>
-              <div className="inputWithTag">
+              <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
                 <div className="inputTag">
                   <img src={calendarImg} alt="" />
                 </div>
@@ -264,8 +272,11 @@ export default class ModuleMain extends Component {
               </div>
             </div>
             <div className="inputBlock inputBlock--half">
+              <div class="pickWrapper">
+                <DayPicker onDayClick={this.props.handleDayClick} />
+              </div>
               <label>Callback Date</label>
-              <div className="inputWithTag">
+              <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
                 <div className="inputTag">
                   <img src={calendarImg} alt="" />
                 </div>
@@ -316,4 +327,6 @@ ModuleMain.propTypes ={
   changeRecordHandler: propTypes.func.isRequired,
   changeSelectBlock: propTypes.func.isRequired,
   baseId: propTypes.string.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

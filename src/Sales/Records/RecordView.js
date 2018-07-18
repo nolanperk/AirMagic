@@ -40,6 +40,9 @@ export default class RecordView extends Component {
               callDate={this.props.currentRecord['Recent Call Date']}
               callBack={this.props.currentRecord['Callback Date']}
               website={this.props.currentRecord['Website']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -63,6 +66,9 @@ export default class RecordView extends Component {
               apptDate={this.props.currentRecord['Appt. Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
               proposal={this.props.currentRecord['Proposal Date']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -89,6 +95,7 @@ export default class RecordView extends Component {
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
               timesPerWeekChange={this.props.timesPerWeekChange}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
@@ -110,6 +117,8 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               changeSelectBlock={this.props.changeSelectBlock}
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
               closed={this.props.currentRecord['Close Date']}
               walkthrough={this.props.currentRecord['Walkthrough Date']}
               start={this.props.currentRecord['Start Date']}
@@ -117,6 +126,9 @@ export default class RecordView extends Component {
               preCleanCharge={this.props.currentRecord['Pre-Clean Charge']}
               cancel={this.props.currentRecord['Cancel Date']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
+
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
             />
           </div>
         </div>
@@ -145,7 +157,7 @@ export default class RecordView extends Component {
 RecordView.propTypes ={
   currentRecordView: propTypes.string.isRequired,
   currentId: propTypes.string.isRequired,
-  recordChanges: propTypes.number.isRequired,
+  recordChanges: propTypes.bool.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
@@ -155,4 +167,8 @@ RecordView.propTypes ={
   baseId: propTypes.string.isRequired,
   timesPerWeekChange: propTypes.func.isRequired,
   autoPricing: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

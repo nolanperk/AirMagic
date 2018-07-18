@@ -69,6 +69,7 @@ export default class ModalView extends Component {
           mergeRecord={this.props.mergeRecord}
           exportRecord={this.props.exportRecord}
           baseId={this.props.baseId}
+          currentTable={this.props.currentTable}
         />
       )
     } else if (this.props.modalType === 'moveDatabase') {

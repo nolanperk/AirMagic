@@ -1,0 +1,27 @@
+.DayPicker {
+  position: absolute;
+  background: white;
+  z-index: 1;
+  top: 50%;
+  right: 0;
+  transform: translate(95%, -50%);
+  border-radius: 3px;
+  border: solid 1px #d2d2d2;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+}
+
+.pickWrapper {
+  display: none;
+
+  &.isActive {
+    display: block;
+  }
+
+  &.cardOnRight {
+    .DayPicker {
+      transform: translate(-105%, -50%);
+      right: auto;
+      left: 0;
+    }
+  }
+}

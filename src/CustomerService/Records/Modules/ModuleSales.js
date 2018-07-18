@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import DayPicker from 'react-day-picker';
-// import 'react-day-picker/lib/style.css';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 import calendarImg from '../../../assets/icons/black/calendar.png';
 import dollarImg from '../../../assets/icons/black/dollar.png';
@@ -26,7 +26,6 @@ export default class ModuleSales extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-
     return (
       <div className="ModuleCard">
         {this.AccountingView}
@@ -47,13 +46,16 @@ export default class ModuleSales extends Component {
     let source = this.props.source;
     let newSP = this.props.newSP;
     let cancel = this.props.cancel;
+
     if (this.props.currentRecordView === 'accounting') {
       return (
         <div className="inner">
-
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Start Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -66,8 +68,11 @@ export default class ModuleSales extends Component {
             </div>
           </div>
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>New SP Start</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} />
               </div>
@@ -78,11 +83,14 @@ export default class ModuleSales extends Component {
                 onChange={this.props.changeRecordHandler}
               />
             </div>
-            </div>
+          </div>
 
-            <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Cancel Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} />
               </div>
@@ -94,15 +102,19 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
+
         </div>
-      );
+    );
     } else {
       return (
         <div className="inner">
 
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>New SP Start</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} />
               </div>
@@ -116,8 +128,11 @@ export default class ModuleSales extends Component {
             </div>
 
             <div className="inputBlock inputBlock--half">
+              <div class="pickWrapper">
+                <DayPicker onDayClick={this.props.handleDayClick} />
+              </div>
             <label>Cancel Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} />
               </div>
@@ -133,8 +148,11 @@ export default class ModuleSales extends Component {
           <hr />
 
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Walkthrough</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -147,8 +165,11 @@ export default class ModuleSales extends Component {
             </div>
           </div>
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Start Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -163,8 +184,11 @@ export default class ModuleSales extends Component {
 
 
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Pre-Clean Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -215,8 +239,11 @@ export default class ModuleSales extends Component {
         </div>
 
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Appt. Set Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -228,20 +255,30 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
-
-
+          
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Appt. Date</label>
-            <input
-              type="text"
-              value={apptDate}
-              id="apptDate"
-              onChange={this.props.changeRecordHandler}
-            />
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={apptDate}
+                id="apptDate"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
           </div>
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Proposal Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -254,8 +291,11 @@ export default class ModuleSales extends Component {
             </div>
           </div>
           <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
             <label>Close Date</label>
-            <div className="inputWithTag">
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
                 <img src={calendarImg} alt="" />
               </div>
@@ -298,4 +338,6 @@ ModuleSales.propTypes ={
   preCleanDate: propTypes.string,
   preCleanCharge: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
+  handleDayClick: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
 }

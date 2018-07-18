@@ -262,6 +262,66 @@ export default class CustomerService extends Component {
     }
   }
 
+
+
+  hideDayPicker = () => {
+    let getTheBlock = document.getElementById(this.state.pickerId).closest('.inputWithTag').previousElementSibling.previousElementSibling;
+    getTheBlock.className = 'pickWrapper';
+    this.setState({
+      pickerId: null,
+    })
+  }
+  handleDayClick = day => {
+    currentRecordState = this.state.currentRecord;
+    let newSelectedDay = new Date(day);
+    let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
+
+    if (this.state.pickerId === 'close') {currentRecordState['Close Date'] = finalDate}
+    else if (this.state.pickerId === 'proposal') {currentRecordState['Proposal Date'] = finalDate}
+    else if (this.state.pickerId === 'apptSetDate') {currentRecordState['Appt. Set Date'] = finalDate}
+    else if (this.state.pickerId === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = finalDate}
+    else if (this.state.pickerId === 'start') {currentRecordState['Start Date'] = finalDate}
+    else if (this.state.pickerId === 'apptDate') {currentRecordState['Appt. Date'] = finalDate}
+    else if (this.state.pickerId === 'walkthrough') {currentRecordState['Walkthrough Date'] = finalDate}
+    else if (this.state.pickerId === 'cancel') {currentRecordState['Cancel Date'] = finalDate}
+    else if (this.state.pickerId === 'newSP') {currentRecordState['New SP Start'] = finalDate}
+    else if (this.state.pickerId === 'lastCall') {currentRecordState['Last Call'] = finalDate}
+    else if (this.state.pickerId === 'lastVisit') {currentRecordState['Last Visit'] = finalDate}
+
+    this.setState({
+      currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+
+    setTimeout((function() {
+      console.log('yooo');
+      this.hideDayPicker();
+    }).bind(this), 50);
+  }
+  toggleDayPicker = e => {
+    let dayID = e.target.closest('.inputWithTag').getElementsByTagName('input')[0].id;
+    let cardParent = e.target.closest('.inputWithTag').closest('.inputBlock').closest('.inner').closest('.ModuleCard');
+    let pickerBlock = e.target.closest('.inputWithTag').previousElementSibling.previousElementSibling;
+
+    if (pickerBlock.className === 'pickWrapper isActive' || pickerBlock.className === 'pickWrapper isActive cardOnRight') {
+      this.hideDayPicker();
+    } else {
+      if (this.state.pickerId != null) {
+        this.hideDayPicker();
+      }
+      setTimeout((function() {
+        if (cardParent.style.left !== '0px') {
+          pickerBlock.className = 'pickWrapper isActive cardOnRight';
+        } else {
+          pickerBlock.className = 'pickWrapper isActive';
+        }
+        this.setState({
+          pickerId: dayID,
+        })
+      }).bind(this), 50);
+    }
+  }
+
   openRecordHandler = (e, key, index)  => {
     if (this.state.data.length > 100) {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
@@ -1659,6 +1719,8 @@ export default class CustomerService extends Component {
             loadSPInfo={this.loadSPInfo}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       } else if (this.state.currentRecordView === 'accounting') {
@@ -1679,6 +1741,8 @@ export default class CustomerService extends Component {
             loadSPInfo={this.loadSPInfo}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
           />
         );
       }
