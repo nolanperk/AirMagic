@@ -37,9 +37,6 @@ export default class ModuleMain extends Component {
   // ----------------------------------------------------
   render() {
 
-
-
-
     return (
       <div className="ModuleCard">
         {this.salesMain}
@@ -88,6 +85,9 @@ export default class ModuleMain extends Component {
     let rep = this.props.rep;
 
     let company = this.props.company;
+    let googleURL = 'https://www.google.com/search?q=';
+
+    googleURL += company;
     let industry = this.props.industry;
     let callDate = this.props.callDate;
     let callBack = this.props.callBack;
@@ -179,6 +179,10 @@ export default class ModuleMain extends Component {
                 onChange={this.props.changeRecordHandler}
               />
             </div>
+          </div>
+
+          <div className="cardTag">
+            <a className="btn softGrad--primary" href={googleURL} target="_blank">Google Company</a>
           </div>
         </div>
       );
@@ -307,6 +311,10 @@ export default class ModuleMain extends Component {
                 value={website}
                 onChange={this.props.changeRecordHandler}
               />
+            </div>
+
+            <div className="cardTag">
+              <a className="btn softGrad--primary" href={googleURL} target="_blank">Google Company</a>
             </div>
           </div>
       );
