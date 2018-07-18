@@ -140,22 +140,57 @@ export default class Sales extends Component {
     }).bind(this), 50);
   }
 
-
-  searchHandler = e => {
-    if (sessionStorage.getItem('searchQuery')) {
-      this.setState({
-        searchQuery: sessionStorage.getItem('searchQuery'),
-        loading: true,
-      });
-    } else {
-      e.preventDefault();
-      this.setState({
-        searchQuery: document.getElementById('searchInput').value,
-        loading: true,
-      });
-    }
+  loadPrevSearch = () => {
     let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
+    this.setState({
+      searchQuery: sessionStorage.getItem('searchQuery'),
+      loading: true,
+    });
+    setTimeout((function() {
+      let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
+      });
+      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      if (this.state.listView !== '') {
+        finalURL = finalURL + '?' + this.state.listView;
+        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+      } else {
+        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+      }
+      console.log('loadPrevSearch()');
+      return axios
+      .get(finalURL)
+      .then(response => {
+        this.setState({
+          data: response.data.records,
+          loading: false,
+          error: false,
+          dataOffset: '',
+        });
+        if (this.state.recordView === false) {
+          setTimeout((function() {
+            if (document.getElementById('searchInput')) {
+              document.getElementById('searchInput').value = capitalizedQuery;
+              document.getElementById('searchBy').value = searchByValue;
+            }
+          }).bind(this), 50);
+        }
+      })
+    }).bind(this), 50);
+  }
+
+
+  searchHandler = e => {
+    e.preventDefault();
+
+    let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
+    let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
+
+    this.setState({
+      searchQuery: document.getElementById('searchInput').value,
+      loading: true,
+    });
 
     setTimeout((function() {
       sessionStorage.setItem('searchQuery', this.state.searchQuery);
@@ -1454,7 +1489,7 @@ export default class Sales extends Component {
           searchQuery: sessionStorage.getItem('searchQuery'),
           loading: true,
         });
-        this.searchHandler();
+        this.loadPrevSearch();
       } else {
         this.loadData();
       }

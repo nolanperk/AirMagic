@@ -16,9 +16,9 @@ import ModuleSchedule from './Modules/ModuleSchedule';
 export default class RecordView extends Component {
 
 
-  componentDidMount() {
-    this.props.loadSPInfo();
-  }
+  // componentDidMount() {
+  //   this.props.loadSPInfo();
+  // }
 
   // Render
   // ----------------------------------------------------

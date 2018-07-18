@@ -9,12 +9,12 @@ export default class ListContent extends Component {
   // ----------------------------------------------------
   render() {
     const { index, data } = this.props;
-    
+
     this.gridLayout();
     if (this.props.searchQuery !== '') {
       return (
         <div className="ArchiveItems">
-          <div className="btn softGrad--primary" onClick={this.props.clearSearch}>Clear Search</div>
+          <div className="btn softGrad--black" onClick={this.props.clearSearch}>Clear Search</div>
           <div className="cardContainer">
             {data ? data.map((e, i) => this.archiveItem(e, i)) : ''}
           </div>

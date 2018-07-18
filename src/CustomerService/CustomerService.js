@@ -146,8 +146,50 @@ export default class CustomerService extends Component {
   }
 
 
+  loadPrevSearch = () => {
+    let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
+    let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
+    this.setState({
+      searchQuery: sessionStorage.getItem('searchQuery'),
+      loading: true,
+    });
+    setTimeout((function() {
+      let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
+      });
+      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      if (this.state.listView !== '') {
+        finalURL = finalURL + '?' + this.state.listView;
+        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+      } else {
+        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+      }
+      console.log('loadPrevSearch()');
+      return axios
+      .get(finalURL)
+      .then(response => {
+        this.setState({
+          data: response.data.records,
+          loading: false,
+          error: false,
+          dataOffset: '',
+        });
+        if (this.state.recordView === false) {
+          setTimeout((function() {
+            if (document.getElementById('searchInput')) {
+              document.getElementById('searchInput').value = capitalizedQuery;
+              document.getElementById('searchBy').value = searchByValue;
+            }
+          }).bind(this), 50);
+        }
+      })
+    }).bind(this), 50);
+  }
+
+
   searchHandler = e => {
     e.preventDefault();
+
     let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
 
@@ -155,6 +197,10 @@ export default class CustomerService extends Component {
       searchQuery: document.getElementById('searchInput').value,
       loading: true,
     });
+
+    setTimeout((function() {
+      sessionStorage.setItem('searchQuery', this.state.searchQuery);
+    }).bind(this), 10);
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
@@ -167,7 +213,7 @@ export default class CustomerService extends Component {
       } else {
         finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       }
-
+      console.log('searchHandler()');
       return axios
       .get(finalURL)
       .then(response => {
@@ -177,12 +223,15 @@ export default class CustomerService extends Component {
           error: false,
           dataOffset: '',
         });
-        setTimeout((function() {
-          document.getElementById('searchInput').value = capitalizedQuery;
-          document.getElementById('searchBy').value = searchByValue;
-        }).bind(this), 50);
+        if (this.state.recordView === false) {
+          setTimeout((function() {
+            if (document.getElementById('searchInput')) {
+              document.getElementById('searchInput').value = capitalizedQuery;
+              document.getElementById('searchBy').value = searchByValue;
+            }
+          }).bind(this), 50);
+        }
       })
-
     }).bind(this), 50);
   }
 
@@ -214,6 +263,9 @@ export default class CustomerService extends Component {
           clearInterval(loadAllData);
           sessionStorage.setItem('tampaSPLoaded', true);
           sessionStorage.setItem('tampaSPList', this.state.spList);
+          if (this.state.recordView === true) {
+            this.loadSPInfo();
+          }
         });
     }.bind(this), 500);
   };
@@ -227,6 +279,8 @@ export default class CustomerService extends Component {
       franchCityBase = 'appLxxBrc9m3yNXdQ';
     }
     if (this.state.currentRecord['SP Number'] != null) {
+      console.log(this.state.currentRecord['SP Number']);
+      console.log(this.state.spList);
       setTimeout((function() {
         let spInfoRecord = this.state.spList.filter(e => e.fields['Number'] === this.state.currentRecord['SP Number'])[0];
         let spData = spInfoRecord.fields;
@@ -1560,7 +1614,15 @@ export default class CustomerService extends Component {
     if (sessionStorage.getItem('isLogged') !== 'true') {
       this.props.history.push('/login');
     } else {
-      this.loadData();
+      if (sessionStorage.getItem('searchQuery')) {
+        this.setState({
+          searchQuery: sessionStorage.getItem('searchQuery'),
+          loading: true,
+        });
+        this.loadPrevSearch();
+      } else {
+        this.loadData();
+      }
 
       if (sessionStorage.getItem('userInitials')) {
         let usersInitials = sessionStorage.getItem('userInitials');
