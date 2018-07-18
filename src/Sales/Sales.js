@@ -142,14 +142,24 @@ export default class Sales extends Component {
 
 
   searchHandler = e => {
-    e.preventDefault();
+    if (sessionStorage.getItem('searchQuery')) {
+      this.setState({
+        searchQuery: sessionStorage.getItem('searchQuery'),
+        loading: true,
+      });
+    } else {
+      e.preventDefault();
+      this.setState({
+        searchQuery: document.getElementById('searchInput').value,
+        loading: true,
+      });
+    }
     let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
 
-    this.setState({
-      searchQuery: document.getElementById('searchInput').value,
-      loading: true,
-    });
+    setTimeout((function() {
+      sessionStorage.setItem('searchQuery', this.state.searchQuery);
+    }).bind(this), 10);
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
@@ -172,10 +182,14 @@ export default class Sales extends Component {
           error: false,
           dataOffset: '',
         });
-        setTimeout((function() {
-          document.getElementById('searchInput').value = capitalizedQuery;
-          document.getElementById('searchBy').value = searchByValue;
-        }).bind(this), 50);
+        if (this.state.recordView === false) {
+          setTimeout((function() {
+            if (document.getElementById('searchInput')) {
+              document.getElementById('searchInput').value = capitalizedQuery;
+              document.getElementById('searchBy').value = searchByValue;
+            }
+          }).bind(this), 50);
+        }
       })
     }).bind(this), 50);
   }
@@ -666,8 +680,8 @@ export default class Sales extends Component {
     let hoursPer = (parseInt(sqFtReal) / cleanSpeed);
     hoursPer = hoursPer.toFixed(2);
 
-    fullDataSet['Hours Per'] = hoursPer;
-    fullDataSet['Monthly Amount'] = autoPrice;
+    fullDataSet['Hours Per'] = hoursPer.toString();
+    fullDataSet['Monthly Amount'] = autoPrice.toString();
 
     this.setState({
       currentRecord: fullDataSet,
@@ -1272,7 +1286,7 @@ export default class Sales extends Component {
       loading: true,
       dataOffset: '',
     });
-    sessionStorage.removeItem('isSearching');
+    sessionStorage.removeItem('searchQuery');
     this.loadData();
   }
 
@@ -1435,7 +1449,15 @@ export default class Sales extends Component {
     if (sessionStorage.getItem('isLogged') !== 'true') {
       this.props.history.push('/login');
     } else {
-      this.loadData();
+      if (sessionStorage.getItem('searchQuery')) {
+        this.setState({
+          searchQuery: sessionStorage.getItem('searchQuery'),
+          loading: true,
+        });
+        this.searchHandler();
+      } else {
+        this.loadData();
+      }
       if (sessionStorage.getItem('userInitials')) {
         let usersInitials = sessionStorage.getItem('userInitials');
         this.setState({
