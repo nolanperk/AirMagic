@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
 import Isotope from 'isotope-layout';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 import loader from '../../../assets/loader.gif';
 import VolumeItem from './VolumeItem';
+import exit from '../../../assets/icons/white/exit.png';
 
 let finalURL;
 let currentAccountState;
@@ -18,7 +21,51 @@ export default class VolumeOwed extends Component {
   }
 
 
+  hideDayPicker = () => {
+    let getTheBlock = document.getElementById('volumePicker');
+    getTheBlock.className = 'pickWrapper';
+    this.setState({
+      pickerId: null,
+    })
+  }
+  handleDayClick = day => {
+    currentAccountState = this.state.currentAccount;
+    let newSelectedDay = new Date(day);
+    let currentIndex = this.state.pickerIndex;
+
+    let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
+
+    if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = finalDate}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Stop Date'] = finalDate}
+
+    this.setState({
+      currentAccount: currentAccountState,
+      recordChanges: true,
+    })
+    setTimeout((function() {
+      this.editingAccountHandler();
+    }).bind(this), 50);
+  }
+  toggleDayPicker = (id, e, index) => {
+    let dayID = id;
+    let pickerBlock = document.getElementById('volumePicker');
+    let currAccount = this.state.volumeData[index];
+    console.log(currAccount);
+
+    if (pickerBlock.className === 'pickWrapper isActive') {
+      this.hideDayPicker();
+    } else {
+      pickerBlock.className = 'pickWrapper isActive';
+      this.setState({
+        pickerId: dayID,
+        pickerIndex: index,
+      })
+    }
+  }
+
+
   editingAccountHandler = (e, key, index) => {
+    console.log('editingAccountHandler()');
     if (this.state.recordChanges) {
       let pushRecord = this.state.currentAccount.fields;
       let pushRecordId = this.state.currentAccount.id;
@@ -30,6 +77,9 @@ export default class VolumeOwed extends Component {
         this.setState({
           recordChanges: false,
         });
+        if (document.getElementById('volumePicker').className = 'pickWrapper isActive') {
+          this.hideDayPicker();
+        }
         console.log('success');
       })
       .catch(response => {
@@ -40,18 +90,23 @@ export default class VolumeOwed extends Component {
         setTimeout((function() {
           this.loadData();
         }).bind(this), 300);
-
       });
     }
     setTimeout((function() {
-      this.setState({
-        currentAccount: e,
-      });
+      if (document.getElementById('volumePicker').className = 'pickWrapper isActive') {
+        this.setState({
+          currentAccount: this.state.volumeData[this.state.pickerIndex],
+        });
+      } else {
+        this.setState({
+          currentAccount: e,
+        });
+      }
     }).bind(this), 100);
-
   }
 
   changeAccountHandler = e => {
+    console.log('changeAccountHandler()');
     currentAccountState = this.state.volumeData;
     let currentIndex = e.target.getAttribute('data-index');
 
@@ -83,6 +138,7 @@ export default class VolumeOwed extends Component {
     });
     setTimeout((function() {
       finalURL = 'https://api.airtable.com/v0/' + this.props.baseId + '/Accounts';
+
       let urlFormula = '?filterByFormula=IF(%7BShort+SP+Name%7D=%22' + this.props.currentRecord["SP Name"].replace(/ /g, '+') + '%22%2C+TRUE()%2C+FALSE())' + '&sort%5B0%5D%5Bfield%5D=Start+Date';
       finalURL += urlFormula;
 
@@ -90,10 +146,30 @@ export default class VolumeOwed extends Component {
       return axios
         .get(finalURL)
         .then(response => {
-          console.log(response);
+          console.log(response.data.records);
+
+          let initData = response.data.records;
+
+          for (var indRecord of response.data.records) {
+            // console.log(indRecord.id);
+            // console.log(indRecord.fields['Start Date']);
+            // console.log(indRecord.fields['Stop Date']);
+            let indexTarget = initData.filter(e => e.id === indRecord.id)[0].fields;
+
+            let formattedStart = new Date(indRecord.fields['Start Date']);
+            var formattedStart = new Date(formattedStart.getTime() + Math.abs(formattedStart.getTimezoneOffset()*60000));
+            formattedStart = (formattedStart.getMonth()+1) + '/' + formattedStart.getDate() + '/' + formattedStart.getFullYear();
+            indexTarget['Start Date'] = formattedStart;
+
+            if (indRecord.fields['Stop Date']) {
+              let formattedStop = new Date(indRecord.fields['Stop Date']);
+              var formattedStop = new Date(formattedStop.getTime() + Math.abs(formattedStop.getTimezoneOffset()*60000));
+              formattedStop = (formattedStop.getMonth()+1) + '/' + formattedStop.getDate() + '/' + formattedStop.getFullYear();
+              indexTarget['Stop Date'] = formattedStop;
+            }
+          }
           this.setState({
-            volumeData: response.data.records,
-            //put it here
+            volumeData: initData,
             loading: false,
             error: false,
             loadingMore: true,
@@ -214,6 +290,13 @@ export default class VolumeOwed extends Component {
         <div className="fullInner">
 
           <div className="inner">
+            <div class="pickWrapper" id="volumePicker">
+              <div className="navIcon softGrad--primary" onClick={this.toggleDayPicker}>
+                <img src={exit} alt="exit" />
+              </div>
+              <p>Select {this.state.pickerId} date</p>
+              <DayPicker onDayClick={this.handleDayClick} />
+            </div>
 
             {this.ipRev}
 
@@ -258,6 +341,7 @@ export default class VolumeOwed extends Component {
             typeChangeHandler={this.typeChangeHandler}
             deleteAccountItem={this.deleteAccountItem}
             editingAccountHandler={this.editingAccountHandler}
+            toggleDayPicker={this.toggleDayPicker}
           />
   }
 

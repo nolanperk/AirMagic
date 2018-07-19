@@ -40,8 +40,11 @@ export default class VolumeItem extends Component {
   // ----------------------------------------------------
   render() {
     const { index, volumeData } = this.props;
-
     let currentVolumeData = this.props.volumeData;
+
+
+    // let finalDate = new Date(this.props.volumeData['Start Date']);
+    // finalDate = (finalDate.getMonth() + 1) + '/' + finalDate.getDate() + '/' + finalDate.getFullYear();
 
     return (
       <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(volumeData[this.props.index], this.props.id, this.props.index)} key={this.props.id} index={this.props.index} volumeData={volumeData}>
@@ -89,7 +92,7 @@ export default class VolumeItem extends Component {
         <td>
           <input
             className="tableCol"
-            onChange={this.props.changeAccountHandler}
+            onClick={()=>this.props.toggleDayPicker('start', volumeData[this.props.index], this.props.index)}
             data-index={this.props.index}
             value={this.props.volumeData['Start Date']}
             id="start"
@@ -98,7 +101,7 @@ export default class VolumeItem extends Component {
         <td>
           <input
             className="tableCol"
-            onChange={this.props.changeAccountHandler}
+            onClick={()=>this.props.toggleDayPicker('stop', volumeData[this.props.index], this.props.index)}
             data-index={this.props.index}
             value={this.props.volumeData['Stop Date']}
             id="stop"
@@ -118,6 +121,7 @@ VolumeItem.propTypes ={
   changeAccountHandler: propTypes.func.isRequired,
   index: propTypes.number.isRequired,
   rpSumCalc: propTypes.func.isRequired,
+  toggleDayPicker: propTypes.func.isRequired,
   typeChangeHandler: propTypes.func.isRequired,
   volumeData: propTypes.object.isRequired,
   id: propTypes.string.isRequired,

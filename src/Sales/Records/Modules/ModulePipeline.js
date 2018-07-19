@@ -41,6 +41,11 @@ export default class ModulePipeline extends Component {
     let apptDate = this.props.apptDate;
     let apptTime = this.props.apptTime;
     let proposal = this.props.proposal;
+
+
+    // let finalAppt = new Date(apptDate);finalAppt = (finalAppt.getMonth() + 1) + '/' + (finalAppt.getDate() + 1) + '/' + finalAppt.getFullYear();
+    // let finalProposal = new Date(proposal);finalProposal = (finalProposal.getMonth() + 1) + '/' + (finalProposal.getDate()) + '/' + finalProposal.getFullYear();
+
     if (this.props.currentRecordView === 'default') {
       return (
         <div className="inner">

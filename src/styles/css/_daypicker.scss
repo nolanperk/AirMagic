@@ -25,3 +25,22 @@
     }
   }
 }
+
+.Franchisees {
+  .pickWrapper {
+    p {
+      position: absolute;
+      z-index: 2;
+      margin-top: 70px;
+    }
+    .DayPicker {
+      transform: none;
+      top: 3vw;
+      left: 0;
+    }
+    .navIcon {
+      position: absolute;
+      z-index: 2;
+    }
+  }
+}

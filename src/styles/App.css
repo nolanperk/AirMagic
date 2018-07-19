@@ -1299,3 +1299,17 @@ hr {
     transform: translate(-105%, -50%);
     right: auto;
     left: 0; }
+
+.Franchisees .pickWrapper p {
+  position: absolute;
+  z-index: 2;
+  margin-top: 70px; }
+
+.Franchisees .pickWrapper .DayPicker {
+  transform: none;
+  top: 3vw;
+  left: 0; }
+
+.Franchisees .pickWrapper .navIcon {
+  position: absolute;
+  z-index: 2; }
