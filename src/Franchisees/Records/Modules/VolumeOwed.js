@@ -50,7 +50,6 @@ export default class VolumeOwed extends Component {
     let dayID = id;
     let pickerBlock = document.getElementById('volumePicker');
     let currAccount = this.state.volumeData[index];
-    console.log(currAccount);
 
     if (pickerBlock.className === 'pickWrapper isActive') {
       this.hideDayPicker();
@@ -123,7 +122,6 @@ export default class VolumeOwed extends Component {
   }
 
   deleteAccountItem = e => {
-    console.log(e.target.id);
     return axios
       .delete('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + e.target.id)
       .then(response => {
@@ -142,18 +140,13 @@ export default class VolumeOwed extends Component {
       let urlFormula = '?filterByFormula=IF(%7BShort+SP+Name%7D=%22' + this.props.currentRecord["SP Name"].replace(/ /g, '+') + '%22%2C+TRUE()%2C+FALSE())' + '&sort%5B0%5D%5Bfield%5D=Start+Date';
       finalURL += urlFormula;
 
-      console.log(finalURL);
       return axios
         .get(finalURL)
         .then(response => {
-          console.log(response.data.records);
 
           let initData = response.data.records;
 
           for (var indRecord of response.data.records) {
-            // console.log(indRecord.id);
-            // console.log(indRecord.fields['Start Date']);
-            // console.log(indRecord.fields['Stop Date']);
             let indexTarget = initData.filter(e => e.id === indRecord.id)[0].fields;
 
             let formattedStart = new Date(indRecord.fields['Start Date']);

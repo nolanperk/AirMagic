@@ -57,15 +57,6 @@ export default class ModuleSales extends Component {
         <div className="inner">
 
           <div className="inputBlock inputBlock--half">
-            <label>Referral</label>
-            <input
-              type="text"
-              onChange={this.props.changeRecordHandler}
-              value={referral}
-              id="referral"
-            />
-          </div>
-          <div className="inputBlock inputBlock--half">
             <label>Packet Sent</label>
             <div
               className="selectBlock"

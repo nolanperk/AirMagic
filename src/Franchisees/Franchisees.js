@@ -232,9 +232,9 @@ export default class Franchisees extends Component {
     }).bind(this), 250);
   }
   changeNotesHandler = e => {
-    if (e.target.id === 'special') {
+    if (e.target.id === 'source') {
       currentRecordState = this.state.currentRecord;
-      currentRecordState['Special Notes'] = e.target.value;
+      currentRecordState['Source'] = e.target.value;
 
       this.setState({
         currentRecord: currentRecordState,
@@ -821,7 +821,7 @@ export default class Franchisees extends Component {
           document.getElementById('filterBtn').className='ControlsBar--btn isActive';
           document.getElementById('filterBtn').getElementsByTagName('p')[0].innerHTML=this.state.listView.replace('view=', '').replace('+', ' ');
         }
-        if (this.state.sortByLabel !== 'Company+Name') {
+        if (this.state.sortByLabel !== 'SP+Name') {
           document.getElementById('sortBtn').className='ControlsBar--btn isActive';
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
         }
