@@ -828,7 +828,7 @@ export default class CustomerService extends Component {
             });
           }
           this.setState({
-            data: this.state.data.push(response),
+            data: this.state.data.push(response.data),
             activeModal: false,
             modalType: '',
             newRecord: false,
@@ -841,6 +841,9 @@ export default class CustomerService extends Component {
               currentRecordView: sessionStorage.getItem('serviceView'),
             })
           }
+          setTimeout((function() {
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + response.data.id);
+          }).bind(this), 10);
         })
         .catch(response => {
           console.error("error: ", response);

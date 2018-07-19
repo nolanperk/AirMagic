@@ -770,7 +770,7 @@ export default class Sales extends Component {
             });
           }
           this.setState({
-            data: this.state.data.push(response),
+            data: this.state.data.push(response.data),
             activeModal: false,
             modalType: '',
             newRecord: false,
@@ -783,6 +783,9 @@ export default class Sales extends Component {
               currentRecordView: sessionStorage.getItem('salesView'),
             })
           }
+          setTimeout((function() {
+            this.props.history.push('/' + this.props.citySet + '/sales/' + response.data.id);
+          }).bind(this), 10);
         })
         .catch(response => {
           console.error("error: ", response);

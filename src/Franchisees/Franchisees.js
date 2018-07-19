@@ -484,13 +484,16 @@ export default class Franchisees extends Component {
           });
         }
         this.setState({
-          data: this.state.data.push(response),
+          data: this.state.data.push(response.data),
           activeModal: false,
           modalType: '',
           newRecord: false,
           currentRecord: [],
           recordChanges: false,
         });
+        setTimeout((function() {
+          this.props.history.push('/' + this.props.citySet + '/customer-service/' + response.data.id);
+        }).bind(this), 10);
       })
       .catch(response => {
         console.error("error: ", response);
