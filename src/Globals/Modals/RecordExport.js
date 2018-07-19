@@ -97,6 +97,13 @@ export default class RecordExport extends Component {
               data-merge="none">
               Select Template</option>
             <option disabled>---------------</option>
+            <option disabled>General</option>
+            <option disabled>---------------</option>
+            <option
+              data-merge="appt-sheet"
+              data-type="Shee">
+              Appointment Sheet</option>
+            <option disabled>---------------</option>
             <option disabled>Rob Janke</option>
             <option disabled>---------------</option>
             <option
@@ -151,6 +158,13 @@ export default class RecordExport extends Component {
             <option
               data-merge="none">
               Select Template</option>
+            <option disabled>---------------</option>
+            <option disabled>General</option>
+            <option disabled>---------------</option>
+            <option
+              data-merge="appt-sheet"
+              data-type="Shee">
+              Appointment Sheet</option>
             <option disabled>---------------</option>
             <option disabled>Tyler Perkins</option>
             <option disabled>---------------</option>

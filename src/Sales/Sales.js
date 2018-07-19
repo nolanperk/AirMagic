@@ -482,6 +482,7 @@ export default class Sales extends Component {
 
     else if (e.target.id === 'apptSet') {currentRecordState['Appt. Set Date'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
+    else if (e.target.id === 'apptTime') {currentRecordState['Appt. Time'] = e.target.value}
     else if (e.target.id === 'proposal') {currentRecordState['Proposal Date'] = e.target.value}
     else if (e.target.id === 'closed') {currentRecordState['Close Date'] = e.target.value}
     else if (e.target.id === 'walkthrough') {currentRecordState['Walkthrough Date'] = e.target.value}
@@ -986,6 +987,54 @@ export default class Sales extends Component {
         if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=+';  finalURL += '&';}
         if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=+';  finalURL += '&';}
         if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date;} else {finalURL += 'Proposal_Date=+';}
+      } else {
+        mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', 'Cont_First_Name': '', 'Cont_Last_Name': '', 'Contact_Title': '', 'Company': '', 'Address_Line_1': '', 'Address_Line_2': '', 'City': '', 'Zip_Code': '', 'Appt_Date': '', 'Appt_Time': '', 'Telemarketer': '', 'Account_Rep': '', 'cnty': '', 'Office_Phone': '', 'Office_Phone_Ext': ''}
+        if (this.props.citySet === 'tampa') { // IF IS IN TAMPA
+          if (mergeTemp === 'appt-sheet') {mergeURL.id = '180769/f6rn5k';}
+        } else {
+          if (mergeTemp === 'appt-sheet') {mergeURL.id = '180768/43hjrw';}
+        }
+
+        let contactArr = mergeData['Main contact'].split(" ");
+        mergeURL.Cont_First_Name = contactArr[0];
+        mergeURL.Cont_Last_Name = contactArr[1];
+        mergeURL.Contact_Title = mergeData['Title'];
+        mergeURL.Company = mergeData['Company Name'];
+        mergeURL.Address_Line_1 = mergeData['Address 1'];
+        mergeURL.Address_Line_2 = mergeData['Address 2'];
+        mergeURL.City = mergeData['City'];
+        mergeURL.Zip_Code = mergeData['Zip'];
+
+        mergeURL.Appt_Date = mergeData['Appt. Date'];
+        mergeURL.Appt_Time = mergeData['Appt. Time'];
+        mergeURL.Telemarketer = mergeData['Appt Set By'];
+        mergeURL.Account_Rep = mergeData['Sales Rep'];
+        mergeURL.cnty = mergeData['County'];
+        mergeURL.Office_Phone = mergeData['Office Phone'];
+        mergeURL.Office_Phone_Ext = mergeData['Extension'];
+
+
+
+
+        Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
+
+        finalURL = mergeURL.base + mergeURL.id + '?_use_get=1&';
+        if (mergeURL.Cont_First_Name) {finalURL += 'Cont_First_Name=' + mergeURL.Cont_First_Name;  finalURL += '&';}  else {finalURL += 'Cont_First_Name=+';  finalURL += '&';}
+        if (mergeURL.Cont_Last_Name) {finalURL += 'Cont_Last_Name=' + mergeURL.Cont_Last_Name;  finalURL += '&';} else {finalURL += 'Cont_Last_Name=+';  finalURL += '&';}
+        if (mergeURL.Contact_Title) {finalURL += 'Contact_Title=' + mergeURL.Contact_Title;  finalURL += '&';}  else {finalURL += 'Contact_Title=+';  finalURL += '&';}
+        if (mergeURL.Company) {finalURL += 'Company=' + mergeURL.Company;  finalURL += '&';}  else {finalURL += 'Company=+';  finalURL += '&';}
+        if (mergeURL.Address_Line_1) {finalURL += 'Address_Line_1=' + mergeURL.Address_Line_1;  finalURL += '&';}  else {finalURL += 'Address_Line_1=+';  finalURL += '&';}
+        if (mergeURL.Address_Line_2) {finalURL += 'Address_Line_2=' + mergeURL.Address_Line_2;  finalURL += '&';}  else {finalURL += 'Address_Line_2=+';  finalURL += '&';}
+        if (mergeURL.City) {finalURL += 'City=' + mergeURL.City;  finalURL += '&';} else {finalURL += 'City=+';  finalURL += '&';}
+        if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=+';  finalURL += '&';}
+
+        if (mergeURL.Appt_Date) {finalURL += 'Appt_Date=' + mergeURL.Appt_Date;  finalURL += '&';}  else {finalURL += 'Appt_Date=+';  finalURL += '&';}
+        if (mergeURL.Appt_Time) {finalURL += 'Appt_Time=' + mergeURL.Appt_Time;  finalURL += '&';}  else {finalURL += 'Appt_Time=+';  finalURL += '&';}
+        if (mergeURL.Telemarketer) {finalURL += 'Telemarketer=' + mergeURL.Telemarketer;  finalURL += '&';}  else {finalURL += 'Telemarketer=+';  finalURL += '&';}
+        if (mergeURL.Account_Rep) {finalURL += 'Account_Rep=' + mergeURL.Account_Rep;  finalURL += '&';}  else {finalURL += 'Account_Rep=+';  finalURL += '&';}
+        if (mergeURL.cnty) {finalURL += 'cnty=' + mergeURL.cnty;  finalURL += '&';}  else {finalURL += 'cnty=+';  finalURL += '&';}
+        if (mergeURL.Office_Phone) {finalURL += 'Office_Phone=' + mergeURL.Office_Phone;  finalURL += '&';}  else {finalURL += 'Office_Phone=+';  finalURL += '&';}
+        if (mergeURL.Office_Phone_Ext) {finalURL += 'Office_Phone_Ext=' + mergeURL.Office_Phone_Ext;  finalURL += '&';}  else {finalURL += 'Office_Phone_Ext=+';  finalURL += '&';}
       }
 
       console.log(encodeURI(finalURL));
