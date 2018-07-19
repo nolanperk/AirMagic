@@ -7,13 +7,13 @@ export default class BaseSelect extends Component {
   componentDidMount() {
     if (sessionStorage.getItem('isLogged') !== 'true') {
       this.props.history.push('/login');
-    } else {
-      sessionStorage.removeItem('innerOffset'); //reset it!
-      sessionStorage.removeItem('innerClosedID'); //reset it!
-      sessionStorage.removeItem('listView');
-      sessionStorage.removeItem('jumpLetters');
-      sessionStorage.removeItem('salesView');
-      sessionStorage.removeItem('serviceView');
+    // } else {
+    //   sessionStorage.removeItem('innerOffset'); //reset it!
+    //   sessionStorage.removeItem('innerClosedID'); //reset it!
+    //   sessionStorage.removeItem('listView');
+    //   sessionStorage.removeItem('jumpLetters');
+    //   sessionStorage.removeItem('salesView');
+    //   sessionStorage.removeItem('serviceView');
     }
   }
   logoutHandler = () => {
