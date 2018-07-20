@@ -8,6 +8,7 @@ import ModuleContact from './Modules/ModuleContact';
 import ModuleLocation from './Modules/ModuleLocation';
 import ModuleSales from './Modules/ModuleSales';
 import ModuleHear from './Modules/ModuleHear';
+import ModuleAbility from './Modules/ModuleAbility';
 
 import VolumeOwed from './Modules/VolumeOwed';
 
@@ -78,6 +79,20 @@ export default class RecordView extends Component {
               changeNotesHandler={this.props.changeNotesHandler}
               changeRecordHandler={this.props.changeRecordHandler}
               source={this.props.currentRecord['Source']}
+            />
+
+            <ModuleAbility
+              area={this.props.currentRecord['Coverage Area']}
+              perCapacity={this.props.currentRecord['Account Capacity']}
+              monthlyCapacity={this.props.currentRecord['Monthly Capacity']}
+              looking={this.props.currentRecord['Looking for More']}
+              carpets={this.props.currentRecord['Carpets']}
+              sWax={this.props.currentRecord['Strip and Wax']}
+              buffing={this.props.currentRecord['Buffing']}
+              tiles={this.props.currentRecord['Tile']}
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecord={this.props.currentRecord}
+              baseId={this.props.baseId}
             />
 
 

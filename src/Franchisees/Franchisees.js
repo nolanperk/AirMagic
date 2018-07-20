@@ -305,6 +305,7 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'county') {currentRecordState['County'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Source'] = e.target.value}
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
+    else if (e.target.id === 'area') {currentRecordState['Coverage Area'] = e.target.value}
 
     else if (e.target.id === 'referral') {currentRecordState['Referral'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
@@ -493,6 +494,15 @@ export default class Franchisees extends Component {
       fullDataSet['Standing'] = document.getElementById('standing').value;
       fullDataSet['Additional Revenue'] = document.getElementById('arSelect').value;
 
+      fullDataSet['Account Capacity'] = document.getElementById('perCapacitySelect').value;
+      fullDataSet['Monthly Capacity'] = document.getElementById('monthlyCapacitySelect').value;
+      fullDataSet['Looking for More'] = document.getElementById('lookingSelect').value;
+      fullDataSet['Carpets'] = document.getElementById('carpetsSelect').value;
+      fullDataSet['Strip and Wax'] = document.getElementById('sWaxSelect').value;
+      fullDataSet['Buffing'] = document.getElementById('buffingSelect').value;
+      fullDataSet['Tile'] = document.getElementById('tilesSelect').value;
+
+
 
       let finalPush = {"fields": fullDataSet}
       console.log(finalPush);
@@ -538,6 +548,15 @@ export default class Franchisees extends Component {
       pushRecord['Attended'] = document.getElementById('attended').value;
       pushRecord['Standing'] = document.getElementById('standing').value;
       pushRecord['Additional Revenue'] = document.getElementById('arSelect').value;
+
+      pushRecord['Account Capacity'] = document.getElementById('perCapacitySelect').value;
+      pushRecord['Monthly Capacity'] = document.getElementById('monthlyCapacitySelect').value;
+      pushRecord['Looking for More'] = document.getElementById('lookingSelect').value;
+      pushRecord['Carpets'] = document.getElementById('carpetsSelect').value;
+      pushRecord['Strip and Wax'] = document.getElementById('sWaxSelect').value;
+      pushRecord['Buffing'] = document.getElementById('buffingSelect').value;
+      pushRecord['Tile'] = document.getElementById('tilesSelect').value;
+
 
 
       let finalPush = {"fields": pushRecord}
