@@ -343,31 +343,40 @@ export default class Franchisees extends Component {
     dataIndex = this.state.data.findIndex(obj => obj.id == this.props.recordId);
     fallbackRecordIndex = parseInt(this.state.currentRecordIndex.toString());
 
-    if (e.target.closest(".ControlsBar--btn").id === 'prev') {
-      if (dataIndex !== 0) {
-        dataIndex --;
+
+    if (this.state.recordChanges) {
+      this.setState({
+        activeModal: true,
+        modalType: 'saveAlert',
+        recordChanger: true,
+        currentId: this.props.recordId,
+      });
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        this.setState({
+          changerType: 'prev'
+        });
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        this.setState({
+          changerType: 'next'
+        });
       }
-    } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
-      dataIndex ++;
-    }
-    if ((this.state.data.length - 1) < dataIndex) {
-      console.log(dataIndex + ' / ' + this.state.data.length);
-      this.loadMoreRecords();
-    }
+    } else {
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        if (dataIndex !== 0) {
+          dataIndex --;
+        }
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        dataIndex ++;
+      }
+      if ((this.state.data.length - 1) <= dataIndex) {
+        console.log(dataIndex + ' / ' + this.state.data.length);
+        this.loadMoreRecords();
+      }
 
-    let loadMoreChanger = setInterval(function() {
-      if ((this.state.data.length - 1) >= dataIndex) {
-        clearInterval(loadMoreChanger);
-        console.log('clearing it out!');
-
-        if (this.state.recordChanges) {
-          this.setState({
-            activeModal: true,
-            modalType: 'saveAlert',
-            recordChanger: true,
-            currentId: this.props.recordId,
-          });
-        } else {
+      let loadMoreChanger = setInterval(function() {
+        if ((this.state.data.length - 1) >= dataIndex) {
+          clearInterval(loadMoreChanger);
+          console.log('clearing it out!');
           this.setState({
             loading: true,
           });
@@ -385,11 +394,11 @@ export default class Franchisees extends Component {
 
             // window.location.reload();
           }).bind(this), 10);
+        } else {
+          console.log(this.state.data.length - 1 + ' / ' + dataIndex);
         }
-      } else {
-        console.log(this.state.data.length - 1 + ' / ' + dataIndex);
-      }
-    }.bind(this), 50);
+      }.bind(this), 50);
+    }
   }
 
   arrowKeyHandler = e => {
@@ -406,6 +415,7 @@ export default class Franchisees extends Component {
     let fullDataSet = this.state.data;
 
     if (!this.state.newRecord) {
+      console.log('revertRecordHandler()');
       return axios
       .get(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId)
       .then(response => {
@@ -419,16 +429,28 @@ export default class Franchisees extends Component {
           });
 
           if (this.state.recordChanger) {
+            if (this.state.changerType === 'prev') {
+              dataIndex --;
+            } else {
+              dataIndex ++;
+
+              if ((this.state.data.length - 1) <= dataIndex) {
+                console.log(dataIndex + ' / ' + this.state.data.length);
+                this.loadMoreRecords();
+              }
+            }
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
+
             this.setState({
               data: fullDataSet,
               recordChanger: false,
               activeModal: false,
               modalType: '',
+              changerType: false,
               recordChanges: false,
             });
 
+            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
             this.props.history.push('/' + this.props.citySet + '/franchisees/');
@@ -502,16 +524,12 @@ export default class Franchisees extends Component {
       let fullDataSet = this.state.data;
       let pushRecordId;
       let pushRecord;
-      if (this.state.recordChanger) {
-        pushRecord = fullDataSet[fallbackRecordIndex].fields
-        pushRecordId = fullDataSet[fallbackRecordIndex].id
+
+      pushRecord = this.state.currentRecord;
+      if (this.state.currentTable === 'Franchisees') {
+        pushRecordId = this.props.recordId;
       } else {
-        pushRecord = this.state.currentRecord;
-        if (this.state.currentTable === 'Franchisees') {
-          pushRecordId = this.props.recordId;
-        } else {
-          pushRecordId = this.state.currentId;
-        }
+        pushRecordId = this.state.currentId;
       }
       pushRecord['Status'] = document.getElementById('statusSelect').value;
       pushRecord['Franchise Level'] = document.getElementById('levelSelect').value;
@@ -531,15 +549,26 @@ export default class Franchisees extends Component {
             loading: true,
           })
           if (this.state.recordChanger) {
-            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
+            if (this.state.changerType === 'prev') {
+              dataIndex --;
+            } else {
+              dataIndex ++;
+              if ((this.state.data.length - 1) <= dataIndex) {
+                console.log(dataIndex + ' / ' + this.state.data.length);
+                this.loadMoreRecords();
+              }
+            }
+
             setTimeout((function() {
               this.setState({
+                data: fullDataSet,
                 recordChanger: false,
                 activeModal: false,
-                recordChanges: false,
                 modalType: '',
+                recordChanges: false,
               });
             }).bind(this), 10);
+            this.props.history.push('/' + this.props.citySet + '/franchisees/' + this.state.data[dataIndex].id);
           } else {
             if (this.state.modalType === 'saveAlert') {
               this.props.history.push('/' + this.props.citySet + '/franchisees/');
@@ -848,70 +877,80 @@ export default class Franchisees extends Component {
             console.log(savedOffset);
 
             let exitChangerLoadMore = setInterval(function() {
-              if (this.state.dataOffset.includes(savedOffset)) {
-                clearInterval(exitChangerLoadMore);
-                console.log('cleared!');
-                setTimeout((function() {
-                  if (this.state.recordView === false) {
-                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
-                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
-                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
-                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                    }
-                  }
-                  sessionStorage.removeItem('innerOffset'); //reset it!
-                  sessionStorage.removeItem('innerClosedID'); //reset it!
-
+              if (this.state.dataOffset) {
+                if (this.state.dataOffset.includes(savedOffset)) {
+                  clearInterval(exitChangerLoadMore);
+                  console.log('cleared!');
                   setTimeout((function() {
-                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
-                    // console.log();
-                  }).bind(this), 1000);
-                }).bind(this), 500);
-              } else {
-                console.log('loadmore!');
-                let preData = this.state.data;
-                this.setState({
-                  loadingMore: true,
-                });
-                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-                  finalURL = finalURL + '?';
-
-                  if (this.state.dataOffset !== '') {
-                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
-                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-                      finalURL = finalURL + '&';
+                    if (this.state.recordView === false) {
+                      if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
+                        window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
+                        document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
+                        console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
+                      }
                     }
-                  }
-                  if (this.state.listView !== '') {
-                    finalURL = finalURL + this.state.listView;
-                    if (this.state.sortByLabel !== '') {
-                      finalURL = finalURL + '&';
-                    }
-                  }
-                  if (this.state.sortByLabel !== '') {
-                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder;
-                  }
-                }
-                return axios
-                  .get(finalURL)
-                  .then(response => {
-                    // console.log(response.data.records);
-
-                    this.setState({
-                      data: preData.concat(response.data.records),
-                      //put it here
-                      totalLoads: this.state.totalLoads + 1,
-                      loading: false,
-                      error: false,
-                      dataOffset: response.data.offset,
-                    });
-                    setTimeout((function() {
+                    if (this.state.recordView) {
                       this.setState({
-                        loadingMore: false,
+                        currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
                       });
-                    }).bind(this), 500);
-                  })
+                    }
+                    sessionStorage.removeItem('innerOffset'); //reset it!
+                    sessionStorage.removeItem('innerClosedID'); //reset it!
+
+                    setTimeout((function() {
+                      // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
+                      // console.log();
+                    }).bind(this), 1000);
+                  }).bind(this), 500);
+                } else {
+                  console.log('loadmore!');
+                  let preData = this.state.data;
+                  this.setState({
+                    loadingMore: true,
+                  });
+                  finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+                  if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+                    finalURL = finalURL + '?';
+
+                    if (this.state.dataOffset !== '') {
+                      finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                      if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                        finalURL = finalURL + '&';
+                      }
+                    }
+                    if (this.state.listView !== '') {
+                      finalURL = finalURL + this.state.listView;
+                      if (this.state.sortByLabel !== '') {
+                        finalURL = finalURL + '&';
+                      }
+                    }
+                    if (this.state.sortByLabel !== '') {
+                      finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder;
+                    }
+                  }
+                  return axios
+                    .get(finalURL)
+                    .then(response => {
+                      // console.log(response.data.records);
+
+                      this.setState({
+                        data: preData.concat(response.data.records),
+                        //put it here
+                        totalLoads: this.state.totalLoads + 1,
+                        loading: false,
+                        error: false,
+                        dataOffset: response.data.offset,
+                      });
+                      setTimeout((function() {
+                        this.setState({
+                          loadingMore: false,
+                        });
+                      }).bind(this), 500);
+                    })
+                }
+              } else {
+                clearInterval(exitChangerLoadMore);
+
               }
             }.bind(this), 500);
           }

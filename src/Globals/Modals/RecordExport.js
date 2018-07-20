@@ -163,7 +163,7 @@ export default class RecordExport extends Component {
             <option disabled>---------------</option>
             <option
               data-merge="appt-sheet"
-              data-type="Shee">
+              data-type="Appointment-Sheets">
               Appointment Sheet</option>
             <option disabled>---------------</option>
             <option disabled>Tyler Perkins</option>

@@ -395,6 +395,7 @@ export default class Sales extends Component {
 
       'Appt. Set Date': null,
       'Appt. Date': null,
+      'Appt. Time': null,
       'Proposal Date': null,
       'Close Date': null,
       'Walkthrough Date': null,
@@ -558,32 +559,42 @@ export default class Sales extends Component {
   recordChanger = e => {
     dataIndex = this.state.data.findIndex(obj => obj.id == this.props.recordId);
     fallbackRecordIndex = parseInt(this.state.currentRecordIndex.toString());
+    console.log(fallbackRecordIndex);
 
-    if (e.target.closest(".ControlsBar--btn").id === 'prev') {
-      if (dataIndex !== 0) {
-        dataIndex --;
+
+    if (this.state.recordChanges) {
+      this.setState({
+        activeModal: true,
+        modalType: 'saveAlert',
+        recordChanger: true,
+        currentId: this.props.recordId,
+      });
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        this.setState({
+          changerType: 'prev'
+        });
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        this.setState({
+          changerType: 'next'
+        });
       }
-    } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
-      dataIndex ++;
-    }
-    if ((this.state.data.length - 1) <= dataIndex) {
-      console.log(dataIndex + ' / ' + this.state.data.length);
-      this.loadMoreRecords();
-    }
+    } else {
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        if (dataIndex !== 0) {
+          dataIndex --;
+        }
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        dataIndex ++;
+      }
+      if ((this.state.data.length - 1) <= dataIndex) {
+        console.log(dataIndex + ' / ' + this.state.data.length);
+        this.loadMoreRecords();
+      }
 
-    let loadMoreChanger = setInterval(function() {
-      if ((this.state.data.length - 1) >= dataIndex) {
-        clearInterval(loadMoreChanger);
-        console.log('clearing it out!');
-
-        if (this.state.recordChanges) {
-          this.setState({
-            activeModal: true,
-            modalType: 'saveAlert',
-            recordChanger: true,
-            currentId: this.props.recordId,
-          });
-        } else {
+      let loadMoreChanger = setInterval(function() {
+        if ((this.state.data.length - 1) >= dataIndex) {
+          clearInterval(loadMoreChanger);
+          console.log('clearing it out!');
           this.setState({
             loading: true,
           });
@@ -601,11 +612,11 @@ export default class Sales extends Component {
 
             // window.location.reload();
           }).bind(this), 10);
+        } else {
+          console.log(this.state.data.length - 1 + ' / ' + dataIndex);
         }
-      } else {
-        console.log(this.state.data.length - 1 + ' / ' + dataIndex);
-      }
-    }.bind(this), 50);
+      }.bind(this), 50);
+    }
   }
 
   arrowKeyHandler = e => {
@@ -636,16 +647,28 @@ export default class Sales extends Component {
           });
 
           if (this.state.recordChanger) {
+            if (this.state.changerType === 'prev') {
+              dataIndex --;
+            } else {
+              dataIndex ++;
+
+              if ((this.state.data.length - 1) <= dataIndex) {
+                console.log(dataIndex + ' / ' + this.state.data.length);
+                this.loadMoreRecords();
+              }
+            }
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+
             this.setState({
               data: fullDataSet,
               recordChanger: false,
               activeModal: false,
               modalType: '',
+              changerType: false,
               recordChanges: false,
             });
 
+            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
             this.props.history.push('/' + this.props.citySet + '/sales/');
@@ -797,13 +820,9 @@ export default class Sales extends Component {
       let pushRecordId;
       let pushRecord;
 
-      if (this.state.recordChanger) {
-        pushRecord = fullDataSet[fallbackRecordIndex].fields
-        pushRecordId = fullDataSet[fallbackRecordIndex].id
-      } else {
-        pushRecord = this.state.currentRecord;
-        pushRecordId = this.props.recordId;
-      }
+      pushRecord = this.state.currentRecord;
+      pushRecordId = this.props.recordId;
+
       if (this.state.currentRecordView !== 'default') {
         this.setState({
           currentRecordView: 'default',
@@ -827,15 +846,26 @@ export default class Sales extends Component {
               loading: true,
             })
             if (this.state.recordChanger) {
-              this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+              if (this.state.changerType === 'prev') {
+                dataIndex --;
+              } else {
+                dataIndex ++;
+                if ((this.state.data.length - 1) <= dataIndex) {
+                  console.log(dataIndex + ' / ' + this.state.data.length);
+                  this.loadMoreRecords();
+                }
+              }
+
               setTimeout((function() {
                 this.setState({
+                  data: fullDataSet,
                   recordChanger: false,
                   activeModal: false,
                   modalType: '',
                   recordChanges: false,
                 });
               }).bind(this), 10);
+              this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
             } else {
               if (this.state.modalType === 'saveAlert') {
                 this.props.history.push('/' + this.props.citySet + '/sales/');
@@ -1005,7 +1035,10 @@ export default class Sales extends Component {
         mergeURL.City = mergeData['City'];
         mergeURL.Zip_Code = mergeData['Zip'];
 
-        mergeURL.Appt_Date = mergeData['Appt. Date'];
+        let formattedAppt = new Date(mergeData['Appt. Date']);
+        var formattedAppt = new Date(formattedAppt.getTime() + Math.abs(formattedAppt.getTimezoneOffset()*60000));
+        formattedAppt = (formattedAppt.getMonth()+1) + '/' + formattedAppt.getDate() + '/' + formattedAppt.getFullYear();
+        mergeURL.Appt_Date = formattedAppt;
         mergeURL.Appt_Time = mergeData['Appt. Time'];
         mergeURL.Telemarketer = mergeData['Appt Set By'];
         mergeURL.Account_Rep = mergeData['Sales Rep'];
@@ -1296,6 +1329,11 @@ export default class Sales extends Component {
                       document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
                       console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
                     }
+                  }
+                  if (this.state.recordView) {
+                    this.setState({
+                      currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+                    });
                   }
                   sessionStorage.removeItem('innerOffset'); //reset it!
                   sessionStorage.removeItem('innerClosedID'); //reset it!

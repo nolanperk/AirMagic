@@ -679,32 +679,42 @@ export default class CustomerService extends Component {
   recordChanger = e => {
     dataIndex = this.state.data.findIndex(obj => obj.id == this.props.recordId);
     fallbackRecordIndex = parseInt(this.state.currentRecordIndex.toString());
+    console.log(fallbackRecordIndex);
 
-    if (e.target.closest(".ControlsBar--btn").id === 'prev') {
-      if (dataIndex !== 0) {
-        dataIndex --;
+
+    if (this.state.recordChanges) {
+      this.setState({
+        activeModal: true,
+        modalType: 'saveAlert',
+        recordChanger: true,
+        currentId: this.props.recordId,
+      });
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        this.setState({
+          changerType: 'prev'
+        });
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        this.setState({
+          changerType: 'next'
+        });
       }
-    } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
-      dataIndex ++;
-    }
-    if ((this.state.data.length - 1) < dataIndex) {
-      console.log(dataIndex + ' / ' + this.state.data.length);
-      this.loadMoreRecords();
-    }
+    } else {
+      if (e.target.closest(".ControlsBar--btn").id === 'prev') {
+        if (dataIndex !== 0) {
+          dataIndex --;
+        }
+      } else if (e.target.closest(".ControlsBar--btn").id === 'next') {
+        dataIndex ++;
+      }
+      if ((this.state.data.length - 1) <= dataIndex) {
+        console.log(dataIndex + ' / ' + this.state.data.length);
+        this.loadMoreRecords();
+      }
 
-    let loadMoreChanger = setInterval(function() {
-      if ((this.state.data.length - 1) >= dataIndex) {
-        clearInterval(loadMoreChanger);
-        console.log('clearing it out!');
-
-        if (this.state.recordChanges) {
-          this.setState({
-            activeModal: true,
-            modalType: 'saveAlert',
-            recordChanger: true,
-            currentId: this.props.recordId,
-          });
-        } else {
+      let loadMoreChanger = setInterval(function() {
+        if ((this.state.data.length - 1) >= dataIndex) {
+          clearInterval(loadMoreChanger);
+          console.log('clearing it out!');
           this.setState({
             loading: true,
           });
@@ -722,20 +732,10 @@ export default class CustomerService extends Component {
 
             // window.location.reload();
           }).bind(this), 10);
+        } else {
+          console.log(this.state.data.length - 1 + ' / ' + dataIndex);
         }
-      } else {
-        console.log(this.state.data.length - 1 + ' / ' + dataIndex);
-      }
-    }.bind(this), 50);
-  }
-
-  arrowKeyHandler = e => {
-    console.log(e);
-    if (e.keyCode == 37) {
-      console.log('going left!');
-    }
-    if (e.keyCode == 39) {
-      console.log('going left!');
+      }.bind(this), 50);
     }
   }
 
@@ -743,6 +743,7 @@ export default class CustomerService extends Component {
     let fullDataSet = this.state.data;
 
     if (!this.state.newRecord) {
+      console.log('revertRecordHandler()');
       return axios
       .get(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId)
       .then(response => {
@@ -756,16 +757,28 @@ export default class CustomerService extends Component {
           });
 
           if (this.state.recordChanger) {
+            if (this.state.changerType === 'prev') {
+              dataIndex --;
+            } else {
+              dataIndex ++;
+
+              if ((this.state.data.length - 1) <= dataIndex) {
+                console.log(dataIndex + ' / ' + this.state.data.length);
+                this.loadMoreRecords();
+              }
+            }
             fullDataSet[fallbackRecordIndex].fields = this.state.fallbackRecord;
-            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+
             this.setState({
               data: fullDataSet,
               recordChanger: false,
               activeModal: false,
               modalType: '',
+              changerType: false,
               recordChanges: false,
             });
 
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
             this.props.history.push('/' + this.props.citySet + '/customer-service/');
@@ -853,16 +866,12 @@ export default class CustomerService extends Component {
       let fullDataSet = this.state.data;
       let pushRecordId;
       let pushRecord;
-      if (this.state.recordChanger) {
-        pushRecord = fullDataSet[fallbackRecordIndex].fields
-        pushRecordId = fullDataSet[fallbackRecordIndex].id
+
+      pushRecord = this.state.currentRecord;
+      if (this.state.currentTable === 'Customers') {
+        pushRecordId = this.props.recordId;
       } else {
-        pushRecord = this.state.currentRecord;
-        if (this.state.currentTable === 'Customers') {
-          pushRecordId = this.props.recordId;
-        } else {
-          pushRecordId = this.state.currentId;
-        }
+        pushRecordId = this.state.currentId;
       }
       if (this.state.currentRecordView !== 'default') {
         this.setState({
@@ -888,15 +897,26 @@ export default class CustomerService extends Component {
               loading: true,
             })
             if (this.state.recordChanger) {
-              this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+              if (this.state.changerType === 'prev') {
+                dataIndex --;
+              } else {
+                dataIndex ++;
+                if ((this.state.data.length - 1) <= dataIndex) {
+                  console.log(dataIndex + ' / ' + this.state.data.length);
+                  this.loadMoreRecords();
+                }
+              }
+
               setTimeout((function() {
                 this.setState({
+                  data: fullDataSet,
                   recordChanger: false,
                   activeModal: false,
-                  recordChanges: false,
                   modalType: '',
+                  recordChanges: false,
                 });
               }).bind(this), 10);
+              this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
             } else {
               if (this.state.modalType === 'saveAlert') {
                 this.props.history.push('/' + this.props.citySet + '/customer-service/');
@@ -1387,6 +1407,11 @@ export default class CustomerService extends Component {
                       document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
                       console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
                     }
+                  }
+                  if (this.state.recordView) {
+                    this.setState({
+                      currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+                    });
                   }
                   sessionStorage.removeItem('innerOffset'); //reset it!
                   sessionStorage.removeItem('innerClosedID'); //reset it!
