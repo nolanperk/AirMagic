@@ -43,6 +43,11 @@
   background: $black;
   @extend %card-hover;
 }
+.softGrad--blue {
+  @extend %softGradient;
+  background: #407ae6;
+  @extend %card-hover;
+}
 
 .navIcon {
   display: inline-block;

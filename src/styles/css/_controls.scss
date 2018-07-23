@@ -61,9 +61,9 @@
         img {
           width: 25px;
         }
-
+        margin-right: 1vw;
         &:last-child {
-          margin-left: 1vw;
+          margin-right: 0;
         }
       }
 
@@ -254,8 +254,9 @@
       width: 20px;
     }
 
+    margin-right: 10px;
     &:last-child {
-      margin-left: 10px;
+      margin-right: 0px;
     }
   }
 }

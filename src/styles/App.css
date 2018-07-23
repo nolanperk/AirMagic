@@ -139,9 +139,9 @@ ul {
   #next p {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
     content: "";
     position: absolute;
     top: 0;
@@ -248,14 +248,14 @@ ul {
     width: 100%;
     margin-top: 20px; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .ModuleList .ModuleCard .inner, .modal .modalInner {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .ModuleList .ModuleCard .inner, .modal .modalInner {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue {
   cursor: pointer; }
-  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover {
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .softGrad--blue:hover {
     transform: translateY(-5%);
     box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease; }
@@ -278,6 +278,9 @@ ul {
 
 .softGrad--black {
   background: #131313; }
+
+.softGrad--blue {
+  background: #407ae6; }
 
 .navIcon {
   display: inline-block;
@@ -444,13 +447,14 @@ ul {
       transform: translate(-50%, -50%);
       top: 50%; }
       .ControlsBar .ControlsBar--btn.saveBtn .navIcon {
-        padding: 18px; }
+        padding: 18px;
+        margin-right: 1vw; }
         .ControlsBar .ControlsBar--btn.saveBtn .navIcon.isHidden {
           display: none; }
         .ControlsBar .ControlsBar--btn.saveBtn .navIcon img {
           width: 25px; }
         .ControlsBar .ControlsBar--btn.saveBtn .navIcon:last-child {
-          margin-left: 1vw; }
+          margin-right: 0; }
       .ControlsBar .ControlsBar--btn.saveBtn.disabled {
         opacity: 0.5; }
         .ControlsBar .ControlsBar--btn.saveBtn.disabled .navIcon {
@@ -570,11 +574,12 @@ ul {
     .ControlsBar .ControlsBar--search::after {
       display: none; }
   .ControlsBar .ControlsBar--btn.saveBtn .navIcon {
-    padding: 16px; }
+    padding: 16px;
+    margin-right: 10px; }
     .ControlsBar .ControlsBar--btn.saveBtn .navIcon img {
       width: 20px; }
     .ControlsBar .ControlsBar--btn.saveBtn .navIcon:last-child {
-      margin-left: 10px; } }
+      margin-right: 0px; } }
 
 .BaseList {
   text-align: center;
