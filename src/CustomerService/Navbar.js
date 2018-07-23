@@ -69,6 +69,7 @@ export default class Navbar extends Component {
         <select id="viewSelect" value={this.props.currentRecordView} onChange={this.props.viewSelect}>
           <option value="default">Default View</option>
           <option value="accounting">Accounting View</option>
+          <option value="crews">Starts & Changes</option>
         </select>
       );
     }

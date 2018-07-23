@@ -104,7 +104,118 @@ export default class ModuleSales extends Component {
           </div>
 
         </div>
-    );
+      );
+    } else if (this.props.currentRecordView === 'crews') {
+      return (
+        <div className="inner">
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>New SP Start</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={newSP}
+                id="newSP"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+            </div>
+
+            <div className="inputBlock inputBlock--half">
+              <div class="pickWrapper">
+                <DayPicker onDayClick={this.props.handleDayClick} />
+              </div>
+            <label>Cancel Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={cancel}
+                id="cancel"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <hr />
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Walkthrough</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={walkthrough}
+                id="walkthrough"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Start Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={start}
+                id="start"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Pre-Clean Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={preCleanDate}
+                id="preCleanDate"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Pre-Clean Charge</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={preCleanCharge}
+                id="preCleanCharge"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="inner">
@@ -255,7 +366,7 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
-          
+
           <div className="inputBlock inputBlock--half">
             <div class="pickWrapper">
               <DayPicker onDayClick={this.props.handleDayClick} />

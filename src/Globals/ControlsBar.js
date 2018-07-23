@@ -24,6 +24,7 @@ export default class ControlsBar extends Component {
           controlsModalToggle={this.props.controlsModalToggle}
           searchHandler={this.props.searchHandler}
           newRecordHandler={this.props.newRecordHandler}
+          currentTable={this.props.currentTable}
         />
       );
     }

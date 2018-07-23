@@ -39,128 +39,10 @@ export default class ModuleService extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-    let standing = this.props.standing;
-    let special = this.props.special;
-    let lastCall = this.props.lastCall;
-    let setBy = this.props.setBy
-    let pam = this.props.pam
-    let rep = this.props.rep
-    let lastVisit = this.props.lastVisit;
 
     return (
       <div className="ModuleCard">
-        <div className="inner">
-
-
-
-        <div className="inputBlock inputBlock--half">
-          <label>Status</label>
-          <div
-            className="selectBlock"
-            id="status"
-            >
-            <select id="statusSelect"  value={this.state.statusValue} onChange={this.statusChange}>
-              <option id="none"></option>
-              <option id="Active">Active</option>
-              <option id="APPC">APPC</option>
-              <option id="Additional">Additional</option>
-              <option id="Canceled">Canceled</option>
-              <option id="DNC">DNC</option>
-            </select>
-          </div>
-        </div>
-        <div className="inputBlock inputBlock--half">
-          <label>Standing</label>
-          <div
-            className="selectBlock"
-            id="standing"
-            >
-            <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
-              <option id="none"></option>
-              <option id="Very+Happy">Very Happy</option>
-              <option id="Happy">Happy</option>
-              <option id="Satisfied">Satisfied</option>
-              <option id="Unhappy">Unhappy</option>
-              <option id="New+Customer">New Customer</option>
-              <option id="Canceled">Canceled</option>
-              <option id="Crew+Change">Crew Change</option>
-              <option id="Completed+Work">Completed Work</option>
-            </select>
-          </div>
-        </div>
-
-
-        <div className="inputBlock inputBlock--half">
-          <div class="pickWrapper">
-            <DayPicker onDayClick={this.props.handleDayClick} />
-          </div>
-          <label>Last Call</label>
-          <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
-            <div className="inputTag">
-              <img src={calendarImg} />
-            </div>
-            <input
-              type="text"
-              value={lastCall}
-              id="lastCall"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-        </div>
-
-        <div className="inputBlock inputBlock--half">
-          <div class="pickWrapper">
-            <DayPicker onDayClick={this.props.handleDayClick} />
-          </div>
-          <label>Last Visit</label>
-          <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
-            <div className="inputTag">
-              <img src={calendarImg} />
-            </div>
-            <input
-              type="text"
-              value={lastVisit}
-              id="lastVisit"
-              onChange={this.props.changeRecordHandler}
-            />
-          </div>
-        </div>
-
-
-
-          <div className="inputBlock inputBlock--half">
-            <label>PAM</label>
-            <div
-              className="selectBlock"
-              id="pam"
-              >
-              {this.locationPAM}
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>Sales Rep</label>
-            <div
-              className="selectBlock"
-              id="rep"
-              >
-              {this.locationSales}
-            </div>
-          </div>
-
-
-          <div className="inputBlock inputBlock--full">
-            <label>Special Notes</label>
-            <textarea
-              className="NotesList"
-              id="special"
-              rows='3'
-              value={special}
-              onChange={this.props.changeNotesHandler}>
-              {special}
-            </textarea>
-          </div>
-        </div>
+        {this.crewsView}
       </div>
     );
   }
@@ -216,6 +98,166 @@ export default class ModuleService extends Component {
           <option id="Old">Old</option>
         </select>
       )
+    }
+  }
+
+  get crewsView() {
+    let standing = this.props.standing;
+    let special = this.props.special;
+    let lastCall = this.props.lastCall;
+    let setBy = this.props.setBy
+    let pam = this.props.pam
+    let rep = this.props.rep
+    let lastVisit = this.props.lastVisit;
+    if (this.props.currentRecordView === 'crews') {
+      return(
+        <div className="inner">
+          <div className="inputBlock inputBlock--half">
+            <label>PAM</label>
+            <div
+              className="selectBlock"
+              id="pam"
+              >
+              {this.locationPAM}
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Sales Rep</label>
+            <div
+              className="selectBlock"
+              id="rep"
+              >
+              {this.locationSales}
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--full">
+            <label>Special Notes</label>
+            <textarea
+              className="NotesList"
+              id="special"
+              rows='3'
+              value={special}
+              onChange={this.props.changeNotesHandler}>
+              {special}
+            </textarea>
+          </div>
+        </div>
+      );
+    } else {
+      return(
+        <div className="inner">
+          <div className="inputBlock inputBlock--half">
+            <label>Status</label>
+            <div
+              className="selectBlock"
+              id="status"
+              >
+              <select id="statusSelect"  value={this.state.statusValue} onChange={this.statusChange}>
+                <option id="none"></option>
+                <option id="Active">Active</option>
+                <option id="APPC">APPC</option>
+                <option id="Additional">Additional</option>
+                <option id="Canceled">Canceled</option>
+                <option id="DNC">DNC</option>
+              </select>
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Standing</label>
+            <div
+              className="selectBlock"
+              id="standing"
+              >
+              <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
+                <option id="none"></option>
+                <option id="Very+Happy">Very Happy</option>
+                <option id="Happy">Happy</option>
+                <option id="Satisfied">Satisfied</option>
+                <option id="Unhappy">Unhappy</option>
+                <option id="New+Customer">New Customer</option>
+                <option id="Canceled">Canceled</option>
+                <option id="Crew+Change">Crew Change</option>
+                <option id="Completed+Work">Completed Work</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Last Call</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={lastCall}
+                id="lastCall"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Last Visit</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} />
+              </div>
+              <input
+                type="text"
+                value={lastVisit}
+                id="lastVisit"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>PAM</label>
+            <div
+              className="selectBlock"
+              id="pam"
+              >
+              {this.locationPAM}
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Sales Rep</label>
+            <div
+              className="selectBlock"
+              id="rep"
+              >
+              {this.locationSales}
+            </div>
+          </div>
+
+
+          <div className="inputBlock inputBlock--full">
+            <label>Special Notes</label>
+            <textarea
+              className="NotesList"
+              id="special"
+              rows='3'
+              value={special}
+              onChange={this.props.changeNotesHandler}>
+              {special}
+            </textarea>
+          </div>
+        </div>
+      );
     }
   }
 }

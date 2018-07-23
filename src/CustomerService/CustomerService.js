@@ -13,6 +13,7 @@ import loader from '../assets/loader.gif';
 import Navbar from './Navbar';
 import RecordView from './Records/RecordView';
 import AccountingView from './Records/AccountingView';
+import CrewsView from './Records/CrewsView';
 import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
@@ -243,7 +244,7 @@ export default class CustomerService extends Component {
       franchCityBase = 'appLxxBrc9m3yNXdQ';
     }
 
-    let finalURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?fields%5B%5D=SP+Name&fields%5B%5D=Number&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=English+Contact&fields%5B%5D=English+Contact+Phone&fields%5B%5D=Address&view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
+    let finalURL = 'https://api.airtable.com/v0/' + franchCityBase + '/Franchisees?view=Active&sort%5B0%5D%5Bfield%5D=SP+Name';
     let downloadNow = 0;
 
     let loadAllData = setInterval(function() {
@@ -1127,7 +1128,7 @@ export default class CustomerService extends Component {
         }
         if (mergeType === 'Crew Change Request') {
           mergeURL.id = '176894/p5wdbe';
-          fileLocation += '/Crew Changes/'
+          fileLocation += '/Accounting Crew Change Form/'
         }
         if (mergeType === 'Account Additional') {
           mergeURL.id = '176885/qbk4tu';
@@ -1811,6 +1812,7 @@ export default class CustomerService extends Component {
             viewSelect={this.viewSelect}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            currentRecordView={this.state.currentRecordView}
           />
         );
       } else if (this.state.currentRecordView === 'accounting') {
@@ -1833,6 +1835,30 @@ export default class CustomerService extends Component {
             viewSelect={this.viewSelect}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            currentRecordView={this.state.currentRecordView}
+          />
+        );
+      } else if (this.state.currentRecordView === 'crews') {
+        return (
+          <CrewsView
+            isLoading={this.state.loading}
+            controlsModalToggle={this.controlsModalToggle}
+            currentId={this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            currentRecord={this.state.currentRecord}
+            changeRecordHandler={this.changeRecordHandler}
+            recordChanger={this.recordChanger}
+            changeNotesHandler={this.changeNotesHandler}
+            baseId={this.state.baseId}
+            spChangeHandler={this.spChangeHandler}
+            currentSP={this.state.currentSP}
+            spList={this.state.spList}
+            loadSPInfo={this.loadSPInfo}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+            handleDayClick={this.handleDayClick}
+            toggleDayPicker={this.toggleDayPicker}
+            currentRecordView={this.state.currentRecordView}
           />
         );
       }

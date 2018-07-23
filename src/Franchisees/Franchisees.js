@@ -211,12 +211,9 @@ export default class Franchisees extends Component {
       'State': null,
       'County': null,
       'Source': null,
-      'Company Name': 'New Company',
-      'Industry': null,
-      'Times Called': null,
-      'Recent Call Date': null,
-      'Callback Date': null,
-      'Website': null,
+      'Additional Revenue': null,
+      'Coverage Area': null,
+      'Appt. Date': null,
     };
 
     console.log(currentRecordState);
@@ -307,7 +304,6 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
     else if (e.target.id === 'area') {currentRecordState['Coverage Area'] = e.target.value}
 
-    else if (e.target.id === 'referral') {currentRecordState['Referral'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
 
 
@@ -524,7 +520,7 @@ export default class Franchisees extends Component {
           recordChanges: false,
         });
         setTimeout((function() {
-          this.props.history.push('/' + this.props.citySet + '/customer-service/' + response.data.id);
+          this.props.history.push('/' + this.props.citySet + '/franchisees/' + response.data.id);
         }).bind(this), 10);
       })
       .catch(response => {

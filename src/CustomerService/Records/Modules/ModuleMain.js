@@ -49,6 +49,61 @@ export default class ModuleMain extends Component {
           </div>
         </div>
       );
+    } else if (this.props.currentRecordView === 'crews') {
+      return (
+        <div className="inner">
+          <div className="inputBlock inputBlock--full">
+            <label>Company Name</label>
+            <input
+              type="text"
+              onChange={this.props.changeRecordHandler}
+              value={company}
+              id="company"
+            />
+          </div>
+
+
+
+          <div className="inputBlock inputBlock--quart">
+            <label>Salutation</label>
+            <input
+              type="text"
+              id="salutation"
+              value={salutation}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--75">
+            <label>Main Contact</label>
+            <input
+              type="text"
+              id="contact"
+              value={contact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>Contact Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <label>Alt. Contact</label>
+            <input
+              type="text"
+              id="altContact"
+              value={altContact}
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="inner">
