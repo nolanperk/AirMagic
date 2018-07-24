@@ -27,7 +27,7 @@ export default class SortBy extends Component {
     } else {
       todayTime = today.getHours() + ':' + today.getMinutes() + ' am';
     }
-    let callBackDate = (today.getMonth()+3) + '/' + today.getDate() + '/' + today.getFullYear() + ' ' + todayTime;
+    let callBackDate = (today.getMonth()+1) + '/' + (today.getDate()+1) + '/' + today.getFullYear() + ' ' + todayTime;
     let finalDesc = "Write notes to yourself here. (" + window.location.href + ")";
 
     let calData = {
@@ -39,9 +39,33 @@ export default class SortBy extends Component {
       filename: finalSubject,
     }
 
-    let cal = window.ics();
-    cal.addEvent(calData.subject, calData.description, calData.location, calData.begin, calData.end);
-    cal.download(calData.filename);
+    let eventFile = 'BEGIN:VCALENDAR\n';
+        eventFile += 'VERSION:2.0\n';
+        eventFile += 'BEGIN:VEVENT\n';
+        eventFile += 'DTSTAMP:' + (new Date(calData.begin)).toISOString().replace(/-|:|\.\d\d\d/g,"") + '\n';
+        eventFile += 'STATUS:CONFIRMED\n';
+        eventFile += 'DTSTART:' + (new Date(calData.begin)).toISOString().replace(/-|:|\.\d\d\d/g,"") +'\n';
+        eventFile += 'DTEND:' + (new Date(calData.end)).toISOString().replace(/-|:|\.\d\d\d/g,"") +'\n';
+        eventFile += 'SUMMARY:' + calData.subject +'\n';
+        eventFile += 'DESCRIPTION:' + calData.description +'\n';
+        eventFile += 'LOCATION:' + calData.location +'\n';
+        eventFile += 'BEGIN:VALARM\n';
+        eventFile += 'TRIGGER:-PT15M\n';
+        eventFile += 'ACTION:DISPLAY\n';
+        eventFile += 'END:VALARM\n';
+        eventFile += 'TRANSP:OPAQUE\n';
+        eventFile += 'END:VEVENT\n';
+        eventFile += 'END:VCALENDAR\n';
+
+
+    var fakeDownloadA = document.createElement('a');
+    fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(eventFile));
+    fakeDownloadA.setAttribute('download', calData.filename + '.ics');
+
+    fakeDownloadA.style.display = 'none';
+    document.body.appendChild(fakeDownloadA);
+    fakeDownloadA.click();
+    document.body.removeChild(fakeDownloadA);
   }
 
   generateCalendarLink = () => {
@@ -86,7 +110,23 @@ export default class SortBy extends Component {
 
       console.log(finalTime);
 
-      let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + this.props.currentRecord['Sales Rep'].replace(/ /g, '+').replace(/&/g, 'and') + '+-+' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+(<a+href="' + window.location.href + '">' + window.location.href + '</a>)';
+      let salesInitials;
+
+      if (this.props.currentRecord['Sales Rep'] === 'Tyler Perkins') {
+        salesInitials = 'TMP';
+      } else if (this.props.currentRecord['Sales Rep'] === 'Nolan Perkins') {
+        salesInitials = 'NWP'
+      } else if (this.props.currentRecord['Sales Rep'] === 'Joel Horwitz') {
+        salesInitials = 'JDH'
+      } else if (this.props.currentRecord['Sales Rep'] === 'Rob Janke') {
+        salesInitials = 'RWJ'
+      } else if (this.props.currentRecord['Sales Rep'] === 'Rafael Milanes') {
+        salesInitials = 'RAM'
+      } else {
+        salesInitials = this.props.currentRecord['Sales Rep'].replace(/ /g, '+');
+      }
+
+      let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+(<a+href="' + window.location.href + '">' + window.location.href + '</a>)';
       finalCalURL += '&location=' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ',+';
       if(this.props.currentRecord['Address 1']) {
         finalCalURL += this.props.currentRecord['Address 1'].replace(/ /g, '+').replace(/&/g, 'and');

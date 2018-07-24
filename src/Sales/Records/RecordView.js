@@ -136,7 +136,11 @@ export default class RecordView extends Component {
         <RecordNotes
           notes={this.props.currentRecord['Notes']}
           changeNotesHandler={this.props.changeNotesHandler}
-          controlsModalToggle={this.props.controlsModalToggle} />
+          controlsModalToggle={this.props.controlsModalToggle}
+          addr1={this.props.currentRecord['Address 1']}
+          addr2={this.props.currentRecord['Address 2']}
+          city={this.props.currentRecord['City']}
+          zip={this.props.currentRecord['Zip']} />
       </div>
     );
   }

@@ -32,7 +32,6 @@ function bindRouteParamsToProps() {
     return klass;
   }
 }
-
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
 
 

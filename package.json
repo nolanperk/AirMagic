@@ -4,12 +4,15 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "google-map-react": "^1.0.5",
+    "google-maps-react": "^2.0.2",
     "isotope-layout": "^3.0.6",
     "react": "^16.4.0",
     "react-day-picker": "^7.1.9",
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-streetview": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
