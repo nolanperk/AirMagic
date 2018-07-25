@@ -62,6 +62,16 @@ export default class AccountingView extends Component {
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
             />
+            <ModuleLocation
+              changeRecordHandler={this.props.changeRecordHandler}
+              addr1={this.props.currentRecord['Address 1']}
+              addr2={this.props.currentRecord['Address 2']}
+              city={this.props.currentRecord['City']}
+              zip={this.props.currentRecord['Zip']}
+              county={this.props.currentRecord['County']}
+              emp={this.props.currentRecord['Employees']}
+              company={this.props.currentRecord['Company Name']}
+            />
           </div>
         </div>
 

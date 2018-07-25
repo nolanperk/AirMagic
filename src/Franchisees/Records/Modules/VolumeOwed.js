@@ -188,13 +188,16 @@ export default class VolumeOwed extends Component {
 
 
   newAccountHandler = () => {
+    let today  = new Date();
+    today = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+
     let pushRecord = {
       'Account Name': 'New Account',
       'Type': null,
       'Rep. %': null,
       'Amount': null,
       'RP Revenue': null,
-      'Start Date': null,
+      'Start Date': today,
       'Stop Date': null,
       'Short SP Name': this.props.spName,
     };
@@ -242,9 +245,6 @@ export default class VolumeOwed extends Component {
   // ----------------------------------------------------
   render() {
     const { loading, error, volumeData } = this.state;
-
-
-
 
 
 
@@ -377,23 +377,54 @@ export default class VolumeOwed extends Component {
   }
 
   get ipRev() {
-    let planRev;
-    if (this.props.plan === 'Plan A') {
-      planRev = '$2,000';
-    } else if (this.props.plan === 'Plan B') {
-      planRev = '$3,000';
-    } else if (this.props.plan === 'Plan C') {
-      planRev = '$4,000';
-    } else if (this.props.plan === 'Plan D') {
-      planRev = '$5,000';
-    } else if (this.props.plan === 'Plan E') {
-      planRev = '$6,000';
-    } else if (this.props.plan === 'Plan F') {
-      planRev = '$8,000';
-    } else if (this.props.plan === 'Plan G') {
-      planRev = '$10,000';
+    let sign = this.props.sign;
+    let dateSigned = new Date(sign);
+    let checkDate = new Date('04/01/2018');
+
+    let planRevType;
+    if (dateSigned <= checkDate) {
+      planRevType = 'old';
     } else {
-      planRev= '$0';
+      planRevType = 'new';
+    }
+
+    let planRev;
+    if (planRevType === 'new') {
+      if (this.props.plan === 'Plan A') {
+        planRev = '$2,000';
+      } else if (this.props.plan === 'Plan B') {
+        planRev = '$3,000';
+      } else if (this.props.plan === 'Plan C') {
+        planRev = '$4,000';
+      } else if (this.props.plan === 'Plan D') {
+        planRev = '$5,000';
+      } else if (this.props.plan === 'Plan E') {
+        planRev = '$6,000';
+      } else if (this.props.plan === 'Plan F') {
+        planRev = '$8,000';
+      } else if (this.props.plan === 'Plan G') {
+        planRev = '$10,000';
+      } else {
+        planRev= '$0';
+      }
+    } else {
+      if (this.props.plan === 'Plan A') {
+        planRev = '$1,000';
+      } else if (this.props.plan === 'Plan B') {
+        planRev = '$1,500';
+      } else if (this.props.plan === 'Plan C') {
+        planRev = '$2,000';
+      } else if (this.props.plan === 'Plan D') {
+        planRev = '$3,000';
+      } else if (this.props.plan === 'Plan E') {
+        planRev = '$4,000';
+      } else if (this.props.plan === 'Plan F') {
+        planRev = '$5,000';
+      } else if (this.props.plan === 'Plan G') {
+        planRev = '$6,000';
+      } else {
+        planRev= '$0';
+      }
     }
 
     let planRevInt = parseInt(planRev.replace(',', '').replace('$', ''))
@@ -443,4 +474,5 @@ VolumeOwed.propTypes ={
   plan: propTypes.string,
   baseId: propTypes.string.isRequired,
   spName: propTypes.string.isRequired,
+  sign: propTypes.string,
 }

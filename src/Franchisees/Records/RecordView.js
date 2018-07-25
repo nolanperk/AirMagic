@@ -99,6 +99,7 @@ export default class RecordView extends Component {
             <VolumeOwed
               plan={this.props.currentRecord['Plan Type']}
               ar={this.props.currentRecord['Additional Revenue']}
+              sign={this.props.currentRecord['Sign Date']}
               currentRecord={this.props.currentRecord}
               baseId={this.props.baseId}
               spName={this.props.currentRecord['SP Name']}

@@ -828,7 +828,8 @@ hr {
   top: auto;
   bottom: 0;
   width: 100%;
-  position: relative; }
+  position: relative;
+  height: calc(100% - 330px); }
   .Sales .RecordNotes .NotesNav {
     padding: 2vw; }
   .Sales .RecordNotes .NotesList {
@@ -841,7 +842,7 @@ hr {
   bottom: 0;
   position: absolute; }
   .RightPanel #streetWindow {
-    height: calc(25% - 30px);
+    height: 300px;
     position: relative;
     top: 15px;
     left: 15px;
@@ -1052,6 +1053,10 @@ hr {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%); }
+
+@media only screen and (max-width: 1440px) {
+  .Sales .RecordNotes .NotesList {
+    padding: 7vw 7% calc(125px + 2vw); } }
 
 @media only screen and (max-width: 1350px) {
   .RightPanel {
