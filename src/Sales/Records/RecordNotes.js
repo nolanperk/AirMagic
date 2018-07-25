@@ -20,7 +20,7 @@ export class RecordNotes extends Component {
     }
   }
 
-  componentDidMount() {
+  googleApiStuff = () => {
     setTimeout((function() {
 
       if (addr1) {addr1 = '';}
@@ -44,9 +44,15 @@ export class RecordNotes extends Component {
       if (addr1) {
         streetAddress = addr1;
         if (addr2) {streetAddress = streetAddress + addr2;}
-        if (city) {streetAddress = streetAddress + ', ' + city + ' Florida';} else {streetAddress = streetAddress + ' Florida';}
-        if (zip) {streetAddress = streetAddress + ', ' + zip;}
+        if (city) {streetAddress = streetAddress + ' ' + city + ' Florida';} else {streetAddress = streetAddress + ' Florida';}
+        if (zip) {streetAddress = streetAddress + ' ' + zip;}
       }
+
+      let svWidth = document.getElementById('streetWindow').offsetWidth;
+      let svHeight = document.getElementById('streetWindow').offsetHeight;
+
+
+      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=' + Math.ceil(svWidth * .5) + 'x' + svHeight + '&location=' + streetAddress.replace(/ /g, '+') + '&fov=75&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
 
       let geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
       console.log(geoCodeURL);
@@ -58,6 +64,7 @@ export class RecordNotes extends Component {
           this.setState({
             lat: parseFloat(response.data.results[0].geometry.location.lat),
             lng: parseFloat(response.data.results[0].geometry.location.lng),
+            streetViewSrc: streetViewSrc,
           });
 
           console.log(this.state.lat);
@@ -68,6 +75,14 @@ export class RecordNotes extends Component {
 
 
     }).bind(this), 1000);
+  }
+
+  componentDidMount() {
+    if (window.innerWidth >= 767) {
+      this.googleApiStuff();
+    } else {
+
+    }
   }
 
 
@@ -90,29 +105,28 @@ export class RecordNotes extends Component {
     const mapsApi = 'AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw';
 
     return (
-      <div class="RightPanel">
+      <div className="RightPanel">
         <div id="streetWindow">
-          <Map
-            google={this.props.google}
-            center={{
-              lat: this.state.lat,
-              lng: this.state.lng
-            }}
-            zoom={18}
-          >
-            <Marker
-              position={{
+          <img src={this.state.streetViewSrc} alt=" " id="finalImg" />
+          <div className="mapSide">
+            <Map
+              google={this.props.google}
+              center={{
                 lat: this.state.lat,
                 lng: this.state.lng
               }}
-              name={'Current location'} />
-          </Map>
-
-          {/* <img src={this.state.streetViewSrc} alt="Street View" id="finalImg" /> */}
-          {/* <div id="map"></div>
-          <div id="pano"></div> */}
+              zoom={18}
+            >
+              <Marker
+                position={{
+                  lat: this.state.lat,
+                  lng: this.state.lng
+                }}
+                name={'Current location'} />
+            </Map>
+          </div>
         </div>
-        <div className="RecordNotes">
+        <div className="RecordNotes isActive" id="notesWindow">
           <div className="addNotesBox">
             <div className="navIcon softGrad--primary" id="addNotes" onClick={this.props.controlsModalToggle}>
               <img src={edit} alt="edit" />
