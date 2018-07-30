@@ -1139,7 +1139,7 @@ export default class Franchisees extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('isLogged') !== 'true') {
+    if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
       this.loadData();

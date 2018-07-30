@@ -1080,11 +1080,11 @@ export default class CustomerService extends Component {
           mergeURL.id = '176875/g1kj1k';
           fileLocation += '/Crew Changes/'
         }
-        if (mergeType === 'Account Additional') {
+        if (mergeType === 'Additional Proposal') {
           mergeURL.id = '176852/tw1e77';
-          fileLocation += '/Account Additional Service/';
+          fileLocation += '/Proposal/';
         }
-        if (mergeType === 'Additional Service Order') {
+        if (mergeType === 'Additional Order') {
           mergeURL.id = '176853/i7b8m6';
           fileLocation += '/Account Additional Service/'
         }
@@ -1130,11 +1130,11 @@ export default class CustomerService extends Component {
           mergeURL.id = '176894/p5wdbe';
           fileLocation += '/Accounting Crew Change Form/'
         }
-        if (mergeType === 'Account Additional') {
+        if (mergeType === 'Additional Proposal') {
           mergeURL.id = '176885/qbk4tu';
-          fileLocation += '/Additional Service Agreements/'
+          fileLocation += '/Proposal/'
         }
-        if (mergeType === 'Additional Service Order') {
+        if (mergeType === 'Additional Order') {
           mergeURL.id = '176891/izyjga';
           fileLocation += '/Additional Service Forms/'
         }
@@ -1640,7 +1640,7 @@ export default class CustomerService extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('isLogged') !== 'true') {
+    if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
       if (sessionStorage.getItem('searchQuery')) {

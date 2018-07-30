@@ -75,11 +75,11 @@ export default class RecordView extends Component {
               sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
+              sqFt={this.props.currentRecord['Sq. Footage']}
+              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
-              sqFt={this.props.currentRecord['Sq. Footage']}
-              sqFtReal={this.props.currentRecord['Actual Sq Footage']}
               restrooms={this.props.currentRecord['Restrooms']}
               ceramic={this.props.currentRecord['Ceramic']}
               marble={this.props.currentRecord['Marble']}

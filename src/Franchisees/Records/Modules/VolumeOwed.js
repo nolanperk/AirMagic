@@ -9,6 +9,7 @@ import loader from '../../../assets/loader.gif';
 import VolumeItem from './VolumeItem';
 import exit from '../../../assets/icons/white/exit.png';
 
+let rpSum = 0;
 let finalURL;
 let currentAccountState;
 export default class VolumeOwed extends Component {
@@ -29,6 +30,7 @@ export default class VolumeOwed extends Component {
     })
   }
   handleDayClick = day => {
+    console.log('handleDayClick()');
     currentAccountState = this.state.currentAccount;
     let newSelectedDay = new Date(day);
     let currentIndex = this.state.pickerIndex;
@@ -47,6 +49,7 @@ export default class VolumeOwed extends Component {
     }).bind(this), 50);
   }
   toggleDayPicker = (id, e, index) => {
+    console.log('toggleDayPicker()');
     let dayID = id;
     let pickerBlock = document.getElementById('volumePicker');
     let currAccount = this.state.volumeData[index];
@@ -76,7 +79,7 @@ export default class VolumeOwed extends Component {
         this.setState({
           recordChanges: false,
         });
-        if (document.getElementById('volumePicker').className = 'pickWrapper isActive') {
+        if (document.getElementById('volumePicker').className === 'pickWrapper isActive') {
           this.hideDayPicker();
         }
         console.log('success');
@@ -92,7 +95,7 @@ export default class VolumeOwed extends Component {
       });
     }
     setTimeout((function() {
-      if (document.getElementById('volumePicker').className = 'pickWrapper isActive') {
+      if (document.getElementById('volumePicker').className === 'pickWrapper isActive') {
         this.setState({
           currentAccount: this.state.volumeData[this.state.pickerIndex],
         });
@@ -102,6 +105,19 @@ export default class VolumeOwed extends Component {
         });
       }
     }).bind(this), 100);
+  }
+  percRPChange = (e, i) => {
+    currentAccountState = this.state.volumeData;
+    currentAccountState[e].fields['RP Revenue'] = ((parseInt(i['Rep. %'].replace('%', '')) / 100) * i['Amount']).toString();
+
+    this.setState({
+      volumeData: currentAccountState,
+      currentAccount: currentAccountState[e],
+      recordChanges: true,
+    })
+    setTimeout((function() {
+      this.editingAccountHandler();
+    }).bind(this), 50);
   }
 
   changeAccountHandler = e => {
@@ -113,6 +129,7 @@ export default class VolumeOwed extends Component {
     else if (e.target.id === 'amount') {currentAccountState[currentIndex].fields['Amount'] = parseFloat(e.target.value)}
     else if (e.target.id === 'start') {currentAccountState[currentIndex].fields['Start Date'] = e.target.value}
     else if (e.target.id === 'stop') {currentAccountState[currentIndex].fields['Stop Date'] = e.target.value}
+    else if (e.target.id === 'rpRev') {currentAccountState[currentIndex].fields['RP Revenue'] = e.target.value}
 
     this.setState({
       volumeData: currentAccountState,
@@ -335,6 +352,7 @@ export default class VolumeOwed extends Component {
             deleteAccountItem={this.deleteAccountItem}
             editingAccountHandler={this.editingAccountHandler}
             toggleDayPicker={this.toggleDayPicker}
+            percRPChange={this.percRPChange}
           />
   }
 
@@ -347,19 +365,6 @@ export default class VolumeOwed extends Component {
     };
     if (amountSum !== null) {
       return (<h4><em>Sum</em> {amountSum}</h4>)
-    }
-  }
-  get rpSum() {
-    let rpSum = 0;
-    for (var index in this.state.volumeData) {
-      if (this.state.volumeData[index].fields['Rep. %'] !== undefined) {
-        let rpNumb = parseFloat(this.state.volumeData[index].fields['Rep. %'].replace('%', '')) / 100;
-        let rpFinal = this.state.volumeData[index].fields['Amount'] * rpNumb;
-        rpSum += rpFinal
-      }
-    };
-    if (rpSum !== null) {
-      return (<h4><em>Sum</em> {rpSum}</h4>)
     }
   }
 
@@ -437,8 +442,31 @@ export default class VolumeOwed extends Component {
         amountSum += this.state.volumeData[fields].fields['Amount'];
       }
     };
+    let rpSum = 0;
+    let overallData = this.state.volumeData;
+    for (var index in this.state.volumeData) {
+      let rpNumb;
+      let volAmount;
+      if (this.state.volumeData[index].fields['Amount']) {volAmount = this.state.volumeData[index].fields['Amount'];} else {volAmount = 0;}
 
-    let revOwed = planRevInt - amountSum;
+      if (this.state.volumeData[index].fields['Rep. %'] === '25%') {
+        rpNumb = 0.75;
+      } else if (this.state.volumeData[index].fields['Rep. %'] === '50%') {
+        rpNumb = 0.5;
+      } else if (this.state.volumeData[index].fields['Rep. %'] === '75%') {
+        rpNumb = 0.25;
+      } else if (this.state.volumeData[index].fields['Rep. %'] === '100%') {
+        rpNumb = 0;
+      } else if (this.state.volumeData[index].fields['Rep. %'] === '0%') {
+        rpNumb = 1;
+      } else {
+        rpNumb = 0;
+      }
+      let rpNumber = (volAmount * rpNumb);
+      rpSum = rpSum + rpNumber;
+    }
+
+    let revOwed = planRevInt - amountSum + rpSum;
 
     if (this.props.ar === 'Yes') {
       return (

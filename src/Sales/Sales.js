@@ -319,7 +319,7 @@ export default class Sales extends Component {
       'County': this.state.currentRecord['County'],
       'Employees': this.state.currentRecord['Employees'],
       'Appt. Set Date': this.state.currentRecord['Appt. Set Date'],
-      'Appt Set By': this.state.currentRecord['Appt Set By'],
+      'Appt. Set By': this.state.currentRecord['Appt. Set By'],
       'Appt. Date': this.state.currentRecord['Appt. Date'],
       'Close Date': this.state.currentRecord['Close Date'],
       'Proposal Date': this.state.currentRecord['Proposal Date'],
@@ -745,7 +745,6 @@ export default class Sales extends Component {
     this.setState({
       currentRecord: fullDataSet,
     });
-
   }
 
   timesPerWeekChange = e => {
@@ -1040,7 +1039,7 @@ export default class Sales extends Component {
         formattedAppt = (formattedAppt.getMonth()+1) + '/' + formattedAppt.getDate() + '/' + formattedAppt.getFullYear();
         mergeURL.Appt_Date = formattedAppt;
         mergeURL.Appt_Time = mergeData['Appt. Time'];
-        mergeURL.Telemarketer = mergeData['Appt Set By'];
+        mergeURL.Telemarketer = mergeData['Appt. Set By'];
         mergeURL.Account_Rep = mergeData['Sales Rep'];
         mergeURL.cnty = mergeData['County'];
         mergeURL.Office_Phone = mergeData['Office Phone'];
@@ -1571,7 +1570,7 @@ export default class Sales extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('isLogged') !== 'true') {
+    if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
       if (sessionStorage.getItem('searchQuery')) {

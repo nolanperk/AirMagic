@@ -178,7 +178,6 @@ export default class ModuleService extends Component {
                 <option id="Satisfied">Satisfied</option>
                 <option id="Unhappy">Unhappy</option>
                 <option id="New+Customer">New Customer</option>
-                <option id="Canceled">Canceled</option>
                 <option id="Crew+Change">Crew Change</option>
                 <option id="Completed+Work">Completed Work</option>
               </select>

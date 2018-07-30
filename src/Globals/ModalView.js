@@ -60,6 +60,7 @@ export default class ModalView extends Component {
         <ExportRecords
           controlsModalToggle={this.props.controlsModalToggle}
           submitExport={this.props.submitExport}
+          currentTable={this.props.currentTable}
         />
       )
     } else if (this.props.modalType === 'recordExport') {

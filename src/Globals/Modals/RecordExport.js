@@ -79,8 +79,8 @@ export default class RecordExport extends Component {
           <option data-type="Account Changes">Account Changes</option>
           <option data-type="Crew Change">Crew Change</option>
           <option data-type="Crew Change Request">Crew Change Request</option>
-          <option data-type="Account Additional">Account Additional Service</option>
-          <option data-type="Additional Service Order">Account Additional Service Order</option>
+          <option data-type="Additional Proposal">Additional Service - Proposal</option>
+          <option data-type="Additional Order">Additional Service - Order</option>
           <option disabled>---------------</option>
           <option disabled>Stops</option>
           <option disabled>---------------</option>

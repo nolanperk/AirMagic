@@ -75,11 +75,6 @@ export default class RecordView extends Component {
               state={this.props.currentRecord['State']}
               county={this.props.currentRecord['County']}
             />
-            <ModuleHear
-              changeNotesHandler={this.props.changeNotesHandler}
-              changeRecordHandler={this.props.changeRecordHandler}
-              source={this.props.currentRecord['Source']}
-            />
 
             <ModuleAbility
               area={this.props.currentRecord['Coverage Area']}
@@ -93,6 +88,11 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecord={this.props.currentRecord}
               baseId={this.props.baseId}
+            />
+            <ModuleHear
+              changeNotesHandler={this.props.changeNotesHandler}
+              changeRecordHandler={this.props.changeRecordHandler}
+              source={this.props.currentRecord['Source']}
             />
 
 

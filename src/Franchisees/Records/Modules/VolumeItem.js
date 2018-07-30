@@ -8,6 +8,7 @@ export default class VolumeItem extends Component {
     this.state = {
       typeValue: this.props.volumeData['Type'],
       percValue: this.props.volumeData['Rep. %'],
+      filledRev: this.props.volumeData['RP Revenue']
     }
   }
   typeChange = e => {
@@ -15,6 +16,9 @@ export default class VolumeItem extends Component {
     this.props.typeChangeHandler(e.target.value, this.props.index);
   }
   percChange = e => {
+    // if (this.state.volumeData[index].fields['RP Revenue'] !== rpNumber) {
+    //   rpNumber = this.state.volumeData[index].fields['RP Revenue'];
+    // }
     if (this.props.volumeData['Amount'] !== undefined) {
       rpRevenue = (parseInt(e.target.value.replace('%', '')) / 100) * this.props.volumeData['Amount'];
     } else {
@@ -25,6 +29,7 @@ export default class VolumeItem extends Component {
         filledRev: rpRevenue
       });
       this.props.rpSumCalc(e.target.value, this.props.index)
+      this.props.percRPChange(this.props.index, this.props.volumeData);
   }
 
   componentDidMount () {
@@ -59,19 +64,22 @@ export default class VolumeItem extends Component {
         </td>
         <td className="selectBlock">
           <select id="typeSelect" value={this.state.typeValue} onChange={this.typeChange}>
-            <option id="none"></option>
-            <option id="IP">IP</option>
-            <option id="AR">AR</option>
-            <option id="AA">AA</option>
+            <option value="none"></option>
+            <option value="IP">IP</option>
+            <option value="AR">AR</option>
+            <option value="AA">AA</option>
+            <option value="RP">RP</option>
+            {/* <option value="IPAR">IP/AR</option> */}
+            {/* <option value="ARAA">AR/AA</option> */}
           </select>
         </td>
         <td className="selectBlock">
           <select id="percSelect" value={this.state.percValue} onChange={this.percChange}>
-            <option id="none"></option>
-            <option id="0%">0%</option>
-            <option id="50%">50%</option>
-            <option id="75%">75%</option>
-            <option id="100%">100%</option>
+            <option value="none"></option>
+            <option value="0%">0%</option>
+            <option value="50%">50%</option>
+            <option value="75%">75%</option>
+            <option value="100%">100%</option>
           </select>
         </td>
         <td>
@@ -85,8 +93,11 @@ export default class VolumeItem extends Component {
         </td>
         <td>
           <input
-            className="tableCol rpSumCalc"
-            value={this.state.filledRev}
+            className="tableCol"
+            onChange={this.props.changeAccountHandler}
+            data-index={this.props.index}
+            value={this.props.volumeData['RP Revenue']}
+            id="rpRev"
           />
         </td>
         <td>
@@ -116,6 +127,7 @@ export default class VolumeItem extends Component {
 
 VolumeItem.propTypes ={
   editingAccountHandler: propTypes.func.isRequired,
+  percRPChange: propTypes.func.isRequired,
   deleteAccountItem: propTypes.func.isRequired,
   openRecordHandler: propTypes.func.isRequired,
   changeAccountHandler: propTypes.func.isRequired,
