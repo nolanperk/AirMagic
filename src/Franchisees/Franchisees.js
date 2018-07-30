@@ -386,7 +386,7 @@ export default class Franchisees extends Component {
             });
 
             setTimeout((function() {
-              document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
+              document.title = this.state.currentRecord['SP Name'] + " | AirMagic"
             }).bind(this), 500);
 
             // window.location.reload();
@@ -988,6 +988,7 @@ export default class Franchisees extends Component {
       loading: true,
       dataOffset: '',
     });
+    sessionStorage.removeItem('searchQuery');
     this.loadData();
   }
 

@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
     }
   }
 
-  chelog = e => {e.preventDefault();let correctPW = PassString();if ( this.state.use === 'SBM' || this.state.use === 'ACS' || this.state.use === 'JDH' || this.state.use === 'RWJ' || this.state.use === 'RAM' || this.state.use === 'NWP' || this.state.use === 'ALP' || this.state.use === 'WCP' || this.state.use === 'TMP' || this.state.use === 'LSN' || this.state.use === 'DRR' || this.state.use === 'VIK' || this.state.use === 'EBK' || this.state.use === 'LJG') {if (this.state.pw === correctPW) {localStorage.setItem('isLogged', 'true');sessionStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
+  chelog = e => {e.preventDefault();let correctPW = PassString();if ( this.state.use === 'SBM' || this.state.use === 'CBM' || this.state.use === 'ACS' || this.state.use === 'JDH' || this.state.use === 'RWJ' || this.state.use === 'RAM' || this.state.use === 'NWP' || this.state.use === 'ALP' || this.state.use === 'WCP' || this.state.use === 'TMP' || this.state.use === 'LSN' || this.state.use === 'DRR' || this.state.use === 'VIK' || this.state.use === 'EBK' || this.state.use === 'LJG') {if (this.state.pw === correctPW) {localStorage.setItem('isLogged', 'true');sessionStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
   // Render
   // ----------------------------------------------------
   render() {

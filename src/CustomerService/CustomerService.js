@@ -708,11 +708,18 @@ export default class CustomerService extends Component {
         dataIndex ++;
       }
       if ((this.state.data.length - 1) <= dataIndex) {
-        console.log(dataIndex + ' / ' + this.state.data.length);
-        this.loadMoreRecords();
+        if (sessionStorage.getItem('searchQuery')) {
+        } else {
+          console.log(dataIndex + ' / ' + this.state.data.length);
+          this.loadMoreRecords();
+        }
       }
 
       let loadMoreChanger = setInterval(function() {
+        if (sessionStorage.getItem('searchQuery')) {
+          clearInterval(loadMoreChanger);
+          console.log('clearing it out!');
+        }
         if ((this.state.data.length - 1) >= dataIndex) {
           clearInterval(loadMoreChanger);
           console.log('clearing it out!');
@@ -1489,6 +1496,7 @@ export default class CustomerService extends Component {
       loading: true,
       dataOffset: '',
     });
+    sessionStorage.removeItem('searchQuery');
     this.loadData();
   }
 

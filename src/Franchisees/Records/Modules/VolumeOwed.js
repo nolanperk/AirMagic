@@ -211,6 +211,7 @@ export default class VolumeOwed extends Component {
     let pushRecord = {
       'Account Name': 'New Account',
       'Type': null,
+      'Type': null,
       'Rep. %': null,
       'Amount': null,
       'RP Revenue': null,
@@ -463,6 +464,11 @@ export default class VolumeOwed extends Component {
         rpNumb = 0;
       }
       let rpNumber = (volAmount * rpNumb);
+      if (this.state.volumeData[index].fields['RP Revenue']) {
+        if (rpNumber !== parseFloat(this.state.volumeData[index].fields['RP Revenue'])) {
+          rpNumber = parseFloat(this.state.volumeData[index].fields['RP Revenue']);
+        }
+      }
       rpSum = rpSum + rpNumber;
     }
 
