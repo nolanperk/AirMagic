@@ -139,7 +139,7 @@ ul {
   #next p {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
   position: relative; }
   .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
     content: "";
@@ -248,14 +248,14 @@ ul {
     width: 100%;
     margin-top: 20px; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal, .modal .modalInner {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .softGrad--blue {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue {
   cursor: pointer; }
-  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .softGrad--blue:hover {
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal:hover::after, .softGrad--blue:hover {
     transform: translateY(-5%);
     box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease; }
@@ -271,16 +271,20 @@ ul {
   list-style: none; }
 
 .softGrad--primary {
-  background: #C31F2F; }
+  background: #C31F2F;
+  overflow: hidden; }
 
 .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
-  background: #1FC26A; }
+  background: #1FC26A;
+  overflow: hidden; }
 
-.softGrad--black {
-  background: #131313; }
+.softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after {
+  background: #131313;
+  overflow: hidden; }
 
 .softGrad--blue {
-  background: #407ae6; }
+  background: #407ae6;
+  overflow: hidden; }
 
 .navIcon {
   display: inline-block;
@@ -923,14 +927,20 @@ hr {
         border-top: 1px solid #d2d2d2;
         padding-top: 2vw; }
         .ModuleList .ModuleCard.cardFull .fullInner .inner {
-          padding: 2vw; }
+          padding: 0;
+          border: 1px solid #d2d2d2; }
           .ModuleList .ModuleCard.cardFull .fullInner .inner .loader {
             width: 50px;
             height: 50px;
             margin: auto; }
           .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner {
             width: 100%;
-            display: flex; }
+            display: flex;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+            padding: 1vw 1.5vw;
+            border-bottom: 1px solid #d2d2d2; }
             .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner h4 {
               flex: 1 1 0; }
               .ModuleList .ModuleCard.cardFull .fullInner .inner .wideInner h4 em {
@@ -939,41 +949,165 @@ hr {
                 font-size: 11px;
                 letter-spacing: 1px;
                 text-transform: uppercase; }
+          .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper {
+            position: relative;
+            width: 100%;
+            background: #F7F7F5; }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .switchCals .timelineRow .timelineCal::after {
+              transform: translateX(50%); }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .switchCals .timelineRow:nth-child(even) .timelineCal::after {
+              transform: translateX(-100%); }
+            .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow {
+              display: flex; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow:first-child .timelineContent {
+                padding-top: 3vw; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow:last-child .timelineContent {
+                padding-top: 2vw; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
+                pointer-events: none;
+                width: 50px;
+                position: relative; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after {
+                  content: "";
+                  position: absolute;
+                  height: calc(100% - 1vw);
+                  top: 0.5vw;
+                  left: 50%;
+                  transform: translateX(-100%);
+                  width: 8px;
+                  border-radius: 100px;
+                  pointer-events: none; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow:nth-child(even) .timelineCal::after {
+                transform: translateX(50%); }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.owedRow .timelineContent {
+                padding-bottom: 2vw; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip .timelineCal::after, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp .timelineCal::after {
+                background-color: #407ae6; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar .timelineCal::after, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.ip_ar_aa .timelineCal::after, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa .timelineCal::after {
+                background-color: #2DC8D0; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp .timelineCal::after, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa .timelineCal::after {
+                background-color: #C639F1; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar .timelineCal::after {
+                background-color: #1FC26A; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa .timelineCal::after, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa .timelineCal::after {
+                background-color: #5332E6; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp .timelineCal::after {
+                background-color: #E6A132; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa .timelineCal::after {
+                background-color: #b7b7b7; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp .timelineCal::after {
+                background-color: #C31F2F; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp td.input--l {
+                width: 19%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp td.input--m {
+                width: 11%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp td.input--s {
+                width: 9%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp td.input--xs {
+                width: 7%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp_aa table {
+                min-width: 900px; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp_aa table td.input--l {
+                  width: 12%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp_aa table td.input--m {
+                  width: 9%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp_aa table td.input--s {
+                  width: 6%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_rp_aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_rp_aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--rp_aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_rp_aa table td.input--xs {
+                  width: 5%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa table, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_aa table {
+                min-width: 780px; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa table td.input--l, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_aa table td.input--l {
+                  width: 12%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa table td.input--m, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_aa table td.input--m {
+                  width: 9%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa table td.input--s, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_aa table td.input--s {
+                  width: 6%; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ar_aa table td.input--xs, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow.row--ip_ar_aa table td.input--xs {
+                  width: 5%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent {
+                padding: 1.5vw;
+                padding-bottom: 0;
+                width: calc(100% - 50px); }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea {
+                  padding-bottom: 0.5vw;
+                  border-bottom: 1px solid #e0e0e0; }
+                  .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p {
+                    display: inline-block;
+                    font-weight: bold;
+                    margin-right: 10px; }
+                    .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4:last-child, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p:last-child {
+                      margin-right: 0; }
+                  .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p {
+                    flex: 1 1 0; }
+                    .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p em {
+                      opacity: 0.5;
+                      font-style: normal;
+                      font-size: 11px;
+                      letter-spacing: 1px;
+                      text-transform: uppercase; }
+          .ModuleList .ModuleCard.cardFull .fullInner .inner .tableWrapper {
+            overflow-x: scroll;
+            padding-bottom: 1.5vw; }
           .ModuleList .ModuleCard.cardFull .fullInner .inner table {
-            margin-top: 15px; }
+            margin-top: 15px;
+            width: calc(100% - 2px); }
             .ModuleList .ModuleCard.cardFull .fullInner .inner table .deleteIt {
               text-align: center;
-              cursor: pointer; }
+              cursor: pointer;
+              vertical-align: middle;
+              width: 4%; }
             .ModuleList .ModuleCard.cardFull .fullInner .inner table tr {
               border: solid 1px #EBEBE8; }
               .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td {
-                border-right: 1px solid #d2d2d2; }
+                border-right: 1px solid #d2d2d2;
+                border-bottom: 1px solid #d2d2d2;
+                vertical-align: top; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td .disabled {
+                  pointer-events: none;
+                  background: transparent !important;
+                  pointer: default; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:first-child {
+                  border-left: 1px solid #d2d2d2; }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td input {
-                  font-size: 13px;
-                  height: 100%;
+                  font-size: 11px;
+                  height: 30px;
                   padding: 0 5px;
                   outline: 0; }
                   .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td input:focus {
-                    background: #f7f7f6; }
+                    background: #fcfcfb; }
+                .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td textarea {
+                  padding: 2px 3px;
+                  font-size: 11px;
+                  width: 100%;
+                  height: 30px;
+                  line-height: 11px;
+                  margin-bottom: -15px;
+                  border: none;
+                  outline: none; }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td select {
                   padding: 0.3vw 5px;
-                  font-size: 13px;
+                  font-size: 11px;
                   border: none;
                   width: 100%;
                   outline: 0;
                   background: white;
                   border-radius: 0;
                   -webkit-appearance: none;
-                  background: transparent; }
+                  height: 30px;
+                  cursor: grab; }
               .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader {
-                background: #EBEBE8; }
+                border: none;
+                border-bottom: 1px solid #d2d2d2; }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader td {
-                  border-right: 1px solid #fff;
-                  padding: 0 5px; }
+                  border: none; }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader p {
-                  font-size: 12px;
-                  line-height: 28px;
-                  font-weight: bold; }
+                  font-size: 10px;
+                  line-height: 20px;
+                  text-transform: uppercase;
+                  font-weight: bold;
+                  letter-spacing: 1.5px;
+                  opacity: 0.5; }
               .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter {
                 background: rgba(226, 99, 13, 0.05); }
                 .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountFooter #addAccount {
@@ -991,14 +1125,18 @@ hr {
               .ModuleList .ModuleCard.cardFull .fullInner .inner table tr input, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr p {
                 width: 100%;
                 border: 0; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(1) {
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--xl {
                 width: 29%; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(2), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(3) {
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--l {
+                width: 20%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--m {
+                width: 12%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--s {
                 width: 9%; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(4), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(5) {
-                width: 12.5%; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(6), .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td:nth-child(7) {
-                width: 14%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--xs {
+                width: 7%; }
+              .ModuleList .ModuleCard.cardFull .fullInner .inner table tr:nth-child(odd) select, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr:nth-child(odd) input {
+                background: #f3f6fb; }
   .ModuleList .inputBlock {
     display: inline-block;
     margin-bottom: 11px;

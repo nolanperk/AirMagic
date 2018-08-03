@@ -32,21 +32,25 @@
   @extend %softGradient;
   background: $primary;
   @extend %card-hover;
+  overflow: hidden;
 }
 .softGrad--secondary {
   @extend %softGradient;
   background: $secondary;
   @extend %card-hover;
+  overflow: hidden;
 }
 .softGrad--black {
   @extend %softGradient;
   background: $black;
   @extend %card-hover;
+  overflow: hidden;
 }
 .softGrad--blue {
   @extend %softGradient;
   background: #407ae6;
   @extend %card-hover;
+  overflow: hidden;
 }
 
 .navIcon {

@@ -13,7 +13,12 @@ export default class SortBy extends Component {
     let record = this.props.currentRecord;
 
     //subject
-    let finalSubject = 'Call ' + record['Main contact'] + ' at ' + record['Company Name'];
+    let finalSubject;
+    if (this.props.currentTable === 'franchisees') {
+      finalSubject = 'Call PF: ' + record['SP Name'];
+    } else {
+      finalSubject = 'Call ' + record['Main contact'] + ' at ' + record['Company Name'];
+    }
 
     //callbackDate
     let today  = new Date();
@@ -27,7 +32,7 @@ export default class SortBy extends Component {
     } else {
       todayTime = today.getHours() + ':' + today.getMinutes() + ' am';
     }
-    let callBackDate = (today.getMonth()+1) + '/' + (today.getDate()+1) + '/' + today.getFullYear() + ' ' + todayTime;
+    let callBackDate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear() + ' ' + todayTime;
     let finalDesc = "Write notes to yourself here. (" + window.location.href + ")";
 
     let calData = {
@@ -83,8 +88,9 @@ export default class SortBy extends Component {
       }
       if (timeOnly.includes(':')) {
         finalTime.hours = parseInt(timeOnly.split(':')[0]);
+        console.log(finalTime.hours);
         finalTime.minutes = parseInt(timeOnly.split(':')[1]);
-      } if (timeOnly.length === 4) {
+      } if (timeOnly.length === 4 && !timeOnly.includes(':')) {
         finalTime.hours = timeOnly.substring(0, 2);
         finalTime.minutes = timeOnly.substring(2, 4);
       } else {
@@ -96,6 +102,8 @@ export default class SortBy extends Component {
       if (finalTime.amPm === 'AM' && finalTime.hours === 12) {
         finalTime.hours = 0; //fix for midnight
       }
+      // console.log(finalTime.hours);
+      // console.log(finalTime);
 
       let startApptDate = new Date(this.props.currentRecord['Appt. Date']);
       startApptDate = new Date(startApptDate.getTime() + Math.abs(startApptDate.getTimezoneOffset()*60000)); //fix the date

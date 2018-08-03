@@ -235,17 +235,39 @@ export default class ExportRecords extends Component {
           <option disabled>Needs Range</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source"
             data-filter-1="Close+Date">
             New Closes Report</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source"
             data-filter-1="Appt.+Date">
             Appointments Report</option>
         </select>
       );
-    } else {
+    } else if (this.props.currentTable === 'Franchisees') {
+        return (
+          <select id="rangeBy">
+            <option disabled>Disregard Range</option>
+            <option
+              data-filter-type="default"
+              data-fields="fields%5B%5D=SP+Name&fields%5B%5D=Status&fields%5B%5D=Standing&fields%5B%5D=Address&fields%5B%5D=City&fields%5B%5D=Zip&fields%5B%5D=County&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=Source&fields%5B%5D=Contact+Date&fields%5B%5D=Appt.+Date"
+              data-filter-1="FIND(%22Prospect%22%2C%7BStatus%7D)">
+              New Contacts</option>
+            <option
+              data-filter-type="default"
+              data-fields="fields%5B%5D=SP+Name&fields%5B%5D=Status&fields%5B%5D=Address&fields%5B%5D=City&fields%5B%5D=Zip&fields%5B%5D=County&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=Source&fields%5B%5D=Contact+Date&fields%5B%5D=Appt.+Date&fields%5B%5D=EIN&fields%5B%5D=Franchise+Level&fields%5B%5D=Plan+Type&fields%5B%5D=Additional+Revenue&fields%5B%5D=Graduation+Date&fields%5B%5D=Number"
+              data-filter-1="FIND(%22Active%22%2C%7BStatus%7D)">
+              All Actives</option>
+            <option disabled>Needs Range</option>
+            <option
+              data-filter-type="ranged"
+              data-fields="fields%5B%5D=SP+Name&fields%5B%5D=Status&fields%5B%5D=Address&fields%5B%5D=City&fields%5B%5D=Zip&fields%5B%5D=County&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=Source&fields%5B%5D=Contact+Date&fields%5B%5D=Appt.+Date&fields%5B%5D=EIN&fields%5B%5D=Franchise+Level&fields%5B%5D=Plan+Type&fields%5B%5D=Additional+Revenue&fields%5B%5D=Graduation+Date&fields%5B%5D=Number&fields%5B%5D=FDD+Sign+Date&fields%5B%5D=Sign+Date"
+              data-filter-1="Graduation+Date">
+              New Graduates Report</option>
+          </select>
+        );
+      } else {
       return (
         <select id="rangeBy">
           <option disabled>Disregard Range</option>
@@ -258,22 +280,22 @@ export default class ExportRecords extends Component {
           <option disabled>Needs Range</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"
             data-filter-1="Close+Date">
             New Closes Report</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
             data-filter-1="Start+Date">
             New Startups</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
             data-filter-1="New+SP+Start">
             Crew Changes</option>
           <option
             data-filter-type="ranged"
-            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
             data-filter-1="Cancel+Date">
             New Cancelations</option>
         </select>

@@ -11,6 +11,7 @@ import ModuleHear from './Modules/ModuleHear';
 import ModuleAbility from './Modules/ModuleAbility';
 
 import VolumeOwed from './Modules/VolumeOwed';
+import VolOwed from './Modules/VolOwed';
 
 
 export default class RecordView extends Component {
@@ -96,7 +97,16 @@ export default class RecordView extends Component {
             />
 
 
-            <VolumeOwed
+            {/* <VolumeOwed
+              plan={this.props.currentRecord['Plan Type']}
+              ar={this.props.currentRecord['Additional Revenue']}
+              sign={this.props.currentRecord['Sign Date']}
+              currentRecord={this.props.currentRecord}
+              baseId={this.props.baseId}
+              spName={this.props.currentRecord['SP Name']}
+            /> */}
+
+            <VolOwed
               plan={this.props.currentRecord['Plan Type']}
               ar={this.props.currentRecord['Additional Revenue']}
               sign={this.props.currentRecord['Sign Date']}
