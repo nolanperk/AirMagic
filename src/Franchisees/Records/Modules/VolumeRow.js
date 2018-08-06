@@ -297,7 +297,7 @@ export default class VolumeRow extends Component {
             deleteAccountItem={this.deleteAccountItem}
             editingAccountHandler={this.editingAccountHandler}
             percRPChange={this.props.percRPChange}
-            // toggleDayPicker={this.props.toggleDayPicker}
+            toggleDayPicker={this.props.toggleDayPicker}
             editingAccountHandler={this.props.editingAccountHandler}
           />
   }

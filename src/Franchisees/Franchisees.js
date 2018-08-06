@@ -177,6 +177,61 @@ export default class Franchisees extends Component {
     }).bind(this), 50);
   }
 
+
+
+  hideDayPicker = () => {
+    let getTheBlock = document.getElementById(this.state.pickerId).closest('.inputWithTag').previousElementSibling.previousElementSibling;
+    getTheBlock.className = 'pickWrapper';
+    this.setState({
+      pickerId: null,
+    })
+  }
+  handleDayClick = day => {
+    console.log(day);
+    currentRecordState = this.state.currentRecord;
+    let newSelectedDay = new Date(day);
+    let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
+
+    if (this.state.pickerId === 'graduation') {currentRecordState['Graduation Date'] = finalDate}
+    else if (this.state.pickerId === 'contDate') {currentRecordState['Contact Date'] = finalDate}
+    else if (this.state.pickerId === 'apptDate') {currentRecordState['Appt. Date'] = finalDate}
+    else if (this.state.pickerId === 'fdd') {currentRecordState['FDD Sign Date'] = finalDate}
+    else if (this.state.pickerId === 'sign') {currentRecordState['Sign Date'] = finalDate}
+
+    this.setState({
+      currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+
+    setTimeout((function() {
+      console.log('yooo');
+      this.hideDayPicker();
+    }).bind(this), 50);
+  }
+  toggleDayPicker = e => {
+    let dayID = e.target.closest('.inputWithTag').getElementsByTagName('input')[0].id;
+    let cardParent = e.target.closest('.inputWithTag').closest('.inputBlock').closest('.inner').closest('.ModuleCard');
+    let pickerBlock = e.target.closest('.inputWithTag').previousElementSibling.previousElementSibling;
+
+    if (pickerBlock.className === 'pickWrapper isActive' || pickerBlock.className === 'pickWrapper isActive cardOnRight') {
+      this.hideDayPicker();
+    } else {
+      if (this.state.pickerId != null) {
+        this.hideDayPicker();
+      }
+      setTimeout((function() {
+        if (cardParent.style.left !== '0px') {
+          pickerBlock.className = 'pickWrapper isActive cardOnRight';
+        } else {
+          pickerBlock.className = 'pickWrapper isActive';
+        }
+        this.setState({
+          pickerId: dayID,
+        })
+      }).bind(this), 50);
+    }
+  }
+
   openRecordHandler = (e, key, index)  => {
     if (this.state.data.length > 100) {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
@@ -723,7 +778,10 @@ export default class Franchisees extends Component {
     let currentYear = today.getFullYear()
 
     setTimeout((function() {
-      let exportFileName = document.getElementById('rangeBy').value + ' - ' + currentMonth + '.' + currentDay + '.' + currentYear;
+      let formattedCity = this.props.citySet.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+      let exportFileName = formattedCity + ' ' + this.state.currentTable + ' - ' + document.getElementById('rangeBy').value + ' ' + currentMonth + '_' + currentDay + '_' + currentYear;
       console.log(exportFileName);
 
       startRange = document.getElementById('startRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('year')[0].value;
@@ -1280,6 +1338,10 @@ export default class Franchisees extends Component {
           changeNotesHandler={this.changeNotesHandler}
           baseId={this.state.baseId}
           calcVolume={this.calcVolume}
+          toggleDayPicker={this.toggleDayPicker}
+          handleDayClick={this.handleDayClick}
+          toggleDayPicker={this.toggleDayPicker}
+          currentRecordView={this.state.currentRecordView}
         />
       );
     } else if (this.state.listIsVisible) {

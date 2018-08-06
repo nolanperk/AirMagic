@@ -232,6 +232,7 @@ export default class ExportRecords extends Component {
     if (this.props.currentTable === 'Sales') {
       return (
         <select id="rangeBy">
+          <option>Select Template</option>
           <option disabled>Needs Range</option>
           <option
             data-filter-type="ranged"
@@ -278,6 +279,11 @@ export default class ExportRecords extends Component {
             Actives Customer Service</option>
 
           <option disabled>Needs Range</option>
+          <option
+            data-filter-type="ranged"
+            data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source"
+            data-filter-1="Appt.+Date">
+            Appointments Report</option>
           <option
             data-filter-type="ranged"
             data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"

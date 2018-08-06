@@ -60,6 +60,9 @@ export default class RecordView extends Component {
               apptDate={this.props.currentRecord['Appt. Date']}
               attended={this.props.currentRecord['Attended']}
 
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
+
 
               fdd={this.props.currentRecord['FDD Sign Date']}
               sign={this.props.currentRecord['Sign Date']}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 import numberImg from '../../../assets/icons/black/number.png';
 import calendarImg from '../../../assets/icons/black/calendar.png';
