@@ -51,25 +51,25 @@ export default class SortBy extends Component {
     if (this.props.currentTable === 'Franchisees') {
       return (
         <select id="searchBy">
-          <option id="SP+Name">SP Name</option>
-          <option id="Company+Name">Company</option>
-          <option id="Address+1">Address</option>
-          <option id="Home+Phone">Home Phone</option>
-          <option id="Email">Email</option>
-          <option id="Plan+Type">Plan Type</option>
+          <option value="SP+Name" id="SP+Name">SP Name</option>
+          <option value="Company+Name" id="Company+Name">Company</option>
+          <option value="Address+1" id="Address+1">Address</option>
+          <option value="Home+Phone" id="Home+Phone">Home Phone</option>
+          <option value="Email" id="Email">Email</option>
+          <option value="Plan+Type" id="Plan+Type">Plan Type</option>
         </select>
       );
     } else {
       return (
         <select id="searchBy">
-          <option id="Company+Name">Company</option>
-          <option id="Main+Contact">Contact</option>
-          <option id="Address+1">Address</option>
-          <option id="Office+Phone">Office #</option>
-          <option id="Email">Email</option>
-          <option id="Standing">Standing</option>
-          <option id="PAM">PAM</option>
-          <option id="SP+Name">SP Name</option>
+          <option value="Company+Name" id="Company+Name">Company</option>
+          <option value="Main+Contact" id="Main+Contact">Contact</option>
+          <option value="Address+1" id="Address+1">Address</option>
+          <option value="Office+Phone" id="Office+Phone">Office #</option>
+          <option value="Email" id="Email">Email</option>
+          <option value="Standing" id="Standing">Standing</option>
+          <option value="PAM" id="PAM">PAM</option>
+          <option value="SP+Name" id="SP+Name">SP Name</option>
         </select>
       );
     }

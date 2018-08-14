@@ -43,6 +43,7 @@ export default class RecordView extends Component {
               ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
+              newRecord={this.props.newRecord}
             />
             <ModuleSP
               changeRecordHandler={this.props.changeRecordHandler}

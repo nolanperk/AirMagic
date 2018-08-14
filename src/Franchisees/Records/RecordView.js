@@ -49,6 +49,7 @@ export default class RecordView extends Component {
               partnerPhone={this.props.currentRecord['Partner Phone']}
               english={this.props.currentRecord['English Contact']}
               englishPhone={this.props.currentRecord['English Contact Phone']}
+              newRecord={this.props.newRecord}
             />
             <ModuleSales
               changeRecordHandler={this.props.changeRecordHandler}
@@ -58,6 +59,7 @@ export default class RecordView extends Component {
               standing={this.props.currentRecord['Standing']}
               contDate={this.props.currentRecord['Contact Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
+              apptTime={this.props.currentRecord['Appt. Time']}
               attended={this.props.currentRecord['Attended']}
 
               handleDayClick={this.props.handleDayClick}

@@ -53,6 +53,7 @@ export default class Sales extends Component {
       totalLoads: 1,
       userName: '',
       searchQuery: '',
+      searchBy: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
       currentRecordView: 'default',
@@ -145,12 +146,14 @@ export default class Sales extends Component {
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
     this.setState({
       searchQuery: sessionStorage.getItem('searchQuery'),
+      searchBy: sessionStorage.getItem('searchBy'),
       loading: true,
     });
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
@@ -172,7 +175,7 @@ export default class Sales extends Component {
           setTimeout((function() {
             if (document.getElementById('searchInput')) {
               document.getElementById('searchInput').value = capitalizedQuery;
-              document.getElementById('searchBy').value = searchByValue;
+              document.getElementById('searchBy').value = this.state.searchBy;
             }
           }).bind(this), 50);
         }
@@ -189,17 +192,20 @@ export default class Sales extends Component {
 
     this.setState({
       searchQuery: document.getElementById('searchInput').value,
+      searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
       loading: true,
     });
 
     setTimeout((function() {
       sessionStorage.setItem('searchQuery', this.state.searchQuery);
+      sessionStorage.setItem('searchBy', this.state.searchBy);
     }).bind(this), 10);
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
@@ -298,82 +304,140 @@ export default class Sales extends Component {
   moveDatabasesHandler = () => {
     let currentRecordId = this.props.recordId;
     this.setState({
-      loading: true,
+      // loading: true,
+      movingDatabases: true,
+      recordChanges: true,
     });
 
-    let pushRecord = {
-      'Company Name': this.state.currentRecord['Company Name'],
-      'Main contact': this.state.currentRecord['Main contact'],
-      'Title': this.state.currentRecord['Title'],
-      'Alternate Contact': this.state.currentRecord['Alternate Contact'],
-      'Office Phone': this.state.currentRecord['Office Phone'],
-      'Extension': this.state.currentRecord['Extension'],
-      'Cell Phone': this.state.currentRecord['Cell Phone'],
-      'Email': this.state.currentRecord['Email'],
-      'Lead Source': this.state.currentRecord['Lead Source'],
-      'Cancel Date': this.state.currentRecord['Cancel Date'],
-      'Address 1': this.state.currentRecord['Address 1'],
-      'Address 2': this.state.currentRecord['Address 2'],
-      'City': this.state.currentRecord['City'],
-      'Zip': this.state.currentRecord['Zip'],
-      'County': this.state.currentRecord['County'],
-      'Employees': this.state.currentRecord['Employees'],
-      'Appt. Set Date': this.state.currentRecord['Appt. Set Date'],
-      'Appt. Set By': this.state.currentRecord['Appt. Set By'],
-      'Appt. Date': this.state.currentRecord['Appt. Date'],
-      'Close Date': this.state.currentRecord['Close Date'],
-      'Proposal Date': this.state.currentRecord['Proposal Date'],
-      'Walkthrough Date': this.state.currentRecord['Walkthrough Date'],
-      'Start Date': this.state.currentRecord['Start Date'],
-      'Pre-Clean Date': this.state.currentRecord['Pre-Clean Date'],
-      'Pre-Clean Charge': this.state.currentRecord['Pre-Clean Charge'],
-      'Monthly Amount': this.state.currentRecord['Monthly Amount'],
-      'Sq. Footage': this.state.currentRecord['Sq. Footage'],
-      'Actual Sq Footage': this.state.currentRecord['Actual Sq Footage'],
-      'Restrooms': this.state.currentRecord['Restrooms'],
-      'Ceramic': this.state.currentRecord['Ceramic'],
-      'Marble': this.state.currentRecord['Marble'],
-      'VCT': this.state.currentRecord['VCT'],
-      'Wood': this.state.currentRecord['Wood'],
-      'Wood Lam': this.state.currentRecord['Wood Lam'],
-      'Carpet': this.state.currentRecord['Carpet'],
-      'Other': this.state.currentRecord['Other'],
-      'Hours Per': this.state.currentRecord['Hours Per'],
-      'SQ Ft. per Hour': this.state.currentRecord['SQ Ft. per Hour'],
-      'Times per Week': this.state.currentRecord['Times per Week'],
-      'Days of Week': this.state.currentRecord['Days of Week'],
-      'Sales Rep': this.state.currentRecord['Sales Rep'],
-      'Notes': this.state.currentRecord['Notes'],
-      'Status': 'Active',
-      'Special Notes': this.state.currentRecord['Special Notes'],
-      'Standing': 'New Customer',
-    }
-    let destinationURL;
-    let finalPush = {"fields": pushRecord}
+    let todaysDate = new Date();
+    let newClosedDate = (todaysDate.getMonth() + 1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
+    this.state.currentRecord['Close Date'] = newClosedDate;
+    this.state.currentRecord['Status'] = 'Closed';
+    setTimeout((function() {
+      console.log(this.state.currentRecord);
+      this.saveRecordHandler();
 
-    let customerBase;
-    if (this.props.citySet === 'tampa') {
-      customerBase = 'apps7GoAgK23yrOoY';
-    } else if (this.props.citySet === 'orlando') {
-      customerBase = 'appBUKBn552B8SlbE';
-    }
-    axios
-    .post(this.state.dataURL + customerBase + '/Customers/', finalPush)
-      .then(response => {
-        destinationURL = '/' + this.props.citySet + '/customer-service/' + response.data.id;
-        console.log('moveDatabasesHandler()');
+      let pushRecord = {
+        'Company Name': '',
+        'Main contact': '',
+        'Title': '',
+        'Alternate Contact': '',
+        'Office Phone': '',
+        'Extension': '',
+        'Cell Phone': '',
+        'Email': '',
+        'Lead Source': '',
+        'Address 1': '',
+        'Address 2': '',
+        'City': '',
+        'Zip': '',
+        'County': '',
+        'Employees': '',
+        'Appt. Set By': '',
+        'Pre-Clean Charge': '',
+        'Monthly Amount': '',
+        'Sq. Footage': '',
+        'Actual Sq Footage': '',
+        'Restrooms': '',
+        'Ceramic': '',
+        'Marble': '',
+        'VCT': '',
+        'Wood': '',
+        'Wood Lam.': '',
+        'Carpet': '',
+        'Other': '',
+        'Hours Per': '',
+        'SQ Ft. per Hour': '',
+        'Times per Week': '',
+        'Days of Week': '',
+        'Sales Rep': '',
+        'Notes': '',
+        'Special Notes': '',
 
-        return axios
-          .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
-          .then(response => {
+        'Status': 'Active',
+        'Standing': 'New Customer',
+      }
+      if(this.state.currentRecord['Company Name']) {pushRecord['Company Name'] = this.state.currentRecord['Company Name']}
+      if(this.state.currentRecord['Main contact']) {pushRecord['Main contact'] = this.state.currentRecord['Main contact']}
+      if(this.state.currentRecord['Title']) {pushRecord['Title'] = this.state.currentRecord['Title']}
+      if(this.state.currentRecord['Alternate Contact']) {pushRecord['Alternate Contact'] = this.state.currentRecord['Alternate Contact']}
+      if(this.state.currentRecord['Office Phone']) {pushRecord['Office Phone'] = this.state.currentRecord['Office Phone']}
+      if(this.state.currentRecord['Extension']) {pushRecord['Extension'] = this.state.currentRecord['Extension']}
+      if(this.state.currentRecord['Cell Phone']) {pushRecord['Cell Phone'] = this.state.currentRecord['Cell Phone']}
+      if(this.state.currentRecord['Email']) {pushRecord['Email'] = this.state.currentRecord['Email']}
+      if(this.state.currentRecord['Lead Source']) {pushRecord['Lead Source'] = this.state.currentRecord['Lead Source']}
+      if(this.state.currentRecord['Cancel Date']) {pushRecord['Cancel Date'] = this.state.currentRecord['Cancel Date']}
+      if(this.state.currentRecord['Address 1']) {pushRecord['Address 1'] = this.state.currentRecord['Address 1']}
+      if(this.state.currentRecord['Address 2']) {pushRecord['Address 2'] = this.state.currentRecord['Address 2']}
+      if(this.state.currentRecord['City']) {pushRecord['City'] = this.state.currentRecord['City']}
+      if(this.state.currentRecord['Zip']) {pushRecord['Zip'] = this.state.currentRecord['Zip']}
+      if(this.state.currentRecord['County']) {pushRecord['County'] = this.state.currentRecord['County']}
+      if(this.state.currentRecord['Employees']) {pushRecord['Employees'] = this.state.currentRecord['Employees']}
+      if(this.state.currentRecord['Appt. Set Date']) {pushRecord['Appt. Set Date'] = this.state.currentRecord['Appt. Set Date']}
+      if(this.state.currentRecord['Appt. Set By']) {pushRecord['Appt. Set By'] = this.state.currentRecord['Appt. Set By']}
+      if(this.state.currentRecord['Appt. Date']) {pushRecord['Appt. Date'] = this.state.currentRecord['Appt. Date']}
+      if(this.state.currentRecord['Close Date']) {pushRecord['Close Date'] = this.state.currentRecord['Close Date']}
+      if(this.state.currentRecord['Proposal Date']) {pushRecord['Proposal Date'] = this.state.currentRecord['Proposal Date']}
+      if(this.state.currentRecord['Walkthrough Date']) {pushRecord['Walkthrough Date'] = this.state.currentRecord['Walkthrough Date']}
+      if(this.state.currentRecord['Start Date']) {pushRecord['Start Date'] = this.state.currentRecord['Start Date']}
+      if(this.state.currentRecord['Pre-Clean Date']) {pushRecord['Pre-Clean Date'] = this.state.currentRecord['Pre-Clean Date']}
+      if(this.state.currentRecord['Pre-Clean Charge']) {pushRecord['Pre-Clean Charge'] = this.state.currentRecord['Pre-Clean Charge']}
+      if(this.state.currentRecord['Monthly Amount']) {pushRecord['Monthly Amount'] = this.state.currentRecord['Monthly Amount']}
+      if(this.state.currentRecord['Sq. Footage']) {pushRecord['Sq. Footage'] = this.state.currentRecord['Sq. Footage']}
+      if(this.state.currentRecord['Actual Sq Footage']) {pushRecord['Actual Sq Footage'] = this.state.currentRecord['Actual Sq Footage']}
+      if(this.state.currentRecord['Restrooms']) {pushRecord['Restrooms'] = this.state.currentRecord['Restrooms']}
+      if(this.state.currentRecord['Ceramic']) {pushRecord['Ceramic'] = this.state.currentRecord['Ceramic']}
+      if(this.state.currentRecord['Marble']) {pushRecord['Marble'] = this.state.currentRecord['Marble']}
+      if(this.state.currentRecord['VCT']) {pushRecord['VCT'] = this.state.currentRecord['VCT']}
+      if(this.state.currentRecord['Wood']) {pushRecord['Wood'] = this.state.currentRecord['Wood']}
+      if(this.state.currentRecord['Wood Lam']) {pushRecord['Wood Lam.'] = this.state.currentRecord['Wood Lam']}
+      if(this.state.currentRecord['Carpet']) {pushRecord['Carpet'] = this.state.currentRecord['Carpet']}
+      if(this.state.currentRecord['Other']) {pushRecord['Other'] = this.state.currentRecord['Other']}
+      if(this.state.currentRecord['Hours Per']) {pushRecord['Hours Per'] = this.state.currentRecord['Hours Per']}
+      if(this.state.currentRecord['SQ Ft. per Hour']) {pushRecord['SQ Ft. per Hour'] = this.state.currentRecord['SQ Ft. per Hour']}
+      if(this.state.currentRecord['Times per Week']) {pushRecord['Times per Week'] = this.state.currentRecord['Times per Week']}
+      if(this.state.currentRecord['Days of Week']) {pushRecord['Days of Week'] = this.state.currentRecord['Days of Week']}
+      if(this.state.currentRecord['Sales Rep']) {pushRecord['Sales Rep'] = this.state.currentRecord['Sales Rep']}
+      if(this.state.currentRecord['Notes']) {pushRecord['Notes'] = this.state.currentRecord['Notes']}
+      if(this.state.currentRecord['Special Notes']) {pushRecord['Special Notes'] = this.state.currentRecord['Special Notes']}
+      let destinationURL;
+      let finalPush = {"fields": pushRecord}
+
+      console.log(destinationURL);
+      console.log(pushRecord);
+
+      let customerBase;
+      if (this.props.citySet === 'tampa') {
+        customerBase = 'apps7GoAgK23yrOoY';
+      } else if (this.props.citySet === 'orlando') {
+        customerBase = 'appBUKBn552B8SlbE';
+      }
+      axios
+      .post(this.state.dataURL + customerBase + '/Customers/', finalPush)
+        .then(response => {
+          destinationURL = '/' + this.props.citySet + '/customer-service/' + response.data.id;
+          console.log('moveDatabasesHandler()');
+
+          this.setState({
+            loading: false,
+          });
+          // return axios
+          //   .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
+          //   .then(response => {
+          //   });
+          console.log('gonna bounce now');
+          setTimeout((function() {
             this.props.history.push(destinationURL);
             this.loadData();
             alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
-          });
-    })
-    .catch(response => {
-      console.error("error: ", response);
-    });
+          }).bind(this), 250);
+      })
+      .catch(response => {
+        console.error("error: ", response);
+      });
+    }).bind(this), 10);
+
+
   }
 
   newRecordHandler = ()  => {
@@ -787,6 +851,29 @@ export default class Sales extends Component {
         fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
 
+        let officePhone = this.state.currentRecord["Office Phone"];
+        if (officePhone) {
+          officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+          let s2 = (""+officePhone).replace(/\D/g, '');
+          let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+          let finalNumber;
+          if (formattedNumber) {
+            finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+            this.state.currentRecord["Office Phone"] = finalNumber;
+          }
+        }
+
+        let cellPhone = this.state.currentRecord["Cell Phone"];
+        if (cellPhone) {
+          cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+          let cell2 = (""+cellPhone).replace(/\D/g, '');
+          let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+          let finalCellNumber;
+          if (formCellPhone) {
+            finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+            this.state.currentRecord["Cell Phone"] = finalCellNumber;
+          }
+        }
 
         let finalPush = {"fields": fullDataSet}
         console.log(finalPush);
@@ -822,6 +909,7 @@ export default class Sales extends Component {
         });
       }).bind(this), 10);
     } else {
+      console.log('saveRecordHandler()');
       let fullDataSet = this.state.data;
       let pushRecordId;
       let pushRecord;
@@ -834,8 +922,36 @@ export default class Sales extends Component {
           currentRecordView: 'default',
         })
       }
+
+      let officePhone = this.state.currentRecord["Office Phone"];
+      if (officePhone) {
+        officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+        let s2 = (""+officePhone).replace(/\D/g, '');
+        let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalNumber;
+        if (formattedNumber) {
+          finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+          this.state.currentRecord["Office Phone"] = finalNumber;
+        }
+      }
+
+      let cellPhone = this.state.currentRecord["Cell Phone"];
+      if (cellPhone) {
+        cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+        let cell2 = (""+cellPhone).replace(/\D/g, '');
+        let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalCellNumber;
+        if (formCellPhone) {
+          finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+          this.state.currentRecord["Cell Phone"] = finalCellNumber;
+        }
+      }
       setTimeout((function() {
-        pushRecord["Status"] = document.getElementById('statusSelect').value;
+        if (this.state.movingDatabases) {
+          pushRecord["Status"] = 'Closed';
+        } else {
+          pushRecord["Status"] = document.getElementById('statusSelect').value;
+        }
         pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
         pushRecord["Standing"] = document.getElementById('standingSelect').value;
         pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
@@ -1417,10 +1533,12 @@ export default class Sales extends Component {
   clearSearch = () => {
     this.setState({
       searchQuery: '',
+      searchBy: '',
       loading: true,
       dataOffset: '',
     });
     sessionStorage.removeItem('searchQuery');
+    sessionStorage.removeItem('searchBy');
     this.loadData();
   }
 
@@ -1586,14 +1704,15 @@ export default class Sales extends Component {
       if (sessionStorage.getItem('searchQuery')) {
         this.setState({
           searchQuery: sessionStorage.getItem('searchQuery'),
+          searchBy: sessionStorage.getItem('searchBy'),
           loading: true,
         });
         this.loadPrevSearch();
       } else {
         this.loadData();
       }
-      if (sessionStorage.getItem('userInitials')) {
-        let usersInitials = sessionStorage.getItem('userInitials');
+      if (localStorage.getItem('userInitials')) {
+        let usersInitials = localStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });
@@ -1741,6 +1860,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            newRecord={this.state.newRecord}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {

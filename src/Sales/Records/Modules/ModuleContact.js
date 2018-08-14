@@ -29,6 +29,21 @@ export default class ModuleContact extends Component {
     let email = this.props.email;
     let source = this.props.source;
 
+
+    // if (this.props.newRecord === false) {
+    //   // if(phone.match) {
+    //   //   if(phone.match(/^s+$/) || phone == "" ) {
+    //   //     console.log("success: " + phone);
+    //   //   }
+    //   // } else {
+    //   //     console.log("not a string: " + phone);
+    //   // }
+    // }
+
+    // if (phone.toString().matches("[0-9]+") && phone.toString().length() > 2) {
+      // console.log(phone.toString());
+    // }
+
     let officeLink = 'tel:' + phone;
     let cellLink = 'tel:' + cell;
     let emailLink = 'mailto:' + email;

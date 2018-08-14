@@ -152,12 +152,14 @@ export default class CustomerService extends Component {
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
     this.setState({
       searchQuery: sessionStorage.getItem('searchQuery'),
+      searchBy: sessionStorage.getItem('searchBy'),
       loading: true,
     });
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
@@ -179,7 +181,7 @@ export default class CustomerService extends Component {
           setTimeout((function() {
             if (document.getElementById('searchInput')) {
               document.getElementById('searchInput').value = capitalizedQuery;
-              document.getElementById('searchBy').value = searchByValue;
+              document.getElementById('searchBy').value = this.state.searchBy;
             }
           }).bind(this), 50);
         }
@@ -196,17 +198,20 @@ export default class CustomerService extends Component {
 
     this.setState({
       searchQuery: document.getElementById('searchInput').value,
+      searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
       loading: true,
     });
 
     setTimeout((function() {
       sessionStorage.setItem('searchQuery', this.state.searchQuery);
+      sessionStorage.setItem('searchBy', this.state.searchBy);
     }).bind(this), 10);
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
@@ -836,6 +841,30 @@ export default class CustomerService extends Component {
         fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
 
+        let officePhone = this.state.currentRecord["Office Phone"];
+        if (officePhone) {
+          officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+          let s2 = (""+officePhone).replace(/\D/g, '');
+          let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+          let finalNumber;
+          if (formattedNumber) {
+            finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+            this.state.currentRecord["Office Phone"] = finalNumber;
+          }
+        }
+
+        let cellPhone = this.state.currentRecord["Cell Phone"];
+        if (cellPhone) {
+          cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+          let cell2 = (""+cellPhone).replace(/\D/g, '');
+          let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+          let finalCellNumber;
+          if (formCellPhone) {
+            finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+            this.state.currentRecord["Cell Phone"] = finalCellNumber;
+          }
+        }
+
 
         let finalPush = {"fields": fullDataSet}
         console.log(finalPush);
@@ -885,6 +914,30 @@ export default class CustomerService extends Component {
         this.setState({
           currentRecordView: 'default',
         })
+      }
+
+      let officePhone = this.state.currentRecord["Office Phone"];
+      if (officePhone) {
+        officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+        let s2 = (""+officePhone).replace(/\D/g, '');
+        let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalNumber;
+        if (formattedNumber) {
+          finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+          this.state.currentRecord["Office Phone"] = finalNumber;
+        }
+      }
+
+      let cellPhone = this.state.currentRecord["Cell Phone"];
+      if (cellPhone) {
+        cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+        let cell2 = (""+cellPhone).replace(/\D/g, '');
+        let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalCellNumber;
+        if (formCellPhone) {
+          finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+          this.state.currentRecord["Cell Phone"] = finalCellNumber;
+        }
       }
       setTimeout((function() {
         pushRecord["PAM"] = document.getElementById('pamSelect').value;
@@ -1007,6 +1060,25 @@ export default class CustomerService extends Component {
     if (mergeTemp !== 'none') {
       let mergeData = this.state.currentRecord;
       let contactArr = mergeData['Main contact'].split(" ");
+      let spName = '';
+      let spPhone = '';
+      console.log(this.state.spList);
+
+      let currentSPNumber = this.state.currentRecord['SP Number'];
+
+      for (var index in this.state.spList) {
+        if (this.state.spList[index].fields['Number'] === currentSPNumber) {
+          spName = this.state.spList[index].fields['SP Name'];
+
+          if (this.state.spList[index].fields['Home Phone']) {
+            spPhone = this.state.spList[index].fields['Home Phone'];
+          } else if (this.state.spList[index].fields['Cellphone']){
+            spPhone = this.state.spList[index].fields['Cellphone'];
+          }
+        }
+      }
+
+
       mergeURL = {
         base: 'https://www.webmerge.me/merge/',
         id: '',
@@ -1019,10 +1091,10 @@ export default class CustomerService extends Component {
         Days_Serviced: mergeData['Times per Week'] + 'Week',
         Days_of_Week: mergeData['Days of Week'],
         Fran_Start_Date: mergeData['Start Date'],
-        Servicer: mergeData['SP Name'],
+        Servicer: spName,
         Cont_First_Name: contactArr[0],
         Cont_Last_Name: contactArr[1],
-        B_O_Phone: mergeData['SP Phone'],
+        B_O_Phone: spPhone,
         PAM: mergeData['PAM'],
         Office_Phone: mergeData['Office Phone'],
         Cnty: mergeData['County'],
@@ -1496,10 +1568,12 @@ export default class CustomerService extends Component {
   clearSearch = () => {
     this.setState({
       searchQuery: '',
+      searchBy: '',
       loading: true,
       dataOffset: '',
     });
     sessionStorage.removeItem('searchQuery');
+    sessionStorage.removeItem('searchBy');
     this.loadData();
   }
 
@@ -1657,6 +1731,7 @@ export default class CustomerService extends Component {
       if (sessionStorage.getItem('searchQuery')) {
         this.setState({
           searchQuery: sessionStorage.getItem('searchQuery'),
+          searchBy: sessionStorage.getItem('searchBy'),
           loading: true,
         });
         this.loadPrevSearch();

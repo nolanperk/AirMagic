@@ -359,6 +359,7 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
     else if (e.target.id === 'area') {currentRecordState['Coverage Area'] = e.target.value}
 
+    else if (e.target.id === 'apptTime') {currentRecordState['Appt. Time'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
 
 
@@ -560,6 +561,30 @@ export default class Franchisees extends Component {
       fullDataSet['Buffing'] = document.getElementById('buffingSelect').value;
       fullDataSet['Tile'] = document.getElementById('tilesSelect').value;
 
+      let officePhone = this.state.currentRecord["Home Phone"];
+      if (officePhone) {
+        officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+        let s2 = (""+officePhone).replace(/\D/g, '');
+        let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalNumber;
+        if (formattedNumber) {
+          finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+          this.state.currentRecord["Home Phone"] = finalNumber;
+        }
+      }
+
+      let cellPhone = this.state.currentRecord["Cellphone"];
+      if (cellPhone) {
+        cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+        let cell2 = (""+cellPhone).replace(/\D/g, '');
+        let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalCellNumber;
+        if (formCellPhone) {
+          finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+          this.state.currentRecord["Cellphone"] = finalCellNumber;
+        }
+      }
+
 
 
       let finalPush = {"fields": fullDataSet}
@@ -616,6 +641,30 @@ export default class Franchisees extends Component {
       pushRecord['Tile'] = document.getElementById('tilesSelect').value;
 
 
+
+      let officePhone = this.state.currentRecord["Home Phone"];
+      if (officePhone) {
+        officePhone = parseInt(officePhone.replace( /\D+/g, ''));
+        let s2 = (""+officePhone).replace(/\D/g, '');
+        let formattedNumber = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalNumber;
+        if (formattedNumber) {
+          finalNumber = "(" + formattedNumber[1] + ") " + formattedNumber[2] + "-" + formattedNumber[3];;
+          this.state.currentRecord["Home Phone"] = finalNumber;
+        }
+      }
+
+      let cellPhone = this.state.currentRecord["Cellphone"];
+      if (cellPhone) {
+        cellPhone = parseInt(cellPhone.replace( /\D+/g, ''));
+        let cell2 = (""+cellPhone).replace(/\D/g, '');
+        let formCellPhone = cell2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        let finalCellNumber;
+        if (formCellPhone) {
+          finalCellNumber = "(" + formCellPhone[1] + ") " + formCellPhone[2] + "-" + formCellPhone[3];;
+          this.state.currentRecord["Cellphone"] = finalCellNumber;
+        }
+      }
 
       let finalPush = {"fields": pushRecord}
       axios
@@ -1210,8 +1259,8 @@ export default class Franchisees extends Component {
     } else {
       this.loadData();
 
-      if (sessionStorage.getItem('userInitials')) {
-        let usersInitials = sessionStorage.getItem('userInitials');
+      if (localStorage.getItem('userInitials')) {
+        let usersInitials = localStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });

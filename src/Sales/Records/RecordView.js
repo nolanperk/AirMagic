@@ -56,6 +56,7 @@ export default class RecordView extends Component {
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
+              newRecord={this.props.newRecord}
             />
             <ModulePipeline
               changeRecordHandler={this.props.changeRecordHandler}

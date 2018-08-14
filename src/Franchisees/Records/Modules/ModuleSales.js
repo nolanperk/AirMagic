@@ -38,6 +38,7 @@ export default class ModuleSales extends Component {
   // ----------------------------------------------------
   render() {
     let contDate = this.props.contDate;
+    let apptTime = this.props.apptTime;
     let fdd = this.props.fdd;
     let sign = this.props.sign;
     let graduation = this.props.graduation;
@@ -89,7 +90,7 @@ export default class ModuleSales extends Component {
               </select>
             </div>
           </div>
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--full">
             <div class="pickWrapper">
               <DayPicker onDayClick={this.props.handleDayClick} />
             </div>
@@ -123,6 +124,16 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
+            <div className="inputBlock inputBlock--half">
+              <label>Appt. Time</label>
+              <input
+                type="text"
+                onChange={this.props.changeRecordHandler}
+                value={apptTime}
+                id="apptTime"
+              />
+            </div>
+
           <div className="inputBlock inputBlock--half">
             <label>Attended</label>
             <div

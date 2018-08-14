@@ -14,7 +14,7 @@ export default class SortBy extends Component {
 
     //subject
     let finalSubject;
-    if (this.props.currentTable === 'franchisees') {
+    if (this.props.currentTable === 'Franchisees') {
       finalSubject = 'Call PF: ' + record['SP Name'];
     } else {
       finalSubject = 'Call ' + record['Main contact'] + ' at ' + record['Company Name'];
@@ -74,7 +74,12 @@ export default class SortBy extends Component {
   }
 
   generateCalendarLink = () => {
-    let timeInput = this.props.currentRecord['Appt. Time'];
+    let timeInput;
+    if (this.props.currentTable === 'Sales') {
+      timeInput = this.props.currentRecord['Appt. Time'];
+    } else {
+      timeInput = '10:00 AM';
+    }
     let apptDate = this.props.currentRecord['Appt. Date'];
     if (timeInput && apptDate) {
       timeInput = timeInput.toUpperCase();

@@ -338,14 +338,32 @@ export default class ModuleSales extends Component {
             >
             <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
               <option id="none"></option>
+              <option disabled>---------------</option>
+              <option disabled>Inside Sales</option>
+              <option disabled>---------------</option>
               <option id="Linda+Goldberg">Linda Goldberg</option>
               <option id="Eric+Kleeman">Eric Kleeman</option>
               <option id="Carla+Milian">Carla Milian</option>
+              <option disabled>---------------</option>
+              <option disabled>Outside Sales</option>
+              <option disabled>---------------</option>
               <option id="Joel+Horwitz">Joel Horwitz</option>
               <option id="Rob+Janke">Rob Janke</option>
               <option id="Tyler+Perkins">Tyler Perkins</option>
               <option id="Nolan+Perkins">Nolan Perkins</option>
-              <option id="Outside+Company">Outside Company</option>
+              <option disabled>---------------</option>
+              <option disabled>Other</option>
+              <option disabled>---------------</option>
+              <option id="Prospectr">Prospectr</option>
+              <option id="Jet">Jet</option>
+              <option id="Referral">Referral</option>
+              <option id="Incoming+Call">Incoming Call</option>
+              <option disabled>---------------</option>
+              <option disabled>Marketing</option>
+              <option disabled>---------------</option>
+              <option id="Google">Google</option>
+              <option id="Thumbtack">Thumbtack</option>
+              <option id="Constant+Contact">Constant Contact</option>
             </select>
           </div>
         </div>
