@@ -1678,7 +1678,7 @@ export default class OutsideSales extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('isLogged')  !== 'true') {
+    if (sessionStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
       if (sessionStorage.getItem('searchQuery')) {
@@ -1691,8 +1691,8 @@ export default class OutsideSales extends Component {
       } else {
         this.loadData();
       }
-      if (localStorage.getItem('userInitials')) {
-        let usersInitials = localStorage.getItem('userInitials');
+      if (sessionStorage.getItem('userInitials')) {
+        let usersInitials = sessionStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });

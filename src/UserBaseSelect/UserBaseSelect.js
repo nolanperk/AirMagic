@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default class BaseSelect extends Component {
   componentDidMount() {
-    if (localStorage.getItem('isLogged')  !== 'true') {
+    if (sessionStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/outside-login');
     // } else {
     //   sessionStorage.removeItem('innerOffset'); //reset it!
@@ -18,7 +18,6 @@ export default class BaseSelect extends Component {
   }
   logoutHandler = () => {
     sessionStorage.clear();
-    localStorage.clear();
     window.location.reload();
   }
 

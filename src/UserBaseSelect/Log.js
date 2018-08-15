@@ -14,13 +14,13 @@ export default class OutsideLoginForm extends Component {
   }
   chalog = e => {if (e.target.id === 'use') {this.setState({use: e.target.value.toUpperCase(),})}if (e.target.id === 'pw') {this.setState({pw: e.target.value,})}}
   componentDidMount() {
-    if (localStorage.getItem('isLogged')  === 'true') {
+    if (sessionStorage.getItem('isLogged')  === 'true') {
       this.props.history.push('/');
     }
   }
 
   chelog = e => {e.preventDefault();let correctPW = PassString();
-    if ( this.state.use === 'JETT') {if (this.state.pw === correctPW) {localStorage.setItem('isLogged', 'true');localStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
+    if ( this.state.use === 'JETT') {if (this.state.pw === correctPW) {sessionStorage.setItem('isLogged', 'true');sessionStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
   // Render
   // ----------------------------------------------------
   render() {
