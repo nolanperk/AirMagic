@@ -14,6 +14,10 @@ export default class BaseSelect extends Component {
     //   sessionStorage.removeItem('jumpLetters');
     //   sessionStorage.removeItem('salesView');
     //   sessionStorage.removeItem('serviceView');
+    } else {
+      if (localStorage.getItem('userInitials') === 'JETT') {
+        this.props.history.push('/jett/');
+      }
     }
   }
   logoutHandler = () => {

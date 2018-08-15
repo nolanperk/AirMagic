@@ -106,48 +106,72 @@ export default class Navbar extends Component {
         </div>
       );
     } else {
-      return (
-        <Link to={`/`}>
-          <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
-            <img src={hamburger} alt="databases" />
-          </div>
-        </Link>
-      );
+      if (this.props.outsideCaller === 'jett') {
+        return (
+          <Link to={`/jett/`}>
+            <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
+              <img src={hamburger} alt="databases" />
+            </div>
+          </Link>
+        );
+      } else {
+        return (
+          <Link to={`/`}>
+            <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
+              <img src={hamburger} alt="databases" />
+            </div>
+          </Link>
+        );
+      }
     }
   }
   get downloadButton() {
-    if (this.props.recordView) {
-      return (
-        <div className="rightButtons">
-          <div className="inputBlock">
-            <div className="selectBlock">
-              {this.viewSelects}
+    if (this.props.outsideCaller === 'jett') {
+      if (!this.props.recordView) {
+        return (
+          <div className="rightButtons">
+            <div className="inputBlock">
+              <div className="selectBlock">
+                {this.viewSelects}
+              </div>
             </div>
           </div>
-
-          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
-            <img src={sortImg} alt="Export" />
-          </div>
-
-          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-            <img src={exportImg} alt="Export" />
-          </div>
-        </div>
-      );
+        );
+      }
     } else {
-      return (
-        <div className="rightButtons">
-          <div className="inputBlock">
-            <div className="selectBlock">
-              {this.viewSelects}
+      if (this.props.recordView) {
+        return (
+          <div className="rightButtons">
+            <div className="inputBlock">
+              <div className="selectBlock">
+                {this.viewSelects}
+              </div>
+            </div>
+
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
+              <img src={sortImg} alt="Export" />
+            </div>
+
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+              <img src={exportImg} alt="Export" />
             </div>
           </div>
+        );
+      } else {
+        return (
+          <div className="rightButtons">
+            <div className="inputBlock">
+              <div className="selectBlock">
+                {this.viewSelects}
+              </div>
+            </div>
 
-          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
-            <img src={exportImg} alt="Export" />
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
+              <img src={exportImg} alt="Export" />
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
 
-export default class Sales extends Component {
+export default class OutsideSales extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -36,7 +36,7 @@ export default class Sales extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: '',
       currentTable: 'Sales',
-      listView: 'view=All',
+      listView: 'view=Jett+List',
       sortByLabel: 'Company+Name',
       sortByOrder: 'asc',
       currentRecord: [],
@@ -56,7 +56,7 @@ export default class Sales extends Component {
       searchBy: '',
       newRecord: false,
       listIsVisible: props.recordId == null,
-      currentRecordView: 'default',
+      currentRecordView: 'inside',
     }
   }
 
@@ -298,7 +298,7 @@ export default class Sales extends Component {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
       sessionStorage.setItem('innerOffset', this.state.dataOffset);
     }
-    this.props.history.push('/' + this.props.citySet + '/sales/' + key);
+    this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + key);
   }
 
   moveDatabasesHandler = () => {
@@ -610,7 +610,7 @@ export default class Sales extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/' + this.props.citySet + '/sales/');
+      this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
       this.setState({
           activeModal: false,
           modalType: '',
@@ -670,7 +670,7 @@ export default class Sales extends Component {
             loading: true,
           });
 
-          this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+          this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -739,10 +739,10 @@ export default class Sales extends Component {
               recordChanges: false,
             });
 
-            this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/' + this.props.citySet + '/sales/');
+            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -894,14 +894,12 @@ export default class Sales extends Component {
             currentRecord: [],
             recordChanges: false,
           });
-
-          if (this.state.currentRecordView !== 'default') {
-            this.setState({
-              currentRecordView: sessionStorage.getItem('salesView'),
-            })
-          }
           setTimeout((function() {
-            this.props.history.push('/' + this.props.citySet + '/sales/' + response.data.id);
+            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + response.data.id);
+
+            this.setState({
+              currentRecordView: 'inside',
+            })
           }).bind(this), 10);
         })
         .catch(response => {
@@ -987,10 +985,10 @@ export default class Sales extends Component {
                   recordChanges: false,
                 });
               }).bind(this), 10);
-              this.props.history.push('/' + this.props.citySet + '/sales/' + this.state.data[dataIndex].id);
+              this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
             } else {
               if (this.state.modalType === 'saveAlert') {
-                this.props.history.push('/' + this.props.citySet + '/sales/');
+                this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
                 this.setState({
                   data: fullDataSet,
                   recordView: false,
@@ -1025,11 +1023,9 @@ export default class Sales extends Component {
               recordChanges: false,
             })
 
-            if (this.state.currentRecordView !== 'default') {
-              this.setState({
-                currentRecordView: sessionStorage.getItem('salesView'),
-              })
-            }
+            this.setState({
+              currentRecordView: 'inside',
+            })
           }
         })
         .catch(response => {
@@ -1413,10 +1409,6 @@ export default class Sales extends Component {
           loadingMore: true,
           dataOffset: response.data.offset,
         });
-        if (this.state.listView !== '') {
-          document.getElementById('filterBtn').className='ControlsBar--btn isActive';
-          document.getElementById('filterBtn').getElementsByTagName('p')[0].innerHTML=this.state.listView.replace('view=', '').replace('+', ' ');
-        }
         if (this.state.sortByLabel !== 'Company+Name') {
           document.getElementById('sortBtn').className='ControlsBar--btn isActive';
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
@@ -1572,18 +1564,6 @@ export default class Sales extends Component {
           activeModal: true,
           modalType: 'moveDatabase',
         });
-      } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
-        this.setState({
-          activeModal: true,
-          modalType: 'filterSearch',
-        });
-        setTimeout((function() {
-          if (this.state.listView !== '') {
-            let currentView = this.state.listView.replace('view=', '');
-            document.getElementById('filtersList').getElementsByClassName('isActive')[0].className="isInactive";
-            document.getElementById(currentView).className="isActive";
-          }
-        }).bind(this), 50);
       } else {
         this.setState({
           activeModal: true,
@@ -1701,9 +1681,6 @@ export default class Sales extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
-      if (localStorage.getItem('userInitials') === 'JETT') {
-        this.props.history.push('/jett/' + this.props.citySet);
-      }
       if (sessionStorage.getItem('searchQuery')) {
         this.setState({
           searchQuery: sessionStorage.getItem('searchQuery'),
@@ -1799,6 +1776,7 @@ export default class Sales extends Component {
           citySet={this.props.citySet}
           currentRecordView={this.state.currentRecordView}
           viewSelect={this.viewSelect}
+          outsideCaller={this.props.outside}
         />
 
         {this.currentView}
@@ -1813,6 +1791,7 @@ export default class Sales extends Component {
           newRecordHandler={this.newRecordHandler}
           currentRecord={this.state.currentRecord}
           currentTable={this.state.currentTable}
+          outsideCaller={this.props.outside}
         />
       </div>
     );
@@ -1838,6 +1817,7 @@ export default class Sales extends Component {
           baseId={this.state.baseId}
           moveDatabasesHandler={this.moveDatabasesHandler}
           currentTable={this.state.currentTable}
+          outsideCaller={this.props.outside}
         />
       )
     }
@@ -1864,6 +1844,7 @@ export default class Sales extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             newRecord={this.state.newRecord}
+            outsideCaller={this.props.outside}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -1884,6 +1865,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            outsideCaller={this.props.outside}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -1904,6 +1886,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            outsideCaller={this.props.outside}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -1924,6 +1907,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            outsideCaller={this.props.outside}
           />
         );
       }

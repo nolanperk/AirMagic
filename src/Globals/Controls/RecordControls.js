@@ -168,6 +168,14 @@ export default class SortBy extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+    return (
+      <div className="ControlsBar recordControls">
+        {this.botButtons}
+      </div>
+    );
+  }
+
+  get botButtons() {
 
 
     let btnClasses = 'ControlsBar--btn';
@@ -182,38 +190,65 @@ export default class SortBy extends Component {
       callBackClasses = 'navIcon softGrad--primary isHidden';
     }
 
-    return (
-      <div className="ControlsBar recordControls">
-        <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
-          <div className="navIcon whiteCard">
-            <img src={arrow_back} alt="previous" />
-          </div>
-          <p>Previous Record</p>
-        </div>
-
-        <div className="ControlsBar--btn saveBtn">
-
-          <div className={googleCalButton} onClick={this.generateCalendarLink}>
-            <img src={calendar} alt="Add to Google Calendar" />
+    if (this.props.outsideCaller == 'jett') {
+      return (
+        <div>
+          <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
+            <div className="navIcon whiteCard">
+              <img src={arrow_back} alt="previous" />
+            </div>
+            <p>Previous Record</p>
           </div>
 
-          <div className={callBackClasses} onClick={this.addCalendar}>
-            <img src={phoneImg} alt="callback" />
+          <div className="ControlsBar--btn saveBtn">
+            <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
+              <img src={save} alt="save changes" />
+            </div>
           </div>
-          <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
-            <img src={save} alt="save changes" />
-          </div>
-        </div>
 
 
-        <div className={btnClasses} onClick={this.props.recordChanger} id="next">
-          <p>Next Record</p>
-          <div className="navIcon whiteCard">
-            <img src={arrow_forward} alt="next" />
+          <div className={btnClasses} onClick={this.props.recordChanger} id="next">
+            <p>Next Record</p>
+            <div className="navIcon whiteCard">
+              <img src={arrow_forward} alt="next" />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      )
+    } else {
+      return (
+        <div>
+          <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
+            <div className="navIcon whiteCard">
+              <img src={arrow_back} alt="previous" />
+            </div>
+            <p>Previous Record</p>
+          </div>
+
+          <div className="ControlsBar--btn saveBtn">
+
+            <div className={googleCalButton} onClick={this.generateCalendarLink}>
+              <img src={calendar} alt="Add to Google Calendar" />
+            </div>
+
+            <div className={callBackClasses} onClick={this.addCalendar}>
+              <img src={phoneImg} alt="callback" />
+            </div>
+            <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
+              <img src={save} alt="save changes" />
+            </div>
+          </div>
+
+
+          <div className={btnClasses} onClick={this.props.recordChanger} id="next">
+            <p>Next Record</p>
+            <div className="navIcon whiteCard">
+              <img src={arrow_forward} alt="next" />
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 

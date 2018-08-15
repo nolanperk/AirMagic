@@ -17,6 +17,9 @@
     vertical-align: middle;
     margin-right: 1.4vw;
     transition: all 0.5s ease;
+    &.hideFilters {
+      display: none;
+    }
 
     &.disabled {
       opacity: 0;

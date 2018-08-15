@@ -1728,6 +1728,9 @@ export default class CustomerService extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
+      if (localStorage.getItem('userInitials') === 'JETT') {
+        this.props.history.push('/jett/');
+      }
       if (sessionStorage.getItem('searchQuery')) {
         this.setState({
           searchQuery: sessionStorage.getItem('searchQuery'),
@@ -1739,8 +1742,8 @@ export default class CustomerService extends Component {
         this.loadData();
       }
 
-      if (sessionStorage.getItem('userInitials')) {
-        let usersInitials = sessionStorage.getItem('userInitials');
+      if (localStorage.getItem('userInitials')) {
+        let usersInitials = localStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });

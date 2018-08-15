@@ -445,6 +445,8 @@ ul {
     vertical-align: middle;
     margin-right: 1.4vw;
     transition: all 0.5s ease; }
+    .ControlsBar .ControlsBar--btn.hideFilters {
+      display: none; }
     .ControlsBar .ControlsBar--btn.disabled {
       opacity: 0;
       pointer-events: none; }

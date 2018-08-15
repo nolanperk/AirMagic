@@ -15,10 +15,14 @@ export default class SortBy extends Component {
     if (this.props.franchiseView) {
       ControlsClasses = 'ControlsBar plusControls';
     }
+    let filterBtnClass = 'ControlsBar--btn';
+    if (this.props.outsideCaller === 'jett') {
+      filterBtnClass = 'ControlsBar--btn hideFilters';
+    }
 
     return (
       <div className={ControlsClasses}>
-        <div className="ControlsBar--btn" onClick={this.props.controlsModalToggle} id="filterBtn">
+        <div className={filterBtnClass} onClick={this.props.controlsModalToggle} id="filterBtn">
           <div className="navIcon whiteCard">
             <img src={filter} alt="filter" />
           </div>
@@ -40,26 +44,21 @@ export default class SortBy extends Component {
         </form>
 
 
-        <div className="navIcon softGrad--secondary" id="addNewRecord" onClick={this.props.newRecordHandler}>
-          <img src={plus} alt="Add New" />
-        </div>
+        {this.AddNewBtn}
       </div>
     );
   }
-
-  get ControlsSelect() {
-    if (this.props.currentTable === 'Franchisees') {
+  get AddNewBtn() {
+    if (this.props.outsideCaller !== 'jett') {
       return (
-        <select id="searchBy">
-          <option value="SP+Name" id="SP+Name">SP Name</option>
-          <option value="Company+Name" id="Company+Name">Company</option>
-          <option value="Address+1" id="Address+1">Address</option>
-          <option value="Home+Phone" id="Home+Phone">Home Phone</option>
-          <option value="Email" id="Email">Email</option>
-          <option value="Plan+Type" id="Plan+Type">Plan Type</option>
-        </select>
+        <div className="navIcon softGrad--secondary" id="addNewRecord" onClick={this.props.newRecordHandler}>
+          <img src={plus} alt="Add New" />
+        </div>
       );
-    } else {
+    }
+  }
+  get ControlsSelect() {
+    if (this.props.outsideCaller !== 'jett') {
       return (
         <select id="searchBy">
           <option value="Company+Name" id="Company+Name">Company</option>
@@ -67,11 +66,34 @@ export default class SortBy extends Component {
           <option value="Address+1" id="Address+1">Address</option>
           <option value="Office+Phone" id="Office+Phone">Office #</option>
           <option value="Email" id="Email">Email</option>
-          <option value="Standing" id="Standing">Standing</option>
-          <option value="PAM" id="PAM">PAM</option>
-          <option value="SP+Name" id="SP+Name">SP Name</option>
         </select>
       );
+    } else {
+      if (this.props.currentTable === 'Franchisees') {
+        return (
+          <select id="searchBy">
+            <option value="SP+Name" id="SP+Name">SP Name</option>
+            <option value="Company+Name" id="Company+Name">Company</option>
+            <option value="Address+1" id="Address+1">Address</option>
+            <option value="Home+Phone" id="Home+Phone">Home Phone</option>
+            <option value="Email" id="Email">Email</option>
+            <option value="Plan+Type" id="Plan+Type">Plan Type</option>
+          </select>
+        );
+      } else {
+        return (
+          <select id="searchBy">
+            <option value="Company+Name" id="Company+Name">Company</option>
+            <option value="Main+Contact" id="Main+Contact">Contact</option>
+            <option value="Address+1" id="Address+1">Address</option>
+            <option value="Office+Phone" id="Office+Phone">Office #</option>
+            <option value="Email" id="Email">Email</option>
+            <option value="Standing" id="Standing">Standing</option>
+            <option value="PAM" id="PAM">PAM</option>
+            <option value="SP+Name" id="SP+Name">SP Name</option>
+          </select>
+        );
+      }
     }
   }
 }

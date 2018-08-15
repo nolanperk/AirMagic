@@ -19,6 +19,7 @@ export default class ModalView extends Component {
         <SaveAlert
           revertRecordHandler={this.props.revertRecordHandler}
           saveRecordHandler={this.props.saveRecordHandler}
+          outsideCaller={this.props.outsideCaller}
         />
       );
     } else if (this.props.modalType === 'filterSearch') {
@@ -28,6 +29,7 @@ export default class ModalView extends Component {
           selectFilterHandler={this.props.selectFilterHandler}
           currentTable={this.props.currentTable}
           baseId={this.props.baseId}
+          outsideCaller={this.props.outsideCaller}
         />
       );
     } else if (this.props.modalType === 'sortBy') {
@@ -36,6 +38,7 @@ export default class ModalView extends Component {
           controlsModalToggle={this.props.controlsModalToggle}
           sortSubmitHandler={this.props.sortSubmitHandler}
           currentTable={this.props.currentTable}
+          outsideCaller={this.props.outsideCaller}
         />
       );
     } else if (this.props.modalType === 'addNotes') {
@@ -44,6 +47,7 @@ export default class ModalView extends Component {
           controlsModalToggle={this.props.controlsModalToggle}
           saveNoteHandler={this.props.saveNoteHandler}
           userName={this.props.userName}
+          outsideCaller={this.props.outsideCaller}
         />
       )
     } else if (this.props.modalType === 'changeUser') {
@@ -53,6 +57,7 @@ export default class ModalView extends Component {
           userChangeHandler={this.props.userChangeHandler}
           userSubmitHandler={this.props.userSubmitHandler}
           userName={this.props.userName}
+          outsideCaller={this.props.outsideCaller}
         />
       )
     } else if (this.props.modalType === 'exportList') {
@@ -61,6 +66,7 @@ export default class ModalView extends Component {
           controlsModalToggle={this.props.controlsModalToggle}
           submitExport={this.props.submitExport}
           currentTable={this.props.currentTable}
+          outsideCaller={this.props.outsideCaller}
         />
       )
     } else if (this.props.modalType === 'recordExport') {
@@ -71,6 +77,7 @@ export default class ModalView extends Component {
           exportRecord={this.props.exportRecord}
           baseId={this.props.baseId}
           currentTable={this.props.currentTable}
+          outsideCaller={this.props.outsideCaller}
         />
       )
     } else if (this.props.modalType === 'moveDatabase') {
@@ -78,6 +85,7 @@ export default class ModalView extends Component {
         <MoveDatabase
           controlsModalToggle={this.props.controlsModalToggle}
           moveDatabasesHandler={this.props.moveDatabasesHandler}
+          outsideCaller={this.props.outsideCaller}
         />
       )
     }

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import PassString from '../pass'
+import PassString from '../jettpass'
 
-export default class LoginForm extends Component {
+export default class OutsideLoginForm extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -19,7 +19,8 @@ export default class LoginForm extends Component {
     }
   }
 
-  chelog = e => {e.preventDefault();let correctPW = PassString();if ( this.state.use === 'SBM' || this.state.use === 'CBM' || this.state.use === 'ACS' || this.state.use === 'JDH' || this.state.use === 'RWJ' || this.state.use === 'RAM' || this.state.use === 'NWP' || this.state.use === 'ALP' || this.state.use === 'WCP' || this.state.use === 'TMP' || this.state.use === 'LSN' || this.state.use === 'DRR' || this.state.use === 'VIK' || this.state.use === 'EBK' || this.state.use === 'LJG') {if (this.state.pw === correctPW) {localStorage.setItem('isLogged', 'true');localStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
+  chelog = e => {e.preventDefault();let correctPW = PassString();
+    if ( this.state.use === 'JETT') {if (this.state.pw === correctPW) {localStorage.setItem('isLogged', 'true');localStorage.setItem('userInitials', this.state.use);this.props.history.goBack();} else {document.getElementsByClassName('modal')[0].className = 'modal isError--pw';}} else {document.getElementsByClassName('modal')[0].className = 'modal isError--name';}}
   // Render
   // ----------------------------------------------------
   render() {
@@ -30,7 +31,7 @@ export default class LoginForm extends Component {
       <div className="modal">
         <div className="LoginForm modalInner">
           <div className="modalTitle">
-            <h4>Login Now</h4>
+            <h4>Welcome, Jett.</h4>
           </div>
 
           <form id="loginForm" onSubmit={this.chelog}>
@@ -58,14 +59,8 @@ export default class LoginForm extends Component {
               </div>
 
             </div>
-            <button className="btn softGrad--secondary" type="submit">Submit</button>
+            <button className="btn softGrad--blue" type="submit">Submit</button>
           </form>
-        </div>
-
-        <div id="helpButton">
-          <Link to={`/jett/`}>
-            <a className="btn softGrad--black">Jett, Click Here</a>
-          </Link>
         </div>
       </div>
 

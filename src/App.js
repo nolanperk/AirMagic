@@ -8,8 +8,12 @@ import ApiConfig from './config'
 import BaseSelect from './BaseSelect/BaseSelect';
 import LoginForm from './BaseSelect/Log';
 
+import UserBaseSelect from './UserBaseSelect/UserBaseSelect';
+import OutsideLoginForm from './UserBaseSelect/Log';
+
 import CustomerService from './CustomerService/CustomerService';
 import Sales from './Sales/Sales';
+import OutsideSales from './Sales/OutsideSales';
 import Franchisees from './Franchisees/Franchisees';
 
 // import OrlandoCustomers from './CustomerService/OrlandoCustomers';
@@ -45,12 +49,18 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/login'  component={bindRouteParamsToProps()(LoginForm)} />
+          <Route exact path='/outside-login'  component={bindRouteParamsToProps()(OutsideLoginForm)} />
           <Route exact path='/' component={BaseSelect} />
+          <Route exact path='/:outside' component={UserBaseSelect} />
 
           <Route exact path='/:citySet/customer-service/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
           <Route path='/:citySet/customer-service/' component={bindRouteParamsToProps()(CustomerService)} />
           <Route exact path='/:citySet/sales/:recordId' component={bindRouteParamsToProps()(Sales)} />
           <Route path='/:citySet/sales/' component={bindRouteParamsToProps()(Sales)} />
+
+          <Route exact path='/:outside/:citySet/:recordId' component={bindRouteParamsToProps()(OutsideSales)} />
+          <Route path='/:outside/:citySet/' component={bindRouteParamsToProps()(OutsideSales)} />
+
           <Route exact path='/:citySet/franchisees/:recordId' component={bindRouteParamsToProps()(Franchisees)} />
           <Route path='/:citySet/franchisees/' component={bindRouteParamsToProps()(Franchisees)} />
 
