@@ -43,6 +43,7 @@ export default class SortBy extends Component {
         <select id="sortLabel">
           <option id="Company+Name">Company Name</option>
           <option id="Main+contact">Contact</option>
+          <option id="Appt.+Date">Appt. Date</option>
           <option id="Address+1">Address</option>
           <option id="Proposal+Date">Proposal Date</option>
           <option id="Cancel+Date">Cancel Date</option>

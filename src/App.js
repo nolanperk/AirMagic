@@ -58,12 +58,12 @@ class App extends Component {
           <Route exact path='/:citySet/sales/:recordId' component={bindRouteParamsToProps()(Sales)} />
           <Route path='/:citySet/sales/' component={bindRouteParamsToProps()(Sales)} />
 
-          <Route exact path='/:outside/:citySet/:recordId' component={bindRouteParamsToProps()(OutsideSales)} />
-          <Route path='/:outside/:citySet/' component={bindRouteParamsToProps()(OutsideSales)} />
-
           <Route exact path='/:citySet/franchisees/:recordId' component={bindRouteParamsToProps()(Franchisees)} />
           <Route path='/:citySet/franchisees/' component={bindRouteParamsToProps()(Franchisees)} />
 
+
+          <Route exact path='/:outside/:citySet/:recordId' component={bindRouteParamsToProps()(OutsideSales)} />
+          <Route path='/:outside/:citySet/' component={bindRouteParamsToProps()(OutsideSales)} />
         </Switch>
       </BrowserRouter>
 
