@@ -42,47 +42,75 @@ export default class FilterSearch extends Component {
 
   get filtersList() {
     if (this.props.currentTable === 'Sales') {
-      return (
-        <ul id="filtersList">
-          <li
-            className="isActive"
-            onClick={this.selectFilterList}
-            id="All"
-          >No Filter</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Prospects"
-          >Prospects</li>
-          <li
-            onClick={this.selectFilterList}
-            id="APPC"
-          >APPC</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Canceled"
-          >Canceled</li>
-          <li
-            onClick={this.selectFilterList}
-            id="From+Customer+Service+TM"
-          >From Customer Service TM</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Cold+Calls"
-          >Cold Calls</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Valid+Numbers"
-          >Valid Numbers</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Linda+Callbacks"
-          >Linda Callbacks</li>
-          <li
-            onClick={this.selectFilterList}
-            id="Eric+Callbacks"
-          >Eric Callbacks</li>
-        </ul>
-      );
+      if (this.props.baseId === "appXNufXR9nQARjgs") { //orlando
+        return (
+          <ul id="filtersList">
+            <li
+              className="isActive"
+              onClick={this.selectFilterList}
+              id="All"
+            >No Filter</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Prospects"
+            >Prospects</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Joel+Pipeline"
+            >Joel Pipeline</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Rob+Pipeline"
+            >Rob Pipeline</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Canceled"
+            >Canceled</li>
+            <li
+              onClick={this.selectFilterList}
+              id="From+Customer+Service+TM"
+            >From Customer Service TM</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Cold+Calls"
+            >Cold Calls</li>
+          </ul>
+        );
+      } else {
+        return (
+          <ul id="filtersList">
+            <li
+              className="isActive"
+              onClick={this.selectFilterList}
+              id="All"
+            >No Filter</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Prospects"
+            >Prospects</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Tyler+Pipeline"
+            >Tyler Pipeline</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Nolan+Pipeline"
+            >Nolan Pipeline</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Canceled"
+            >Canceled</li>
+            <li
+              onClick={this.selectFilterList}
+              id="From+Customer+Service+TM"
+            >From Customer Service TM</li>
+            <li
+              onClick={this.selectFilterList}
+              id="Cold+Calls"
+            >Cold Calls</li>
+          </ul>
+        );
+      }
     } else if (this.props.currentTable === 'Customers') {
       if (this.props.baseId === 'appBUKBn552B8SlbE') {
         return (
