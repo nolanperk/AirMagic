@@ -8,7 +8,6 @@ export default class NewNote extends Component {
   // ----------------------------------------------------
   render() {
     let today  = new Date();
-    console.log();
     let dayTime;
     if (today.getHours() > 12) {
       if (today.getMinutes() < 10) {
@@ -18,9 +17,9 @@ export default class NewNote extends Component {
       }
     } else {
       if (today.getMinutes() < 10) {
-        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " AM";
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";
       } else {
-        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " AM";
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";
       }
     }
 

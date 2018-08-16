@@ -1262,8 +1262,28 @@ export default class CustomerService extends Component {
             activeModal: false,
             modalType: '',
           })
-          alert("Record has been exported as " + mergeData['Company Name'] + " DATE.docx -- Visit " + fileLocation + " to view the file.");
+          let alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' DATE.docx -- Visit ' + fileLocation + ' to view the file.';
+          let today  = new Date(); let dayTime;
+          if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
+          let finalEntry;
+          if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
+          currentRecordState = this.state.currentRecord;
+          let newNote = finalEntry + '\n' + alertStr;
 
+          if (currentRecordState['Notes']) {
+            currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
+          } else {
+            currentRecordState['Notes'] = newNote;
+          }
+
+          this.setState({
+            currentRecord: currentRecordState,
+            recordChanges: true,
+            isExporting: true,
+          })
+          setTimeout((function() {
+            this.saveRecordHandler();
+          }).bind(this), 250);
         })
     }
   }

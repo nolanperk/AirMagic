@@ -1020,15 +1020,20 @@ export default class Sales extends Component {
               });
             }).bind(this), 10);
           } else {
-            alert('Record Saved');
-            this.setState({
-              recordChanges: false,
-            })
-
             if (this.state.currentRecordView !== 'default') {
               this.setState({
                 currentRecordView: sessionStorage.getItem('salesView'),
               })
+            }
+            if (this.state.isExporting) {
+              this.setState({
+                isExporting: false,
+              })
+              setTimeout((function() {
+                window.location.reload();
+              }).bind(this), 10);
+            } else {
+              alert('Record Saved');
             }
           }
         })
@@ -1205,8 +1210,35 @@ export default class Sales extends Component {
           let finalDate;
           if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
           else {finalDate = 'DATE'}
-          alert('Record has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.');
+          let alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          let today  = new Date(); let dayTime;
+          if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
+          let finalEntry;
+          if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
+          currentRecordState = this.state.currentRecord;
+          let newNote = finalEntry + '\n' + alertStr;
 
+          if (currentRecordState['Notes']) {
+            currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
+          } else {
+            currentRecordState['Notes'] = newNote;
+          }
+
+          if (mergeType === 'Proposal') {
+            currentRecordState['Status'] = 'APPC';
+            currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            setTimeout((function() {
+              document.getElementById('statusSelect').value = 'APPC';
+            }).bind(this), 50);
+          }
+          this.setState({
+            currentRecord: currentRecordState,
+            recordChanges: true,
+            isExporting: true,
+          })
+          setTimeout((function() {
+            this.saveRecordHandler();
+          }).bind(this), 250);
         })
     }
   }

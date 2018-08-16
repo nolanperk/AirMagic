@@ -58,7 +58,7 @@ export default class SortBy extends Component {
     }
   }
   get ControlsSelect() {
-    if (this.props.outsideCaller !== 'jett') {
+    if (this.props.outsideCaller === 'jett') {
       return (
         <select id="searchBy">
           <option value="Company+Name" id="Company+Name">Company</option>

@@ -994,7 +994,7 @@ export default class Franchisees extends Component {
           if (this.state.recordView) {
             document.title = this.state.currentRecord['SP Name'] + " | AirMagic"
           } else {
-            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Sales | AirMagic";
+            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Franchisees | AirMagic";
           }
 
           //keep going if we were on 100+ internally
