@@ -11,6 +11,7 @@ import ModulePipeline from './Modules/ModulePipeline';
 import ModuleNumbers from './Modules/ModuleNumbers';
 import ModuleSchedule from './Modules/ModuleSchedule';
 import ModuleSpecial from './Modules/ModuleSpecial';
+import ModuleArea from './Modules/ModuleArea';
 
 
 export default class RecordView extends Component {
@@ -46,6 +47,7 @@ export default class RecordView extends Component {
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
+              callStatus={this.props.currentRecord['Call Status']}
               currentRecordView={this.props.currentRecordView}
               salutation={this.props.currentRecord['Salutation']}
               contact={this.props.currentRecord['Main contact']}
@@ -130,6 +132,12 @@ export default class RecordView extends Component {
 
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
+            />
+            <ModuleArea
+              city={this.props.currentRecord['City']}
+              zip={this.props.currentRecord['Zip']}
+              county={this.props.currentRecord['County']}
+              citySet={this.props.citySet}
             />
           </div>
         </div>

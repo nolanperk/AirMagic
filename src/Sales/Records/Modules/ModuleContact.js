@@ -7,6 +7,23 @@ import emailImg from '../../../assets/icons/black/email.png';
 
 
 export default class ModuleContact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      callStatus: '',
+    }
+  }
+
+
+  callStatusChange = e => {this.setState({callStatus: e.target.value});}
+
+  componentDidMount() {
+    setTimeout((function() {
+      this.setState({
+        callStatus: this.props.callStatus,
+      })
+    }).bind(this), 50);
+  }
   // Render
   // ----------------------------------------------------
   render() {
@@ -28,6 +45,7 @@ export default class ModuleContact extends Component {
     let cell = this.props.cell;
     let email = this.props.email;
     let source = this.props.source;
+    let callStatus = this.props.callStatus;
 
 
     // if (this.props.newRecord === false) {
@@ -197,6 +215,20 @@ export default class ModuleContact extends Component {
     } else {
       return (
         <div className="inner">
+
+          <div className="inputBlock inputBlock--full">
+            <label>Call Status</label>
+            <div
+              className="selectBlock"
+              id="call"
+              >
+              <select id="callStatus" value={this.state.callStatus} onChange={this.callStatusChange}>
+                <option id="none"></option>
+                <option id="Open+Season">Open Season</option>
+                <option id="Only+Outside">Sales Rep Only</option>
+              </select>
+            </div>
+          </div>
           <div className="inputBlock inputBlock--quart">
             <label>Salutation</label>
             <input

@@ -1428,15 +1428,22 @@ export default class CustomerService extends Component {
   }
 
   loadData = () => {
-    if (sessionStorage.getItem('listView') != null) {
-      this.setState({
-        loading: true,
-        listView: sessionStorage.getItem('listView')
-      });
+    if (window.history.length > 2) {
+      if (sessionStorage.getItem('listView') != null) {
+        this.setState({
+          loading: true,
+          listView: sessionStorage.getItem('listView')
+        });
+      } else {
+        this.setState({
+          loading: true
+        });
+      }
     } else {
       this.setState({
         loading: true
       });
+
     }
 
     //initial load

@@ -147,6 +147,78 @@ hr {
         text-align: center;
       }
     }
+    .scrollList {
+      max-height: 250px;
+      -webkit-overflow-scrolling: touch;
+      overflow-y: scroll;
+      background: #fafafa;
+      border: solid 1px $medGray;
+      margin: 10px 0;
+      padding: 5px;
+      width: 100%;
+    }
+    .AreaCustomers, .AreaFranchises {
+      border-collapse: separate;
+      border-spacing: 0px 8px;
+      td {
+        vertical-align: middle;
+        border-bottom: solid 1px $medGray;
+        padding: 5px;
+        padding-bottom: 12px;
+      }
+      .standing {
+        .innerStanding {
+          border-radius: 100px;
+          width: 75px;
+          padding: 4px;
+          vertical-align: middle;
+          text-align: center;
+          pointer-events: none;
+
+          &.justHappy {
+            background-color: rgba($secondary, 0.75);
+            p {
+              // color: $black;
+            }
+          }
+
+          img {
+            width: 20px;
+          }
+
+          p, img {
+            display: inline-block;
+            vertical-align: middle;
+          }
+          p {
+            font-size: 12px;
+            color: $white;
+            font-weight: bold;
+            margin: 0 2px;
+          }
+        }
+      }
+      p.bolder, a {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      a {
+        color: $primary;
+      }
+    }
+
+    .AreaFranchises {
+      .standing {
+        .innerStanding {
+          width: 32px;
+
+          p {
+            font-size: 14px;
+            margin: 0;
+          }
+        }
+      }
+    }
 
     &.cardFull {
       width: 100%;
@@ -727,6 +799,7 @@ hr {
     width: 100%;
     height: calc(35% + 93px);
     position: absolute;
+    -webkit-overflow-scrolling: touch;
     overflow-y: hidden;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
 
@@ -770,6 +843,7 @@ hr {
   .RightPanel {
     height: calc(35% + 74px);
     position: absolute;
+    -webkit-overflow-scrolling: touch;
     overflow-y: scroll;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
     #streetWindow {

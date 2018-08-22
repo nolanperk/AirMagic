@@ -467,6 +467,7 @@ export default class Sales extends Component {
       'Pre-Clean Date': null,
       'Pre-Clean Charge': null,
       'Cancel Date': null,
+      'Call Status': null,
 
       'Salutation': null,
       'Main contact': null,
@@ -556,6 +557,7 @@ export default class Sales extends Component {
     else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
 
+    else if (e.target.id === 'callStatus') {currentRecordState['Call Status'] = e.target.value}
 
     else if (e.target.id === 'salutation') {currentRecordState['Salutation'] = e.target.value}
     else if (e.target.id === 'contact') {currentRecordState['Main contact'] = e.target.value}
@@ -849,6 +851,7 @@ export default class Sales extends Component {
         fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
         fullDataSet["Standing"] = document.getElementById('standingSelect').value;
         fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
+        fullDataSet["Call Status"] = document.getElementById('callStatus').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
 
         let officePhone = this.state.currentRecord["Office Phone"];
@@ -956,6 +959,7 @@ export default class Sales extends Component {
         pushRecord["Standing"] = document.getElementById('standingSelect').value;
         pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
+        pushRecord["Call Status"] = document.getElementById('callStatus').value;
 
 
         let finalPush = {"fields": pushRecord}
@@ -1265,6 +1269,8 @@ export default class Sales extends Component {
       let exportFileName = formattedCity + ' ' + this.state.currentTable + ' - ' + document.getElementById('rangeBy').value + ' ' + currentMonth + '_' + currentDay + '_' + currentYear;
       console.log(exportFileName);
 
+      let clearedCount = 0;
+
       startRange = document.getElementById('startRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('year')[0].value;
       endRange = document.getElementById('endRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('year')[0].value;
 
@@ -1279,74 +1285,73 @@ export default class Sales extends Component {
 
       this.setState({
         loading: true,
-        dataOffset: '',
-        data: [],
+        customersOffset: '',
+        customersData: [],
+        salesOffset: '',
+        salesData: [],
       });
 
-      setTimeout((function() {
-        let loadAllData = setInterval(function() {
-          let preData = this.state.data;
-          finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      let matchingSales = setInterval(function() {
+        console.log('load sales');
+        let preData = this.state.salesData;
+        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
 
-          if (this.state.dataOffset !== '') {finalURL = finalURL + '?offset=' + this.state.dataOffset + '&' + exportFields;}
-          else {finalURL = finalURL + '?' + exportFields}
+        if (this.state.salesOffset !== '') {finalURL = finalURL + '?offset=' + this.state.salesOffset + '&' + exportFields;}
+        else {finalURL = finalURL + '?' + exportFields}
 
-          if (exportType === 'multi') {
-            finalURL = finalURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
-          } else if (exportType === 'ranged') {
-            finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-          } else if (exportType === 'default') {
-            finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
+        if (exportType === 'multi') {
+          finalURL = finalURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
+        } else if (exportType === 'ranged') {
+          finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22))%2C+%7BStatus%7D+!%3D+%22Closed%22)';
+        } else if (exportType === 'default') {
+          finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
+        }
+
+        // finalURL = finalURL + '&pageSize=5';
+        console.log(finalURL);
+        return axios
+          .get(finalURL).then(response => {
+            this.setState({
+              salesData: preData.concat(response.data.records),
+              totalLoads: this.state.totalLoads + 1,
+              error: false,
+              salesOffset: response.data.offset,
+            });
+          if (!response.data.offset) {
+            clearInterval(matchingSales);
+            clearedCount ++;
+            console.log('clearing matchingSales()');
           }
-          console.log(finalURL);
-          console.log('submitExport()');
-          return axios
-            .get(finalURL)
-            .then(response => {
-              this.setState({
-                data: preData.concat(response.data.records),
-                totalLoads: this.state.totalLoads + 1,
-                error: false,
-                dataOffset: response.data.offset,
-              });
-              console.log(response.data.offset);
-            }).catch(error => {
-              downloadNow ++;
-              clearInterval(loadAllData);
-              if (downloadNow === 1) {
-                console.log(this.state.data);
-                this.setState({
-                  dataOffset: '',
+          if (clearedCount === 2) {
+            downloadNow ++;
+            if (downloadNow === 1) {
+              setTimeout((function() {
+                let items = this.state.customersData.concat(this.state.salesData);
+
+                let newItems = items.map(obj =>{
+                  let newItems = obj.fields;
+                  // newItems.id = obj.id
+                   return newItems;
                 });
-                setTimeout((function() {
-                  let items = this.state.data;
-
-                  let newItems = items.map(obj =>{
-                    let newItems = obj.fields;
-                    // newItems.id = obj.id
-                     return newItems;
-                  });
 
 
-                  const replacer = (key, value) => value === null ? '' : value
-                  const header = Object.keys(newItems[0])
-                  let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-                  csv.unshift(header.join(','))
-                  csv = csv.join('\r\n')
+                const replacer = (key, value) => value === null ? '' : value
+                const header = Object.keys(newItems[0])
+                let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                csv.unshift(header.join(','))
+                csv = csv.join('\r\n')
 
 
-                  var fakeDownloadA = document.createElement('a');
-                  fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-                  fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+                var fakeDownloadA = document.createElement('a');
+                fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+                fakeDownloadA.setAttribute('download', exportFileName + '.csv');
 
-                  fakeDownloadA.style.display = 'none';
-                  document.body.appendChild(fakeDownloadA);
+                fakeDownloadA.style.display = 'none';
+                document.body.appendChild(fakeDownloadA);
 
-                  fakeDownloadA.click();
+                fakeDownloadA.click();
 
-                  document.body.removeChild(fakeDownloadA);
-
-                }).bind(this), 200);
+                document.body.removeChild(fakeDownloadA);
 
 
                 setTimeout((function() {
@@ -1355,12 +1360,104 @@ export default class Sales extends Component {
                     loading: false,
                     activeModal: false,
                     modalType: '',
+                    customersOffset: '',
+                    customersData: [],
+                    salesOffset: '',
+                    salesData: [],
                   });
                 }).bind(this), 200);
+              }).bind(this), 200);
+            }
+          }
+        });
+      }.bind(this), 1000);
+
+      setTimeout((function() { //delay the start
+        let matchingCustomers = setInterval(function() {
+          let allExportData = this.state.customersData;
+          let baseId;
+          if (this.props.citySet === 'tampa') {
+            baseId = 'apps7GoAgK23yrOoY';
+          } else if(this.props.citySet === 'orlando') {
+            baseId = 'appBUKBn552B8SlbE';
+          }
+          let custURL = this.state.dataURL + baseId + '/' + 'Customers';
+
+          if (this.state.customersOffset !== '') {custURL = custURL + '?offset=' + this.state.customersOffset + '&' + exportFields;}
+          else {custURL = custURL + '?' + exportFields}
+
+          if (exportType === 'multi') {
+            custURL = custURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
+          } else if (exportType === 'ranged') {
+            custURL = custURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+          } else if (exportType === 'default') {
+            custURL = custURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
+          }
+          // console.log(allExportData);
+          return axios
+            .get(custURL).then(response => {
+              this.setState({
+                customersData: allExportData.concat(response.data.records),
+                totalLoads: this.state.totalLoads + 1,
+                error: false,
+                customersOffset: response.data.offset,
+              });
+              if (!response.data.offset) {
+                clearInterval(matchingCustomers);
+                clearedCount ++;
+                console.log('clearing matchingCustomers()');
               }
-            });
-        }.bind(this), 350);
-      }).bind(this), 100);
+
+              if (clearedCount === 2) {
+                downloadNow ++;
+                if (downloadNow === 1) {
+                  setTimeout((function() {
+                    let items = this.state.salesData.concat(this.state.customersData);
+
+                    let newItems = items.map(obj =>{
+                      let newItems = obj.fields;
+                      // newItems.id = obj.id
+                       return newItems;
+                    });
+
+
+                    const replacer = (key, value) => value === null ? '' : value
+                    const header = Object.keys(newItems[0])
+                    let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                    csv.unshift(header.join(','))
+                    csv = csv.join('\r\n')
+
+
+                    var fakeDownloadA = document.createElement('a');
+                    fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+                    fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+
+                    fakeDownloadA.style.display = 'none';
+                    document.body.appendChild(fakeDownloadA);
+
+                    fakeDownloadA.click();
+
+                    document.body.removeChild(fakeDownloadA);
+
+
+                    setTimeout((function() {
+                      this.loadData();
+                      this.setState({
+                        loading: false,
+                        activeModal: false,
+                        modalType: '',
+                        customersOffset: '',
+                        customersData: [],
+                        salesOffset: '',
+                        salesData: [],
+                      });
+                    }).bind(this), 200);
+                  }).bind(this), 200);
+                }
+              }
+          });
+        }.bind(this), 1000);
+      }).bind(this), 500); //delay the start
     }).bind(this), 50);
   }
 
@@ -1896,6 +1993,7 @@ export default class Sales extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             newRecord={this.state.newRecord}
+            citySet={this.props.citySet}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -1916,6 +2014,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            citySet={this.props.citySet}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -1936,6 +2035,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            citySet={this.props.citySet}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -1956,6 +2056,7 @@ export default class Sales extends Component {
             autoPricing={this.autoPricing}
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
+            citySet={this.props.citySet}
           />
         );
       }
