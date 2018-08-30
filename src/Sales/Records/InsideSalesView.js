@@ -64,6 +64,7 @@ export default class InsideSalesView extends Component {
 
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
+              apptBy={this.props.currentRecord['Appt. Set By']}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}

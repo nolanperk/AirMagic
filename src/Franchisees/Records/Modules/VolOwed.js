@@ -445,6 +445,7 @@ export default class VolumeOwed extends Component {
 
 
   newAccountHandler = () => {
+    console.log('newAccountHandler()');
     let today  = new Date();
     today = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
 
@@ -752,7 +753,7 @@ export default class VolumeOwed extends Component {
           <h4><em>Initial</em>{planRev}</h4>
           <h4><em>Addtl.</em>$0</h4>
           <h4><em>Owed</em>${revOwed}</h4>
-          <a className="btn softGrad--secondary">Add Account</a>
+          <a className="btn softGrad--secondary" onClick={this.newAccountHandler}>Add Account</a>
         </div>
       )
     }

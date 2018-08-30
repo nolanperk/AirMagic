@@ -43,73 +43,165 @@ export default class FilterSearch extends Component {
   get filtersList() {
     if (this.props.currentTable === 'Sales') {
       if (this.props.baseId === "appXNufXR9nQARjgs") { //orlando
-        return (
-          <ul id="filtersList">
-            <li
-              className="isActive"
-              onClick={this.selectFilterList}
-              id="All"
-            >No Filter</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Prospects"
-            >Prospects</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Joel+Pipeline"
-            >Joel Pipeline</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Rob+Pipeline"
-            >Rob Pipeline</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Canceled"
-            >Canceled</li>
-            <li
-              onClick={this.selectFilterList}
-              id="From+Customer+Service+TM"
-            >From Customer Service TM</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Cold+Calls"
-            >Cold Calls</li>
-          </ul>
-        );
+        if (localStorage.getItem('userInitials') === 'JDH') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Recents"
+                >Joel Recents</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Follow+Ups"
+                >Joel Follow Ups</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Pipeline"
+                >Joel All Pipeline</li>
+            </ul>
+          );
+        } else if (localStorage.getItem('userInitials') === 'RWJ') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Rob+Recents"
+                >Rob Recents</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Rob+Follow+Ups"
+                >Rob Follow Ups</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Rob+Pipeline"
+                >Rob All Pipeline</li>
+            </ul>
+          );
+        } else {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+              >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Canceled"
+              >Canceled</li>
+              <li
+                onClick={this.selectFilterList}
+                id="From+Customer+Service+TM"
+              >From Customer Service TM</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Pipeline"
+              >Joel Pipeline</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Rob+Pipeline"
+              >Rob Pipeline</li>
+            </ul>
+          );
+        }
       } else {
-        return (
-          <ul id="filtersList">
-            <li
-              className="isActive"
-              onClick={this.selectFilterList}
-              id="All"
-            >No Filter</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Prospects"
-            >Prospects</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Tyler+Pipeline"
-            >Tyler Pipeline</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Nolan+Pipeline"
-            >Nolan Pipeline</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Canceled"
-            >Canceled</li>
-            <li
-              onClick={this.selectFilterList}
-              id="From+Customer+Service+TM"
-            >From Customer Service TM</li>
-            <li
-              onClick={this.selectFilterList}
-              id="Cold+Calls"
-            >Cold Calls</li>
-          </ul>
-        );
+        if (localStorage.getItem('userInitials') === 'NWP') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Recents"
+                >Nolan Recents</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Follow+Ups"
+                >Nolan Follow Ups</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Pipeline"
+                >Nolan All Pipeline</li>
+            </ul>
+          );
+        } else if (localStorage.getItem('userInitials') === 'TMP') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Recents"
+                >Tyler Recents</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Follow+Ups"
+                >Tyler Follow Ups</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Pipeline"
+                >Tyler All Pipeline</li>
+            </ul>
+          );
+        } else {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+              >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Canceled"
+              >Canceled</li>
+              <li
+                onClick={this.selectFilterList}
+                id="From+Customer+Service+TM"
+              >From Customer Service TM</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Pipeline"
+              >Tyler Pipeline</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Pipeline"
+              >Nolan Pipeline</li>
+            </ul>
+          );
+        }
       }
     } else if (this.props.currentTable === 'Customers') {
       if (this.props.baseId === 'appBUKBn552B8SlbE') {

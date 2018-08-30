@@ -20,7 +20,6 @@ export default class ModuleMain extends Component {
   statusChange = e => {this.setState({statusValue: e.target.value});}
   standingChange = e => {this.setState({standingValue: e.target.value});}
   recentCallerChange = e => {this.setState({recentCallerValue: e.target.value});}
-  repChange = e => {this.setState({repValue: e.target.value});}
 
   componentDidMount() {
     setTimeout((function() {
@@ -46,7 +45,7 @@ export default class ModuleMain extends Component {
   get locationSales() {
     if (this.props.baseId === 'appEX8GXgcD2ln4dB') {
       return (
-        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+        <select id="repSelect" value={this.props.rep} onChange={this.props.repChange}>
           <option id="none"></option>
           <option id="Tyler+Perkins">Tyler Perkins</option>
           <option id="Nolan+Perkins">Nolan Perkins</option>
@@ -61,7 +60,7 @@ export default class ModuleMain extends Component {
       )
     } else {
       return (
-        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+        <select id="repSelect" value={this.props.rep} onChange={this.props.repChange}>
           <option id="none"></option>
           <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
@@ -119,6 +118,7 @@ export default class ModuleMain extends Component {
                 <option id="Closed">Closed</option>
                 <option id="Canceled">Canceled</option>
                 <option id="DNC">DNC</option>
+                <option id="Too+Small">Too Small</option>
               </select>
             </div>
           </div>
@@ -216,6 +216,7 @@ export default class ModuleMain extends Component {
                   <option id="Closed">Closed</option>
                   <option id="Canceled">Canceled</option>
                   <option id="DNC">DNC</option>
+                  <option id="Too+Small">Too Small</option>
                 </select>
               </div>
             </div>

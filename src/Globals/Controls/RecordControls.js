@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import axios from 'axios';
 
 import calendar from '../../assets/icons/white/calendar.png';
 import save from '../../assets/icons/white/save.png';
 import arrow_forward from '../../assets/icons/black/arrow_forward.png';
 import arrow_back from '../../assets/icons/black/arrow_back.png';
 import phoneImg from '../../assets/icons/white/phone.png';
+import ApiConfig from '../../config'
 
 export default class SortBy extends Component {
 
@@ -160,9 +162,76 @@ export default class SortBy extends Component {
       document.body.appendChild(fakeLinkA);
       fakeLinkA.click();
       document.body.removeChild(fakeLinkA);
+
+      delete axios.defaults.headers.common["Authorization"];
+      let slackMessage = "\n\n:bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell:";
+
+      if (this.props.currentRecord['Appt. Set By'] && this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
+        slackMessage += "\nLet's all give *"
+        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
+        slackMessage += '*, a :clap: for getting *';
+        slackMessage += this.props.currentRecord['Sales Rep'].split(' ')[0];
+        slackMessage += '* an appt. in *';
+        slackMessage += this.props.currentRecord['City'] + '*';
+      } else if (this.props.currentRecord['Appt. Set By']) {
+        slackMessage += "\nLet's all give *"
+        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
+        slackMessage += '*, a :clap: for getting *';
+        slackMessage += '* an appt. in *';
+        slackMessage += this.props.currentRecord['City'] + '*';
+        slackMessage += '\n`PS, ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', make sure you set a sales rep!`';
+      } else if (this.props.currentRecord['Sales Rep']) {
+        slackMessage += "\nLet's all give *"
+        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
+        slackMessage += '*, a :clap: for getting *';
+        slackMessage += '* an appt. in *';
+        slackMessage += this.props.currentRecord['City'] + '*';
+        slackMessage += '\n\n`PS ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
+      } else {
+        slackMessage += "\nWe got an appointment in *";
+        slackMessage += this.props.currentRecord['City'] + '*!';
+      }
+
+      // slackMessage += '\n\n`PS ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
+
+
+      let slackNotification = '{"text":"' + slackMessage + '"}';
+
+      console.log(slackNotification);
+      axios
+      .post('https://hooks.slack.com/services/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', slackNotification)
+        .then(response => {
+          console.log(response);
+          setTimeout((function() {
+            let secondMess;
+            delete axios.defaults.headers.common["Authorization"];
+            if (this.props.currentRecord['Appt. Set By'] && this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+              return;
+            } else if (this.props.currentRecord['Appt. Set By']) {
+              if (this.props.currentRecord['Sales Rep'] == undefined || this.props.currentRecord['Sales Rep'] == '') {
+                secondMess = '\n`' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
+              }
+            } else if (this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
+              if (this.props.currentRecord['Appt. Set By'] == undefined || this.props.currentRecord['Appt. Set By'] == '') {
+                secondMess = '\n\n`inside sales, make sure to set yourself as the caller!`';
+              }
+            } else {
+              secondMess = '\n\n`inside sales, Set By and Sales Rep is not set!`';
+            }
+            let secondNote = '{"text":"' + secondMess + '"}';
+            axios.post('https://hooks.slack.com/services/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', secondNote)
+              .then(response => {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+              });
+          }).bind(this), 1500);
+        });
     } else {
       alert('Please fill in the Appointment Date and Time before trying again.')
     }
+
+
+
   }
 
   // Render

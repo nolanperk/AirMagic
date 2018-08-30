@@ -15,7 +15,6 @@ export default class ModulePipeline extends Component {
     }
   }
 
-  setByChange = e => {this.setState({setByValue: e.target.value});}
 
   componentDidMount() {
     setTimeout((function() {
@@ -55,7 +54,7 @@ export default class ModulePipeline extends Component {
               className="selectBlock"
               id="setBy"
               >
-              <select id="setBySelect" value={this.state.setByValue ? this.state.setByValue : 'none'} onChange={this.setByChange}>
+              <select id="setBySelect" value={this.props.apptBy} onChange={this.props.setByChange}>
                 <option id="none"></option>
                 <option disabled>---------------</option>
                 <option disabled>Inside Sales</option>

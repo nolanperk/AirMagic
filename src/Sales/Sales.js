@@ -18,6 +18,7 @@ import ProposalView from './Records/ProposalView';
 import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
+import ApiConfig from '../config'
 
 let currentRecordState = [];
 let revertState = [];
@@ -313,6 +314,8 @@ export default class Sales extends Component {
     let newClosedDate = (todaysDate.getMonth() + 1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
     this.state.currentRecord['Close Date'] = newClosedDate;
     this.state.currentRecord['Status'] = 'Closed';
+
+
     setTimeout((function() {
       console.log(this.state.currentRecord);
       this.saveRecordHandler();
@@ -421,6 +424,26 @@ export default class Sales extends Component {
           this.setState({
             loading: false,
           });
+
+
+
+          delete axios.defaults.headers.common["Authorization"];
+          let slackMessage = ":moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag:";
+          slackMessage += "\nWoohoo! *"
+          slackMessage += this.state.currentRecord['Sales Rep'].split(' ')[0];
+          slackMessage += '* just closed a deal in *';
+          slackMessage += this.state.currentRecord['City'];
+          slackMessage += '* for *$';
+          slackMessage += this.state.currentRecord['Monthly Amount'] + '*!!';
+          let slackNotification = '{"text":"' + slackMessage + '"}';
+
+          console.log(slackNotification);
+          axios
+          .post('https://hooks.slack.com/services/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', slackNotification)
+            .then(response => {
+              console.log(response);
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+            });
           // return axios
           //   .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
           //   .then(response => {
@@ -599,6 +622,21 @@ export default class Sales extends Component {
       recordChanges: true,
     })
   }
+  setByChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Appt. Set By'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+  repChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Sales Rep'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+
 
   closeRecordHandler = () => {
     if (this.state.recordChanges) {
@@ -926,6 +964,11 @@ export default class Sales extends Component {
         })
       }
 
+      if (pushRecord["Appt. Date"] === '') {pushRecord["Appt. Date"] = undefined;}
+      if (pushRecord["Recent Call Date"] === '') {pushRecord["Recent Call Date"] = undefined;}
+      if (pushRecord["Close Date"] === '') {pushRecord["Close Date"] = undefined;}
+      if (pushRecord["Proposal Date"] === '') {pushRecord["Proposal Date"] = undefined;}
+
       let officePhone = this.state.currentRecord["Office Phone"];
       if (officePhone) {
         officePhone = parseInt(officePhone.replace( /\D+/g, ''));
@@ -1214,7 +1257,12 @@ export default class Sales extends Component {
           let finalDate;
           if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
           else {finalDate = 'DATE'}
-          let alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          let alertStr;
+          if (mergeType === 'Proposal') {
+            alertStr = "The $" + mergeData['Monthly Amount'] + ' ' + mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          } else {
+            alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          }
           let today  = new Date(); let dayTime;
           if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
           let finalEntry;
@@ -1827,6 +1875,15 @@ export default class Sales extends Component {
   }
 
   componentDidMount() {
+    // if (localStorage.getItem('userInitials') === 'TMP') {
+    //   sessionStorage.setItem('listView', 'view=Tyler+Recents');
+    // } else if (localStorage.getItem('userInitials') === 'NWP') {
+    //   sessionStorage.setItem('listView', 'view=Nolan+Recents');
+    // } else if (localStorage.getItem('userInitials') === 'JDH') {
+    //   sessionStorage.setItem('listView', 'view=Joel+Recents');
+    // } else if (localStorage.getItem('userInitials') === 'RWJ') {
+    //   sessionStorage.setItem('listView', 'view=Robet+Recents');
+    // }
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
@@ -1994,6 +2051,8 @@ export default class Sales extends Component {
             toggleDayPicker={this.toggleDayPicker}
             newRecord={this.state.newRecord}
             citySet={this.props.citySet}
+            setByChange={this.setByChange}
+            repChange={this.repChange}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2015,6 +2074,8 @@ export default class Sales extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             citySet={this.props.citySet}
+            setByChange={this.setByChange}
+            repChange={this.repChange}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -2036,6 +2097,8 @@ export default class Sales extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             citySet={this.props.citySet}
+            setByChange={this.setByChange}
+            repChange={this.repChange}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -2057,6 +2120,8 @@ export default class Sales extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             citySet={this.props.citySet}
+            setByChange={this.setByChange}
+            repChange={this.repChange}
           />
         );
       }
