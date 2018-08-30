@@ -19,6 +19,12 @@ export default class RecordNotes extends Component {
       notes = '';
     }
 
+    let noteCountClass = '';
+    if (parseInt(this.props.noteCharacters) > 90000 && parseInt(this.props.noteCharacters) < 98000) {
+      noteCountClass = 'warning';
+    } else if (parseInt(this.props.noteCharacters) >= 98000) {
+      noteCountClass = 'broken';
+    }
 
     return (
       <div className="RecordNotes">
@@ -28,7 +34,7 @@ export default class RecordNotes extends Component {
           </div>
         </div>
         <div className="NotesNav">
-          <h4>Notes</h4>
+          <h4>Notes <span id="noteCharCount" className={noteCountClass}>{this.props.noteCharacters}</span></h4>
         </div>
 
         <textarea

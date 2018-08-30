@@ -1338,6 +1338,8 @@ hr {
     width: 50%;
     display: inline-block;
     height: 100%; }
+    .Sales .RecordNotes .NotesNav {
+      width: 50vw; }
     .Sales .RecordNotes .NotesList {
       padding: 7vw 7% calc(125px + 4vw); } }
 
@@ -1346,6 +1348,8 @@ hr {
     height: calc(65% - 74px) !important; }
   .RecordNotes {
     bottom: 74px; }
+    .RecordNotes .NotesNav {
+      width: 100vw; }
   .ModuleList .ModuleCard {
     width: 100%;
     padding: 10px; }
@@ -1414,8 +1418,18 @@ hr {
     padding: 3vw;
     position: fixed;
     z-index: 2;
-    width: 100%;
+    width: 40vw;
     text-align: left; }
+    .RecordNotes .NotesNav #noteCharCount {
+      opacity: 0.25;
+      font-size: 15px;
+      float: right; }
+      .RecordNotes .NotesNav #noteCharCount.warning {
+        color: #dcb15d;
+        opacity: 0.75; }
+      .RecordNotes .NotesNav #noteCharCount.broken {
+        color: red;
+        opacity: 1; }
   .RecordNotes .addNotesBox {
     position: fixed;
     bottom: 20px;

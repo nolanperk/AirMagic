@@ -141,7 +141,7 @@ export default class SortBy extends Component {
         salesInitials = this.props.currentRecord['Sales Rep'].replace(/ /g, '+');
       }
 
-      let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+(<a+href="' + window.location.href + '">' + window.location.href + '</a>)';
+      let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+<a+href="' + window.location.href + '">' + window.location.href + '</a>';
       finalCalURL += '&location=' + this.props.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ',+';
       if(this.props.currentRecord['Address 1']) {
         finalCalURL += this.props.currentRecord['Address 1'].replace(/ /g, '+').replace(/&/g, 'and');
@@ -164,68 +164,78 @@ export default class SortBy extends Component {
       document.body.removeChild(fakeLinkA);
 
       delete axios.defaults.headers.common["Authorization"];
-      let slackMessage = "\n\n:bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell: :bellhop_bell:";
-
-      if (this.props.currentRecord['Appt. Set By'] && this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
-        slackMessage += "\nLet's all give *"
-        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
-        slackMessage += '*, a :clap: for getting *';
-        slackMessage += this.props.currentRecord['Sales Rep'].split(' ')[0];
-        slackMessage += '* an appt. in *';
-        slackMessage += this.props.currentRecord['City'] + '*';
-      } else if (this.props.currentRecord['Appt. Set By']) {
-        slackMessage += "\nLet's all give *"
-        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
-        slackMessage += '*, a :clap: for getting *';
-        slackMessage += '* an appt. in *';
-        slackMessage += this.props.currentRecord['City'] + '*';
-        slackMessage += '\n`PS, ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', make sure you set a sales rep!`';
-      } else if (this.props.currentRecord['Sales Rep']) {
-        slackMessage += "\nLet's all give *"
-        slackMessage += this.props.currentRecord['Appt. Set By'].split(' ')[0];
-        slackMessage += '*, a :clap: for getting *';
-        slackMessage += '* an appt. in *';
-        slackMessage += this.props.currentRecord['City'] + '*';
-        slackMessage += '\n\n`PS ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
+      let slackMessage = ":bellhop_bell: :bellhop_bell:";
+      let slackRep;
+      if (this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
+        slackRep = this.props.currentRecord['Sales Rep'].split(' ')[0];
+        console.log('Sales Rep is ' + slackRep);
       } else {
-        slackMessage += "\nWe got an appointment in *";
-        slackMessage += this.props.currentRecord['City'] + '*!';
+        slackRep = 'none';
+        console.log('no sales rep set');
       }
 
-      // slackMessage += '\n\n`PS ' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
+      let slackSet;
+      if (this.props.currentRecord['Appt. Set By'] && this.props.currentRecord['Appt. Set By'] !== '') {
+        slackSet = this.props.currentRecord['Appt. Set By'].split(' ')[0];
+        console.log('Set By is ' + slackSet);
+      } else {
+        slackSet = 'none';
+        console.log('no set by');
+      }
+      let secondMessage;
+      if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla') {
+        if (slackRep !== 'none' && slackSet !== 'none') { //we have both
+          secondMessage = "\nLet's all give *" + this.props.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.props.currentRecord['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.props.currentRecord['City'] + '*';
+        } else if (slackRep !== 'none') { //rep is set
+          secondMessage = '\nWe just got an appointment for *' + this.props.currentRecord['Sales Rep'].split(' ')[0] + '* in *' + this.props.currentRecord['City'] + '*!';
+        } else if (slackSet !== 'none') { //set by is set
+          secondMessage = "\nLet's all give *" + this.props.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting an appt. in *' + this.props.currentRecord['City'] + '*';
+        } else if (slackRep === 'none' && slackSet === 'none') {
+          secondMessage = '\nWe just got an appointment in *' + this.props.currentRecord['City'] + '*!';
+        }
+      } else if (slackSet === 'Joel Horwitz' || slackSet === 'Rob Janke' || slackSet === 'Tyler Perkins' || slackSet === 'Nolan Perkins') {
+        secondMessage = slackSet + 'just set an appointment in *' + this.props.currentRecord['City'] + '*!';
+      } else if (slackSet === 'Constant' || slackSet === 'Google' || slackSet === 'Thumbtack') {
+        secondMessage = 'We just got an appointment in *' + this.props.currentRecord['City'] + '* from ' + this.props.currentRecord['Appt. Set By'] + '\n*Keep hustling everyone!*';
+      } else if (slackSet === 'Incoming') {
+        secondMessage = 'We just got an appointment in *' + this.props.currentRecord['City'] + '* from an Incoming Call.*\n*Keep hustling everyone!*';
+      } else if (slackSet === 'Referral') {
+        secondMessage = 'We just got an appointment from a referral in *' + this.props.currentRecord['City'] + '*.\n*Great job Customer Service team!*';
+      } else {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+        return;
+      }
+
+      axios.post('https://hooks.slack.com/services/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', '{"text":"' + slackMessage + '"}')
+      .then(response => {
+        setTimeout((function() {
+          axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMessage + '"}')
+          .then(response => {
+              console.log(response);
+              setTimeout((function() {
+                let secondMess;
+                delete axios.defaults.headers.common["Authorization"];
+
+                if (slackRep !== 'none' && slackSet !== 'none') { //we have both
+                  axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+                  return;
+                } else if (slackRep !== 'none') { //rep is set
+                  secondMess = '>' + "Inside sales, make sure you mark yourself to get credit :speak_no_evil:";
+                } else if (slackSet !== 'none') { //set by is set
+                  secondMess = "> PS, it seems you didn't set a sales rep :grimacing:";
+                } else if (slackRep === 'none' && slackSet === 'none') {
+                  secondMess = '>' + "Inside sales, neither Sales Rep or Set By is set :slightly_frowning_face:";
+                }
 
 
-      let slackNotification = '{"text":"' + slackMessage + '"}';
-
-      console.log(slackNotification);
-      axios
-      .post('https://hooks.slack.com/services/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', slackNotification)
-        .then(response => {
-          console.log(response);
-          setTimeout((function() {
-            let secondMess;
-            delete axios.defaults.headers.common["Authorization"];
-            if (this.props.currentRecord['Appt. Set By'] && this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
-              axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
-              return;
-            } else if (this.props.currentRecord['Appt. Set By']) {
-              if (this.props.currentRecord['Sales Rep'] == undefined || this.props.currentRecord['Sales Rep'] == '') {
-                secondMess = '\n`' + this.props.currentRecord['Appt. Set By'].split(' ')[0] + ', be sure to set a sales rep!`';
-              }
-            } else if (this.props.currentRecord['Sales Rep'] && this.props.currentRecord['Sales Rep'] !== '') {
-              if (this.props.currentRecord['Appt. Set By'] == undefined || this.props.currentRecord['Appt. Set By'] == '') {
-                secondMess = '\n\n`inside sales, make sure to set yourself as the caller!`';
-              }
-            } else {
-              secondMess = '\n\n`inside sales, Set By and Sales Rep is not set!`';
-            }
-            let secondNote = '{"text":"' + secondMess + '"}';
-            axios.post('https://hooks.slack.com/services/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', secondNote)
-              .then(response => {
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
-              });
-          }).bind(this), 1500);
-        });
+                axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMess + '"}')
+                  .then(response => {
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+                  });
+              }).bind(this), 2500);
+          });
+        }).bind(this), 2000);
+      });
     } else {
       alert('Please fill in the Appointment Date and Time before trying again.')
     }

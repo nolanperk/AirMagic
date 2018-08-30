@@ -818,6 +818,9 @@ hr {
     width: 50%;
     display: inline-block;
     height: 100%;
+    .NotesNav {
+      width: 50vw;
+    }
     .NotesList {
       padding: 7vw 7% calc(125px + 4vw);
     }
@@ -830,6 +833,9 @@ hr {
   }
   .RecordNotes {
     bottom: 74px;
+    .NotesNav {
+      width: 100vw;
+    }
   }
   .ModuleList .ModuleCard {
     width: 100%;

@@ -129,6 +129,7 @@ export default class RecordView extends Component {
         <RecordNotes
           notes={this.props.currentRecord['Notes']}
           changeNotesHandler={this.props.changeNotesHandler}
+          noteCharacters={this.props.noteCharacters}
           controlsModalToggle={this.props.controlsModalToggle} />
       </div>
     );

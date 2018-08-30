@@ -123,6 +123,7 @@ export default class CrewsView extends Component {
         <RecordNotes
           notes={this.props.currentRecord['Notes']}
           changeNotesHandler={this.props.changeNotesHandler}
+          noteCharacters={this.props.noteCharacters}
           controlsModalToggle={this.props.controlsModalToggle} />
       </div>
     );

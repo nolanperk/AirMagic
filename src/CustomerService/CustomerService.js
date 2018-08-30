@@ -77,6 +77,7 @@ export default class CustomerService extends Component {
             this.setState({
               recordView: true,
               currentRecord: record,
+              noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
             })
           }).bind(this), 0);
@@ -90,6 +91,7 @@ export default class CustomerService extends Component {
                 recordView: true,
                 loading: false,
                 error: false,
+                noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 currentRecord: response.data.fields,
               });
             })
@@ -114,6 +116,7 @@ export default class CustomerService extends Component {
               recordView: true,
               loading: false,
               error: false,
+              noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               currentRecord: response.data.fields,
             });
           })
@@ -552,9 +555,23 @@ export default class CustomerService extends Component {
       currentRecordState = this.state.currentRecord;
       currentRecordState['Notes'] = e.target.value;
 
+
+
+      let noteCharacters = currentRecordState['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      console.log(currentRecordState['Notes'].length);
+      if (parseInt(this.props.noteCharacters) > 90000 && currentRecordState['Notes'].length < 98000) {
+        document.getElementById('noteCharCount').classNames = 'warning';
+      } else if (currentRecordState['Notes'].length >= 98000) {
+        document.getElementById('noteCharCount').classNames = 'broken';
+      } else {
+        document.getElementById('noteCharCount').classNames = '';
+      }
+
       this.setState({
         currentRecord: currentRecordState,
         recordChanges: true,
+        noteCharacters: noteCharacters,
       })
     }
   }
@@ -1929,6 +1946,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       } else if (this.state.currentRecordView === 'accounting') {
@@ -1952,6 +1970,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       } else if (this.state.currentRecordView === 'crews') {
@@ -1975,6 +1994,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       }

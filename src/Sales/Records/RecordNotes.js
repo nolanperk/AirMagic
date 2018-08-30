@@ -83,8 +83,18 @@ export class RecordNotes extends Component {
         .get(geoCodeURL)
         .then(response => {
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+
+          for (var index in response.data.results[0].address_components) {
+            if (response.data.results[0].address_components[index].long_name.split(" ").slice(-1)[0] === 'County') {
+
+              this.setState({
+                county: response.data.results[0].address_components[index].long_name.split(' ')[0],
+              });
+            }
+          }
+          // console.log(.long_name.split(' ')[0]);
           this.setState({
-            county: response.data.results[0].address_components[3].long_name.split(' ')[0],
+            // county: response.data.results[0].address_components[3].long_name.split(' ')[0],
             lat: parseFloat(response.data.results[0].geometry.location.lat),
             lng: parseFloat(response.data.results[0].geometry.location.lng),
             streetViewSrc: streetViewSrc,
@@ -157,6 +167,13 @@ export class RecordNotes extends Component {
 		};
     const mapsApi = 'AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw';
 
+    let noteCountClass = '';
+    if (parseInt(this.props.noteCharacters) > 90000 && parseInt(this.props.noteCharacters) < 98000) {
+      noteCountClass = 'warning';
+    } else if (parseInt(this.props.noteCharacters) >= 98000) {
+      noteCountClass = 'broken';
+    }
+
     return (
       <div className="RightPanel">
         <div id="mobileSegment">
@@ -193,7 +210,7 @@ export class RecordNotes extends Component {
             </div>
           </div>
           <div className="NotesNav">
-            <h4>Notes</h4>
+            <h4>Notes <span id="noteCharCount" className={noteCountClass}>{this.props.noteCharacters}</span></h4>
           </div>
 
           <textarea

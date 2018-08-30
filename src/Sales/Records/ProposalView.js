@@ -92,6 +92,7 @@ export default class ProposalView extends Component {
           addr1={this.props.currentRecord['Address 1']}
           addr2={this.props.currentRecord['Address 2']}
           city={this.props.currentRecord['City']}
+          noteCharacters={this.props.noteCharacters}
           zip={this.props.currentRecord['Zip']} />
       </div>
     );

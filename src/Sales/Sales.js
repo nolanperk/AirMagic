@@ -71,6 +71,7 @@ export default class Sales extends Component {
             this.setState({
               recordView: true,
               currentRecord: record,
+              noteCharacters: record['Notes'].length,
               currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
             })
           }).bind(this), 0);
@@ -86,6 +87,7 @@ export default class Sales extends Component {
                 loading: false,
                 error: false,
                 currentRecord: response.data.fields,
+                noteCharacters: response.data.fields['Notes'].length,
               });
             })
             .catch(error => {
@@ -111,6 +113,7 @@ export default class Sales extends Component {
               loading: false,
               error: false,
               currentRecord: response.data.fields,
+              noteCharacters: response.data.fields['Notes'].length,
             });
           })
           .catch(error => {
@@ -427,40 +430,55 @@ export default class Sales extends Component {
 
 
 
-          delete axios.defaults.headers.common["Authorization"];
-          let slackMessage = ":moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag: :bellhop_bell: :moneybag:";
-          slackMessage += "\nWoohoo! *"
-          slackMessage += this.state.currentRecord['Sales Rep'].split(' ')[0];
-          slackMessage += '* just closed a deal in *';
-          slackMessage += this.state.currentRecord['City'];
-          slackMessage += '* for *$';
-          slackMessage += this.state.currentRecord['Monthly Amount'] + '*!!';
-          let slackNotification = '{"text":"' + slackMessage + '"}';
 
-          console.log(slackNotification);
-          axios
-          .post('https://hooks.slack.com/services/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', slackNotification)
-            .then(response => {
-              console.log(response);
-              axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
-            });
+
+          delete axios.defaults.headers.common["Authorization"];
+
+          let secondMessage; let slackMessage;
+          let randomNumb = Math.random();
+          if (randomNumb < 0.33) { //money
+            slackMessage = ":moneybag: :bellhop_bell: :money_mouth_face: :bellhop_bell: :moneybag:";
+            secondMessage = "AHHH!\n*"
+          } else if (randomNumb >= 0.33 && randomNumb < 0.66) { //rain
+            slackMessage = ":partly_sunny_rain: :umbrella_with_rain_drops: :scream: :umbrella_with_rain_drops: :partly_sunny_rain:";
+            secondMessage = "LET IT RAIN!\n*"
+          } else if (randomNumb >= 0.66) { // party
+            slackMessage = ":tada: :clap: :star-struck: :clap: :tada:";
+            secondMessage = "YASSSS!\n*"
+          }
+
+          secondMessage += this.state.currentRecord['Sales Rep'].split(' ')[0];
+          secondMessage += '* just closed a deal in *';
+          secondMessage += this.state.currentRecord['City'];
+          secondMessage += '* for *$';
+          secondMessage += this.state.currentRecord['Monthly Amount'] + '*!!';
+
+          axios.post('https://hooks.slack.com/services/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', '{"text":"' + slackMessage + '"}')
+          .then(response => {
+            setTimeout((function() {
+              delete axios.defaults.headers.common["Authorization"];
+              axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMessage + '"}')
+              .then(response => {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+                console.log('gonna bounce now');
+                setTimeout((function() {
+                  this.props.history.push(destinationURL);
+                  this.loadData();
+                  alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
+                }).bind(this), 250);
+              });
+            }).bind(this), 2000);
+
+          });
           // return axios
           //   .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
           //   .then(response => {
           //   });
-          console.log('gonna bounce now');
-          setTimeout((function() {
-            this.props.history.push(destinationURL);
-            this.loadData();
-            alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
-          }).bind(this), 250);
       })
       .catch(response => {
         console.error("error: ", response);
       });
     }).bind(this), 10);
-
-
   }
 
   newRecordHandler = ()  => {
@@ -552,9 +570,11 @@ export default class Sales extends Component {
       currentRecordState = this.state.currentRecord;
       currentRecordState['Notes'] = e.target.value;
 
+      let noteCharacters = currentRecordState['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       this.setState({
         currentRecord: currentRecordState,
         recordChanges: true,
+        noteCharacters: noteCharacters,
       })
     }
   }
@@ -2053,6 +2073,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2076,6 +2097,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -2099,6 +2121,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -2122,6 +2145,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            noteCharacters={this.state.noteCharacters}
           />
         );
       }
