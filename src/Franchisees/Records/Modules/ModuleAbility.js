@@ -112,7 +112,7 @@ export default class ModuleAbility extends Component {
             </div>
           </div>
 
-          <hr />
+          {/* <hr />
           <h4>Specialties</h4>
           <hr />
 
@@ -167,7 +167,7 @@ export default class ModuleAbility extends Component {
                 <option>No</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
 
         </div>

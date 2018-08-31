@@ -260,6 +260,10 @@ export default class FilterSearch extends Component {
             >All Actives</li>
             <li
               onClick={this.selectFilterList}
+              id="Recent+Cancellations"
+            >Recent Cancellations</li>
+            <li
+              onClick={this.selectFilterList}
               id="Canceled"
             >Canceled</li>
             <li

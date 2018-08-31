@@ -71,9 +71,17 @@ export default class Sales extends Component {
             this.setState({
               recordView: true,
               currentRecord: record,
-              noteCharacters: record['Notes'].length,
               currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
             })
+            if (record['Notes']) {
+              this.setState({
+                noteCharacters: record['Notes'].length,
+              });
+            } else {
+              this.setState({
+                noteCharacters: 0
+              });
+            }
           }).bind(this), 0);
         } else {
           console.log('componentWillUpdate() - record');
@@ -87,8 +95,16 @@ export default class Sales extends Component {
                 loading: false,
                 error: false,
                 currentRecord: response.data.fields,
-                noteCharacters: response.data.fields['Notes'].length,
               });
+              if (response.data.fields['Notes']) {
+                this.setState({
+                  noteCharacters: response.data.fields['Notes'].length,
+                });
+              } else {
+                this.setState({
+                  noteCharacters: 0
+                });
+              }
             })
             .catch(error => {
               console.error("error: ", error);
@@ -113,8 +129,16 @@ export default class Sales extends Component {
               loading: false,
               error: false,
               currentRecord: response.data.fields,
-              noteCharacters: response.data.fields['Notes'].length,
             });
+            if (response.data.fields['Notes']) {
+              this.setState({
+                noteCharacters: response.data.fields['Notes'].length,
+              });
+            } else {
+              this.setState({
+                noteCharacters: 0
+              });
+            }
           })
           .catch(error => {
             console.error("error: ", error);
@@ -2074,6 +2098,7 @@ export default class Sales extends Component {
             setByChange={this.setByChange}
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
+            pathName={this.props.location.pathname}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2098,6 +2123,7 @@ export default class Sales extends Component {
             setByChange={this.setByChange}
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
+            pathName={this.props.location.pathname}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -2122,6 +2148,7 @@ export default class Sales extends Component {
             setByChange={this.setByChange}
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
+            pathName={this.props.location.pathname}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -2146,6 +2173,7 @@ export default class Sales extends Component {
             setByChange={this.setByChange}
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
+            pathName={this.props.location.pathname}
           />
         );
       }

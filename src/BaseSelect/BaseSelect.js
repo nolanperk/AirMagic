@@ -38,6 +38,9 @@ export default class BaseSelect extends Component {
         <div id="helpButton">
           <a href={`https://airtable.com/invite/l?inviteId=invfjMMpyxDUxF6m3&inviteToken=7cc8a9aedf1cbfcad5259da4811ef0dfe1981cacac8d2d9e1aaf28c4ba9a7793`} target="_blank" className="btn softGrad--secondary">Tutorials</a>
           <a href={`https://airtable.com/shrbLvluNfUKIExRt`} target="_blank" className="btn softGrad--black">Issues/Suggestions</a>
+          <Link to={`/maps/tampa`}>
+            <a className="btn softGrad--black">Maps</a>
+          </Link>
         </div>
         <div className="BaseList">
           <h1>Choose Your Database</h1>

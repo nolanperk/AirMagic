@@ -152,6 +152,7 @@ export default class RecordView extends Component {
           addr2={this.props.currentRecord['Address 2']}
           city={this.props.currentRecord['City']}
           noteCharacters={this.props.noteCharacters}
+          pathName={this.props.pathName}
           zip={this.props.currentRecord['Zip']} />
       </div>
     );
