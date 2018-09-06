@@ -32,6 +32,20 @@ export default class VolumeOwed extends Component {
       pickerId: null,
     })
   }
+  clearDate = e => {
+    console.log('clearDate()');
+    currentAccountState = this.state.currentAccount;
+    if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = null}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Stop Date'] = null}
+
+    this.setState({
+      currentAccount: currentAccountState,
+      recordChanges: true,
+    })
+    setTimeout((function() {
+      this.editingAccountHandler();
+    }).bind(this), 50);
+  }
   handleDayClick = day => {
     console.log('handleDayClick()');
     currentAccountState = this.state.currentAccount;
@@ -51,11 +65,20 @@ export default class VolumeOwed extends Component {
       this.editingAccountHandler();
     }).bind(this), 50);
   }
-  toggleDayPicker = (id, e, index) => {
+  toggleDayPicker = (id, rowI, index) => {
     console.log('toggleDayPicker()');
+    console.log(rowI + ' / ' + index);
+    if (rowI) {
+      let overallIndex = this.state.calculatedVolumeData[rowI].records[index];
+      this.setState({
+        currentAccount: overallIndex,
+      })
+    }
     let dayID = id;
     let pickerBlock = document.getElementById('volumePicker');
     let currAccount = this.state.volumeData[index];
+
+
 
     if (pickerBlock.className === 'pickWrapper isActive') {
       this.hideDayPicker();
@@ -76,6 +99,7 @@ export default class VolumeOwed extends Component {
       let pushRecordId = this.state.currentAccount.id;
 
       let finalPush = {"fields": pushRecord}
+      console.log(finalPush);
       axios
       .patch('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + pushRecordId, finalPush)
         .then(response => {
@@ -85,6 +109,7 @@ export default class VolumeOwed extends Component {
         if (document.getElementById('volumePicker').className === 'pickWrapper isActive') {
           this.hideDayPicker();
         }
+        this.loadData();
         console.log('success');
       })
       .catch(response => {
@@ -105,6 +130,10 @@ export default class VolumeOwed extends Component {
         });
       }
     }
+
+
+
+
     // setTimeout((function() {
     //   if (document.getElementById('volumePicker').className === 'pickWrapper isActive') {
     //     this.setState({
@@ -194,6 +223,8 @@ export default class VolumeOwed extends Component {
   }
 
   deleteAccountItem = e => {
+    console.log('deleteAccountItem()');
+    console.log(e);
     return axios
       .delete('https://api.airtable.com/v0/' + this.props.baseId + '/Accounts/' + e.target.id)
       .then(response => {
@@ -577,6 +608,7 @@ export default class VolumeOwed extends Component {
                 <img src={exit} alt="exit" />
               </div>
               <p>Select {this.state.pickerId} date</p>
+              <a className="btn softGrad--primary" onClick={this.clearDate}>Clear {this.state.pickerId} date</a>
               <DayPicker onDayClick={this.handleDayClick} />
             </div>
             {this.ipRev}
@@ -612,7 +644,7 @@ export default class VolumeOwed extends Component {
             changeAccountHandler={this.changeAccountHandler}
             changeReasonHandler={this.changeReasonHandler}
             // typeChangeHandler={this.typeChangeHandler}
-            // deleteAccountItem={this.deleteAccountItem}
+            deleteAccountItem={this.deleteAccountItem}
             editingAccountHandler={this.editingAccountHandler}
             // toggleDayPicker={this.toggleDayPicker}
             percRPChange={this.percRPChange}

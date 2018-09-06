@@ -89,7 +89,7 @@ export default class VolItem extends Component {
     //only rp
     if (this.props.rowName === 'rp' || this.props.rowName === 'ip_rp' || this.props.rowName === 'ar_rp' || this.props.rowName === 'ip_ar_rp') {
       return (
-        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(rowRecords[this.props.index], this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
+        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(this.props.rowIndex, this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
           <td className="input--l">
             <input
               onChange={this.props.changeAccountHandler}
@@ -122,7 +122,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('start', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('start', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -132,7 +132,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('stop', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('stop', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -166,7 +166,7 @@ export default class VolItem extends Component {
     //only aa
     } else if (this.props.rowName === 'aa' || this.props.rowName === 'ip_aa' || this.props.rowName === 'ar_aa' || this.props.rowName === 'ip_ar_aa') {
       return (
-        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(rowRecords[this.props.index], this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
+        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(this.props.rowIndex, this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
           <td className="input--l">
             <input
               onChange={this.props.changeAccountHandler}
@@ -189,7 +189,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('start', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('start', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -199,7 +199,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('stop', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('stop', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -275,7 +275,7 @@ export default class VolItem extends Component {
     //aa and rp
     } else if (this.props.rowName === 'ar_rp_aa' || this.props.rowName === 'ip_ar_rp_aa' || this.props.rowName === 'rp_aa' || this.props.rowName === 'ip_rp_aa') {
       return (
-        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(rowRecords[this.props.index], this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
+        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(this.props.rowIndex, this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
           <td className="input--l">
             <input
               onChange={this.props.changeAccountHandler}
@@ -308,7 +308,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('start', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('start', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -318,7 +318,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('stop', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('stop', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -393,7 +393,7 @@ export default class VolItem extends Component {
       );
     } else {
       return (
-        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(rowRecords[this.props.index], this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
+        <tr className="tableRow" onClick={()=>this.props.editingAccountHandler(this.props.rowIndex, this.props.id, this.props.index)} key={this.props.id} index={this.props.index} rowRecords={rowRecords}>
           <td className="input--xl">
             <input
               onChange={this.props.changeAccountHandler}
@@ -416,7 +416,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('start', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('start', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}
@@ -426,7 +426,7 @@ export default class VolItem extends Component {
           </td>
           <td className="input--m">
             <input
-              onClick={()=>this.props.toggleDayPicker('stop', rowRecords[this.props.index], this.props.index)}
+              onClick={()=>this.props.toggleDayPicker('stop', this.props.rowIndex, this.props.index)}
               data-account={this.props.rowRecords['Account Name']}
               data-start={this.props.rowRecords['Start Date']}
               data-key={this.props.id}

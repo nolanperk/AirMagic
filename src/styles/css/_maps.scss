@@ -1,0 +1,136 @@
+.AreaCustomers, .AreaFranchises {
+  border-collapse: separate;
+  border-spacing: 0px 8px;
+
+  tr {
+    &.active {
+      background: #dadada;
+    }
+    &:hover {
+      background: $medGray;
+      cursor: pointer;
+    }
+  }
+
+  td {
+    vertical-align: middle;
+    border-bottom: solid 1px $medGray;
+    padding: 22px 0;
+    padding-right: 5px;
+    &:nth-child(1) {
+      width: 20px;
+    }
+    &:nth-child(2) {
+      width: 80px;
+    }
+    &:nth-child(3) {
+      width: 200px;
+    }
+    &:nth-child(4) {
+      width: 70px;
+    }
+    &:last-child {
+      width: 20px;
+    }
+  }
+  .standing {
+    .innerStanding {
+      border-radius: 100px;
+      width: 75px;
+      padding: 4px;
+      vertical-align: middle;
+      text-align: center;
+      pointer-events: none;
+
+      &.justHappy {
+        background-color: rgba($secondary, 0.75);
+        p {
+          // color: $black;
+        }
+      }
+
+      img {
+        width: 20px;
+      }
+
+      p, img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      p {
+        font-size: 12px;
+        color: $white;
+        font-weight: bold;
+        margin: 0 2px;
+      }
+    }
+  }
+  p.bolder, a {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  a {
+    color: $primary;
+  }
+}
+
+.AreaFranchises {
+  .standing {
+    .innerStanding {
+      width: 32px;
+
+      p {
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+
+
+.mapNav {
+  width: auto;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: solid 1px $medGray;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+  padding: 0;
+
+  .innerTop {
+    padding: 15px 35px 15px 25px;
+  }
+
+  .customersList {
+    background: $offWhite;
+    border: solid 1px $medGray;
+    padding: 0px;
+    border-radius: 4px;
+    width: calc(100% - 40px);
+    margin: auto;
+    margin-bottom: 16px;
+    max-height: 50vh;
+    overflow: scroll;
+  }
+
+  &::after,&::before {
+    content: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .mapNav {
+    position: relative;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    border: 0;
+
+    .customersList {
+      max-height: 23vh;
+    }
+  }
+}

@@ -64,9 +64,9 @@ export default class ModuleSales extends Component {
               id="packet"
               >
               <select id="packetSelect" value={this.state.packetValue} onChange={this.packetChange}>
-                <option id="none"></option>
-                <option id="Yes">Yes</option>
-                <option id="No">No</option>
+                <option></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
           </div>
@@ -78,15 +78,15 @@ export default class ModuleSales extends Component {
               id="standing"
               >
               <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
-                <option id="none"></option>
-                <option id="Purchased">Purchased</option>
-                <option id="Former">Former</option>
-                <option id="Pending">Pending</option>
-                <option id="Inactive">Inactive</option>
-                <option id="Interested">Interested</option>
-                <option id="Lost+Contact">Lost Contact</option>
-                <option id="No+Longer+Interested">No Longer Interested</option>
-                <option id="No+Call+or+Show">No Call / No Show</option>
+                <option></option>
+                <option value="Purchased">Purchased</option>
+                <option value="Former">Former</option>
+                <option value="Pending">Pending</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Interested">Interested</option>
+                <option value="Lost Contact">Lost Contact</option>
+                <option value="No Longer Interested">No Longer Interested</option>
+                <option value="No Show">No Call / No Show</option>
               </select>
             </div>
           </div>
@@ -141,9 +141,9 @@ export default class ModuleSales extends Component {
               id="attended"
               >
               <select id="attendedSelect" value={this.state.attendedValue} onChange={this.attendedChange}>
-                <option id="none"></option>
-                <option id="Yes">Yes</option>
-                <option id="No">No</option>
+                <option></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
           </div>
@@ -208,14 +208,14 @@ export default class ModuleSales extends Component {
               id="plan"
               >
               <select id="planSelect" value={this.state.planValue} onChange={this.planChange}>
-                <option id="none"></option>
-                <option id="Plan+A">Plan A</option>
-                <option id="Plan+B">Plan B</option>
-                <option id="Plan+C">Plan C</option>
-                <option id="Plan+D">Plan D</option>
-                <option id="Plan+E">Plan E</option>
-                <option id="Plan+F">Plan F</option>
-                <option id="Plan+G">Plan G</option>
+                <option></option>
+                <option value="Plan A">Plan A</option>
+                <option value="Plan B">Plan B</option>
+                <option value="Plan C">Plan C</option>
+                <option value="Plan D">Plan D</option>
+                <option value="Plan E">Plan E</option>
+                <option value="Plan F">Plan F</option>
+                <option value="Plan G">Plan G</option>
               </select>
             </div>
           </div>
@@ -226,9 +226,9 @@ export default class ModuleSales extends Component {
               id="ar"
               >
               <select id="arSelect" value={this.state.arValue} onChange={this.arChange}>
-                <option id="none"></option>
-                <option id="Yes">Yes</option>
-                <option id="No">No</option>
+                <option></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
           </div>

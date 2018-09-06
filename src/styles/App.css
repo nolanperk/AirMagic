@@ -708,6 +708,8 @@ ul {
         background: rgba(195, 31, 47, 0.2); }
       .ArchiveItems .cardContainer .ArchiveItem .subInfo .appc {
         background: rgba(31, 146, 194, 0.2); }
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo .appt {
+        background: rgba(19, 19, 19, 0.2); }
     .ArchiveItems .cardContainer .ArchiveItem .smallText {
       margin-top: 4px; }
       .ArchiveItems .cardContainer .ArchiveItem .smallText img, .ArchiveItems .cardContainer .ArchiveItem .smallText span {
@@ -735,6 +737,8 @@ ul {
       background: rgba(226, 99, 13, 0.55); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.new.tele .subInfo {
       background: rgba(31, 146, 194, 0.55); }
+    .ArchiveItems .cardContainer .ArchiveItem.isActive.appt.tele .subInfo {
+      background: rgba(255, 64, 64, 0.55); }
     .ArchiveItems .cardContainer .ArchiveItem.isActive.satisfied.tele .subInfo {
       background: rgba(19, 19, 19, 0.15); }
     .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo {
@@ -931,43 +935,6 @@ hr {
       margin: 10px 0;
       padding: 5px;
       width: 100%; }
-    .ModuleList .ModuleCard .AreaCustomers, .ModuleList .ModuleCard .AreaFranchises {
-      border-collapse: separate;
-      border-spacing: 0px 8px; }
-      .ModuleList .ModuleCard .AreaCustomers td, .ModuleList .ModuleCard .AreaFranchises td {
-        vertical-align: middle;
-        border-bottom: solid 1px #d2d2d2;
-        padding: 5px;
-        padding-bottom: 12px; }
-      .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding {
-        border-radius: 100px;
-        width: 75px;
-        padding: 4px;
-        vertical-align: middle;
-        text-align: center;
-        pointer-events: none; }
-        .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding.justHappy, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding.justHappy {
-          background-color: rgba(31, 194, 106, 0.75); }
-        .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding img, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding img {
-          width: 20px; }
-        .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding p, .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding img, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding p, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding img {
-          display: inline-block;
-          vertical-align: middle; }
-        .ModuleList .ModuleCard .AreaCustomers .standing .innerStanding p, .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding p {
-          font-size: 12px;
-          color: #fff;
-          font-weight: bold;
-          margin: 0 2px; }
-      .ModuleList .ModuleCard .AreaCustomers p.bolder, .ModuleList .ModuleCard .AreaCustomers a, .ModuleList .ModuleCard .AreaFranchises p.bolder, .ModuleList .ModuleCard .AreaFranchises a {
-        font-size: 14px;
-        font-weight: 700; }
-      .ModuleList .ModuleCard .AreaCustomers a, .ModuleList .ModuleCard .AreaFranchises a {
-        color: #C31F2F; }
-    .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding {
-      width: 32px; }
-      .ModuleList .ModuleCard .AreaFranchises .standing .innerStanding p {
-        font-size: 14px;
-        margin: 0; }
     .ModuleList .ModuleCard.cardFull {
       width: 100%;
       padding-top: 2vw; }
@@ -1663,6 +1630,11 @@ hr {
   z-index: 2;
   margin-top: 70px; }
 
+.cardFull .pickWrapper a {
+  position: absolute;
+  right: 10px;
+  z-index: 2; }
+
 .cardFull .pickWrapper .DayPicker {
   transform: none;
   top: 3vw;
@@ -1677,3 +1649,92 @@ hr {
 .cardFull .pickWrapper .navIcon {
   position: absolute;
   z-index: 2; }
+
+.AreaCustomers, .AreaFranchises {
+  border-collapse: separate;
+  border-spacing: 0px 8px; }
+  .AreaCustomers tr.active, .AreaFranchises tr.active {
+    background: #dadada; }
+  .AreaCustomers tr:hover, .AreaFranchises tr:hover {
+    background: #d2d2d2;
+    cursor: pointer; }
+  .AreaCustomers td, .AreaFranchises td {
+    vertical-align: middle;
+    border-bottom: solid 1px #d2d2d2;
+    padding: 22px 0;
+    padding-right: 5px; }
+    .AreaCustomers td:nth-child(1), .AreaFranchises td:nth-child(1) {
+      width: 20px; }
+    .AreaCustomers td:nth-child(2), .AreaFranchises td:nth-child(2) {
+      width: 80px; }
+    .AreaCustomers td:nth-child(3), .AreaFranchises td:nth-child(3) {
+      width: 200px; }
+    .AreaCustomers td:nth-child(4), .AreaFranchises td:nth-child(4) {
+      width: 70px; }
+    .AreaCustomers td:last-child, .AreaFranchises td:last-child {
+      width: 20px; }
+  .AreaCustomers .standing .innerStanding, .AreaFranchises .standing .innerStanding {
+    border-radius: 100px;
+    width: 75px;
+    padding: 4px;
+    vertical-align: middle;
+    text-align: center;
+    pointer-events: none; }
+    .AreaCustomers .standing .innerStanding.justHappy, .AreaFranchises .standing .innerStanding.justHappy {
+      background-color: rgba(31, 194, 106, 0.75); }
+    .AreaCustomers .standing .innerStanding img, .AreaFranchises .standing .innerStanding img {
+      width: 20px; }
+    .AreaCustomers .standing .innerStanding p, .AreaCustomers .standing .innerStanding img, .AreaFranchises .standing .innerStanding p, .AreaFranchises .standing .innerStanding img {
+      display: inline-block;
+      vertical-align: middle; }
+    .AreaCustomers .standing .innerStanding p, .AreaFranchises .standing .innerStanding p {
+      font-size: 12px;
+      color: #fff;
+      font-weight: bold;
+      margin: 0 2px; }
+  .AreaCustomers p.bolder, .AreaCustomers a, .AreaFranchises p.bolder, .AreaFranchises a {
+    font-size: 14px;
+    font-weight: 700; }
+  .AreaCustomers a, .AreaFranchises a {
+    color: #C31F2F; }
+
+.AreaFranchises .standing .innerStanding {
+  width: 32px; }
+  .AreaFranchises .standing .innerStanding p {
+    font-size: 14px;
+    margin: 0; }
+
+.mapNav {
+  width: auto;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: solid 1px #d2d2d2;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+  padding: 0; }
+  .mapNav .innerTop {
+    padding: 15px 35px 15px 25px; }
+  .mapNav .customersList {
+    background: #F7F7F5;
+    border: solid 1px #d2d2d2;
+    padding: 0px;
+    border-radius: 4px;
+    width: calc(100% - 40px);
+    margin: auto;
+    margin-bottom: 16px;
+    max-height: 50vh;
+    overflow: scroll; }
+  .mapNav::after, .mapNav::before {
+    content: none; }
+
+@media only screen and (max-width: 900px) {
+  .mapNav {
+    position: relative;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    border: 0; }
+    .mapNav .customersList {
+      max-height: 23vh; } }

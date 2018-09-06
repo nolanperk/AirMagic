@@ -27,6 +27,8 @@ export default class ArchiveItem extends Component {
       classNames += " isActive tele new";
     } else if (data['Status'] === 'Closed') {
       classNames += " isActive tele very";
+    } else if (data['Status'] === 'Appointment Set') {
+      classNames += " isActive tele appt";
     } else if (data['Status'] === 'Canceled') {
       classNames += " nonActive tele satisfied";
     } else {
@@ -91,6 +93,30 @@ export default class ArchiveItem extends Component {
          </div>
        </div>
      )
+   } else if (data['Status'] === 'Too Small') {
+    return (
+      <div className="inner">
+        <div className="whiteCard">
+          <p className="boldText">{data['Company Name']}</p>
+        </div>
+        <div className="subInfo">
+          <p className="amount">TOO SMALL</p>
+        </div>
+      </div>
+    )
+   } else if (data['Status'] === 'Appointment Set') {
+    return (
+      <div className="inner">
+        <div className="whiteCard">
+          <p className="boldText">{data['Company Name']}</p>
+          <span>{data['Status']}</span>
+        </div>
+        <div className="subInfo">
+          <p className="amount">Appt. On:</p>
+          <p className="rounded appt">{this.props.data['Appt. Date']}</p>
+        </div>
+      </div>
+    )
     } else if (data['Status'] === 'Closed') {
       let regRep = '';
       if (data['Sales Rep']) {

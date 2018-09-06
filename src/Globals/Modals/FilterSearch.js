@@ -53,6 +53,10 @@ export default class FilterSearch extends Component {
                 >No Filter</li>
               <li
                 onClick={this.selectFilterList}
+                id="Joel+Upcoming"
+                >Joel Upcoming</li>
+              <li
+                onClick={this.selectFilterList}
                 id="Joel+Recents"
                 >Joel Recents</li>
               <li
@@ -73,6 +77,10 @@ export default class FilterSearch extends Component {
                 onClick={this.selectFilterList}
                 id="All"
                 >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Rob+Upcoming"
+                >Rob Upcoming</li>
               <li
                 onClick={this.selectFilterList}
                 id="Rob+Recents"
@@ -133,6 +141,10 @@ export default class FilterSearch extends Component {
                 >No Filter</li>
               <li
                 onClick={this.selectFilterList}
+                id="Nolan+Upcoming"
+                >Nolan Upcoming</li>
+              <li
+                onClick={this.selectFilterList}
                 id="Nolan+Recents"
                 >Nolan Recents</li>
               <li
@@ -153,6 +165,10 @@ export default class FilterSearch extends Component {
                 onClick={this.selectFilterList}
                 id="All"
                 >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Upcoming"
+                >Tyler Upcoming</li>
               <li
                 onClick={this.selectFilterList}
                 id="Tyler+Recents"

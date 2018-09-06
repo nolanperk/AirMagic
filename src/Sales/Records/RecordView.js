@@ -44,7 +44,7 @@ export default class RecordView extends Component {
 
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
-              repChagn={this.props.repChagn}
+              repChange={this.props.repChange}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}

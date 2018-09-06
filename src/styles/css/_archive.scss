@@ -69,6 +69,9 @@
         .appc {
           background: rgba(#1F92C2, 0.2);
         }
+        .appt {
+          background: rgba($black, 0.2);
+        }
       }
 
       .smallText {
@@ -117,6 +120,9 @@
         }
         &.new.tele .subInfo {
           background: rgba(#1F92C2, 0.55);
+        }
+        &.appt.tele .subInfo {
+          background: rgba(#ff4040, 0.55);
         }
         &.satisfied.tele .subInfo {
           background: rgba($black, 0.15);

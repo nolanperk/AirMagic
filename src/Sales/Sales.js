@@ -674,6 +674,7 @@ export default class Sales extends Component {
     });
   }
   repChange = e => {
+    console.log('yo');
     let currentsRec = this.state.currentRecord;
     currentsRec['Sales Rep'] = e.target.value;
     this.setState({

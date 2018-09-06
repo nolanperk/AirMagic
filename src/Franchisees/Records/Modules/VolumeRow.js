@@ -286,6 +286,7 @@ export default class VolumeRow extends Component {
             id={rowRecords.id}
             rowRecords={rowRecords.fields}
             index={index}
+            rowIndex={this.props.index}
             rowName={this.props.rowName}
             rpSumCalc={this.props.rpSumCalc}
             notesChange={this.props.notesChange}
@@ -294,7 +295,7 @@ export default class VolumeRow extends Component {
             financeCalc={this.props.financeCalc}
             typeChangeHandler={this.typeChangeHandler}
             changeReasonHandler={this.props.changeReasonHandler}
-            deleteAccountItem={this.deleteAccountItem}
+            deleteAccountItem={this.props.deleteAccountItem}
             editingAccountHandler={this.editingAccountHandler}
             percRPChange={this.props.percRPChange}
             toggleDayPicker={this.props.toggleDayPicker}

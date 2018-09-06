@@ -548,18 +548,18 @@ export default class Franchisees extends Component {
       fullDataSet['Status'] = document.getElementById('statusSelect').value;
       fullDataSet['Franchise Level'] = document.getElementById('levelSelect').value;
       fullDataSet['Plan Type'] = document.getElementById('planSelect').value;
-      fullDataSet['Packet Sent'] = document.getElementById('packet').value;
-      fullDataSet['Attended'] = document.getElementById('attended').value;
-      fullDataSet['Standing'] = document.getElementById('standing').value;
+      fullDataSet['Packet Sent'] = document.getElementById('packetSelect').value;
+      fullDataSet['Attended'] = document.getElementById('attendedSelect').value;
+      fullDataSet['Standing'] = document.getElementById('standingSelect').value;
       fullDataSet['Additional Revenue'] = document.getElementById('arSelect').value;
 
       fullDataSet['Account Capacity'] = document.getElementById('perCapacitySelect').value;
       fullDataSet['Monthly Capacity'] = document.getElementById('monthlyCapacitySelect').value;
       fullDataSet['Looking for More'] = document.getElementById('lookingSelect').value;
-      fullDataSet['Carpets'] = document.getElementById('carpetsSelect').value;
-      fullDataSet['Strip and Wax'] = document.getElementById('sWaxSelect').value;
-      fullDataSet['Buffing'] = document.getElementById('buffingSelect').value;
-      fullDataSet['Tile'] = document.getElementById('tilesSelect').value;
+      // fullDataSet['Carpets'] = document.getElementById('carpetsSelect').value;
+      // fullDataSet['Strip and Wax'] = document.getElementById('sWaxSelect').value;
+      // fullDataSet['Buffing'] = document.getElementById('buffingSelect').value;
+      // fullDataSet['Tile'] = document.getElementById('tilesSelect').value;
 
       let officePhone = this.state.currentRecord["Home Phone"];
       if (officePhone) {
@@ -627,18 +627,18 @@ export default class Franchisees extends Component {
       pushRecord['Status'] = document.getElementById('statusSelect').value;
       pushRecord['Franchise Level'] = document.getElementById('levelSelect').value;
       pushRecord['Plan Type'] = document.getElementById('planSelect').value;
-      pushRecord['Packet Sent'] = document.getElementById('packet').value;
-      pushRecord['Attended'] = document.getElementById('attended').value;
-      pushRecord['Standing'] = document.getElementById('standing').value;
+      pushRecord['Packet Sent'] = document.getElementById('packetSelect').value;
+      pushRecord['Attended'] = document.getElementById('attendedSelect').value;
+      pushRecord['Standing'] = document.getElementById('standingSelect').value;
       pushRecord['Additional Revenue'] = document.getElementById('arSelect').value;
 
       pushRecord['Account Capacity'] = document.getElementById('perCapacitySelect').value;
       pushRecord['Monthly Capacity'] = document.getElementById('monthlyCapacitySelect').value;
       pushRecord['Looking for More'] = document.getElementById('lookingSelect').value;
-      pushRecord['Carpets'] = document.getElementById('carpetsSelect').value;
-      pushRecord['Strip and Wax'] = document.getElementById('sWaxSelect').value;
-      pushRecord['Buffing'] = document.getElementById('buffingSelect').value;
-      pushRecord['Tile'] = document.getElementById('tilesSelect').value;
+      // pushRecord['Carpets'] = document.getElementById('carpetsSelect').value;
+      // pushRecord['Strip and Wax'] = document.getElementById('sWaxSelect').value;
+      // pushRecord['Buffing'] = document.getElementById('buffingSelect').value;
+      // pushRecord['Tile'] = document.getElementById('tilesSelect').value;
 
 
 
