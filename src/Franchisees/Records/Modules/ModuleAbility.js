@@ -106,13 +106,16 @@ export default class ModuleAbility extends Component {
               >
               <select id="lookingSelect" value={this.state.lookingValue} onChange={this.lookingChange}>
                 <option></option>
-                <option>Yes</option>
                 <option>No</option>
+                <option value="500">Up to $500</option>
+                <option value="1000">Up to $1,000</option>
+                <option value="2000">Up to $2,000</option>
+                <option value="More">Over $2,000</option>
               </select>
             </div>
           </div>
 
-          {/* <hr />
+          <hr />
           <h4>Specialties</h4>
           <hr />
 
@@ -167,7 +170,7 @@ export default class ModuleAbility extends Component {
                 <option>No</option>
               </select>
             </div>
-          </div> */}
+          </div>
 
 
         </div>

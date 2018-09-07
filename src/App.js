@@ -12,6 +12,7 @@ import UserBaseSelect from './UserBaseSelect/UserBaseSelect';
 import OutsideLoginForm from './UserBaseSelect/Log';
 
 import CustomerService from './CustomerService/CustomerService';
+import CustomersSelect from './CustomerService/CustomersSelect';
 import Sales from './Sales/Sales';
 import OutsideSales from './Sales/OutsideSales';
 import Franchisees from './Franchisees/Franchisees';
@@ -58,6 +59,7 @@ class App extends Component {
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
           <Route exact path='/:outside' component={UserBaseSelect} />
 
+          <Route exact path='/:citySet/customer-service/select' component={bindRouteParamsToProps()(CustomersSelect)} />
           <Route exact path='/:citySet/customer-service/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
           <Route path='/:citySet/customer-service/' component={bindRouteParamsToProps()(CustomerService)} />
           <Route exact path='/:citySet/sales/:recordId' component={bindRouteParamsToProps()(Sales)} />
