@@ -58,7 +58,8 @@ export default class RecordView extends Component {
               packet={this.props.currentRecord['Packet Sent']}
               standing={this.props.currentRecord['Standing']}
               contDate={this.props.currentRecord['Contact Date']}
-              apptDate={this.props.currentRecord['Appt. Date']}
+              inactiveDate={this.props.currentRecord['Inactive Date']}
+              activeDate={this.props.currentRecord['Active Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
               attended={this.props.currentRecord['Attended']}
 

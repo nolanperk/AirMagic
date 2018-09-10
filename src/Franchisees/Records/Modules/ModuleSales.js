@@ -53,6 +53,8 @@ export default class ModuleSales extends Component {
     let referral = this.props.referral;
     let apptDate = this.props.apptDate;
 
+    let activeDate = this.props.activeDate;
+    let inactiveDate = this.props.inactiveDate;
     return (
       <div className="ModuleCard">
         <div className="inner">
@@ -145,6 +147,43 @@ export default class ModuleSales extends Component {
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
+            </div>
+          </div>
+
+          <hr />
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Active Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={activeDate}
+                id="activeDate"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Inactive Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={inactiveDate}
+                id="inactiveDate"
+                onChange={this.props.changeRecordHandler}
+              />
             </div>
           </div>
 

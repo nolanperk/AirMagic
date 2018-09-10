@@ -223,8 +223,9 @@ export default class CustomerService extends Component {
         finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
       }
       console.log('searchHandler()');
+      console.log(finalURL);
       return axios
-      .get(finalURL)
+      .get(encodeURI(finalURL))
       .then(response => {
         this.setState({
           data: response.data.records,

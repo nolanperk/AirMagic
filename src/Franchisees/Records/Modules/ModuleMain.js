@@ -76,6 +76,7 @@ export default class ModuleMain extends Component {
                 <option id="none"></option>
                 <option id="Prospect">Prospect</option>
                 <option id="Active">Active</option>
+                <option id="Inactive">Inactive</option>
                 <option id="Former">Former</option>
                 <option id="Transfer">Transfer</option>
                 <option id="Not+Interested">Not Interested</option>

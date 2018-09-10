@@ -194,6 +194,8 @@ export default class Franchisees extends Component {
 
     if (this.state.pickerId === 'graduation') {currentRecordState['Graduation Date'] = finalDate}
     else if (this.state.pickerId === 'contDate') {currentRecordState['Contact Date'] = finalDate}
+    else if (this.state.pickerId === 'activeDate') {currentRecordState['Active Date'] = finalDate}
+    else if (this.state.pickerId === 'inactiveDate') {currentRecordState['Inactive Date'] = finalDate}
     else if (this.state.pickerId === 'apptDate') {currentRecordState['Appt. Date'] = finalDate}
     else if (this.state.pickerId === 'fdd') {currentRecordState['FDD Sign Date'] = finalDate}
     else if (this.state.pickerId === 'sign') {currentRecordState['Sign Date'] = finalDate}
@@ -345,6 +347,8 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'english') {currentRecordState['English Contact'] = e.target.value}
     else if (e.target.id === 'englishPhone') {currentRecordState['English Contact Phone'] = e.target.value}
     else if (e.target.id === 'contDate') {currentRecordState['Contact Date'] = e.target.value}
+    else if (e.target.id === 'activeDate') {currentRecordState['Active Date'] = e.target.value}
+    else if (e.target.id === 'inactiveDate') {currentRecordState['Inactive Date'] = e.target.value}
     else if (e.target.id === 'fdd') {currentRecordState['FDD Sign Date'] = e.target.value}
     else if (e.target.id === 'sign') {currentRecordState['Sign Date'] = e.target.value}
     else if (e.target.id === 'graduation') {currentRecordState['Graduation Date'] = e.target.value}
