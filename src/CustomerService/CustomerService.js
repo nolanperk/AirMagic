@@ -1847,33 +1847,61 @@ export default class CustomerService extends Component {
       let proactiveLength = 0;
 
 
+      let totalOver = 0;
       for (var i in this.state.data) {
         if (this.state.data[i].fields['Monthly Amount']) {
+          let lastCall = new Date(this.state.data[i].fields['Last Call']);
+          let fortnightAway = new Date(+new Date - 12096e5);
+          let monthAway = new Date(+new Date - 2.592e+9);
+          let twoMonthsAway = new Date(+new Date - 5.184e+9);
           let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
-          if (thisMonthly > 499 && thisMonthly <= 999) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newProactiveData['everyOtherMonth'].push(newItem);
-          } else if (thisMonthly > 999 && thisMonthly <= 1499) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newProactiveData['everyMonth'].push(newItem);
-          } else if (thisMonthly > 1499) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newProactiveData['twicePerMonth'].push(newItem);
+
+          if (localStorage.getItem('userInitials') === 'SBM' && this.state.data[i].fields['PAM'] === 'Christy Subler') {
+          } else if (localStorage.getItem('userInitials') === 'ACS' && this.state.data[i].fields['PAM'] === 'Sergibeth Monge') {
+          } else {
+            if (thisMonthly > 499 && thisMonthly <= 999) {
+              if (lastCall < twoMonthsAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newProactiveData['everyOtherMonth'].push(newItem);
+              }
+            } else if (thisMonthly > 999 && thisMonthly <= 1499) {
+              if (lastCall < monthAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newProactiveData['everyMonth'].push(newItem);
+              }
+            } else if (thisMonthly > 1499) {
+              if (lastCall < fortnightAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newProactiveData['twicePerMonth'].push(newItem);
+              }
+            }
           }
         }
       }
 
+      let finalDataPro = [];
+      for (var i in newProactiveData.everyOtherMonth) {
+        finalDataPro.push(newProactiveData.everyOtherMonth[i]);
+      }
+      for (var i in newProactiveData.everyMonth) {
+        finalDataPro.push(newProactiveData.everyMonth[i]);
+      }
+      for (var i in newProactiveData.twicePerMonth) {
+        finalDataPro.push(newProactiveData.twicePerMonth[i]);
+      }
+
       this.setState({
         proactiveData: newProactiveData,
+        data: finalDataPro,
         proactiveLength: proactiveLength,
       });
       setTimeout((function() {
@@ -2184,39 +2212,79 @@ export default class CustomerService extends Component {
       }
     });
 
+    if (this.props.viewType === 'all') {
+      return (
+        <div className="Customers">
+          {this.modalShow}
+          <Navbar
+            currentRecord={this.state.currentRecord}
+            recordView={this.state.recordView}
+            closeRecordHandler={this.closeRecordHandler}
+            currentId= {this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            switchTableHandler= {this.switchTableHandler}
+            controlsModalToggle={this.controlsModalToggle}
+            citySet={this.props.citySet}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
 
-    return (
-      <div className="Customers">
-        {this.modalShow}
-        <Navbar
-          currentRecord={this.state.currentRecord}
-          recordView={this.state.recordView}
-          closeRecordHandler={this.closeRecordHandler}
-          currentId= {this.state.currentId}
-          recordChanges= {this.state.recordChanges}
-          switchTableHandler= {this.switchTableHandler}
-          controlsModalToggle={this.controlsModalToggle}
-          citySet={this.props.citySet}
-          currentRecordView={this.state.currentRecordView}
-          viewSelect={this.viewSelect}
-        />
+          {this.currentView}
 
-        {this.currentView}
+          <ControlsBar
+            searchHandler={this.searchHandler}
+            recordView={this.state.recordView}
+            franchiseView={this.state.franchiseView}
+            newRecord={this.state.newRecord}
+            saveRecordHandler={this.saveRecordHandler}
+            recordChanger={this.recordChanger}
+            controlsModalToggle={this.controlsModalToggle}
+            newRecordHandler={this.newRecordHandler}
+            currentRecord={this.state.currentRecord}
+            currentTable={this.state.currentTable}
+          />
+        </div>
+      );
+    } else if (this.state.recordView) {
+      return (
+        <div className="Customers">
+          {this.modalShow}
+          <Navbar
+            currentRecord={this.state.currentRecord}
+            recordView={this.state.recordView}
+            closeRecordHandler={this.closeRecordHandler}
+            currentId= {this.state.currentId}
+            recordChanges= {this.state.recordChanges}
+            switchTableHandler= {this.switchTableHandler}
+            controlsModalToggle={this.controlsModalToggle}
+            citySet={this.props.citySet}
+            currentRecordView={this.state.currentRecordView}
+            viewSelect={this.viewSelect}
+          />
 
-        <ControlsBar
-          searchHandler={this.searchHandler}
-          recordView={this.state.recordView}
-          franchiseView={this.state.franchiseView}
-          newRecord={this.state.newRecord}
-          saveRecordHandler={this.saveRecordHandler}
-          recordChanger={this.recordChanger}
-          controlsModalToggle={this.controlsModalToggle}
-          newRecordHandler={this.newRecordHandler}
-          currentRecord={this.state.currentRecord}
-          currentTable={this.state.currentTable}
-        />
-      </div>
-    );
+          {this.currentView}
+
+          <ControlsBar
+            searchHandler={this.searchHandler}
+            recordView={this.state.recordView}
+            franchiseView={this.state.franchiseView}
+            newRecord={this.state.newRecord}
+            saveRecordHandler={this.saveRecordHandler}
+            recordChanger={this.recordChanger}
+            controlsModalToggle={this.controlsModalToggle}
+            newRecordHandler={this.newRecordHandler}
+            currentRecord={this.state.currentRecord}
+            currentTable={this.state.currentTable}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="Customers">
+          {this.currentView}
+        </div>
+      );
+    }
   }
   get modalShow() {
     if (this.state.activeModal) {

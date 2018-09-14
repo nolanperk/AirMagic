@@ -157,32 +157,48 @@ export default class CustomerService extends Component {
         "everyMonth": [],
         "twicePerMonth": []
       };
+
       let proactiveLength = 0;
+      let totalOver = 0;
       for (var i in this.state.proactiveData) {
         if (this.state.proactiveData[i].fields['Monthly Amount']) {
+          let lastCall = new Date(this.state.proactiveData[i].fields['Last Call']);
+          let fortnightAway = new Date(+new Date - 12096e5);
+          let monthAway = new Date(+new Date - 2.592e+9);
+          let twoMonthsAway = new Date(+new Date - 5.184e+9);
           let thisMonthly = parseInt(this.state.proactiveData[i].fields['Monthly Amount']);
-          if (thisMonthly > 499 && thisMonthly <= 999) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.proactiveData[i].fields;
-            newItem['id'] = this.state.proactiveData[i].id;
-            newProactiveData['everyOtherMonth'].push(newItem);
-          } else if (thisMonthly > 999 && thisMonthly <= 1499) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.proactiveData[i].fields;
-            newItem['id'] = this.state.proactiveData[i].id;
-            newProactiveData['everyMonth'].push(newItem);
-          } else if (thisMonthly > 1499) {
-            proactiveLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.proactiveData[i].fields;
-            newItem['id'] = this.state.proactiveData[i].id;
-            newProactiveData['twicePerMonth'].push(newItem);
+
+          if (localStorage.getItem('userInitials') === 'SBM' && this.state.proactiveData[i].fields['PAM'] === 'Christy Subler') {
+          } else if (localStorage.getItem('userInitials') === 'NWP' && this.state.proactiveData[i].fields['PAM'] === 'Sergibeth Monge') {
+          } else {
+            if (thisMonthly > 499 && thisMonthly <= 999) {
+              if (lastCall < twoMonthsAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.proactiveData[i].fields;
+                newItem['id'] = this.state.proactiveData[i].id;
+                newProactiveData['everyOtherMonth'].push(newItem);
+              }
+            } else if (thisMonthly > 999 && thisMonthly <= 1499) {
+              if (lastCall < monthAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.proactiveData[i].fields;
+                newItem['id'] = this.state.proactiveData[i].id;
+                newProactiveData['everyMonth'].push(newItem);
+              }
+            } else if (thisMonthly > 1499) {
+              if (lastCall < fortnightAway) {
+                proactiveLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.proactiveData[i].fields;
+                newItem['id'] = this.state.proactiveData[i].id;
+                newProactiveData['twicePerMonth'].push(newItem);
+              }
+            }
           }
         }
       }
-
       this.setState({
         proactiveData: newProactiveData,
         proactiveLength: proactiveLength,

@@ -29,6 +29,7 @@ export default class ProactiveItem extends Component {
         <div className="inner">
           <div className="whiteCard">
             <p className="boldText">{proactiveData.fields['Company Name']}</p>
+            <span>{proactiveData.fields['Standing']}</span>
           </div>
           <div className="subInfo">
             <p className="amount">{this.props.proactiveData.fields['Times per Week']}Week in {this.props.proactiveData.fields['City']}</p>

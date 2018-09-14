@@ -1857,7 +1857,7 @@ hr {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
     margin-top: 15px; }
     .SplashView form input {
-      width: calc(70% - 26px);
+      width: calc(100% - 153px);
       height: 53px;
       vertical-align: top;
       border-radius: 100px;
@@ -1865,13 +1865,13 @@ hr {
       padding: 10px 20px;
       outline: 0; }
     .SplashView form select {
-      width: calc(26% - 27px);
-      margin-right: 4%;
+      width: 90px;
+      margin-right: 10px;
       height: 53px;
       vertical-align: top;
       border-radius: 0;
       border: none;
-      background: white;
+      background: #fff;
       outline: 0;
       border-left: 1px solid #dedede; }
 
@@ -1945,6 +1945,7 @@ hr {
       color: white;
       display: inline-block; }
     .rowItems .ArchiveItem .subInfo .amount {
+      font-size: 11px;
       font-weight: bold;
       text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
       margin-right: 10px; }
@@ -1972,3 +1973,25 @@ hr {
 .rowItems .whiteCard, .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems input, .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems select {
   padding: 2vw;
   width: 100%; }
+
+@media only screen and (max-width: 1440px) {
+  .rowItems .ArchiveItem {
+    width: 20%; }
+  .attentionContainer .rowItems {
+    padding: 0px; } }
+
+@media only screen and (max-width: 1140px) {
+  .rowItems .ArchiveItem {
+    width: 25%; } }
+
+@media only screen and (max-width: 900px) {
+  .rowItems .ArchiveItem {
+    width: 33%; } }
+
+@media only screen and (max-width: 767px) {
+  .rowItems .ArchiveItem {
+    width: 50%; } }
+
+@media only screen and (max-width: 500px) {
+  .rowItems .ArchiveItem {
+    width: 100%; } }
