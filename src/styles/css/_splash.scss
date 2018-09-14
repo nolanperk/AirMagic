@@ -1,0 +1,341 @@
+.SplashView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  .splashWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 1000px;
+    width: 80%;
+    display: flex;
+    align-items: stretch;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .linkSet, .searchArea {
+      flex: 1 1 0;
+      padding: 5% 0;
+    }
+
+    .searchArea {
+      padding-left: 6%;
+
+      .innerSearch {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .linkSet {
+      padding-right: 6%;
+    }
+
+    .vr {
+      background: #c5c5c4;
+      flex-basis: 1px;
+    }
+
+
+    .linkSet {
+      display: flex;
+
+      .dualCard {
+        flex-basis: 50%;
+        padding-right: 6%;
+      }
+      .splashCard--all {
+        flex-basis: 50%;
+      }
+    }
+
+
+    #proactive {
+      .circleDot {
+        background: $tertiary
+      }
+      .cornerNumber {
+        background: $tertiary;
+      }
+
+      margin-top: 15px;
+    }
+
+    #browseAll {
+      a {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+      }
+      .inner {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .circleDot {
+        background: $secondary;
+        width: 95px;
+        height: 95px;
+      }
+    }
+
+    .splashCard {
+      background: $white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      &:hover {
+        transition: all 0.5s ease;
+        transform: translateY(5px);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      }
+
+      .cornerNumber {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-left: 16px;
+        padding-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 15px;
+        border-bottom-left-radius: 100px;
+        background: $primary;
+        color: $white;
+        font-weight: 600;
+        @extend %softGradient;
+        background: $primary;
+
+        &.loading {
+          img {
+            width: 25px;
+          }
+          background: none !important;
+        }
+      }
+
+      .inner {
+        padding: 20% 12% 24%;
+        text-align: center;
+      }
+
+      .circleDot {
+        margin: auto;
+        margin-bottom: 10px;
+        width: 75px;
+        height: 75px;
+        border-radius: 100%;
+        @extend %softGradient;
+        background: $primary;
+
+        img {
+          width: 45%;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+
+  form {
+    background: white;
+    border-radius: 100px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    margin-top: 15px;
+
+    input {
+      width: calc(70% - 26px);
+      height: 53px;
+      vertical-align: top;
+      border-radius: 100px;
+      border: none;
+      padding: 10px 20px;
+      outline: 0;
+    }
+    select {
+      width: calc(26% - 27px);
+      margin-right: 4%;
+      height: 53px;
+      vertical-align: top;
+      border-radius: 0;
+      border: none;
+      background: white;
+      outline: 0;
+      border-left: 1px solid #dedede;
+    }
+  }
+}
+
+.attentionContainer {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  padding: 8vw 0;
+
+  .rowItems {
+    padding: 0 1%;
+    margin-bottom: 50px;
+
+    &.newStarts {
+      .ArchiveItem .subInfo {
+        background: rgba(#1F92C2, 0.6);
+      }
+    }
+    &.newCloses {
+      .ArchiveItem .subInfo {
+        background: rgba($secondary, 0.75);
+      }
+    }
+    &.crewChanges {
+      .ArchiveItem .subInfo {
+        background: rgba(#E2630D, 0.35);
+      }
+    }
+    &.notHappy {
+      .ArchiveItem .subInfo {
+        background: rgba($primary, 0.35);
+      }
+    }
+    &.mehAccounts {
+      .ArchiveItem .subInfo {
+        background: rgba($black, 0.15);
+      }
+    }
+
+    .everyMonth .subInfo {
+        background: rgba(#1F92C2, 0.6);
+    }
+    .twicePerMonth .subInfo {
+        background: rgba($secondary, 0.75);
+    }
+    .everyOtherMonth .subInfo {
+        background: rgba(#E2630D, 0.35);
+    }
+  }
+
+  .hrTitle {
+    padding: 20px 2%;
+    position: relative;
+
+    span {
+      background: $offWhite;
+      z-index: 1;
+      position: relative;
+      padding: 0 1%;
+    }
+
+    &::after {
+      content: "";
+      background: $black;
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      left: 0;
+      top: 50%;
+    }
+  }
+}
+
+
+
+.rowItems {
+  .ArchiveItem {
+    padding: 0.5vw;
+    width: 16%;
+    position: relative;
+    transition: all 0.5s ease;
+    cursor: pointer;
+
+    &.recentlyClosed {
+      background: $secondary;
+      transition: all 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5%);
+      background: none;
+      transition: all 0.5s ease;
+
+      .whiteCard, .subInfo {
+        box-shadow: $lgThemeShadow;
+      }
+    }
+
+    .whiteCard:hover {
+      transform: none;
+      box-shadow: $themeShadow;
+    }
+
+    .whiteCard {
+      padding-bottom: 1vw;
+    }
+
+    .subInfo {
+      @extend %card;
+      @extend %softGradient;
+      padding: 1vw 2vw;
+      background: $gray;
+      border: solid 5px $white;
+      border-top: 0;
+
+      p {
+        color: white;
+        display: inline-block;
+      }
+
+      .amount {
+        font-weight: bold;
+        text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        margin-right:10px;
+      }
+
+      .rounded {
+        border-radius: 100px;
+        padding: 5px 10px;
+        font-size: 12px;
+        text-align: center;
+      }
+      .pam {
+        background: rgba($black, 0.2);
+      }
+      .canc {
+        background: rgba($primary, 0.2);
+      }
+      .appc {
+        background: rgba(#1F92C2, 0.2);
+      }
+      .appt {
+        background: rgba($black, 0.2);
+      }
+    }
+
+    .smallText {
+      margin-top: 4px;
+      img, span {
+        vertical-align: middle;
+      }
+      img {
+        width: 24px;
+        margin-right: 2px;
+      }
+    }
+  }
+  .whiteCard {
+    padding: 2vw;
+    width: 100%;
+  }
+}

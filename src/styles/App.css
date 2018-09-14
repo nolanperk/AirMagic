@@ -139,9 +139,9 @@ ul {
   #next p {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .SplashView .splashWrapper .splashCard .cornerNumber, .SplashView .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before {
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .SplashView .splashWrapper .splashCard .cornerNumber::before, .SplashView .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
     content: "";
     position: absolute;
     top: 0;
@@ -248,7 +248,7 @@ ul {
     width: 100%;
     margin-top: 20px; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal, .modal .modalInner {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal, .modal .modalInner, .rowItems .ArchiveItem .subInfo {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
@@ -390,6 +390,13 @@ ul {
     .Navbar .rightButtons .navIcon {
       float: none;
       margin-left: 20px; }
+
+.rightButtons .navIcon {
+  vertical-align: top;
+  margin-top: -5px; }
+
+.rightButtons .btn {
+  margin-left: 15px; }
 
 .recordNav h4 {
   max-width: calc(100% - 390px); }
@@ -1508,7 +1515,12 @@ hr {
   text-align: center; }
   .LoadModal img {
     width: 300px;
-    padding: 100px; }
+    padding: 100px;
+    padding-bottom: 50px; }
+  .LoadModal h4 {
+    padding-bottom: 50px;
+    text-align: center;
+    width: 100%; }
 
 .AddNoteModal.modalInner .btn {
   display: block;
@@ -1738,3 +1750,225 @@ hr {
     border: 0; }
     .mapNav .customersList {
       max-height: 23vh; } }
+
+.SplashView {
+  position: absolute;
+  width: 100%;
+  height: 100%; }
+  .SplashView .splashWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 1000px;
+    width: 80%;
+    display: flex;
+    align-items: stretch; }
+    .SplashView .splashWrapper a {
+      text-decoration: none; }
+      .SplashView .splashWrapper a:hover {
+        opacity: 1; }
+    .SplashView .splashWrapper .linkSet, .SplashView .splashWrapper .searchArea {
+      flex: 1 1 0;
+      padding: 5% 0; }
+    .SplashView .splashWrapper .searchArea {
+      padding-left: 6%; }
+      .SplashView .splashWrapper .searchArea .innerSearch {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+    .SplashView .splashWrapper .linkSet {
+      padding-right: 6%; }
+    .SplashView .splashWrapper .vr {
+      background: #c5c5c4;
+      flex-basis: 1px; }
+    .SplashView .splashWrapper .linkSet {
+      display: flex; }
+      .SplashView .splashWrapper .linkSet .dualCard {
+        flex-basis: 50%;
+        padding-right: 6%; }
+      .SplashView .splashWrapper .linkSet .splashCard--all {
+        flex-basis: 50%; }
+    .SplashView .splashWrapper #proactive {
+      margin-top: 15px; }
+      .SplashView .splashWrapper #proactive .circleDot {
+        background: #407ae6; }
+      .SplashView .splashWrapper #proactive .cornerNumber {
+        background: #407ae6; }
+    .SplashView .splashWrapper #browseAll a {
+      height: 100%;
+      position: absolute;
+      width: 100%; }
+    .SplashView .splashWrapper #browseAll .inner {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+    .SplashView .splashWrapper #browseAll .circleDot {
+      background: #1FC26A;
+      width: 95px;
+      height: 95px; }
+    .SplashView .splashWrapper .splashCard {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s ease; }
+      .SplashView .splashWrapper .splashCard:hover {
+        transition: all 0.5s ease;
+        transform: translateY(5px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+      .SplashView .splashWrapper .splashCard .cornerNumber {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-left: 16px;
+        padding-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 15px;
+        border-bottom-left-radius: 100px;
+        background: #C31F2F;
+        color: #fff;
+        font-weight: 600;
+        background: #C31F2F; }
+        .SplashView .splashWrapper .splashCard .cornerNumber.loading {
+          background: none !important; }
+          .SplashView .splashWrapper .splashCard .cornerNumber.loading img {
+            width: 25px; }
+      .SplashView .splashWrapper .splashCard .inner {
+        padding: 20% 12% 24%;
+        text-align: center; }
+      .SplashView .splashWrapper .splashCard .circleDot {
+        margin: auto;
+        margin-bottom: 10px;
+        width: 75px;
+        height: 75px;
+        border-radius: 100%;
+        background: #C31F2F; }
+        .SplashView .splashWrapper .splashCard .circleDot img {
+          width: 45%;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%); }
+  .SplashView form {
+    background: white;
+    border-radius: 100px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 15px; }
+    .SplashView form input {
+      width: calc(70% - 26px);
+      height: 53px;
+      vertical-align: top;
+      border-radius: 100px;
+      border: none;
+      padding: 10px 20px;
+      outline: 0; }
+    .SplashView form select {
+      width: calc(26% - 27px);
+      margin-right: 4%;
+      height: 53px;
+      vertical-align: top;
+      border-radius: 0;
+      border: none;
+      background: white;
+      outline: 0;
+      border-left: 1px solid #dedede; }
+
+.attentionContainer {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  padding: 8vw 0; }
+  .attentionContainer .rowItems {
+    padding: 0 1%;
+    margin-bottom: 50px; }
+    .attentionContainer .rowItems.newStarts .ArchiveItem .subInfo {
+      background: rgba(31, 146, 194, 0.6); }
+    .attentionContainer .rowItems.newCloses .ArchiveItem .subInfo {
+      background: rgba(31, 194, 106, 0.75); }
+    .attentionContainer .rowItems.crewChanges .ArchiveItem .subInfo {
+      background: rgba(226, 99, 13, 0.35); }
+    .attentionContainer .rowItems.notHappy .ArchiveItem .subInfo {
+      background: rgba(195, 31, 47, 0.35); }
+    .attentionContainer .rowItems.mehAccounts .ArchiveItem .subInfo {
+      background: rgba(19, 19, 19, 0.15); }
+    .attentionContainer .rowItems .everyMonth .subInfo {
+      background: rgba(31, 146, 194, 0.6); }
+    .attentionContainer .rowItems .twicePerMonth .subInfo {
+      background: rgba(31, 194, 106, 0.75); }
+    .attentionContainer .rowItems .everyOtherMonth .subInfo {
+      background: rgba(226, 99, 13, 0.35); }
+  .attentionContainer .hrTitle {
+    padding: 20px 2%;
+    position: relative; }
+    .attentionContainer .hrTitle span {
+      background: #F7F7F5;
+      z-index: 1;
+      position: relative;
+      padding: 0 1%; }
+    .attentionContainer .hrTitle::after {
+      content: "";
+      background: #131313;
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      left: 0;
+      top: 50%; }
+
+.rowItems .ArchiveItem {
+  padding: 0.5vw;
+  width: 16%;
+  position: relative;
+  transition: all 0.5s ease;
+  cursor: pointer; }
+  .rowItems .ArchiveItem.recentlyClosed {
+    background: #1FC26A;
+    transition: all 0.5s ease; }
+  .rowItems .ArchiveItem:hover {
+    transform: translateY(-5%);
+    background: none;
+    transition: all 0.5s ease; }
+    .rowItems .ArchiveItem:hover .whiteCard, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover input, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover select, .rowItems .ArchiveItem:hover .subInfo {
+      box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08); }
+  .rowItems .ArchiveItem .whiteCard:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select:hover {
+    transform: none;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
+  .rowItems .ArchiveItem .whiteCard, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select {
+    padding-bottom: 1vw; }
+  .rowItems .ArchiveItem .subInfo {
+    padding: 1vw 2vw;
+    background: #EBEBE8;
+    border: solid 5px #fff;
+    border-top: 0; }
+    .rowItems .ArchiveItem .subInfo p {
+      color: white;
+      display: inline-block; }
+    .rowItems .ArchiveItem .subInfo .amount {
+      font-weight: bold;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      margin-right: 10px; }
+    .rowItems .ArchiveItem .subInfo .rounded {
+      border-radius: 100px;
+      padding: 5px 10px;
+      font-size: 12px;
+      text-align: center; }
+    .rowItems .ArchiveItem .subInfo .pam {
+      background: rgba(19, 19, 19, 0.2); }
+    .rowItems .ArchiveItem .subInfo .canc {
+      background: rgba(195, 31, 47, 0.2); }
+    .rowItems .ArchiveItem .subInfo .appc {
+      background: rgba(31, 146, 194, 0.2); }
+    .rowItems .ArchiveItem .subInfo .appt {
+      background: rgba(19, 19, 19, 0.2); }
+  .rowItems .ArchiveItem .smallText {
+    margin-top: 4px; }
+    .rowItems .ArchiveItem .smallText img, .rowItems .ArchiveItem .smallText span {
+      vertical-align: middle; }
+    .rowItems .ArchiveItem .smallText img {
+      width: 24px;
+      margin-right: 2px; }
+
+.rowItems .whiteCard, .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems input, .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems select {
+  padding: 2vw;
+  width: 100%; }

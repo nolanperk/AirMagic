@@ -385,7 +385,7 @@ export default class Sales extends Component {
         'Special Notes': '',
 
         'Status': 'Active',
-        'Standing': 'New Customer',
+        'Standing': 'New Close',
       }
       if(this.state.currentRecord['Company Name']) {pushRecord['Company Name'] = this.state.currentRecord['Company Name']}
       if(this.state.currentRecord['Main contact']) {pushRecord['Main contact'] = this.state.currentRecord['Main contact']}

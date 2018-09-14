@@ -4,6 +4,7 @@ import axios from 'axios';
 import propTypes from 'prop-types';
 
 import exit from '../assets/icons/white/exit.png';
+import attentionImage from '../assets/icons/white/attention.png';
 import hamburger from '../assets/icons/white/hamburger.png';
 import search from '../assets/icons/white/search.png';
 import filter from '../assets/icons/black/filter.png';
@@ -18,6 +19,9 @@ import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
 import FranchiseView from './FranchiseView';
+import SplashView from './SplashView';
+import AttentionView from './Attention/AttentionView'
+import ProactiveView from './Proactive/ProactiveView'
 
 let currentRecordState = [];
 let currentFranchiseState = [];
@@ -62,6 +66,9 @@ export default class CustomerService extends Component {
       spList: [],
       spListOffset: '',
       currentRecordView: 'default',
+      loadingText: 'Loading',
+      clearedAttention: true,
+      clearedProactive: true,
     }
   }
 
@@ -387,11 +394,18 @@ export default class CustomerService extends Component {
   }
 
   openRecordHandler = (e, key, index)  => {
-    if (this.state.data.length > 100) {
-      sessionStorage.setItem('innerClosedID', this.props.recordId);
-      sessionStorage.setItem('innerOffset', this.state.dataOffset);
+    this.setState({
+      loadingText: 'Loading Record',
+    });
+    if (this.state.viewType === 'all') {
+      if (this.state.data.length > 100) {
+        sessionStorage.setItem('innerClosedID', this.props.recordId);
+        sessionStorage.setItem('innerOffset', this.state.dataOffset);
+      }
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + key);
+    } else {
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + key);
     }
-    this.props.history.push('/' + this.props.citySet + '/customer-service/' + key);
   }
 
   newRecordHandler = ()  => {
@@ -690,7 +704,7 @@ export default class CustomerService extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/' + this.props.citySet + '/customer-service/');
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/');
       this.setState({
           activeModal: false,
           modalType: '',
@@ -750,7 +764,7 @@ export default class CustomerService extends Component {
             loading: true,
           });
 
-          this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+          this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -809,10 +823,10 @@ export default class CustomerService extends Component {
               recordChanges: false,
             });
 
-            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/' + this.props.citySet + '/customer-service/');
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/');
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -910,7 +924,7 @@ export default class CustomerService extends Component {
             })
           }
           setTimeout((function() {
-            this.props.history.push('/' + this.props.citySet + '/customer-service/' + response.data.id);
+            this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + response.data.id);
           }).bind(this), 10);
         })
         .catch(response => {
@@ -995,10 +1009,10 @@ export default class CustomerService extends Component {
                   recordChanges: false,
                 });
               }).bind(this), 10);
-              this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.state.data[dataIndex].id);
+              this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/' + this.state.data[dataIndex].id);
             } else {
               if (this.state.modalType === 'saveAlert') {
-                this.props.history.push('/' + this.props.citySet + '/customer-service/');
+                this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/');
                 this.setState({
                   data: fullDataSet,
                   recordView: false,
@@ -1609,6 +1623,303 @@ export default class CustomerService extends Component {
     }).bind(this), 10);
   };
 
+  splashSelect = e => {
+    if (e.target.closest(".splashCard").id === 'browseAll') {
+      console.log('browse');
+      this.setState({
+        viewType: '',
+        altView: false,
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/all');
+    } else if (e.target.closest(".splashCard").id === 'attention') {
+      console.log('attention');
+      this.setState({
+        viewType: 'attention',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/attention');
+    } else if (e.target.closest(".splashCard").id === 'proactive') {
+      console.log('proactive');
+      this.setState({
+        viewType: 'proactive',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/proactive');
+
+    }
+  }
+
+  changeAlt = e => {
+    if (e.target.id === 'browseAll') {
+      console.log('browse');
+      this.setState({
+        viewType: '',
+        altView: false,
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/all');
+    } else if (e.target.id === 'attention') {
+      console.log('attention');
+      this.setState({
+        viewType: 'attention',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/attention');
+    } else if (e.target.id === 'proactive') {
+      console.log('proactive');
+      this.setState({
+        viewType: 'proactive',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/proactive');
+
+    }
+  }
+
+  loadAttentionData = () => {
+    let clearedCount = 0;
+
+    this.setState({
+      loading: true,
+      attentionOffset: '',
+      attentionData: [],
+      data: [],
+      clearedAttention: false,
+      loadingText: 'Finding What Needs Attention'
+    });
+
+    let attentionURL;
+    let proactiveURL;
+
+
+    let splashLoadFinish = function() {
+      //SPLIT ATTENTION INTO PROPER CATEGORY
+      let newAttentionData = {
+        "newClose": [],
+        "newStart": [],
+        "crew": [],
+        "unhappy": [],
+        "satisfied": [],
+      };
+      let attentionLength = 0;
+      for (var i in this.state.data) {
+        let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
+
+        if (this.state.data[i].fields['Standing'] === 'New Close') {
+          console.log('hi');
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.data[i].fields;
+          newItem['id'] = this.state.data[i].id;
+          newAttentionData['newClose'].push(newItem);
+        } else if (this.state.data[i].fields['Standing'] === 'New Customer') {
+          if (this.state.data[i].fields['Start Date']) {
+            let startDate = new Date(this.state.data[i].fields['Start Date']);
+            let callDate;
+
+            if (this.state.data[i].fields['Last Call']) {
+              callDate = new Date(this.state.data[i].fields['Last Call']);
+
+              if (startDate > callDate) {
+                console.log('start > call - ' + this.state.data[i].fields['Company Name']);
+                attentionLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newAttentionData['newStart'].push(newItem);
+              } else {
+                console.log('ELSE - ' + this.state.data[i].fields['Company Name']);
+              }
+            } else {
+              console.log('no call - ' + this.state.data[i].fields['Company Name']);
+              attentionLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.data[i].fields;
+              newItem['id'] = this.state.data[i].id;
+              newAttentionData['newStart'].push(newItem);
+            }
+          }
+        } else if (this.state.data[i].fields['Standing'] === 'Crew Change') {
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.data[i].fields;
+          newItem['id'] = this.state.data[i].id;
+          newAttentionData['crew'].push(newItem);
+        } else if (this.state.data[i].fields['Standing'] === 'Unhappy') {
+          if (thisMonthly > 499) {
+            attentionLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newAttentionData['unhappy'].push(newItem);
+          }
+        } else if (this.state.data[i].fields['Standing'] === 'Satisfied') {
+          if (thisMonthly > 499) {
+            attentionLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newAttentionData['satisfied'].push(newItem);
+          }
+        }
+      }
+      let finalDataAtt = [];
+      for (var i in newAttentionData.newStart) {
+        finalDataAtt.push(newAttentionData.newStart[i]);
+      }
+      for (var i in newAttentionData.newClose) {
+        finalDataAtt.push(newAttentionData.newClose[i]);
+      }
+      for (var i in newAttentionData.crew) {
+        finalDataAtt.push(newAttentionData.crew[i]);
+      }
+      for (var i in newAttentionData.unhappy) {
+        finalDataAtt.push(newAttentionData.unhappy[i]);
+      }
+      for (var i in newAttentionData.satisfied) {
+        finalDataAtt.push(newAttentionData.satisfied[i]);
+      }
+
+      // finalDataAtt = finalDataAtt.reverse();
+
+      this.setState({
+        attentionData: newAttentionData,
+        data: finalDataAtt,
+        attentionLength: attentionLength,
+      });
+      setTimeout((function() {
+        this.setState({
+          loading: false,
+        });
+      }).bind(this), 250);
+    }.bind(this);
+
+
+    setTimeout((function() {
+      let loadAttention = function() {
+        console.log('load attention');
+        let preAttention = this.state.data;
+
+        attentionURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?view=Attention';
+        if (this.state.attentionOffset !== '') {attentionURL = attentionURL + '&offset=' + this.state.attentionOffset;}
+
+        // finalURL = finalURL + '&pageSize=5';
+        console.log(attentionURL);
+        return axios
+          .get(attentionURL).then(response => {
+            this.setState({
+              data: preAttention.concat(response.data.records),
+              error: false,
+              attentionOffset: response.data.offset,
+            });
+          if (response.data.offset) {
+            loadAttention();
+          } else {
+            console.log('clearing loadAttention()');
+            this.setState({
+              clearedAttention: true,
+            });
+            splashLoadFinish();
+          }
+        });
+      }.bind(this);
+      loadAttention(); //start loading attention
+    }).bind(this), 250);
+  }
+
+  loadProactiveData = () => {
+    let clearedCount = 0;
+
+    this.setState({
+      loading: true,
+      proactiveOffset: '',
+      data: [],
+      proactiveData: [],
+      clearedProactive: false,
+      loadingText: 'Generating Proactive List'
+    });
+
+    let proactiveURL;
+
+
+    let splashLoadFinish = function() {
+      //FILTER OUT UNNECESARY PROACTIVES
+      let newProactiveData = {
+        "everyOtherMonth": [],
+        "everyMonth": [],
+        "twicePerMonth": []
+      };
+      let proactiveLength = 0;
+
+
+      for (var i in this.state.data) {
+        if (this.state.data[i].fields['Monthly Amount']) {
+          let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
+          if (thisMonthly > 499 && thisMonthly <= 999) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newProactiveData['everyOtherMonth'].push(newItem);
+          } else if (thisMonthly > 999 && thisMonthly <= 1499) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newProactiveData['everyMonth'].push(newItem);
+          } else if (thisMonthly > 1499) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newProactiveData['twicePerMonth'].push(newItem);
+          }
+        }
+      }
+
+      this.setState({
+        proactiveData: newProactiveData,
+        proactiveLength: proactiveLength,
+      });
+      setTimeout((function() {
+        this.setState({
+          loading: false,
+        });
+      }).bind(this), 250);
+    }.bind(this);
+
+
+    setTimeout((function() {
+      let loadProactive = function() {
+        console.log('load proactive');
+        let preProactive = this.state.data;
+
+        proactiveURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?view=Proactive';
+        if (localStorage.getItem('userInitials') === 'DRR') { proactiveURL = proactiveURL + '&sort%5B0%5D%5Bfield%5D=Monthly+Amount&sort%5B0%5D%5Bdirection%5D=desc';}
+        else {proactiveURL = proactiveURL + '&sort%5B0%5D%5Bfield%5D=Last+Call';}
+
+        if (this.state.proactiveOffset !== '') {proactiveURL = proactiveURL + '&offset=' + this.state.proactiveOffset;}
+
+        console.log(proactiveURL);
+        return axios
+          .get(proactiveURL).then(response => {
+            this.setState({
+              data: preProactive.concat(response.data.records),
+              error: false,
+              proactiveOffset: response.data.offset,
+            });
+          if (response.data.offset) {
+            loadProactive();
+          } else {
+            this.setState({
+              clearedProactive: true,
+              loadingText: 'Loading',
+            });
+            console.log('clearing loadProactive()');
+            splashLoadFinish();
+          }
+        });
+      }.bind(this);
+
+      loadProactive();
+
+    }).bind(this), 500);
+  }
 
   clearSearch = () => {
     this.setState({
@@ -1773,43 +2084,50 @@ export default class CustomerService extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
+
       if (localStorage.getItem('userInitials') === 'JETT') {
         this.props.history.push('/jett/');
       }
-      if (sessionStorage.getItem('searchQuery')) {
-        this.setState({
-          searchQuery: sessionStorage.getItem('searchQuery'),
-          searchBy: sessionStorage.getItem('searchBy'),
-          loading: true,
-        });
-        this.loadPrevSearch();
-      } else {
-        this.loadData();
-      }
-
-      if (localStorage.getItem('userInitials')) {
-        let usersInitials = localStorage.getItem('userInitials');
-        this.setState({
-          userName: usersInitials,
-        });
-      }
+      if (this.props.viewType === 'attention') {
+        this.loadAttentionData();
+      } else if (this.props.viewType === 'proactive') {
+        this.loadProactiveData();
+      } else if (this.props.viewType === 'all') {
+        if (sessionStorage.getItem('searchQuery')) {
+          this.setState({
+            searchQuery: sessionStorage.getItem('searchQuery'),
+            searchBy: sessionStorage.getItem('searchBy'),
+            loading: true,
+          });
+          this.loadPrevSearch();
+        } else {
+          this.loadData();
+        }
 
 
-      if (sessionStorage.getItem('serviceView')) {
-        this.setState({
-          currentRecordView: sessionStorage.getItem('serviceView')
-        });
-      } else {
-        this.setState({
-          currentRecordView: 'default'
-        });
+        if (sessionStorage.getItem('serviceView')) {
+          this.setState({
+            currentRecordView: sessionStorage.getItem('serviceView')
+          });
+        } else {
+          this.setState({
+            currentRecordView: 'default'
+          });
+        }
       }
+
 
       if (sessionStorage.getItem('tampaSPLoaded') !== true) {
         this.loadSPList();
       } else {
         this.setState({
           spList: sessionStorage.getItem('tampaSPList')
+        });
+      }
+      if (localStorage.getItem('userInitials')) {
+        let usersInitials = localStorage.getItem('userInitials');
+        this.setState({
+          userName: usersInitials,
         });
       }
     }
@@ -1824,6 +2142,7 @@ export default class CustomerService extends Component {
           <div className="LoadModal modalInner">
             <div className="modalTitle">
               <img src={loader} alt="" />
+              <h4>{this.state.loadingText}</h4>
             </div>
           </div>
         </div>
@@ -2009,18 +2328,73 @@ export default class CustomerService extends Component {
         />
       );
     } else if (this.state.listIsVisible) {
-      return (
-        <div className="listArea">
-          <ListContent
-            data={this.state.data}
-            isLoading={this.state.loading}
-            openRecordHandler = {this.openRecordHandler}
-            searchQuery = {this.state.searchQuery}
-            clearSearch = {this.clearSearch}
-          />
-          <div id="scrollTopBottom"></div>
-        </div>
-      );
+      if (this.props.viewType === 'all') {
+        return (
+          <div className="listArea">
+            <ListContent
+              data={this.state.data}
+              isLoading={this.state.loading}
+              openRecordHandler = {this.openRecordHandler}
+              searchQuery = {this.state.searchQuery}
+              clearSearch = {this.clearSearch}
+            />
+            <div id="scrollTopBottom"></div>
+          </div>
+        );
+      } else if (this.props.viewType === 'attention') {
+        if (this.state.attentionData) {
+          return (
+            <AttentionView
+              citySet={this.props.citySet}
+              attentionData={this.state.attentionData}
+              attentionLength={this.state.attentionLength}
+              closeLength = {this.state.attentionData.newClose.length}
+              startsLength = {this.state.attentionData.newStart.length}
+              crewLength = {this.state.attentionData.crew.length}
+              unhappyLength = {this.state.attentionData.unhappy.length}
+              satisfiedLength = {this.state.attentionData.satisfied.length}
+              openRecordHandler = {this.openRecordHandler}
+            />
+          );
+        } else {
+          return (
+            <div className="modal">
+              <div className="LoadModal modalInner">
+                <div className="modalTitle">
+                  <img src={loader} alt="" />
+                  <h4>{this.state.loadingText}</h4>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      } else if (this.props.viewType === 'proactive') {
+        if (this.state.proactiveData) {
+          return (
+            <ProactiveView
+              citySet={this.props.citySet}
+              proactiveData={this.state.proactiveData}
+              proactiveLength={this.state.proactiveLength}
+              everyOtherMonth = {this.state.proactiveData.everyOtherMonth.length}
+              everyMonth = {this.state.proactiveData.everyMonth.length}
+              twicePerMonth = {this.state.proactiveData.twicePerMonth.length}
+              openRecordHandler = {this.openRecordHandler}
+              data={this.state.data}
+            />
+          );
+        } else {
+          return (
+            <div className="modal">
+              <div className="LoadModal modalInner">
+                <div className="modalTitle">
+                  <img src={loader} alt="" />
+                  <h4>{this.state.loadingText}</h4>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      }
     }
   }
 }

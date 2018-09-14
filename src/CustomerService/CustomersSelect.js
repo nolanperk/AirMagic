@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import axios from 'axios';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import SplashView from './SplashView';
 
 import exit from '../assets/icons/white/exit.png';
 import hamburger from '../assets/icons/white/hamburger.png';
@@ -21,9 +24,7 @@ export default class CustomerService extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: '',
       currentTable: 'Customers',
-      listView: 'view=All+Actives',
-      sortByLabel: 'Company+Name',
-      sortByOrder: 'asc',
+      loadingText: 'Loading',
     }
   }
 
@@ -45,6 +46,217 @@ export default class CustomerService extends Component {
     }).bind(this), 50);
   }
 
+  loadSplashData = () => {
+    let clearedCount = 0;
+
+    this.setState({
+      attentionOffset: '',
+      attentionData: [],
+      proactiveOffset: '',
+      proactiveData: [],
+      clearedAttention: false,
+      clearedProactive: false,
+      loadingText: 'Finding What Needs Attention',
+      loading: true,
+    });
+
+    let attentionURL;
+    let proactiveURL;
+
+
+    let attentionFinish = function() {
+      //SPLIT ATTENTION INTO PROPER CATEGORY
+      let newAttentionData = {
+        "newClose": [],
+        "newStart": [],
+        "crew": [],
+        "unhappy": [],
+        "satisfied": [],
+      };
+      let attentionLength = 0;
+      console.log(this.state.attentionData);
+
+      for (var i in this.state.attentionData) {
+        let thisMonthly = parseInt(this.state.attentionData[i].fields['Monthly Amount']);
+
+        if (this.state.attentionData[i].fields['Standing'] === 'New Close') {
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.attentionData[i].fields;
+          newItem['id'] = this.state.attentionData[i].id;
+          newAttentionData['newClose'].push(newItem);
+        } else if (this.state.attentionData[i].fields['Standing'] === 'New Customer') {
+          if (this.state.attentionData[i].fields['Start Date']) {
+            let startDate = new Date(this.state.attentionData[i].fields['Start Date']);
+            let callDate;
+
+            if (this.state.attentionData[i].fields['Last Call']) {
+              callDate = new Date(this.state.attentionData[i].fields['Last Call']);
+
+              if (startDate > callDate) {
+                console.log('start > call - ' + this.state.attentionData[i].fields['Company Name']);
+                attentionLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.attentionData[i].fields;
+                newItem['id'] = this.state.attentionData[i].id;
+                newAttentionData['newStart'].push(newItem);
+              } else {
+                console.log('ELSE - ' + this.state.attentionData[i].fields['Company Name']);
+              }
+            } else {
+              console.log('no call - ' + this.state.attentionData[i].fields['Company Name']);
+              attentionLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.attentionData[i].fields;
+              newItem['id'] = this.state.attentionData[i].id;
+              newAttentionData['newStart'].push(newItem);
+            }
+          }
+        } else if (this.state.attentionData[i].fields['Standing'] === 'Crew Change') {
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.attentionData[i].fields;
+          newItem['id'] = this.state.attentionData[i].id;
+          newAttentionData['crew'].push(newItem);
+        } else if (this.state.attentionData[i].fields['Standing'] === 'Unhappy') {
+          if (thisMonthly > 499) {
+            attentionLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.attentionData[i].fields;
+            newItem['id'] = this.state.attentionData[i].id;
+            newAttentionData['unhappy'].push(newItem);
+          }
+        } else if (this.state.attentionData[i].fields['Standing'] === 'Satisfied') {
+          if (thisMonthly > 499) {
+            attentionLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.attentionData[i].fields;
+            newItem['id'] = this.state.attentionData[i].id;
+            newAttentionData['satisfied'].push(newItem);
+          }
+        }
+      }
+
+      this.setState({
+        attentionData: newAttentionData,
+        attentionLength: attentionLength,
+      });
+
+      setTimeout((function() {
+        this.setState({
+          loading: false,
+        });
+      }).bind(this), 2000);
+
+    }.bind(this);
+
+    let proactiveFinish = function() {
+      //FILTER OUT UNNECESARY PROACTIVES
+      let newProactiveData = {
+        "everyOtherMonth": [],
+        "everyMonth": [],
+        "twicePerMonth": []
+      };
+      let proactiveLength = 0;
+      for (var i in this.state.proactiveData) {
+        if (this.state.proactiveData[i].fields['Monthly Amount']) {
+          let thisMonthly = parseInt(this.state.proactiveData[i].fields['Monthly Amount']);
+          if (thisMonthly > 499 && thisMonthly <= 999) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.proactiveData[i].fields;
+            newItem['id'] = this.state.proactiveData[i].id;
+            newProactiveData['everyOtherMonth'].push(newItem);
+          } else if (thisMonthly > 999 && thisMonthly <= 1499) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.proactiveData[i].fields;
+            newItem['id'] = this.state.proactiveData[i].id;
+            newProactiveData['everyMonth'].push(newItem);
+          } else if (thisMonthly > 1499) {
+            proactiveLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.proactiveData[i].fields;
+            newItem['id'] = this.state.proactiveData[i].id;
+            newProactiveData['twicePerMonth'].push(newItem);
+          }
+        }
+      }
+
+      this.setState({
+        proactiveData: newProactiveData,
+        proactiveLength: proactiveLength,
+      });
+    }.bind(this);
+
+
+    setTimeout((function() {
+      let loadAttention = function() {
+        console.log('load attention');
+        let preAttention = this.state.attentionData;
+
+        attentionURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?view=Attention';
+        if (this.state.attentionOffset !== '') {attentionURL = attentionURL + '&offset=' + this.state.attentionOffset;}
+
+        // finalURL = finalURL + '&pageSize=5';
+        console.log(attentionURL);
+        return axios
+          .get(attentionURL).then(response => {
+            this.setState({
+              attentionData: preAttention.concat(response.data.records),
+              error: false,
+              attentionOffset: response.data.offset,
+            });
+          if (response.data.offset !== undefined && this.props.location.pathname === "/" + this.props.citySet + "/customer-service/") {
+            console.log(this.state.clearedAttention);
+            loadAttention();
+          } else {
+            console.log('clearing loadAttention()');
+            this.setState({
+              clearedAttention: true,
+              loadingText: 'Generating Proactive Call List'
+            });
+            attentionFinish();
+          }
+        });
+      }.bind(this);
+      let loadProactive = function() {
+        console.log('load proactive');
+        let preProactive = this.state.proactiveData;
+
+        proactiveURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?view=Proactive';
+        if (this.state.proactiveOffset !== '') {proactiveURL = proactiveURL + '&offset=' + this.state.proactiveOffset;}
+
+        console.log(proactiveURL);
+        return axios
+          .get(proactiveURL).then(response => {
+            this.setState({
+              proactiveData: preProactive.concat(response.data.records),
+              error: false,
+              proactiveOffset: response.data.offset,
+            });
+          if (response.data.offset !== undefined && this.props.location.pathname === "/" + this.props.citySet + "/customer-service/") {
+            console.log(this.state.clearedProactive);
+            loadProactive();
+          } else {
+            this.setState({
+              clearedProactive: true,
+              loadingText: 'Loading',
+            });
+            console.log('clearing loadProactive()');
+            proactiveFinish();
+          }
+        });
+      }.bind(this);
+
+      loadAttention(); //start loading attention
+
+      setTimeout((function() { //delay loading proactive
+        loadProactive();
+      }).bind(this), 500);
+
+    }).bind(this), 500);
+  }
 
   searchHandler = e => {
     e.preventDefault();
@@ -55,223 +267,20 @@ export default class CustomerService extends Component {
     this.setState({
       searchQuery: document.getElementById('searchInput').value,
       searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
-      loading: true,
     });
 
     setTimeout((function() {
       sessionStorage.setItem('searchQuery', this.state.searchQuery);
       sessionStorage.setItem('searchBy', this.state.searchBy);
+
+      setTimeout((function() {
+        if (this.state.clearedAttention && this.state.clearedProactive) {
+          let allURL = this.props.location.pathname + '/all';
+          this.props.history.push(allURL.replace('//', '/'));
+        }
+      }).bind(this), 50);
     }).bind(this), 10);
 
-    setTimeout((function() {
-      let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
-        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
-      });
-      searchBy = this.state.searchBy
-      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-      if (this.state.listView !== '') {
-        finalURL = finalURL + '?' + this.state.listView;
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
-      } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
-      }
-      console.log('searchHandler()');
-      return axios
-      .get(finalURL)
-      .then(response => {
-        this.setState({
-          data: response.data.records,
-          loading: false,
-          error: false,
-          dataOffset: '',
-        });
-        if (this.state.recordView === false) {
-          setTimeout((function() {
-            if (document.getElementById('searchInput')) {
-              document.getElementById('searchInput').value = capitalizedQuery;
-              document.getElementById('searchBy').value = searchByValue;
-            }
-          }).bind(this), 50);
-        }
-      })
-    }).bind(this), 50);
-  }
-
-  loadData = () => {
-    if (window.history.length > 2) {
-      if (sessionStorage.getItem('listView') != null) {
-        this.setState({
-          loading: true,
-          listView: sessionStorage.getItem('listView')
-        });
-      } else {
-        this.setState({
-          loading: true
-        });
-      }
-    } else {
-      this.setState({
-        loading: true
-      });
-
-    }
-
-    //initial load
-    setTimeout((function() {
-      console.log('loading');
-      finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-        finalURL = finalURL + '?';
-
-        if (this.state.dataOffset !== '') {
-          finalURL = finalURL + 'offset=' + this.state.dataOffset;
-          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-            finalURL = finalURL + '&';
-          }
-        }
-        if (this.state.listView !== '') {
-          finalURL = finalURL + this.state.listView;
-          if (this.state.sortByLabel !== '') {
-            finalURL = finalURL + '&';
-          }
-        }
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-        }
-      }
-      return axios
-      .get(finalURL)
-      .then(response => {
-        this.setState({
-          data: response.data.records,
-          loading: false,
-          error: false,
-          loadingMore: true,
-          dataOffset: response.data.offset,
-        });
-        if (this.state.listView !== '') {
-          document.getElementById('filterBtn').className='ControlsBar--btn isActive';
-          document.getElementById('filterBtn').getElementsByTagName('p')[0].innerHTML=this.state.listView.replace('view=', '').replace('+', ' ');
-        }
-        if (this.state.sortByLabel !== 'Company+Name') {
-          document.getElementById('sortBtn').className='ControlsBar--btn isActive';
-          document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
-        }
-        setTimeout((function() {
-          this.setState({
-            loadingMore: false,
-          });
-
-          if (this.state.recordView) {
-            document.title = this.state.currentRecord['Company Name'] + " | AirMagic"
-          } else {
-            document.title = this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers | AirMagic";
-          }
-
-          //keep going if we we're on 100+ internally
-          if (sessionStorage.getItem('innerOffset') != null) {
-            this.setState({
-              loading: true,
-            });
-            let savedOffset = sessionStorage.getItem('innerOffset').split('/')[1];
-            console.log(savedOffset);
-
-            let exitChangerLoadMore = setInterval(function() {
-              if (this.state.dataOffset.includes(savedOffset)) {
-                clearInterval(exitChangerLoadMore);
-                console.log('cleared!');
-                setTimeout((function() {
-                  if (this.state.recordView === false) {
-                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
-                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
-                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
-                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                    }
-                  }
-                  if (this.state.recordView) {
-                    this.setState({
-                      currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-                    });
-                  }
-                  sessionStorage.removeItem('innerOffset'); //reset it!
-                  sessionStorage.removeItem('innerClosedID'); //reset it!
-
-                  setTimeout((function() {
-                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
-                    // console.log();
-                  }).bind(this), 1000);
-                }).bind(this), 500);
-              } else {
-                console.log('loadmore!');
-                let preData = this.state.data;
-                this.setState({
-                  loadingMore: true,
-                });
-                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-                  finalURL = finalURL + '?';
-
-                  if (this.state.dataOffset !== '') {
-                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
-                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-                      finalURL = finalURL + '&';
-                    }
-                  }
-                  if (this.state.listView !== '') {
-                    finalURL = finalURL + this.state.listView;
-                    if (this.state.sortByLabel !== '') {
-                      finalURL = finalURL + '&';
-                    }
-                  }
-                  if (this.state.sortByLabel !== '') {
-                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-                  }
-                }
-                return axios
-                  .get(finalURL)
-                  .then(response => {
-                    // console.log(response.data.records);
-
-                    this.setState({
-                      data: preData.concat(response.data.records),
-                      //put it here
-                      totalLoads: this.state.totalLoads + 1,
-                      loading: false,
-                      error: false,
-                      dataOffset: response.data.offset,
-                    });
-                    setTimeout((function() {
-                      this.setState({
-                        loadingMore: false,
-                      });
-                    }).bind(this), 500);
-                  })
-              }
-            }.bind(this), 500);
-          }
-        }).bind(this), 100);
-      })
-      .catch(error => {
-        console.error("error: ", error);
-        this.setState({
-          error: `${error}`,
-          loading: false,
-        });
-      });
-    }).bind(this), 10);
-  };
-
-
-  clearSearch = () => {
-    this.setState({
-      searchQuery: '',
-      searchBy: '',
-      loading: true,
-      dataOffset: '',
-    });
-    sessionStorage.removeItem('searchQuery');
-    sessionStorage.removeItem('searchBy');
-    this.loadData();
   }
 
 
@@ -282,42 +291,8 @@ export default class CustomerService extends Component {
       if (localStorage.getItem('userInitials') === 'JETT') {
         this.props.history.push('/jett/');
       }
-      if (sessionStorage.getItem('searchQuery')) {
-        this.setState({
-          searchQuery: sessionStorage.getItem('searchQuery'),
-          searchBy: sessionStorage.getItem('searchBy'),
-          loading: true,
-        });
-        this.loadPrevSearch();
-      } else {
-        this.loadData();
-      }
 
-      if (localStorage.getItem('userInitials')) {
-        let usersInitials = localStorage.getItem('userInitials');
-        this.setState({
-          userName: usersInitials,
-        });
-      }
-
-
-      if (sessionStorage.getItem('serviceView')) {
-        this.setState({
-          currentRecordView: sessionStorage.getItem('serviceView')
-        });
-      } else {
-        this.setState({
-          currentRecordView: 'default'
-        });
-      }
-
-      if (sessionStorage.getItem('tampaSPLoaded') !== true) {
-        this.loadSPList();
-      } else {
-        this.setState({
-          spList: sessionStorage.getItem('tampaSPList')
-        });
-      }
+      this.loadSplashData();
     }
   }
 
@@ -330,6 +305,7 @@ export default class CustomerService extends Component {
           <div className="LoadModal modalInner">
             <div className="modalTitle">
               <img src={loader} alt="" />
+              <h4>{this.state.loadingText}</h4>
             </div>
           </div>
         </div>
@@ -347,6 +323,27 @@ export default class CustomerService extends Component {
 
     return (
       <div className="Customers">
+        <div className="Navbar">
+          <Link to={`/`}>
+            <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
+              <img src={hamburger} alt="databases" />
+            </div>
+          </Link>
+        </div>
+        <SplashView
+          attentionData={this.state.attentionData}
+          proactiveData={this.state.proactiveData}
+
+          searchHandler={this.searchHandler}
+
+          attentionLength={this.state.attentionLength}
+          proactiveLength={this.state.proactiveLength}
+          splashSelect={this.splashSelect}
+          pathname={this.props.location.pathname}
+          clearedProactive={this.state.clearedProactive}
+          clearedAttention={this.state.clearedAttention}
+          history={this.props.history}
+        />
       </div>
     );
   }

@@ -92,6 +92,9 @@ export default class Navbar extends Component {
     }
   }
   get downloadButton() {
+    let proURL = '/' + this.props.citySet + '/customer-service/proactive';
+    let attURL = '/' + this.props.citySet + '/customer-service/attention';
+
     if (this.props.recordView) {
       return (
         <div className="rightButtons">
@@ -107,8 +110,12 @@ export default class Navbar extends Component {
       );
     } else {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
-          <img src={exportImg} alt="Export" />
+        <div className="rightButtons">
+          <a href={attURL.replace('//', '/')} className="btn softGrad--primary" id="attention">Needs Attention</a>
+          <a href={proURL.replace('//', '/')} className="btn softGrad--blue" id="proactive">Proactive List</a>
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
+            <img src={exportImg} alt="Export" />
+          </div>
         </div>
       );
     }
