@@ -139,26 +139,42 @@ export default class VolumeRow extends Component {
       })
     }
 
+
+    //
+    // setTimeout(function(){
+    //   let splitTotals = document.getElementById('splitTotals');
+    //
+    //
+    //
+    //   if (this.props.split['IP'] > 0) {
+    //     let node = document.createElement("P");
+    //     let textnode = document.createTextNode(this.props.split['IP']);
+    //     node.appendChild(textnode);
+    //     splitTotals.appendChild(node);
+    //   }
+    //   if (this.props.split['AR'] > 0) {
+    //     let node = document.createElement("P");
+    //     let textnode = document.createTextNode(this.props.split['AR']);
+    //     node.appendChild(textnode);
+    //     splitTotals.appendChild(node);
+    //   }
+    //   if (this.props.split['AA'] > 0) {
+    //     let node = document.createElement("P");
+    //     let textnode = document.createTextNode(this.props.split['AA']);
+    //     node.appendChild(textnode);
+    //     splitTotals.appendChild(node);
+    //   }
+    //   if (this.props.split['RP'] > 0) {
+    //     let node = document.createElement("P");
+    //     let textnode = document.createTextNode(this.props.split['RP']);
+    //     node.appendChild(textnode);
+    //     splitTotals.appendChild(node);
+    //   }
+    // }, 500);
   }
   // Render
   // ----------------------------------------------------
   render() {
-    let formattedRowName;
-    if (this.props.rowName === 'ip') {formattedRowName = 'Initial Plan'; }
-    if (this.props.rowName === 'ar') {formattedRowName = 'Additional Revenue'; }
-    if (this.props.rowName === 'rp') {formattedRowName = 'Replacement Revenue'; }
-    if (this.props.rowName === 'aa') {formattedRowName = 'Additional Accounts'; }
-    if (this.props.rowName === 'ip_ar') {formattedRowName = 'IP / AR'; }
-    if (this.props.rowName === 'ip_rp') {formattedRowName = 'IP / RP'; }
-    if (this.props.rowName === 'ip_aa') {formattedRowName = 'IP / AA'; }
-    if (this.props.rowName === 'ar_rp') {formattedRowName = 'AR / RP'; }
-    if (this.props.rowName === 'ar_aa') {formattedRowName = 'AR / AA'; }
-    if (this.props.rowName === 'ip_ar_rp') {formattedRowName = 'IP / AR/ RP'; }
-    if (this.props.rowName === 'ip_ar_aa') {formattedRowName = 'IP / AR / AA'; }
-    if (this.props.rowName === 'ip_rp_aa') {formattedRowName = 'IP / RP / AA'; }
-    if (this.props.rowName === 'ar_rp_aa') {formattedRowName = 'AR / RP / AA'; }
-    if (this.props.rowName === 'ip_ar_rp_aa') {formattedRowName = 'IP / AR / RP / AA'; }
-    if (this.props.rowName === 'rp_aa') {formattedRowName = 'RP / AA'; }
 
     let ipOwed;
     if (this.props.rowName === 'ip') {
@@ -191,11 +207,8 @@ export default class VolumeRow extends Component {
       <div className={rowClasses}>
         <div className="timelineCal"></div>
         <div className="timelineContent">
-          <div className="headlineArea">
-            <h4>{formattedRowName}</h4>
-            <p><em>Total</em> ${this.state.rowTotal}</p>
-            {this.owedLine}
-          </div>
+          {this.headlineArea}
+
 
           <div className="tableWrapper">
             <table>
@@ -206,6 +219,73 @@ export default class VolumeRow extends Component {
         </div>
       </div>
     );
+  }
+  get headlineArea() {
+    if (this.props.rowName !== 'rp' && this.props.rowName !== 'aa' && this.props.rowName !== 'ar' && this.props.rowName !== 'ip') {
+      return (
+        <div className="headlineArea">
+          <p id="splitTotals">
+            {this.splitIP}
+            {this.splitAR}
+            {this.splitRP}
+            {this.splitAA}
+          </p>
+        </div>
+      )
+    } else {
+      let formattedRowName;
+      if (this.props.rowName === 'ip') {formattedRowName = 'Initial Plan'; }
+      if (this.props.rowName === 'ar') {formattedRowName = 'Additional Revenue'; }
+      if (this.props.rowName === 'rp') {formattedRowName = 'Replacement Revenue'; }
+      if (this.props.rowName === 'aa') {formattedRowName = 'Additional Accounts'; }
+      if (this.props.rowName === 'ip_ar') {formattedRowName = 'IP / AR'; }
+      if (this.props.rowName === 'ip_rp') {formattedRowName = 'IP / RP'; }
+      if (this.props.rowName === 'ip_aa') {formattedRowName = 'IP / AA'; }
+      if (this.props.rowName === 'ar_rp') {formattedRowName = 'AR / RP'; }
+      if (this.props.rowName === 'ar_aa') {formattedRowName = 'AR / AA'; }
+      if (this.props.rowName === 'ip_ar_rp') {formattedRowName = 'IP / AR/ RP'; }
+      if (this.props.rowName === 'ip_ar_aa') {formattedRowName = 'IP / AR / AA'; }
+      if (this.props.rowName === 'ip_rp_aa') {formattedRowName = 'IP / RP / AA'; }
+      if (this.props.rowName === 'ar_rp_aa') {formattedRowName = 'AR / RP / AA'; }
+      if (this.props.rowName === 'ip_ar_rp_aa') {formattedRowName = 'IP / AR / RP / AA'; }
+      if (this.props.rowName === 'rp_aa') {formattedRowName = 'RP / AA'; }
+
+      return (
+        <div className="headlineArea">
+          <h4>{formattedRowName}</h4>
+          <p><em>Total</em> ${this.state.rowTotal}</p>
+          {this.owedLine}
+        </div>
+      )
+    }
+  }
+  get splitIP() {
+    if (this.props.split['IP'] > 0) {
+      return (
+        <p><em>IP </em>${this.props.split['IP']}</p>
+      );
+    }
+  }
+  get splitAR() {
+    if (this.props.split['AR'] > 0) {
+      return (
+        <p><em>AR </em>${this.props.split['AR']}</p>
+      );
+    }
+  }
+  get splitRP() {
+    if (this.props.split['RP'] > 0) {
+      return (
+        <p><em>RP </em>${this.props.split['RP']}</p>
+      );
+    }
+  }
+  get splitAA() {
+    if (this.props.split['AA'] > 0) {
+      return (
+        <p><em>AA </em>${this.props.split['AA']}</p>
+      );
+    }
   }
   get tableLayout() {
     //only rp
@@ -307,6 +387,7 @@ export default class VolumeRow extends Component {
 VolumeRow.propTypes ={
   currentRecord: propTypes.object.isRequired,
   ar: propTypes.string,
+  split: propTypes.object,
   plan: propTypes.string,
   baseId: propTypes.string.isRequired,
   spName: propTypes.string.isRequired,

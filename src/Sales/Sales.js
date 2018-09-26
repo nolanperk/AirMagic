@@ -185,9 +185,9 @@ export default class Sales extends Component {
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '&filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '?filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       }
       console.log('loadPrevSearch()');
       return axios
@@ -237,9 +237,9 @@ export default class Sales extends Component {
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '&filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '?filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       }
       console.log('searchHandler()');
       return axios
@@ -445,7 +445,7 @@ export default class Sales extends Component {
       axios
       .post(this.state.dataURL + customerBase + '/Customers/', finalPush)
         .then(response => {
-          destinationURL = '/' + this.props.citySet + '/customer-service/' + response.data.id;
+          destinationURL = '/' + this.props.citySet + '/customer-service/all/' + response.data.id;
           console.log('moveDatabasesHandler()');
 
           this.setState({

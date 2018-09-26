@@ -242,6 +242,9 @@ export default class VolItem extends Component {
           <td className="input--s selectBlock">
             <select id="notesSelect" value={this.state.notesValue} onChange={this.notesChange}>
               <option value="none"></option>
+              <option value="1">1x</option>
+              <option value="2">2x</option>
+              <option value="2.5">2.5x</option>
               <option value="3">3x</option>
               <option value="3.5">3.5x</option>
               <option value="4">4x</option>
@@ -361,6 +364,9 @@ export default class VolItem extends Component {
           <td className="input--s selectBlock">
             <select id="notesSelect" value={this.state.notesValue} onChange={this.notesChange}>
               <option value="none"></option>
+              <option value="1">1x</option>
+              <option value="2">2x</option>
+              <option value="2.5">2.5x</option>
               <option value="3">3x</option>
               <option value="3.5">3.5x</option>
               <option value="4">4x</option>

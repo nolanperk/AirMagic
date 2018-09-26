@@ -139,26 +139,34 @@ export default class Franchisees extends Component {
 
   searchHandler = e => {
     e.preventDefault();
+
     let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
 
     this.setState({
       searchQuery: document.getElementById('searchInput').value,
+      searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
       loading: true,
     });
+
+    setTimeout((function() {
+      sessionStorage.setItem('searchQuery', this.state.searchQuery);
+      sessionStorage.setItem('searchBy', this.state.searchBy);
+    }).bind(this), 10);
 
     setTimeout((function() {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
         finalURL = finalURL + '?' + this.state.listView;
-        finalURL = finalURL + '&filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '&filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       } else {
-        finalURL = finalURL + '?filterByFormula=(FIND(%22' + capitalizedQuery + '%22%2CLOWER(%7B' + searchBy + '%7D)))';
+        finalURL = finalURL + '?filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + searchBy + '%7D)))';
       }
-
+      console.log('searchHandler()');
       return axios
       .get(finalURL)
       .then(response => {
@@ -168,12 +176,15 @@ export default class Franchisees extends Component {
           error: false,
           dataOffset: '',
         });
-        setTimeout((function() {
-          document.getElementById('searchInput').value = capitalizedQuery;
-          document.getElementById('searchBy').value = searchByValue;
-        }).bind(this), 50);
+        if (this.state.recordView === false) {
+          setTimeout((function() {
+            if (document.getElementById('searchInput')) {
+              document.getElementById('searchInput').value = capitalizedQuery;
+              document.getElementById('searchBy').value = searchByValue;
+            }
+          }).bind(this), 50);
+        }
       })
-
     }).bind(this), 50);
   }
 
@@ -206,6 +217,7 @@ export default class Franchisees extends Component {
     })
 
     setTimeout((function() {
+      console.log(currentRecordState['Appt. Date'])
       console.log('yooo');
       this.hideDayPicker();
     }).bind(this), 50);

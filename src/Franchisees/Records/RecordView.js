@@ -60,6 +60,7 @@ export default class RecordView extends Component {
               contDate={this.props.currentRecord['Contact Date']}
               inactiveDate={this.props.currentRecord['Inactive Date']}
               activeDate={this.props.currentRecord['Active Date']}
+              apptDate={this.props.currentRecord['Appt. Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
               attended={this.props.currentRecord['Attended']}
 

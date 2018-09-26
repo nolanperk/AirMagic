@@ -13,6 +13,9 @@ let noteCharge;
 let rpSum = 0;
 let finalURL;
 let currentAccountState;
+
+let vpHeight = window.window.innerHeight;
+let filledRP = 0; let repRev = 0; let chargeRev = 0;
 export default class VolumeOwed extends Component {
   constructor(props) {
     super();
@@ -36,7 +39,7 @@ export default class VolumeOwed extends Component {
     console.log('clearDate()');
     currentAccountState = this.state.currentAccount;
     if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = null}
-    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Stop Date'] = null}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = null}
 
     this.setState({
       currentAccount: currentAccountState,
@@ -55,7 +58,7 @@ export default class VolumeOwed extends Component {
     let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
 
     if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = finalDate}
-    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Stop Date'] = finalDate}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = finalDate}
 
     this.setState({
       currentAccount: currentAccountState,
@@ -93,6 +96,7 @@ export default class VolumeOwed extends Component {
 
 
   editingAccountHandler = (e, key, index) => {
+    filledRP = 0; repRev = 0; chargeRev = 0;
     console.log('editingAccountHandler()');
     if (this.state.recordChanges) {
       let pushRecord = this.state.currentAccount.fields;
@@ -148,7 +152,33 @@ export default class VolumeOwed extends Component {
   }
   percRPChange = (e, i) => {
     currentAccountState = this.state.volumeData;
-    currentAccountState[this.state.volumeIndex].fields['RP Revenue'] = ((parseInt(i['Rep. %'].replace('%', '')) / 100) * i['Amount']).toString();
+
+    let rpNumb;
+    if (i['Rep. %'] === '25%') {
+      rpNumb = 0.25;
+    } else if (i['Rep. %'] === '50%') {
+      rpNumb = 0.5;
+    } else if (i['Rep. %'] === '75%') {
+      rpNumb = 0.75;
+    } else if (i['Rep. %'] === '100%') {
+      rpNumb = 1;
+    } else if (i['Rep. %'] === '0%') {
+      rpNumb = 0;
+    } else {
+      rpNumb = 0;
+    }
+
+    let noteMult = 0;
+    let rpNumber = 0;
+    if (i['Currently Paid']) {
+      let aaCurr = parseFloat(i['Currently Paid']);
+      let aaNote = parseFloat(i['Notes Charge']);
+      noteMult = aaCurr/aaNote;
+      rpNumber = rpNumb*noteMult;
+      currentAccountState[this.state.volumeIndex].fields['RP Revenue'] = (Math.ceil(rpNumber)).toString();
+    } else {
+      currentAccountState[this.state.volumeIndex].fields['RP Revenue'] = ((parseInt(i['Rep. %'].replace('%', '')) / 100) * i['Amount']).toString();
+    }
 
     this.setState({
       volumeData: currentAccountState,
@@ -187,6 +217,7 @@ export default class VolumeOwed extends Component {
   }
 
   changeAccountHandler = e => {
+    // filledRP = 0; repRev = 0; chargeRev = 0;
     console.log('changeAccountHandler()');
     currentAccountState = this.state.volumeData;
     let currentIndex = e.target.getAttribute('data-index');
@@ -203,7 +234,7 @@ export default class VolumeOwed extends Component {
       }
     }
     else if (e.target.id === 'start') {currentAccountState[this.state.volumeIndex].fields['Start Date'] = e.target.value}
-    else if (e.target.id === 'stop') {currentAccountState[this.state.volumeIndex].fields['Stop Date'] = e.target.value}
+    else if (e.target.id === 'stop') {currentAccountState[this.state.volumeIndex].fields['Notice Date'] = e.target.value}
     else if (e.target.id === 'rpRev') {
       if (e.target.value) {
         currentAccountState[this.state.volumeIndex].fields['RP Revenue'] = e.target.value = e.target.value
@@ -273,124 +304,179 @@ export default class VolumeOwed extends Component {
     if (this.props.ar === 'Yes') {
       addtlRev = 1000;
     }
-    let repRev = 0; let extraRev = 0;
+    let extraRev = 0;
     for (var index in this.state.volumeData) {
       if (this.state.volumeData[index].fields['RP Revenue']) {
         repRev += parseFloat(this.state.volumeData[index].fields['RP Revenue']);
       }
     }
+    console.log('total RP owed: ' + repRev);
 
     let totalArrs = {
       ip:[],
       ip_ar:[],
-      ar:[],
-      ip_rp:[],
       ip_ar_rp:[],
-      ip_aa:[],
+      ip_ar_rp_aa:[],
       ip_ar_aa:[],
       ip_rp_aa:[],
-      ip_ar_rp_aa:[],
-      ar_rp:[],
+      ip_rp:[],
+      ip_aa:[],
+      ar:[],
       ar_aa:[],
+      ar_rp:[],
       ar_rp_aa:[],
-      rp:[],
       rp_aa:[],
+      rp:[],
       aa:[],
     }
 
+    let totalInit = addtlRev + planRev
+    let initRP = 0;
     for (var index in this.state.volumeData) {
       let currAmount = parseFloat(this.state.volumeData[index].fields['Amount']);
       let iFields = this.state.volumeData[index];
 
-      if (planRev > 0) {
-        if (planRev >= currAmount) { // IP
-          planRev -= currAmount;
-          totalArrs.ip.push(iFields);
-        } else {
-          currAmount -= planRev;
-          planRev = 0;
+      if (totalInit > currAmount) {
+        if (this.state.volumeData[index].fields['RP Revenue']) {
+          initRP += parseFloat(this.state.volumeData[index].fields['RP Revenue']);
+        }
+        if (planRev > 0) {
+          if (planRev >= currAmount) { // IP
+            totalInit -= currAmount;
+            planRev -= currAmount;
+            totalArrs.ip.push(iFields);
+          } else { // IP / AR
+            totalInit -= planRev;
+            currAmount -= planRev;
+            iFields['IP'] = planRev;
+            planRev = 0;
 
-          if (addtlRev > 0) {
-            if (currAmount >= addtlRev) {
-              currAmount -= addtlRev;
-              addtlRev = 0;
-              if (repRev > 0) { // IP / AR / RP
-                if (currAmount >= repRev) { // IP / AR / RP / AA
-                  currAmount -= repRev;
-                  repRev = 0;
-                  extraRev += currAmount;
-                  totalArrs.ip_ar_rp_aa.push(iFields);
-                } else {
-                  repRev -= currAmount;
-                  totalArrs.ip_ar_rp.push(iFields);
-                }
-              } else { // IP / AR / AA
-                extraRev += currAmount;
-                totalArrs.ip_ar_aa.push(iFields);
+            addtlRev -= currAmount;
+            totalInit -= currAmount;
+            iFields['AR'] = currAmount;
+            totalArrs.ip_ar.push(iFields);
+          }
+        } else { // AR
+          addtlRev -= currAmount;
+          totalArrs.ar.push(iFields);
+          totalInit -= currAmount;
+        }
+      } else {
+        //let's find ytd RP
+        let thisStart = new Date(this.state.volumeData[index].fields['Start Date']);
+        // console.log(this.state.volumeData[index].fields['Account Name']);
+        let loopRP = 0;
+        for (var index in this.state.volumeData) {
+          let loopStop;
+          if (this.state.volumeData[index].fields['Notice Date']) {
+            loopStop = new Date(this.state.volumeData[index].fields['Notice Date']);
+            if (thisStart > loopStop) {
+              if (parseFloat(this.state.volumeData[index].fields['RP Revenue']) > 0) {
+                loopRP += parseFloat(this.state.volumeData[index].fields['RP Revenue']);
               }
-            } else { //IP / AR
-              addtlRev -= currAmount;
-              totalArrs.ip_ar.push(iFields);
             }
           } else {
-            if (repRev > 0) {
-              if (currAmount >= repRev) { // IP / RP / AA
-                currAmount -= repRev;
-                repRev = 0;
-                extraRev += currAmount;
-                totalArrs.ip_rp_aa.push(iFields);
-              } else { // IP / RP
-                repRev -= currAmount;
+            loopStop = undefined;
+          }
+        }
+        // console.log(loopRP + ' - ' + filledRP);
+        loopRP -= filledRP;
+        // console.log('filledRP: ' + filledRP);
+        // console.log('loopRP: ' + loopRP);
+
+        currAmount -= totalInit;
+        totalInit = 0;
+
+        if (planRev > 0) {
+          currAmount -= planRev;
+          iFields['IP'] = planRev;
+          planRev = 0;
+          if (addtlRev > 0) {
+            currAmount -= addtlRev;
+            iFields['AR'] = addtlRev;
+            addtlRev = 0;
+
+            if (loopRP > 0) {
+              if (loopRP >= currAmount) { // IP / AR / RP
+                totalArrs.ip_ar_rp.push(iFields);
+                iFields['RP'] = currAmount;
+                filledRP += currAmount;
+              } else { // IP / AR / RP / AA
+                currAmount -= loopRP;
+                iFields['RP'] = loopRP;
+                totalArrs.ip_ar_rp_aa.push(iFields);
+                filledRP += loopRP;
+                iFields['AA'] = currAmount; chargeRev += currAmount;
+              }
+            } else { // IP / AR / AA
+              iFields['AA'] = currAmount; chargeRev += currAmount;
+              totalArrs.ip_ar_aa.push(iFields);
+            }
+          } else {
+            if (loopRP > 0) {
+              if (loopRP >= currAmount) { // IP / RP
                 totalArrs.ip_rp.push(iFields);
+                iFields['RP'] = currAmount;
+                filledRP += currAmount;
+              } else { // IP / RP / AA
+                currAmount -= loopRP;
+                iFields['RP'] = loopRP;
+                totalArrs.ip_rp_aa.push(iFields);
+                filledRP += loopRP;
+                iFields['AA'] = currAmount; chargeRev += currAmount;
               }
             } else { // IP / AA
-              extraRev += currAmount;
+              iFields['AA'] = currAmount; chargeRev += currAmount;
               totalArrs.ip_aa.push(iFields);
             }
           }
-        }
-      } else {
-        if (addtlRev > 0) {
-          if (addtlRev >= currAmount) { // AR
-            addtlRev -= currAmount;
-            totalArrs.ar.push(iFields);
-          } else {
+        } else {
+          if (addtlRev > 0) {
             currAmount -= addtlRev;
+            iFields['AR'] = addtlRev;
             addtlRev = 0;
 
-            if (repRev > 0) {
-              if (currAmount >= repRev) { // AR / RP / AA
-                currAmount -= repRev;
-                repRev = 0;
-                extraRev += currAmount;
-                totalArrs.ar_rp_aa.push(iFields);
-              } else { // AR / RP
-                repRev -= currAmount;
+            if (loopRP > 0) {
+              if (loopRP >= currAmount) { // AR / RP
                 totalArrs.ar_rp.push(iFields);
+                filledRP += currAmount;
+                iFields['RP'] = currAmount;
+              } else { // AR / RP / AA
+
+                currAmount -= loopRP;
+                iFields['RP'] = loopRP;
+                totalArrs.ar_rp_aa.push(iFields);
+                iFields['AA'] = currAmount; chargeRev += currAmount;
+                filledRP += loopRP;
               }
             } else { // AR / AA
-              extraRev += currAmount;
+              iFields['AA'] = currAmount; chargeRev += currAmount;
               totalArrs.ar_aa.push(iFields);
             }
-          }
-        } else {
-          if (repRev > 0) {
-            if (currAmount >= repRev) { // RP / AA
-              currAmount -= repRev;
-              repRev = 0;
-              extraRev += currAmount;
-              totalArrs.rp_aa.push(iFields);
-            } else { // RP
-              repRev -= currAmount;
-              totalArrs.rp.push(iFields);
+          } else {
+            if (loopRP > 0) {
+              if (loopRP >= currAmount) { // RP
+                totalArrs.rp.push(iFields);
+                filledRP += currAmount;
+                iFields['RP'] = currAmount;
+              } else { // RP / AA
+                currAmount -= loopRP;
+                iFields['RP'] = loopRP;
+                totalArrs.rp_aa.push(iFields);
+                filledRP += loopRP;
+                iFields['AA'] = currAmount; chargeRev += currAmount;
+              }
+            } else { //AA
+              iFields['AA'] = currAmount; chargeRev += currAmount;
+              totalArrs.aa.push(iFields);
             }
-          } else { // AA
-            extraRev += currAmount;
-            totalArrs.aa.push(iFields);
           }
         }
+
       }
     }
+    console.log('total RP Needed: ' + repRev);
+    console.log('total RP filled: ' + filledRP);
     console.log(totalArrs);
     let finalArr = [];
     for (var objName in totalArrs) {
@@ -399,6 +485,29 @@ export default class VolumeOwed extends Component {
         newObjectItem.records = totalArrs[objName];
         newObjectItem.rowName = objName;
 
+        newObjectItem.split = {
+          IP: 0,
+          AR: 0,
+          AA: 0,
+          RP: 0,
+        }
+
+        let rowIP = 0; let rowAR = 0; let rowAA = 0; let rowRP = 0;
+        if (totalArrs[objName] !== "ip" || totalArrs[objName] !== "ar" || totalArrs[objName] !== "aa" || totalArrs[objName] !== "rp") {
+          for (var record in totalArrs[objName]) {
+            let rec = totalArrs[objName][record];
+
+            if (rec['IP']) { rowIP += rec['IP'] }
+            if (rec['AR']) { rowAR += rec['AR'] }
+            if (rec['AA']) { rowAA += rec['AA'] }
+            if (rec['RP']) { rowRP += rec['RP'] }
+          }
+          if (rowIP !== 0) { newObjectItem.split['IP'] = rowIP }
+          if (rowAR !== 0) { newObjectItem.split['AR'] = rowAR }
+          if (rowAA !== 0) { newObjectItem.split['AA'] = rowAA }
+          if (rowRP !== 0) { newObjectItem.split['RP'] = rowRP }
+        }
+
         finalArr.push(newObjectItem)
         // finalArr[objName] = totalArrs[objName];
 
@@ -406,6 +515,7 @@ export default class VolumeOwed extends Component {
         newObjectItem.repRev = repRev;
         newObjectItem.extraRev = extraRev;
         newObjectItem.addtlRev = addtlRev;
+
       }
     }
     console.log(finalArr);
@@ -441,11 +551,11 @@ export default class VolumeOwed extends Component {
             formattedStart = (formattedStart.getMonth()+1) + '/' + formattedStart.getDate() + '/' + formattedStart.getFullYear();
             indexTarget['Start Date'] = formattedStart;
 
-            if (indRecord.fields['Stop Date']) {
-              let formattedStop = new Date(indRecord.fields['Stop Date']);
+            if (indRecord.fields['Notice Date']) {
+              let formattedStop = new Date(indRecord.fields['Notice Date']);
               var formattedStop = new Date(formattedStop.getTime() + Math.abs(formattedStop.getTimezoneOffset()*60000));
               formattedStop = (formattedStop.getMonth()+1) + '/' + formattedStop.getDate() + '/' + formattedStop.getFullYear();
-              indexTarget['Stop Date'] = formattedStop;
+              indexTarget['Notice Date'] = formattedStop;
             }
           }
           this.setState({
@@ -487,7 +597,7 @@ export default class VolumeOwed extends Component {
       'Amount': 0,
       'RP Revenue': null,
       'Start Date': today,
-      'Stop Date': null,
+      'Notice Date': null,
       'Short SP Name': this.props.spName,
     };
     let finalPush = {"fields": pushRecord}
@@ -566,6 +676,10 @@ export default class VolumeOwed extends Component {
   render() {
     const { loading, error, volumeData, calculatedVolumeData } = this.state;
 
+    let timelineStyles = {
+      height: vpHeight * 0.45
+    }
+
 
 
     if (loading) {
@@ -613,8 +727,11 @@ export default class VolumeOwed extends Component {
             </div>
             {this.ipRev}
 
-            <div className="timelineWrapper">
+            <div className="timelineWrapper" style={timelineStyles}>
               {calculatedVolumeData.map((e, i) => this.volumeRow(e, i))}
+            </div>
+            <div className="wideInner bottomSide">
+              <a className="btn softGrad--secondary" onClick={this.newAccountHandler}>Add Account</a>
             </div>
 
           </div>
@@ -630,6 +747,7 @@ export default class VolumeOwed extends Component {
     return <VolumeRow
             calculatedVolumeData={calculatedVolumeData}
             rowName={calculatedVolumeData.rowName}
+            split={calculatedVolumeData.split}
             rowRecords={calculatedVolumeData.records}
             index={index}
             toggleDayPicker={this.toggleDayPicker}
@@ -727,6 +845,8 @@ export default class VolumeOwed extends Component {
       }
     }
 
+
+
     let planRevInt = parseInt(planRev.replace(',', '').replace('$', ''))
     if (this.props.ar === 'Yes') {
       planRevInt += 1000
@@ -757,6 +877,9 @@ export default class VolumeOwed extends Component {
       } else {
         rpNumb = 0;
       }
+
+
+
       let rpNumber = (volAmount * rpNumb);
       if (this.state.volumeData[index].fields['RP Revenue']) {
         if (rpNumber !== parseFloat(this.state.volumeData[index].fields['RP Revenue'])) {
@@ -768,28 +891,74 @@ export default class VolumeOwed extends Component {
 
     let revOwed = planRevInt - amountSum + rpSum;
 
+    let aaOwed = 0;
+
+    if (revOwed < 0) {
+      aaOwed = -1 * revOwed;
+      revOwed = 0;
+    }
+
+    let rpOwed = repRev - filledRP;
+
+    if (rpOwed < 0 ) {
+      rpOwed = 0;
+    }
     if (this.props.ar === 'Yes') {
       return (
         <div className="wideInner">
-          {this.daysTill}
-          <h4><em>Initial</em>{planRev}</h4>
-          <h4><em>Addtl.</em>$1,000</h4>
-          <h4><em>Owed</em>${revOwed}</h4>
-          <a className="btn softGrad--secondary" onClick={this.newAccountHandler}>Add Account</a>
+          <div className="volInner">
+            <div className="volBar">
+              <div className="volHalf">
+                <h4><em>Initial </em>{planRev}</h4>
+                <h4><em>Additional </em>$1,000</h4>
+              </div>
+              <div className="volHalf">
+                {this.daysTill}
+                <h4><em>IP & AR Owed </em>${revOwed}</h4>
+              </div>
+            </div>
+
+            <div className="volBar">
+              <div className="volHalf">
+                <h4><em>Total RP </em>${repRev}</h4>
+                <h4><em>RP Still Owed </em>${rpOwed}</h4>
+              </div>
+              <div className="volHalf">
+                <h4><em>Chargeable </em>${chargeRev}</h4>
+              </div>
+            </div>
+          </div>
         </div>
       )
     } else {
       return (
         <div className="wideInner">
-          {this.daysTill}
-          <h4><em>Initial</em>{planRev}</h4>
-          <h4><em>Addtl.</em>$0</h4>
-          <h4><em>Owed</em>${revOwed}</h4>
-          <a className="btn softGrad--secondary" onClick={this.newAccountHandler}>Add Account</a>
+          <div className="volInner">
+            <div className="volBar">
+              <div className="volHalf">
+                <h4><em>Initial </em>{planRev}</h4>
+              </div>
+              <div className="volHalf">
+                {this.daysTill}
+                <h4><em>IP Owed </em>${revOwed}</h4>
+              </div>
+            </div>
+
+            <div className="volBar">
+              <div className="volHalf">
+                <h4><em>Total RP </em>${repRev}</h4>
+                <h4><em>RP Still Owed </em>${rpOwed}</h4>
+              </div>
+              <div className="volHalf">
+                <h4><em>Chargeable </em>${chargeRev}</h4>
+              </div>
+            </div>
+          </div>
         </div>
       )
     }
   }
+
 
   gridLayout() {
     setTimeout(function(){

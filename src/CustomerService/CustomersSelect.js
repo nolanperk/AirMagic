@@ -296,7 +296,6 @@ export default class CustomerService extends Component {
         }
       }).bind(this), 50);
     }).bind(this), 10);
-
   }
 
 
