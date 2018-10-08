@@ -15,14 +15,11 @@ export default class LoginForm extends Component {
     }
   }
 
-  loadData = () => {
-  };
   chalog = e => {if (e.target.id === 'use') {this.setState({use: e.target.value.toUpperCase(),})}if (e.target.id === 'pw') {this.setState({pw: e.target.value,})}}
   componentDidMount() {
-    if (localStorage.getItem('isLogged')  === 'true') {
+    if (localStorage.getItem('isLogged')  === 'true' && localStorage.getItem('isOutside')  === 'false') {
       this.props.history.push('/');
     }
-    this.loadData();
   }
 
   loginSubmit = e => {
@@ -43,6 +40,7 @@ export default class LoginForm extends Component {
             console.log(userRecord.fields);
             if (this.state.pw === userRecord.fields['Phrase']) {
               localStorage.setItem('isLogged', 'true');
+              localStorage.setItem('isOutside', 'false');
               localStorage.setItem('userInitials', userRecord.fields['Initials']);
               localStorage.setItem('userName', userRecord.fields['Name']);
               localStorage.setItem('userOffice', userRecord.fields['Office']);
@@ -72,6 +70,14 @@ export default class LoginForm extends Component {
   // ----------------------------------------------------
   render() {
     const { index, data } = this.props;
+
+    let outsideURL;
+
+    if (localStorage.getItem('isLogged')) {
+      outsideURL = '/outside/' + localStorage.getItem('userInitials');
+    } else {
+      outsideURL = '/outside/login';
+    }
 
 
     return (
@@ -111,8 +117,9 @@ export default class LoginForm extends Component {
         </div>
 
         <div id="helpButton">
-          <Link to={`/jett/`}>
-            <a className="btn softGrad--black">Jett, Click Here</a>
+
+          <Link to={outsideURL}>
+            <a className="btn softGrad--black">Outside Callers</a>
           </Link>
         </div>
       </div>

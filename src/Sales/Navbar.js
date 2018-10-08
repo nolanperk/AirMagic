@@ -9,6 +9,11 @@ import sortImg from '../assets/icons/black/sort.png';
 
 export default class Navbar extends Component {
 
+  logoutHandler = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.reload();
+  }
   revertMemory = () => {
     sessionStorage.removeItem('innerOffset'); //reset it!
     sessionStorage.removeItem('innerClosedID'); //reset it!
@@ -106,14 +111,24 @@ export default class Navbar extends Component {
         </div>
       );
     } else {
-      if (this.props.outsideCaller === 'jett') {
-        return (
-          <Link to={`/jett/`}>
-            <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
-              <img src={hamburger} alt="databases" />
-            </div>
-          </Link>
-        );
+      if (localStorage.getItem('isOutside') === 'true') {
+        if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
+          return (
+            <Link to={`/outside/login`}>
+              <div className="navIcon softGrad--primary" onClick={this.logoutHandler}>
+                Logout
+              </div>
+            </Link>
+          );
+        } else {
+          return (
+            <Link to={`/outside/`}>
+              <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
+                <img src={hamburger} alt="databases" />
+              </div>
+            </Link>
+          );
+        }
       } else {
         return (
           <Link to={`/`}>
@@ -126,7 +141,7 @@ export default class Navbar extends Component {
     }
   }
   get downloadButton() {
-    if (this.props.outsideCaller === 'jett') {
+    if (localStorage.getItem('isOutside') === 'true') {
       if (!this.props.recordView) {
         return (
           <div className="rightButtons">

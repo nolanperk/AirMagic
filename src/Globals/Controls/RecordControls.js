@@ -269,7 +269,7 @@ export default class SortBy extends Component {
       callBackClasses = 'navIcon softGrad--primary isHidden';
     }
 
-    if (this.props.outsideCaller == 'jett') {
+    if (localStorage.getItem('isOutside') === 'true') {
       return (
         <div>
           <div className={btnClasses} onClick={this.props.recordChanger} id="prev">

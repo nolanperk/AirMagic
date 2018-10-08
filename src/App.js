@@ -52,12 +52,12 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/login'  component={bindRouteParamsToProps()(LoginForm)} />
-          <Route exact path='/outside-login'  component={bindRouteParamsToProps()(OutsideLoginForm)} />
+          <Route exact path='/outside/login'  component={bindRouteParamsToProps()(OutsideLoginForm)} />
           <Route exact path='/' component={BaseSelect} />
 
 
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
-          <Route exact path='/:outside' component={UserBaseSelect} />
+          <Route exact path='/outside/' component={UserBaseSelect} />
 
           <Route exact path='/:citySet/customer-service/' component={bindRouteParamsToProps()(CustomersSelect)} />
           <Route exact path='/:citySet/customer-service/:viewType/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
@@ -71,8 +71,8 @@ class App extends Component {
           <Route path='/:citySet/franchisees/' component={bindRouteParamsToProps()(Franchisees)} />
 
 
-          <Route exact path='/:outside/:citySet/:recordId' component={bindRouteParamsToProps()(OutsideSales)} />
-          <Route path='/:outside/:citySet/' component={bindRouteParamsToProps()(OutsideSales)} />
+          <Route exact path='/outside/:citySet/:recordId' component={bindRouteParamsToProps()(OutsideSales)} />
+          <Route path='/outside/:citySet/' component={bindRouteParamsToProps()(OutsideSales)} />
 
         </Switch>
       </BrowserRouter>

@@ -15,7 +15,6 @@ export default class ControlsBar extends Component {
           arrowKeyHandler={this.props.arrowKeyHandler}
           currentRecord={this.props.currentRecord}
           currentTable={this.props.currentTable}
-          outsideCaller={this.props.outsideCaller}
         />
       );
     } else {
@@ -26,7 +25,6 @@ export default class ControlsBar extends Component {
           searchHandler={this.props.searchHandler}
           newRecordHandler={this.props.newRecordHandler}
           currentTable={this.props.currentTable}
-          outsideCaller={this.props.outsideCaller}
         />
       );
     }

@@ -5,26 +5,31 @@ import { Link } from 'react-router-dom';
 
 export default class BaseSelect extends Component {
   componentDidMount() {
-    if (sessionStorage.getItem('isLogged')  !== 'true') {
-      this.props.history.push('/outside-login');
-    // } else {
-    //   sessionStorage.removeItem('innerOffset'); //reset it!
-    //   sessionStorage.removeItem('innerClosedID'); //reset it!
-    //   sessionStorage.removeItem('listView');
-    //   sessionStorage.removeItem('jumpLetters');
-    //   sessionStorage.removeItem('salesView');
-    //   sessionStorage.removeItem('serviceView');
+    if (localStorage.getItem('isLogged')  !== 'true') {
+      this.props.history.push('/outside/login');
+    } else {
+      if (localStorage.getItem('userOffice') !== 'both') {
+        this.props.history.push('/outside/' + localStorage.getItem('userOffice') + '/');
+      } else {
+        this.props.history.push('/outside/');
+      }
     }
   }
   logoutHandler = () => {
     sessionStorage.clear();
+    localStorage.clear();
     window.location.reload();
   }
-
   // Render
   // ----------------------------------------------------
   render() {
     const { index, data } = this.props;
+
+    let preURL = this.props.location.pathname;
+
+    if (preURL.slice(-1) !== '/') {
+      preURL += '/';
+    }
 
 
     return (
@@ -37,20 +42,20 @@ export default class BaseSelect extends Component {
           <h1>Choose Your Database</h1>
           <ul className="cardContainer">
             <li className="whiteCard">
-              <Link to={`/jett/tampa/`}>
+              <Link to={preURL + `tampa/`}>
                 <div className="inner">
                   <div className="circleDot"></div>
                   <div className="baseIcon"></div>
-                  <p>Tampa Sales (Mon,Wed,Fri)</p>
+                  <p>Tampa Sales</p>
                 </div>
               </Link>
             </li>
             <li className="whiteCard">
-              <Link to={`/jett/orlando/`}>
+              <Link to={preURL + `orlando/`}>
                 <div className="inner">
                   <div className="circleDot"></div>
                   <div className="baseIcon"></div>
-                  <p>Orlando Sales (Tue,Thu)</p>
+                  <p>Orlando Sales</p>
                 </div>
               </Link>
             </li>

@@ -16,7 +16,7 @@ export default class SortBy extends Component {
       ControlsClasses = 'ControlsBar plusControls';
     }
     let filterBtnClass = 'ControlsBar--btn';
-    if (this.props.outsideCaller === 'jett') {
+    if (localStorage.getItem('isOutside') === 'true') {
       filterBtnClass = 'ControlsBar--btn hideFilters';
     }
 
@@ -49,7 +49,7 @@ export default class SortBy extends Component {
     );
   }
   get AddNewBtn() {
-    if (this.props.outsideCaller !== 'jett') {
+    if (localStorage.getItem('isOutside') !== 'true') {
       return (
         <div className="navIcon softGrad--secondary" id="addNewRecord" onClick={this.props.newRecordHandler}>
           <img src={plus} alt="Add New" />
@@ -58,7 +58,7 @@ export default class SortBy extends Component {
     }
   }
   get ControlsSelect() {
-    if (this.props.outsideCaller === 'jett') {
+    if (localStorage.getItem('isOutside') === 'true') {
       return (
         <select id="searchBy">
           <option value="Company+Name" id="Company+Name">Company</option>

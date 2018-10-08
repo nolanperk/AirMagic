@@ -36,7 +36,6 @@ export default class OutsideSales extends Component {
       dataURL: 'https://api.airtable.com/v0/',
       baseId: '',
       currentTable: 'Sales',
-      listView: 'view=Jett+List',
       sortByLabel: 'Company+Name',
       sortByOrder: 'asc',
       currentRecord: [],
@@ -127,10 +126,16 @@ export default class OutsideSales extends Component {
     console.log(this.props.citySet);
     if (this.props.citySet === 'tampa') {
       this.setState({
+        listView: 'view=' + localStorage.getItem('tampaList').replace(/ /g, '+'),
+      });
+      this.setState({
         loading: false,
         baseId: 'appEX8GXgcD2ln4dB',
       });
     } else if(this.props.citySet === 'orlando') {
+      this.setState({
+        listView: 'view=' + localStorage.getItem('orlandoList').replace(/ /g, '+'),
+      });
       this.setState({
         loading: false,
         baseId: 'appXNufXR9nQARjgs',
@@ -298,7 +303,7 @@ export default class OutsideSales extends Component {
       sessionStorage.setItem('innerClosedID', this.props.recordId);
       sessionStorage.setItem('innerOffset', this.state.dataOffset);
     }
-    this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + key);
+    this.props.history.push('/outside/' + this.props.citySet + '/' + key);
   }
 
   moveDatabasesHandler = () => {
@@ -610,7 +615,7 @@ export default class OutsideSales extends Component {
         sessionStorage.setItem('innerClosedID', this.props.recordId);
         sessionStorage.setItem('innerOffset', this.state.dataOffset);
       }
-      this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
+      this.props.history.push('/outside/' + this.props.citySet);
       this.setState({
           activeModal: false,
           modalType: '',
@@ -670,7 +675,7 @@ export default class OutsideSales extends Component {
             loading: true,
           });
 
-          this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
+          this.props.history.push('/outside/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
 
           setTimeout((function() {
             this.setState({
@@ -739,10 +744,10 @@ export default class OutsideSales extends Component {
               recordChanges: false,
             });
 
-            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
+            this.props.history.push('/outside/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
           } else {
             // fullDataSet[dataIndex].fields = this.state.fallbackRecord
-            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
+            this.props.history.push('/outside/' + this.props.citySet);
             this.setState({
               data: fullDataSet,
               recordView: false,
@@ -895,7 +900,7 @@ export default class OutsideSales extends Component {
             recordChanges: false,
           });
           setTimeout((function() {
-            this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + response.data.id);
+            this.props.history.push('/outside/' + this.props.citySet + '/' + response.data.id);
 
             this.setState({
               currentRecordView: 'inside',
@@ -985,10 +990,10 @@ export default class OutsideSales extends Component {
                   recordChanges: false,
                 });
               }).bind(this), 10);
-              this.props.history.push('/' + this.props.outside + '/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
+              this.props.history.push('/outside/' + this.props.citySet + '/' + this.state.data[dataIndex].id);
             } else {
               if (this.state.modalType === 'saveAlert') {
-                this.props.history.push('/' + this.props.outside + '/' + this.props.citySet);
+                this.props.history.push('/outside/' + this.props.citySet);
                 this.setState({
                   data: fullDataSet,
                   recordView: false,
@@ -1678,7 +1683,7 @@ export default class OutsideSales extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('isLogged')  !== 'true') {
+    if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
       if (sessionStorage.getItem('searchQuery')) {
@@ -1691,8 +1696,8 @@ export default class OutsideSales extends Component {
       } else {
         this.loadData();
       }
-      if (sessionStorage.getItem('userInitials')) {
-        let usersInitials = sessionStorage.getItem('userInitials');
+      if (localStorage.getItem('userInitials')) {
+        let usersInitials = localStorage.getItem('userInitials');
         this.setState({
           userName: usersInitials,
         });

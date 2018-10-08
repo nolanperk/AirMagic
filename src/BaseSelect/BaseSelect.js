@@ -15,8 +15,12 @@ export default class BaseSelect extends Component {
     //   sessionStorage.removeItem('salesView');
     //   sessionStorage.removeItem('serviceView');
     } else {
-      if (localStorage.getItem('userInitials') === 'JETT') {
-        this.props.history.push('/jett/');
+      if (localStorage.getItem('isOutside')  === 'true') {
+        if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
+          this.props.history.push('/outside/' + localStorage.getItem('userOffice') + '/');
+        } else {
+          this.props.history.push('/outside/');
+        }
       }
     }
   }

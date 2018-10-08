@@ -1932,8 +1932,14 @@ export default class Sales extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
-      if (localStorage.getItem('userInitials') === 'JETT') {
-        this.props.history.push('/jett/' + this.props.citySet);
+      if (localStorage.getItem('isOutside')  === 'true') {
+        if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
+          if (this.props.citySet !== localStorage.getItem('userOffice')) {
+            this.props.history.push('/outside/' + localStorage.getItem('userOffice') + '/');
+          }
+        } else {
+          this.props.history.push('/outside/' + this.props.citySet);
+        }
       }
       if (sessionStorage.getItem('searchQuery')) {
         this.setState({
