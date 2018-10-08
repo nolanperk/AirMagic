@@ -269,6 +269,7 @@ export default class Franchisees extends Component {
       'Partner Phone': null,
       'English Contact': null,
       'English Contact Phone': null,
+      'English Contact Email': null,
       'Contact Date': null,
       'FDD Sign Date': null,
       'Sign Date': null,
@@ -358,6 +359,7 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'partnerPhone') {currentRecordState['Partner Phone'] = e.target.value}
     else if (e.target.id === 'english') {currentRecordState['English Contact'] = e.target.value}
     else if (e.target.id === 'englishPhone') {currentRecordState['English Contact Phone'] = e.target.value}
+    else if (e.target.id === 'englishEmail') {currentRecordState['English Contact Email'] = e.target.value}
     else if (e.target.id === 'contDate') {currentRecordState['Contact Date'] = e.target.value}
     else if (e.target.id === 'activeDate') {currentRecordState['Active Date'] = e.target.value}
     else if (e.target.id === 'inactiveDate') {currentRecordState['Inactive Date'] = e.target.value}

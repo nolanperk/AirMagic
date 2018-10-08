@@ -10,7 +10,7 @@ import ModuleSales from './Modules/ModuleSales';
 import ModuleHear from './Modules/ModuleHear';
 import ModuleAbility from './Modules/ModuleAbility';
 
-import VolumeOwed from './Modules/VolumeOwed';
+import ModuleVolumeOwed from './Modules/ModuleVolumeOwed';
 import VolOwed from './Modules/VolOwed';
 
 
@@ -49,6 +49,7 @@ export default class RecordView extends Component {
               partnerPhone={this.props.currentRecord['Partner Phone']}
               english={this.props.currentRecord['English Contact']}
               englishPhone={this.props.currentRecord['English Contact Phone']}
+              englishEmail={this.props.currentRecord['English Contact Email']}
               newRecord={this.props.newRecord}
             />
             <ModuleSales
@@ -104,13 +105,11 @@ export default class RecordView extends Component {
             />
 
 
-            {/* <VolumeOwed
-              plan={this.props.currentRecord['Plan Type']}
-              ar={this.props.currentRecord['Additional Revenue']}
-              sign={this.props.currentRecord['Sign Date']}
-              currentRecord={this.props.currentRecord}
-              baseId={this.props.baseId}
-              spName={this.props.currentRecord['SP Name']}
+            {/* <ModuleVolumeOwed
+              ipDue={this.props.currentRecord['IP Due']}
+              arDue={this.props.currentRecord['AR Due']}
+              rpDue={this.props.currentRecord['RP Due']}
+              aaCharge={this.props.currentRecord['AA Charge']}
             /> */}
 
             <VolOwed

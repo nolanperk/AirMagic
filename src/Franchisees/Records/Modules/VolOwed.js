@@ -39,7 +39,7 @@ export default class VolumeOwed extends Component {
     console.log('clearDate()');
     currentAccountState = this.state.currentAccount;
     if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = null}
-    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = null}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = null; currentAccountState.fields['Stop Date'] = null}
 
     this.setState({
       currentAccount: currentAccountState,
@@ -58,7 +58,7 @@ export default class VolumeOwed extends Component {
     let finalDate = (newSelectedDay.getMonth() + 1) + '/' + newSelectedDay.getDate() + '/' + newSelectedDay.getFullYear();
 
     if (this.state.pickerId === 'start') {currentAccountState.fields['Start Date'] = finalDate}
-    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = finalDate}
+    else if (this.state.pickerId === 'stop') {currentAccountState.fields['Notice Date'] = finalDate; currentAccountState.fields['Stop Date'] = finalDate}
 
     this.setState({
       currentAccount: currentAccountState,

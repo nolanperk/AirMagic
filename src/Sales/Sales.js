@@ -870,19 +870,19 @@ export default class Sales extends Component {
     let autoPrice;
 
     if (timesPerWeek === 1) {
-      hourlyPrice = 20;
+      hourlyPrice = 21;
     } else if (timesPerWeek === 2) {
-      hourlyPrice = 19;
+      hourlyPrice = 20;
     } else if (timesPerWeek === 3) {
-      hourlyPrice = 18;
+      hourlyPrice = 19;
     } else if (timesPerWeek === 4) {
-      hourlyPrice = 17.5;
+      hourlyPrice = 18.5;
     } else if (timesPerWeek === 5) {
-      hourlyPrice = 17;
+      hourlyPrice = 18;
     } else if (timesPerWeek === 6) {
-      hourlyPrice = 17.25;
+      hourlyPrice = 18.25;
     } else if (timesPerWeek === 7) {
-      hourlyPrice = 17.5;
+      hourlyPrice = 18.5;
     } else {
       hourlyPrice = 0;
     }

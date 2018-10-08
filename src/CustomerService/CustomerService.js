@@ -980,6 +980,18 @@ export default class CustomerService extends Component {
         pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
 
+        if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
+        if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
+
+        if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined;}
+        if (pushRecord['Appt. Set Date'] === '') {pushRecord['Appt. Set Date'] = undefined;}
+        if (pushRecord['Appt. Date'] === '') {pushRecord['Appt. Date'] = undefined;}
+        if (pushRecord['Close Date'] === '') {pushRecord['Close Date'] = undefined;}
+        if (pushRecord['Proposal Date'] === '') {pushRecord['Proposal Date'] = undefined;}
+        if (pushRecord['Walkthrough Date'] === '') {pushRecord['Walkthrough Date'] = undefined;}
+        if (pushRecord['Start Date'] === '') {pushRecord['Start Date'] = undefined;}
+        if (pushRecord['Pre-Clean Date'] === '') {pushRecord['Pre-Clean Date'] = undefined;}
+
 
         let finalPush = {"fields": pushRecord}
         axios

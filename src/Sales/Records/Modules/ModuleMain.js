@@ -132,9 +132,14 @@ export default class ModuleMain extends Component {
                 <option id="none"></option>
                 <option id="Left+VM">Left VM</option>
                 <option id="Left+Email">Left Email</option>
+                <option id="Outside+Territory">Outside Territory</option>
+                <option id="Not+Interested">Not Interested</option>
                 <option id="Disconnected">Disconnected</option>
                 <option id="In+House">In House</option>
                 <option id="In+Contract">In Contract</option>
+                <option id="Building+Does">Landlord Does</option>
+                <option id="Call+Back">Call Back</option>
+                <option id="Bad+Number">Bad Number</option>
               </select>
             </div>
           </div>
@@ -227,12 +232,16 @@ export default class ModuleMain extends Component {
                 id="standing"
                 >
                 <select id="standingSelect"  value={this.state.standingValue} onChange={this.standingChange}>
-                  <option id="none"></option>
-                  <option id="Left+VM">Left VM</option>
-                  <option id="Left+Email">Left Email</option>
-                  <option id="Disconnected">Disconnected</option>
-                  <option id="In+House">In House</option>
-                  <option id="In+Contract">In Contract</option>
+                <option id="Left+VM">Left VM</option>
+                <option id="Left+Email">Left Email</option>
+                <option id="Outside+Territory">Outside Territory</option>
+                <option id="Not+Interested">Not Interested</option>
+                <option id="Disconnected">Disconnected</option>
+                <option id="In+House">In House</option>
+                <option id="In+Contract">In Contract</option>
+                <option id="Building+Does">Landlord Does</option>
+                <option id="Call+Back">Call Back</option>
+                <option id="Bad+Number">Bad Number</option>
                 </select>
               </div>
             </div>

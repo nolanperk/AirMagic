@@ -13,6 +13,7 @@ export default class ModuleContact extends Component {
     let home = this.props.home;
     let cell = this.props.cell;
     let email = this.props.email;
+    let englishEmail = this.props.englishEmail;
     let partner = this.props.partner;
     let partnerPhone = this.props.partnerPhone;
     let english = this.props.english;
@@ -23,6 +24,7 @@ export default class ModuleContact extends Component {
     let partnerLink = 'tel:' + partnerPhone;
     let englishLink = 'tel:' + englishPhone;
     let emailLink = 'mailto:' + email;
+    let englishEmailLink = 'mailto:' + englishEmail;
 
     return (
       <div className="ModuleCard">
@@ -112,22 +114,22 @@ export default class ModuleContact extends Component {
               onChange={this.props.changeRecordHandler}
             />
           </div>
-          <div className="inputBlock inputBlock--half">
-            <label>English Cont. Phone</label>
+
+          <div className="inputBlock inputBlock--full">
+            <label>English Cont. Email</label>
             <div className="inputWithTag">
-                <div className="inputTag">
-                  <a href={englishLink}></a>
-                  <img src={phoneImg} />
-                </div>
+              <div className="inputTag">
+                <a href={englishEmailLink}></a>
+                <img src={emailImg} />
+              </div>
               <input
                 type="text"
-                id="englishPhone"
-                value={englishPhone}
+                id="englishEmail"
+                value={englishEmail}
                 onChange={this.props.changeRecordHandler}
               />
             </div>
           </div>
-
 
 
 
@@ -143,6 +145,7 @@ ModuleContact.propTypes ={
   home: propTypes.string,
   cell: propTypes.string,
   email: propTypes.string,
+  englishEmail: propTypes.string,
   partner: propTypes.string,
   partnerPhone: propTypes.string,
   english: propTypes.string,
