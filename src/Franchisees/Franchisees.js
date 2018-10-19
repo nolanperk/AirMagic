@@ -344,6 +344,92 @@ export default class Franchisees extends Component {
     })
   }
 
+
+
+  updateOwed = e => {
+    currentRecordState = this.state.currentRecord;
+
+    let sign = currentRecordState['Sign Date'];
+    let dateSigned = new Date(sign);
+    let checkDate = new Date('04/01/2018');
+
+    let planRevType;
+    if (dateSigned <= checkDate) {
+      planRevType = 'old';
+    } else {
+      planRevType = 'new';
+    }
+
+    let planRev;
+    if (planRevType === 'new') {
+      if (currentRecordState['Plan Type'] === 'Plan A') {
+        planRev = 2000;
+      } else if (currentRecordState['Plan Type'] === 'Plan B') {
+        planRev = 3000;
+      } else if (currentRecordState['Plan Type'] === 'Plan C') {
+        planRev = 4000;
+      } else if (currentRecordState['Plan Type'] === 'Plan D') {
+        planRev = 5000;
+      } else if (currentRecordState['Plan Type'] === 'Plan E') {
+        planRev = 6000;
+      } else if (currentRecordState['Plan Type'] === 'Plan F') {
+        planRev = 8000;
+      } else if (currentRecordState['Plan Type'] === 'Plan G') {
+        planRev = 10000;
+      } else {
+        planRev= 0;
+      }
+    } else {
+      if (currentRecordState['Plan Type'] === 'Plan A') {
+        planRev = 1000;
+      } else if (currentRecordState['Plan Type'] === 'Plan B') {
+        planRev = 1500;
+      } else if (currentRecordState['Plan Type'] === 'Plan C') {
+        planRev = 2000;
+      } else if (currentRecordState['Plan Type'] === 'Plan D') {
+        planRev = 3000;
+      } else if (currentRecordState['Plan Type'] === 'Plan E') {
+        planRev = 4000;
+      } else if (currentRecordState['Plan Type'] === 'Plan F') {
+        planRev = 5000;
+      } else if (currentRecordState['Plan Type'] === 'Plan G') {
+        planRev = 6000;
+      } else {
+        planRev= 0;
+      }
+    }
+
+    let ipDue = 0; let arDue = 0; let rpDue = 0; let aaCharge = 0;
+    let ipLine; let rpLine; let aaLine; let ipAr;
+
+    if (document.getElementById('ipOwed')) {ipLine = document.getElementById('ipOwed').innerText; ipAr = ipLine.split('$')[1];}
+    if (document.getElementById('rpOwed')) {rpLine = document.getElementById('rpOwed').innerText; rpDue = rpLine.split('$')[1];}
+    if (document.getElementById('aaOwed')) {aaLine = document.getElementById('aaOwed').innerText; aaCharge = aaLine.split('$')[1];}
+
+
+    if (ipAr < 1) {
+      arDue = 0;
+      ipDue = 0;
+    } else {
+      if (ipAr < planRev) {
+        ipDue = 0;
+        arDue = ipAr - planRev;
+
+        if (arDue < 0) {
+          arDue = 0;
+        }
+      }
+    }
+    currentRecordState['IP Due'] = ipDue.toString();
+    currentRecordState['AR Due'] = arDue.toString();
+    currentRecordState['RP Due'] = rpDue.toString();
+    currentRecordState['AA Charge'] = aaCharge.toString();
+    this.setState({
+      currentRecord: currentRecordState,
+      recordChanges: true,
+    })
+  }
+
   changeRecordHandler = e => {
     currentRecordState = this.state.currentRecord;
 
@@ -376,6 +462,11 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'source') {currentRecordState['Source'] = e.target.value}
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
     else if (e.target.id === 'area') {currentRecordState['Coverage Area'] = e.target.value}
+
+    else if (e.target.id === 'ipDue') {currentRecordState['IP Due'] = e.target.value}
+    else if (e.target.id === 'arDue') {currentRecordState['AR Due'] = e.target.value}
+    else if (e.target.id === 'rpDue') {currentRecordState['RP Due'] = e.target.value}
+    else if (e.target.id === 'aaCharge') {currentRecordState['AA Charge'] = e.target.value}
 
     else if (e.target.id === 'apptTime') {currentRecordState['Appt. Time'] = e.target.value}
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
@@ -1409,6 +1500,7 @@ export default class Franchisees extends Component {
           handleDayClick={this.handleDayClick}
           toggleDayPicker={this.toggleDayPicker}
           currentRecordView={this.state.currentRecordView}
+          updateOwed={this.updateOwed}
         />
       );
     } else if (this.state.listIsVisible) {

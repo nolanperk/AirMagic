@@ -23,8 +23,10 @@ export default class ModuleVolumeOwed extends Component {
     return (
       <div className="ModuleCard">
         <div className="inner">
+          <h4>Owed & Charged</h4>
+          <a className="btn softGrad--black" onClick={this.props.updateOwed}>Refresh</a>
           <div className="inputBlock inputBlock--half">
-            <label>Initial Due</label>
+            <label>IP Due</label>
             <div className="inputWithTag">
               <div className="inputTag">
                 <img src={dollarImg} alt="" />
@@ -33,6 +35,51 @@ export default class ModuleVolumeOwed extends Component {
                 type="text"
                 value={ipDue}
                 id="ipDue"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>AR Due</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={arDue}
+                id="arDue"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>RP Due</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={rpDue}
+                id="rpDue"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Chargeable</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={aaCharge}
+                id="aaCharge"
                 onChange={this.props.changeRecordHandler}
               />
             </div>

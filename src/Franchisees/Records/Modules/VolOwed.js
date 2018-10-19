@@ -7,6 +7,7 @@ import 'react-day-picker/lib/style.css';
 
 import loader from '../../../assets/loader.gif';
 import VolumeRow from './VolumeRow';
+import VolumeTimeline from './VolumeTimeline';
 import exit from '../../../assets/icons/white/exit.png';
 
 let noteCharge;
@@ -24,6 +25,7 @@ export default class VolumeOwed extends Component {
       volumeData: [],
       calculatedVolumeData: [],
       rowCount: 0,
+      currentView: 'timeline',
     }
   }
 
@@ -557,6 +559,12 @@ export default class VolumeOwed extends Component {
               formattedStop = (formattedStop.getMonth()+1) + '/' + formattedStop.getDate() + '/' + formattedStop.getFullYear();
               indexTarget['Notice Date'] = formattedStop;
             }
+            if (indRecord.fields['Stop Date']) {
+              let formattedStop = new Date(indRecord.fields['Stop Date']);
+              var formattedStop = new Date(formattedStop.getTime() + Math.abs(formattedStop.getTimezoneOffset()*60000));
+              formattedStop = (formattedStop.getMonth()+1) + '/' + formattedStop.getDate() + '/' + formattedStop.getFullYear();
+              indexTarget['Stop Date'] = formattedStop;
+            }
           }
           this.setState({
             volumeData: initData,
@@ -571,6 +579,7 @@ export default class VolumeOwed extends Component {
             });
             this.gridLayout()
             this.layoutCalculator();
+            this.props.updateOwed();
           }).bind(this), 200);
         })
         .catch(error => {
@@ -598,6 +607,7 @@ export default class VolumeOwed extends Component {
       'RP Revenue': null,
       'Start Date': today,
       'Notice Date': null,
+      'Stop Date': null,
       'Short SP Name': this.props.spName,
     };
     let finalPush = {"fields": pushRecord}
@@ -676,10 +686,6 @@ export default class VolumeOwed extends Component {
   render() {
     const { loading, error, volumeData, calculatedVolumeData } = this.state;
 
-    let timelineStyles = {
-      height: vpHeight * 0.45
-    }
-
 
 
     if (loading) {
@@ -727,9 +733,8 @@ export default class VolumeOwed extends Component {
             </div>
             {this.ipRev}
 
-            <div className="timelineWrapper" style={timelineStyles}>
-              {calculatedVolumeData.map((e, i) => this.volumeRow(e, i))}
-            </div>
+            {this.owedView}
+
             <div className="wideInner bottomSide">
               <a className="btn softGrad--secondary" onClick={this.newAccountHandler}>Add Account</a>
             </div>
@@ -738,6 +743,28 @@ export default class VolumeOwed extends Component {
         </div>
       </div>
     )
+  }
+
+  get owedView() {
+    const { loading, error, volumeData, calculatedVolumeData } = this.state;
+    let timelineStyles = {
+      height: vpHeight * 0.45
+    }
+    if (this.state.currentView === 'data') {
+      return (
+        <div className="timelineWrapper" style={timelineStyles}>
+          {calculatedVolumeData.map((e, i) => this.volumeRow(e, i))}
+        </div>
+      )
+    } else {
+      return (
+        <div className="timelineWrapper" style={timelineStyles}>
+          <VolumeTimeline
+            volumeData={this.state.volumeData}
+          />
+        </div>
+      )
+    }
   }
 
   volumeRow(calculatedVolumeData, index) {
@@ -914,17 +941,17 @@ export default class VolumeOwed extends Component {
               </div>
               <div className="volHalf">
                 {this.daysTill}
-                <h4><em>IP & AR Owed </em>${revOwed}</h4>
+                <h4 id="ipOwed"><em>IP & AR Owed </em>${revOwed}</h4>
               </div>
             </div>
 
             <div className="volBar">
               <div className="volHalf">
                 <h4><em>Total RP </em>${repRev}</h4>
-                <h4><em>RP Still Owed </em>${rpOwed}</h4>
+                <h4 id="rpOwed"><em>RP Still Owed </em>${rpOwed}</h4>
               </div>
               <div className="volHalf">
-                <h4><em>Chargeable </em>${chargeRev}</h4>
+                <h4 id="aaOwed"><em>Chargeable </em>${chargeRev}</h4>
               </div>
             </div>
           </div>
@@ -940,17 +967,17 @@ export default class VolumeOwed extends Component {
               </div>
               <div className="volHalf">
                 {this.daysTill}
-                <h4><em>IP Owed </em>${revOwed}</h4>
+                <h4 id="ipOwed"><em>IP Owed </em>${revOwed}</h4>
               </div>
             </div>
 
             <div className="volBar">
               <div className="volHalf">
                 <h4><em>Total RP </em>${repRev}</h4>
-                <h4><em>RP Still Owed </em>${rpOwed}</h4>
+                <h4 id="rpOwed"><em>RP Still Owed </em>${rpOwed}</h4>
               </div>
               <div className="volHalf">
-                <h4><em>Chargeable </em>${chargeRev}</h4>
+                <h4 id="aaOwed"><em>Chargeable </em>${chargeRev}</h4>
               </div>
             </div>
           </div>

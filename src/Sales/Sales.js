@@ -212,6 +212,7 @@ export default class Sales extends Component {
   }
 
 
+
   searchHandler = e => {
     e.preventDefault();
 
@@ -1779,6 +1780,11 @@ export default class Sales extends Component {
         setTimeout((function() {
           document.getElementById('newNoteBox').focus();
         }).bind(this), 50);
+      } else if(e.target.id === 'salesMetrics') {
+        this.setState({
+          activeModal: true,
+          modalType: 'salesMetrics',
+        });
       } else if(e.target.id === 'exportList') {
         this.setState({
           activeModal: true,

@@ -105,12 +105,15 @@ export default class RecordView extends Component {
             />
 
 
-            {/* <ModuleVolumeOwed
+            <ModuleVolumeOwed
               ipDue={this.props.currentRecord['IP Due']}
               arDue={this.props.currentRecord['AR Due']}
               rpDue={this.props.currentRecord['RP Due']}
               aaCharge={this.props.currentRecord['AA Charge']}
-            /> */}
+              changeRecordHandler={this.props.changeRecordHandler}
+
+              updateOwed={this.props.updateOwed}
+            />
 
             <VolOwed
               plan={this.props.currentRecord['Plan Type']}
@@ -119,6 +122,8 @@ export default class RecordView extends Component {
               currentRecord={this.props.currentRecord}
               baseId={this.props.baseId}
               spName={this.props.currentRecord['SP Name']}
+              
+              updateOwed={this.props.updateOwed}
             />
 
           </div>

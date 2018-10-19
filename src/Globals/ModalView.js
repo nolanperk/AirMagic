@@ -11,6 +11,7 @@ import ChangeUser from '../Globals/Modals/ChangeUser';
 import ExportRecords from '../Globals/Modals/ExportRecords';
 import RecordExport from '../Globals/Modals/RecordExport';
 import MoveDatabase from '../Globals/Modals/MoveDatabase';
+import SalesMetrics from '../Globals/Modals/SalesMetrics';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -71,6 +72,12 @@ export default class ModalView extends Component {
           exportRecord={this.props.exportRecord}
           baseId={this.props.baseId}
           currentTable={this.props.currentTable}
+        />
+      )
+    } else if (this.props.modalType === 'salesMetrics') {
+      return (
+        <SalesMetrics
+          controlsModalToggle={this.props.controlsModalToggle}
         />
       )
     } else if (this.props.modalType === 'moveDatabase') {

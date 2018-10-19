@@ -181,6 +181,8 @@ export default class Navbar extends Component {
               </div>
             </div>
 
+            <a className="btn softGrad--black" id="salesMetrics" onClick={this.props.controlsModalToggle}>Sales Data</a>
+
             <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
               <img src={exportImg} alt="Export" />
             </div>
