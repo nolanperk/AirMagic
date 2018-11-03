@@ -208,6 +208,57 @@
   margin-bottom: 20px;
 }
 
+.filterBy, .regionChecks {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.regionChecks {
+  margin-right: 0;
+  input {
+    margin-right: 5px;
+  }
+}
+
+.fieldsList {
+  max-height: 250px;
+  overflow: scroll;
+  margin-bottom: 20px;
+  background: #eaeaea;
+  border-radius: 5px;
+  padding: 20px;
+  width: 500px;
+
+  .CheckItem {
+    background: $white;
+    display: inline-block;
+    border-radius: 5px;
+    margin: 3px 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+
+    &.isActive {
+      background: #36c776;
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  label {
+    @extend p;
+    vertical-align: middle;
+    padding: 8px 12px;
+    padding-left: 28px;
+    display: inline-block;
+  }
+  input {
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: -24px;
+    margin-left: 12px;
+  }
+}
+
 .repList {
   background: #eaeaea;
   width: 560px;

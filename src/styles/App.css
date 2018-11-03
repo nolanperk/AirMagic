@@ -17,7 +17,7 @@ html {
   font-size: 62.5%;
   height: 100%; }
 
-p {
+p, .fieldsList label {
   margin: 0; }
 
 .modal .modalInner .modalTitle {
@@ -96,7 +96,7 @@ a:active {
     transition: all 0.4s ease;
     transform: translateY(-5%); }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, p, .fieldsList label {
   margin: 0;
   position: relative; }
 
@@ -116,10 +116,10 @@ h4 {
   font-size: 20px;
   line-height: 1.15; }
 
-p {
+p, .fieldsList label {
   font-size: 18px;
   line-height: 20px; }
-  p.smallText {
+  p.smallText, .fieldsList label.smallText {
     font-size: 15px; }
 
 .absLink {
@@ -136,7 +136,7 @@ ul {
 #next {
   position: absolute;
   right: 20px; }
-  #next p {
+  #next p, #next .fieldsList label, .fieldsList #next label {
     margin-right: 10px; }
 
 .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .SplashView .splashWrapper .splashCard .cornerNumber, .SplashView .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
@@ -460,10 +460,10 @@ ul {
       pointer-events: none; }
     .ControlsBar .ControlsBar--btn:last-child {
       margin-right: 0; }
-    .ControlsBar .ControlsBar--btn p {
+    .ControlsBar .ControlsBar--btn p, .ControlsBar .ControlsBar--btn .fieldsList label, .fieldsList .ControlsBar .ControlsBar--btn label {
       margin-left: 10px;
       user-select: none; }
-    .ControlsBar .ControlsBar--btn .navIcon, .ControlsBar .ControlsBar--btn p {
+    .ControlsBar .ControlsBar--btn .navIcon, .ControlsBar .ControlsBar--btn p, .ControlsBar .ControlsBar--btn .fieldsList label, .fieldsList .ControlsBar .ControlsBar--btn label {
       display: inline-block;
       vertical-align: middle; }
     .ControlsBar .ControlsBar--btn .navIcon {
@@ -581,13 +581,13 @@ ul {
     font-size: 12px; } }
 
 @media only screen and (max-width: 900px) {
-  .ControlsBar.normalControls .ControlsBar--btn p {
+  .ControlsBar.normalControls .ControlsBar--btn p, .ControlsBar.normalControls .ControlsBar--btn .fieldsList label, .fieldsList .ControlsBar.normalControls .ControlsBar--btn label {
     display: none; } }
 
 @media only screen and (max-width: 767px) {
   .ControlsBar.recordControls {
     padding: 15px; }
-    .ControlsBar.recordControls .ControlsBar--btn p {
+    .ControlsBar.recordControls .ControlsBar--btn p, .ControlsBar.recordControls .ControlsBar--btn .fieldsList label, .fieldsList .ControlsBar.recordControls .ControlsBar--btn label {
       display: none; }
   .ControlsBar.normalControls .ControlsBar--btn {
     display: none; }
@@ -698,7 +698,7 @@ ul {
       background: #EBEBE8;
       border: solid 5px #fff;
       border-top: 0; }
-      .ArchiveItems .cardContainer .ArchiveItem .subInfo p {
+      .ArchiveItems .cardContainer .ArchiveItem .subInfo p, .ArchiveItems .cardContainer .ArchiveItem .subInfo .fieldsList label, .fieldsList .ArchiveItems .cardContainer .ArchiveItem .subInfo label {
         color: white;
         display: inline-block; }
       .ArchiveItems .cardContainer .ArchiveItem .subInfo .amount {
@@ -751,7 +751,7 @@ ul {
       background: rgba(19, 19, 19, 0.15); }
     .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo {
       background: #EBEBE8; }
-      .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo p {
+      .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo p, .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo .fieldsList label, .fieldsList .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo label {
         color: #131313; }
   .ArchiveItems .cardContainer .whiteCard, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer input, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer select {
     padding: 2vw;
@@ -1141,20 +1141,20 @@ hr {
       z-index: 1;
       height: 38px;
       background: white; }
-      .RightPanel #mobileSegment p {
+      .RightPanel #mobileSegment p, .RightPanel #mobileSegment .fieldsList label, .fieldsList .RightPanel #mobileSegment label {
         width: 50%;
         float: left;
         text-align: center;
         height: 100%;
         border-bottom: solid 1px #d2d2d2;
         position: relative; }
-        .RightPanel #mobileSegment p span {
+        .RightPanel #mobileSegment p span, .RightPanel #mobileSegment .fieldsList label span, .fieldsList .RightPanel #mobileSegment label span {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           width: 100%;
           left: 0; }
-        .RightPanel #mobileSegment p.isActive {
+        .RightPanel #mobileSegment p.isActive, .RightPanel #mobileSegment .fieldsList label.isActive, .fieldsList .RightPanel #mobileSegment label.isActive {
           background: #d2d2d2; }
   .Sales .RecordNotes {
     width: 100%;
@@ -1401,6 +1401,46 @@ hr {
 #startRange, #endRange, #exportChoice, #rangeBox {
   margin-bottom: 20px; }
 
+.filterBy, .regionChecks {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 20px;
+  margin-right: 20px; }
+
+.regionChecks {
+  margin-right: 0; }
+  .regionChecks input {
+    margin-right: 5px; }
+
+.fieldsList {
+  max-height: 250px;
+  overflow: scroll;
+  margin-bottom: 20px;
+  background: #eaeaea;
+  border-radius: 5px;
+  padding: 20px;
+  width: 500px; }
+  .fieldsList .CheckItem {
+    background: #fff;
+    display: inline-block;
+    border-radius: 5px;
+    margin: 3px 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); }
+    .fieldsList .CheckItem.isActive {
+      background: #36c776;
+      color: white;
+      font-weight: bold; }
+  .fieldsList label {
+    vertical-align: middle;
+    padding: 8px 12px;
+    padding-left: 28px;
+    display: inline-block; }
+  .fieldsList input {
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: -24px;
+    margin-left: 12px; }
+
 .repList {
   background: #eaeaea;
   width: 560px;
@@ -1422,9 +1462,9 @@ hr {
   margin: 12px; }
   .repMetric h2 {
     margin-bottom: 10px; }
-  .repMetric p {
+  .repMetric p, .repMetric .fieldsList label, .fieldsList .repMetric label {
     font-weight: bold; }
-  .repMetric p span {
+  .repMetric p span, .repMetric .fieldsList label span, .fieldsList .repMetric label span {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1451,7 +1491,7 @@ hr {
     right: auto;
     left: 0; }
 
-.cardFull .pickWrapper p {
+.cardFull .pickWrapper p, .cardFull .pickWrapper .fieldsList label, .fieldsList .cardFull .pickWrapper label {
   position: absolute;
   z-index: 2;
   margin-top: 70px; }
@@ -1510,15 +1550,15 @@ hr {
       background-color: rgba(31, 194, 106, 0.75); }
     .AreaCustomers .standing .innerStanding img, .AreaFranchises .standing .innerStanding img {
       width: 20px; }
-    .AreaCustomers .standing .innerStanding p, .AreaCustomers .standing .innerStanding img, .AreaFranchises .standing .innerStanding p, .AreaFranchises .standing .innerStanding img {
+    .AreaCustomers .standing .innerStanding p, .AreaCustomers .standing .innerStanding .fieldsList label, .fieldsList .AreaCustomers .standing .innerStanding label, .AreaCustomers .standing .innerStanding img, .AreaFranchises .standing .innerStanding p, .AreaFranchises .standing .innerStanding .fieldsList label, .fieldsList .AreaFranchises .standing .innerStanding label, .AreaFranchises .standing .innerStanding img {
       display: inline-block;
       vertical-align: middle; }
-    .AreaCustomers .standing .innerStanding p, .AreaFranchises .standing .innerStanding p {
+    .AreaCustomers .standing .innerStanding p, .AreaCustomers .standing .innerStanding .fieldsList label, .fieldsList .AreaCustomers .standing .innerStanding label, .AreaFranchises .standing .innerStanding p, .AreaFranchises .standing .innerStanding .fieldsList label, .fieldsList .AreaFranchises .standing .innerStanding label {
       font-size: 12px;
       color: #fff;
       font-weight: bold;
       margin: 0 2px; }
-  .AreaCustomers p.bolder, .AreaCustomers a, .AreaFranchises p.bolder, .AreaFranchises a {
+  .AreaCustomers p.bolder, .AreaCustomers .fieldsList label.bolder, .fieldsList .AreaCustomers label.bolder, .AreaCustomers a, .AreaFranchises p.bolder, .AreaFranchises .fieldsList label.bolder, .fieldsList .AreaFranchises label.bolder, .AreaFranchises a {
     font-size: 14px;
     font-weight: 700; }
   .AreaCustomers a, .AreaFranchises a {
@@ -1526,7 +1566,7 @@ hr {
 
 .AreaFranchises .standing .innerStanding {
   width: 32px; }
-  .AreaFranchises .standing .innerStanding p {
+  .AreaFranchises .standing .innerStanding p, .AreaFranchises .standing .innerStanding .fieldsList label, .fieldsList .AreaFranchises .standing .innerStanding label {
     font-size: 14px;
     margin: 0; }
 
@@ -1755,7 +1795,7 @@ hr {
     background: #EBEBE8;
     border: solid 5px #fff;
     border-top: 0; }
-    .rowItems .ArchiveItem .subInfo p {
+    .rowItems .ArchiveItem .subInfo p, .rowItems .ArchiveItem .subInfo .fieldsList label, .fieldsList .rowItems .ArchiveItem .subInfo label {
       color: white;
       display: inline-block; }
     .rowItems .ArchiveItem .subInfo .amount {
@@ -1946,15 +1986,15 @@ hr {
             .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea {
               padding-bottom: 0.5vw;
               border-bottom: 1px solid #e0e0e0; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p {
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea .fieldsList label, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea label {
                 display: inline-block;
                 font-weight: bold;
                 margin-right: 10px; }
-                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4:last-child, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p:last-child {
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea h4:last-child, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p:last-child, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea .fieldsList label:last-child, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea label:last-child {
                   margin-right: 0; }
-              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p {
+              .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea .fieldsList label, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea label {
                 flex: 1 1 0; }
-                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p em {
+                .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea p em, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea .fieldsList label em, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineContent .headlineArea label em {
                   opacity: 0.5;
                   font-style: normal;
                   font-size: 11px;
@@ -2015,7 +2055,7 @@ hr {
             border-bottom: 1px solid #d2d2d2; }
             .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader td {
               border: none; }
-            .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader p {
+            .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader p, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader .fieldsList label, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner table tr.accountHeader label {
               font-size: 10px;
               line-height: 20px;
               text-transform: uppercase;
@@ -2036,7 +2076,7 @@ hr {
                 font-size: 11px;
                 letter-spacing: 1px;
                 text-transform: uppercase; }
-          .ModuleList .ModuleCard.cardFull .fullInner .inner table tr input, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr p {
+          .ModuleList .ModuleCard.cardFull .fullInner .inner table tr input, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr p, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr .fieldsList label, .fieldsList .ModuleList .ModuleCard.cardFull .fullInner .inner table tr label {
             width: 100%;
             border: 0; }
           .ModuleList .ModuleCard.cardFull .fullInner .inner table tr td.input--xl {

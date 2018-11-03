@@ -25,7 +25,7 @@ export default class VolumeOwed extends Component {
       volumeData: [],
       calculatedVolumeData: [],
       rowCount: 0,
-      currentView: 'timeline',
+      currentView: 'data',
     }
   }
 

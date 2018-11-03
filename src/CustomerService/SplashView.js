@@ -77,6 +77,7 @@ export default class SplashView extends Component {
                 <select id="searchBy">
                   <option value="Company+Name" id="Company+Name">Company</option>
                   <option value="Main+Contact" id="Main+Contact">Contact</option>
+                  <option value="Zip" id="Zip">Zip</option>
                   <option value="Address+1" id="Address+1">Address</option>
                   <option value="Office+Phone" id="Office+Phone">Office #</option>
                   <option value="Email" id="Email">Email</option>

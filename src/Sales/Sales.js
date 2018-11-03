@@ -1349,209 +1349,557 @@ export default class Sales extends Component {
     let exportFields;
     let exportFilter;
     let urlExtends;
-    let downloadNow = 0;
-
-    let today  = new Date();
-    let currentMonth = today.getMonth()
-    let currentDay = today.getDate()
-    let currentYear = today.getFullYear()
 
     setTimeout((function() {
       let formattedCity = this.props.citySet.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
-      let exportFileName = formattedCity + ' ' + this.state.currentTable + ' - ' + document.getElementById('rangeBy').value + ' ' + currentMonth + '_' + currentDay + '_' + currentYear;
-      console.log(exportFileName);
 
-      let clearedCount = 0;
+
+      let regionCleared = 0;
 
       startRange = document.getElementById('startRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('startRange').getElementsByClassName('year')[0].value;
       endRange = document.getElementById('endRange').getElementsByClassName('month')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('day')[0].value + '/' + document.getElementById('endRange').getElementsByClassName('year')[0].value;
 
-      exportType = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-type');
-      exportFields = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-fields');
-      exportFilter = {'filter1': document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-1')};
+      let fieldChecked = document.querySelectorAll('input[name=fieldCheck]:checked');
+      let exportFields = '';
+      for (var i in fieldChecked) {
+        let currCheck = fieldChecked[i].value;
 
-      if (exportType === 'multi') {
-        exportFilter.filter2 = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-2');
-        exportFilter.filter3 = document.getElementById('rangeBy').options[document.getElementById('rangeBy').options.selectedIndex].getAttribute('data-filter-3');
+        if (currCheck !== undefined) {
+          console.log(currCheck);
+          exportFields += '&fields%5B%5D=';
+          exportFields += currCheck;
+        }
       }
+      console.log(exportFields);
+
+      let regionChecked = document.querySelectorAll('input[name=regionCheck]:checked');
+      let exportRegions = [];
+      for (var i in regionChecked) {
+        let currCheck = regionChecked[i].value;
+
+        if (currCheck !== undefined) {
+          console.log(currCheck);
+          exportRegions.push(currCheck);
+        }
+      }
+      console.log(exportRegions);
+      exportFilter = {'filter1': document.getElementById('rangeBy').value};
+
+      if (exportFilter.filter1 === 'Select Filter') {
+        alert('Please Select a Filter!');
+        return;
+      }
+      if (regionChecked.length === 0) {
+        alert('Please Select a Region!');
+        return;
+      }
+      console.log(exportFilter);
+
+
+
+      // this.setState({
+      //   loading: true,
+      //   customersOffsetTampa: '',
+      //   customersDataTampa: [],
+      //   salesOffsetTampa: '',
+      //   salesDataTampa: [],
+      //
+      //   customersOffsetOrlando: '',
+      //   customersDataOrlando: [],
+      //   salesOffsetOrlando: '',
+      //   salesDataOrlando: [],
+      // });
+      //
+      // let tampaSalesID = 'appEX8GXgcD2ln4dB';
+      // let orlandoSalesID = 'appXNufXR9nQARjgs';
+      // let tampaCustomersID = 'apps7GoAgK23yrOoY';
+      // let orlandoCustomersID = 'appBUKBn552B8SlbE';
+
+
+      // let allIsCleared = function() {
+      //   console.log(regionCleared + ' / ' + exportRegions.length);
+      //   console.log(this.state.tampaDownloadData);
+      //   console.log(this.state.orlandoDownloadData);
+      // }.bind(this);
+      //
+      // for (i in exportRegions) {
+      //   if (exportRegions[i] === 'tampa') {
+      //     console.log(exportRegions[i]);
+      //
+      //     let tampaSalesURL;
+      //     let tampaCustomerURL;
+      //
+      //     let tampaFinish = function() {
+      //       setTimeout((function() {
+      //         console.log('finishing!');
+      //         if (clearedCount === 2) {
+      //           let items;
+      //           if (this.state.salesDataTampa.length < this.state.customersDataTampa.length) {
+      //             items = this.state.customersDataTampa;
+      //           } else {
+      //             items = this.state.salesDataTampa;
+      //           }
+      //           this.setState({
+      //             tampaDownloadData: this.state.salesDataTampa,
+      //           });
+      //           regionCleared ++;
+      //           allIsCleared();
+      //         }
+      //       }).bind(this), 250);
+      //     }.bind(this);
+      //
+      //     setTimeout((function() {
+      //       let loadTampaSales = function() {
+      //         console.log('loadTampaSales()');
+      //         let preSalesTampa = this.state.salesDataTampa;
+      //
+      //         tampaSalesURL = this.state.dataURL + tampaSalesID + '/Sales';
+      //         if (this.state.salesOffsetTampa !== '') {tampaSalesURL = tampaSalesURL + '?offset=' + this.state.salesOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //         else {tampaSalesURL = tampaSalesURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //
+      //         tampaSalesURL = tampaSalesURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+      //         console.log(tampaSalesURL);
+      //
+      //         return axios
+      //           .get(tampaSalesURL).then(response => {
+      //             console.log(response.data.records);
+      //             this.setState({
+      //               salesDataTampa: preSalesTampa.concat(response.data.records),
+      //               error: false,
+      //               salesOffsetTampa: response.data.offset,
+      //             });
+      //             setTimeout((function() {
+      //               if (this.state.salesOffsetTampa !== undefined) {
+      //                 loadTampaSales();
+      //               } else {
+      //                 clearedCount ++;
+      //                 tampaFinish();
+      //               }
+      //             }).bind(this), 10);
+      //         });
+      //       }.bind(this);
+      //       let loadTampaCustomers = function() {
+      //         console.log('loadTampaCustomers()');
+      //         let preCustomersTampa = this.state.customersDataTampa;
+      //
+      //
+      //         tampaCustomerURL = this.state.dataURL + tampaCustomersID + '/Customers';
+      //         if (this.state.customersOffsetTampa !== '') {tampaCustomerURL = tampaCustomerURL + '?offset=' + this.state.customersOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //         else {tampaCustomerURL = tampaCustomerURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //
+      //         tampaCustomerURL = tampaCustomerURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+      //
+      //         return axios
+      //           .get(tampaCustomerURL).then(response => {
+      //             this.setState({
+      //               customersDataTampa: preCustomersTampa.concat(response.data.records),
+      //               error: false,
+      //               customersOffsetTampa: response.data.offset,
+      //             });
+      //           setTimeout((function() {
+      //             if (this.state.customersOffsetTampa !== undefined) {
+      //               loadTampaCustomers();
+      //             } else {
+      //               clearedCount ++;
+      //               tampaFinish();
+      //             }
+      //           }).bind(this), 10);
+      //         });
+      //       }.bind(this);
+      //
+      //       loadTampaSales(); //start loading tampa sales
+      //
+      //       setTimeout((function() { //delay loading tampa customers
+      //         loadTampaCustomers();
+      //       }).bind(this), 500);
+      //
+      //     }).bind(this), 250);
+      //
+      //
+      //   } else if (exportRegions[i] === 'orlando') {
+      //     console.log(exportRegions[i]);
+      //
+      //
+      //     let orlandoSalesURL;
+      //     let orlandoCustomerURL;
+      //
+      //     let orlandoFinish = function() {
+      //       setTimeout((function() {
+      //         if (clearedCount === 2) {
+      //           let items;
+      //           if (this.state.salesDataOrlando.length < this.state.customersDataOrlando.length) {
+      //             items = this.state.customersDataOrlando;
+      //           } else {
+      //             items = this.state.salesDataOrlando;
+      //           }
+      //           this.setState({
+      //             orlandoDownloadData: items,
+      //           });
+      //           regionCleared ++;
+      //           allIsCleared();
+      //         }
+      //       }).bind(this), 250);
+      //     }.bind(this);
+      //
+      //     setTimeout((function() {
+      //       let loadOrlandoSales = function() {
+      //         console.log('loadOrlandoSales()');
+      //         let preSalesOrlando = this.state.salesDataOrlando;
+      //
+      //         orlandoSalesURL = this.state.dataURL + orlandoSalesID + '/Sales';
+      //         if (this.state.salesOffsetOrlando !== '') {orlandoSalesURL = orlandoSalesURL + '?offset=' + this.state.salesOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //         else {orlandoSalesURL = orlandoSalesURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //
+      //         orlandoSalesURL = orlandoSalesURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+      //
+      //         return axios
+      //           .get(orlandoSalesURL).then(response => {
+      //             this.setState({
+      //               salesDataOrlando: preSalesOrlando.concat(response.data.records),
+      //               error: false,
+      //               salesOffsetOrlando: response.data.offset,
+      //             });
+      //           setTimeout((function() {
+      //             if (this.state.salesOffsetOrlando !== undefined) {
+      //               loadOrlandoSales();
+      //             } else {
+      //               clearedCount ++;
+      //               orlandoFinish();
+      //             }
+      //           }).bind(this), 10);
+      //         });
+      //       }.bind(this);
+      //       let loadOrlandoCustomers = function() {
+      //         console.log('loadOrlandoCustomers()');
+      //         let preCustomersOrlando = this.state.customersDataOrlando;
+      //
+      //
+      //         orlandoCustomerURL = this.state.dataURL + orlandoCustomersID + '/Customers';
+      //         if (this.state.customersOffsetOrlando !== '') {orlandoCustomerURL = orlandoCustomerURL + '?offset=' + this.state.customersOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //         else {orlandoCustomerURL = orlandoCustomerURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+      //
+      //         orlandoCustomerURL = orlandoCustomerURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+      //
+      //         return axios
+      //           .get(orlandoCustomerURL).then(response => {
+      //             this.setState({
+      //               customersDataOrlando: preCustomersOrlando.concat(response.data.records),
+      //               error: false,
+      //               customersOffsetOrlando: response.data.offset,
+      //             });
+      //           setTimeout((function() {
+      //             if (this.state.customersOffsetOrlando !== undefined) {
+      //               loadOrlandoCustomers();
+      //             } else {
+      //               clearedCount ++;
+      //               orlandoFinish();
+      //             }
+      //           }).bind(this), 10);
+      //         });
+      //       }.bind(this);
+      //
+      //       loadOrlandoSales(); //start loading tampa sales
+      //
+      //       setTimeout((function() { //delay loading tampa customers
+      //         loadOrlandoCustomers();
+      //       }).bind(this), 500);
+      //
+      //     }).bind(this), 500);
+      //   }
+      // }
+
+
+
+
+
 
       this.setState({
         loading: true,
-        customersOffset: '',
-        customersData: [],
-        salesOffset: '',
-        salesData: [],
       });
 
-      let matchingSales = setInterval(function() {
-        console.log('load sales');
-        let preData = this.state.salesData;
-        finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+      let downloadThis = function() {
+        console.log('downloadThis()');
+        if (regionCleared === exportRegions.length) {
+          let today  = new Date();
+          let currentMonth = today.getMonth()
+          let currentDay = today.getDate()
+          let currentYear = today.getFullYear()
 
-        if (this.state.salesOffset !== '') {finalURL = finalURL + '?offset=' + this.state.salesOffset + '&' + exportFields;}
-        else {finalURL = finalURL + '?' + exportFields}
+          let exportFileName = '';
+          if (exportRegions.includes('tampa')) {
+            exportFileName += 'Tampa';
 
-        if (exportType === 'multi') {
-          finalURL = finalURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
-        } else if (exportType === 'ranged') {
-          finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22))%2C+%7BStatus%7D+!%3D+%22Closed%22)';
-        } else if (exportType === 'default') {
-          finalURL = finalURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
-        }
-
-        // finalURL = finalURL + '&pageSize=5';
-        console.log(finalURL);
-        return axios
-          .get(finalURL).then(response => {
-            this.setState({
-              salesData: preData.concat(response.data.records),
-              totalLoads: this.state.totalLoads + 1,
-              error: false,
-              salesOffset: response.data.offset,
-            });
-          if (!response.data.offset) {
-            clearInterval(matchingSales);
-            clearedCount ++;
-            console.log('clearing matchingSales()');
-          }
-          if (clearedCount === 2) {
-            downloadNow ++;
-            if (downloadNow === 1) {
-              setTimeout((function() {
-                let items = this.state.customersData.concat(this.state.salesData);
-
-                let newItems = items.map(obj =>{
-                  let newItems = obj.fields;
-                  // newItems.id = obj.id
-                   return newItems;
-                });
-
-
-                const replacer = (key, value) => value === null ? '' : value
-                const header = Object.keys(newItems[0])
-                let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-                csv.unshift(header.join(','))
-                csv = csv.join('\r\n')
-
-
-                var fakeDownloadA = document.createElement('a');
-                fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-                fakeDownloadA.setAttribute('download', exportFileName + '.csv');
-
-                fakeDownloadA.style.display = 'none';
-                document.body.appendChild(fakeDownloadA);
-
-                fakeDownloadA.click();
-
-                document.body.removeChild(fakeDownloadA);
-
-
-                setTimeout((function() {
-                  this.loadData();
-                  this.setState({
-                    loading: false,
-                    activeModal: false,
-                    modalType: '',
-                    customersOffset: '',
-                    customersData: [],
-                    salesOffset: '',
-                    salesData: [],
-                  });
-                }).bind(this), 200);
-              }).bind(this), 200);
+            if (exportRegions.includes('orlando')) {
+              exportFileName += ' and Orlando';
             }
+          } else if (exportRegions.includes('orlando')) {
+            exportFileName += 'Orlando';
           }
-        });
-      }.bind(this), 1000);
+          exportFileName += ' - ' + exportFilter.filter1.replace('+', ' ').replace('.', '') + ' - ';
+          exportFileName += currentMonth + '_' + currentDay + '_' + currentYear;
 
-      setTimeout((function() { //delay the start
-        let matchingCustomers = setInterval(function() {
-          let allExportData = this.state.customersData;
-          let baseId;
-          if (this.props.citySet === 'tampa') {
-            baseId = 'apps7GoAgK23yrOoY';
-          } else if(this.props.citySet === 'orlando') {
-            baseId = 'appBUKBn552B8SlbE';
-          }
-          let custURL = this.state.dataURL + baseId + '/' + 'Customers';
 
-          if (this.state.customersOffset !== '') {custURL = custURL + '?offset=' + this.state.customersOffset + '&' + exportFields;}
-          else {custURL = custURL + '?' + exportFields}
+          setTimeout((function() {
+            let tampaItems;
+            if (exportRegions.includes('tampa')) {
+              if (this.state.salesDataTampa.length === this.state.customersDataTampa.length) {
+                tampaItems = this.state.customersDataTampa;
+              } else {
+                tampaItems = this.state.customersDataTampa.concat(this.state.salesDataTampa);
+              }
+            }
 
-          if (exportType === 'multi') {
-            custURL = custURL + '&filterByFormula=OR(IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter2 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter3 + '%7D%2C+%22' + startRange + '%22))';
-          } else if (exportType === 'ranged') {
-            custURL = custURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-          } else if (exportType === 'default') {
-            custURL = custURL + '&filterByFormula=(' + exportFilter.filter1 + ')';
-          }
-          // console.log(allExportData);
-          return axios
-            .get(custURL).then(response => {
+            let orlandoItems;
+            if (exportRegions.includes('orlando')) {
+              if (this.state.salesDataOrlando.length === this.state.customersDataOrlando.length) {
+                orlandoItems = this.state.customersDataOrlando;
+              } else {
+                orlandoItems = this.state.customersDataOrlando.concat(this.state.salesDataOrlando);
+              }
+            }
+
+            let allItems = tampaItems.concat(orlandoItems);
+
+            let newItems = allItems.map(obj =>{
+              let newItems = obj.fields;
+              return newItems;
+            });
+
+            let finalItems = [];
+            for (var i in newItems) {
+              if (finalItems.filter(obj => obj['Company Name'] === newItems[i]['Company Name']).length === 0) {
+                finalItems.push(newItems[i]);
+              }
+            }
+
+            // let uniq = [ ...new Set(newItems) ];
+
+
+            const replacer = (key, value) => value === null ? '' : value
+            const header = Object.keys(finalItems[0])
+            let csv = finalItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+            csv.unshift(header.join(','))
+            csv = csv.join('\r\n')
+
+
+            var fakeDownloadA = document.createElement('a');
+            fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+            fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+
+            fakeDownloadA.style.display = 'none';
+            document.body.appendChild(fakeDownloadA);
+
+            fakeDownloadA.click();
+
+            document.body.removeChild(fakeDownloadA);
+
+            setTimeout((function() {
+              this.loadData();
               this.setState({
-                customersData: allExportData.concat(response.data.records),
-                totalLoads: this.state.totalLoads + 1,
-                error: false,
-                customersOffset: response.data.offset,
+                loading: false,
+                activeModal: false,
+                modalType: '',
+                customersOffsetTampa: '',
+                customersDataTampa: [],
+                salesOffsetTampa: '',
+                salesDataTampa: [],
+
+                customersOffsetOrlando: '',
+                customersDataOrlando: [],
+                salesOffsetOrlando: '',
+                salesDataOrlando: [],
               });
-              if (!response.data.offset) {
-                clearInterval(matchingCustomers);
-                clearedCount ++;
-                console.log('clearing matchingCustomers()');
+            }).bind(this), 200);
+          }).bind(this), 200);
+        }
+      }.bind(this)
+
+
+
+
+
+      if (exportRegions.includes('tampa')) {
+        this.setState({
+          customersOffsetTampa: '',
+          customersDataTampa: [],
+          salesOffsetTampa: '',
+          salesDataTampa: [],
+        });
+        let tampaSalesID = 'appEX8GXgcD2ln4dB';
+        let tampaCustomersID = 'apps7GoAgK23yrOoY';
+        let tampaDownloadNow = 0;
+        let tampaClearedCount = 0;
+
+
+        let matchingTampaSales = setInterval(function() {
+          console.log('load sales');
+          let preData = this.state.salesDataTampa;
+          finalURL = this.state.dataURL + tampaSalesID + '/' + this.state.currentTable;
+          if (this.state.salesOffsetTampa !== '') {finalURL = finalURL + '?offset=' + this.state.salesOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+          else {finalURL = finalURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+
+          finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+
+
+          console.log(finalURL);
+          return axios
+            .get(finalURL).then(response => {
+              this.setState({
+                salesDataTampa: preData.concat(response.data.records),
+                error: false,
+                salesOffsetTampa: response.data.offset,
+              });
+            if (!response.data.offset) {
+              clearInterval(matchingTampaSales);
+              tampaClearedCount ++;
+              console.log('clearing matchingTampaSales()');
+            }
+            if (tampaClearedCount === 2) {
+              tampaDownloadNow ++;
+              if (tampaDownloadNow === 1) {
+                console.log('clearAllTampa');
+                regionCleared ++;
+                downloadThis();
               }
-
-              if (clearedCount === 2) {
-                downloadNow ++;
-                if (downloadNow === 1) {
-                  setTimeout((function() {
-                    let items = this.state.salesData.concat(this.state.customersData);
-
-                    let newItems = items.map(obj =>{
-                      let newItems = obj.fields;
-                      // newItems.id = obj.id
-                       return newItems;
-                    });
-
-
-                    const replacer = (key, value) => value === null ? '' : value
-                    const header = Object.keys(newItems[0])
-                    let csv = newItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-                    csv.unshift(header.join(','))
-                    csv = csv.join('\r\n')
-
-
-                    var fakeDownloadA = document.createElement('a');
-                    fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-                    fakeDownloadA.setAttribute('download', exportFileName + '.csv');
-
-                    fakeDownloadA.style.display = 'none';
-                    document.body.appendChild(fakeDownloadA);
-
-                    fakeDownloadA.click();
-
-                    document.body.removeChild(fakeDownloadA);
-
-
-                    setTimeout((function() {
-                      this.loadData();
-                      this.setState({
-                        loading: false,
-                        activeModal: false,
-                        modalType: '',
-                        customersOffset: '',
-                        customersData: [],
-                        salesOffset: '',
-                        salesData: [],
-                      });
-                    }).bind(this), 200);
-                  }).bind(this), 200);
-                }
-              }
+            }
           });
         }.bind(this), 1000);
-      }).bind(this), 500); //delay the start
+
+        setTimeout((function() { //delay the start
+          let matchingTampaCustomers = setInterval(function() {
+            let allExportData = this.state.customersDataTampa;
+            let custURL = this.state.dataURL + tampaCustomersID + '/' + 'Customers';
+
+            if (this.state.customersOffsetTampa !== '') {custURL = custURL + '?offset=' + this.state.customersOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+            else {custURL = custURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+
+            custURL = custURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+
+
+            // console.log(allExportData);
+            return axios
+              .get(custURL).then(response => {
+                this.setState({
+                  customersDataTampa: allExportData.concat(response.data.records),
+                  error: false,
+                  customersOffsetTampa: response.data.offset,
+                });
+                if (!response.data.offset) {
+                  clearInterval(matchingTampaCustomers);
+                  tampaClearedCount ++;
+                  console.log('clearing matchingTampaCustomers()');
+                }
+
+                if (tampaClearedCount === 2) {
+                  tampaDownloadNow ++;
+                  if (tampaDownloadNow === 1) {
+                    console.log('clearAllTampa');
+                    regionCleared ++;
+                    downloadThis();
+                  }
+                }
+            });
+          }.bind(this), 1000);
+        }).bind(this), 500); //delay the start
+      }
+
+
+
+
+
+
+      if (exportRegions.includes('orlando')) {
+        this.setState({
+          customersOffsetOrlando: '',
+          customersDataOrlando: [],
+          salesOffsetOrlando: '',
+          salesDataOrlando: [],
+        });
+        let orlandoSalesID = 'appXNufXR9nQARjgs';
+        let orlandoCustomersID = 'appBUKBn552B8SlbE';
+        let orlandoDownloadNow = 0;
+        let orlandoClearedCount = 0;
+
+        setTimeout((function() { //delay the start
+          let matchingOrlandoSales = setInterval(function() {
+            console.log('load sales');
+            let preData = this.state.salesDataOrlando;
+            finalURL = this.state.dataURL + orlandoSalesID + '/' + this.state.currentTable;
+            if (this.state.salesOffsetOrlando !== '') {finalURL = finalURL + '?offset=' + this.state.salesOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+            else {finalURL = finalURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+
+            finalURL = finalURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+
+
+            console.log(finalURL);
+            return axios
+              .get(finalURL).then(response => {
+                this.setState({
+                  salesDataOrlando: preData.concat(response.data.records),
+                  error: false,
+                  salesOffsetOrlando: response.data.offset,
+                });
+              if (!response.data.offset) {
+                clearInterval(matchingOrlandoSales);
+                orlandoClearedCount ++;
+                console.log('clearing matchingOrlandoSales()');
+              }
+              if (orlandoClearedCount === 2) {
+                orlandoDownloadNow ++;
+                if (orlandoDownloadNow === 1) {
+                  console.log('clearAllOrlando');
+                  regionCleared ++;
+                  downloadThis();
+                }
+              }
+            });
+          }.bind(this), 1000);
+
+          setTimeout((function() { //delay the start
+            let matchingOrlandoCustomers = setInterval(function() {
+              let allExportData = this.state.customersDataOrlando;
+              let custURL = this.state.dataURL + orlandoCustomersID + '/' + 'Customers';
+
+              if (this.state.customersOffsetOrlando !== '') {custURL = custURL + '?offset=' + this.state.customersOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
+              else {custURL = custURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
+
+              custURL = custURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
+
+
+              // console.log(allExportData);
+              return axios
+                .get(custURL).then(response => {
+                  this.setState({
+                    customersDataOrlando: allExportData.concat(response.data.records),
+                    error: false,
+                    customersOffsetOrlando: response.data.offset,
+                  });
+                  if (!response.data.offset) {
+                    clearInterval(matchingOrlandoCustomers);
+                    orlandoClearedCount ++;
+                    console.log('clearing matchingOrlandoCustomers()');
+                  }
+
+                  if (orlandoClearedCount === 2) {
+                    orlandoDownloadNow ++;
+                    if (orlandoDownloadNow === 1) {
+                      console.log('clearAllOrlando');
+                      regionCleared ++;
+                      downloadThis();
+                    }
+                  }
+              });
+            }.bind(this), 1000);
+          }).bind(this), 500); //delay the start
+        }).bind(this), 250); //delay the start
+      }
+
+
+
+
+
     }).bind(this), 50);
   }
 

@@ -63,6 +63,7 @@ export default class SortBy extends Component {
         <select id="searchBy">
           <option value="Company+Name" id="Company+Name">Company</option>
           <option value="Main+Contact" id="Main+Contact">Contact</option>
+          <option value="Zip" id="Zip">Zip</option>
           <option value="Address+1" id="Address+1">Address</option>
           <option value="Office+Phone" id="Office+Phone">Office #</option>
           <option value="Email" id="Email">Email</option>
@@ -74,6 +75,7 @@ export default class SortBy extends Component {
           <select id="searchBy">
             <option value="SP+Name" id="SP+Name">SP Name</option>
             <option value="Company+Name" id="Company+Name">Company</option>
+            <option value="Zip" id="Zip">Zip</option>
             <option value="Address+1" id="Address+1">Address</option>
             <option value="Home+Phone" id="Home+Phone">Home Phone</option>
             <option value="Email" id="Email">Email</option>
@@ -85,6 +87,7 @@ export default class SortBy extends Component {
           <select id="searchBy">
             <option value="Company+Name" id="Company+Name">Company</option>
             <option value="Main+Contact" id="Main+Contact">Contact</option>
+            <option value="Zip" id="Zip">Zip</option>
             <option value="Address+1" id="Address+1">Address</option>
             <option value="Office+Phone" id="Office+Phone">Office #</option>
             <option value="Email" id="Email">Email</option>
