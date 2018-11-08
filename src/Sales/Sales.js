@@ -1660,57 +1660,70 @@ export default class Sales extends Component {
               }
             }
 
-            let allItems = tampaItems.concat(orlandoItems);
-
-            let newItems = allItems.map(obj =>{
-              let newItems = obj.fields;
-              return newItems;
-            });
-
-            let finalItems = [];
-            for (var i in newItems) {
-              if (finalItems.filter(obj => obj['Company Name'] === newItems[i]['Company Name']).length === 0) {
-                finalItems.push(newItems[i]);
+            let allItems;
+            if (exportRegions.includes('orlando') && exportRegions.includes('tampa')) {
+              allItems = tampaItems.concat(orlandoItems);
+            } else {
+              if (exportRegions.includes('tampa')) {
+                allItems = tampaItems;
               }
+              if (exportRegions.includes('orlando')) {
+                allItems = orlandoItems;
+              }
+
             }
 
-            // let uniq = [ ...new Set(newItems) ];
-
-
-            const replacer = (key, value) => value === null ? '' : value
-            const header = Object.keys(finalItems[0])
-            let csv = finalItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-            csv.unshift(header.join(','))
-            csv = csv.join('\r\n')
-
-
-            var fakeDownloadA = document.createElement('a');
-            fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-            fakeDownloadA.setAttribute('download', exportFileName + '.csv');
-
-            fakeDownloadA.style.display = 'none';
-            document.body.appendChild(fakeDownloadA);
-
-            fakeDownloadA.click();
-
-            document.body.removeChild(fakeDownloadA);
-
             setTimeout((function() {
-              this.loadData();
-              this.setState({
-                loading: false,
-                activeModal: false,
-                modalType: '',
-                customersOffsetTampa: '',
-                customersDataTampa: [],
-                salesOffsetTampa: '',
-                salesDataTampa: [],
-
-                customersOffsetOrlando: '',
-                customersDataOrlando: [],
-                salesOffsetOrlando: '',
-                salesDataOrlando: [],
+              let newItems = allItems.map(obj =>{
+                let newItems = obj.fields;
+                return newItems;
               });
+
+              let finalItems = [];
+              for (var i in newItems) {
+                if (finalItems.filter(obj => obj['Company Name'] === newItems[i]['Company Name']).length === 0) {
+                  finalItems.push(newItems[i]);
+                }
+              }
+
+              // let uniq = [ ...new Set(newItems) ];
+
+
+              const replacer = (key, value) => value === null ? '' : value
+              const header = Object.keys(finalItems[0])
+              let csv = finalItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+              csv.unshift(header.join(','))
+              csv = csv.join('\r\n')
+
+
+              var fakeDownloadA = document.createElement('a');
+              fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+              fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+
+              fakeDownloadA.style.display = 'none';
+              document.body.appendChild(fakeDownloadA);
+
+              fakeDownloadA.click();
+
+              document.body.removeChild(fakeDownloadA);
+
+              setTimeout((function() {
+                this.loadData();
+                this.setState({
+                  loading: false,
+                  activeModal: false,
+                  modalType: '',
+                  customersOffsetTampa: '',
+                  customersDataTampa: [],
+                  salesOffsetTampa: '',
+                  salesDataTampa: [],
+
+                  customersOffsetOrlando: '',
+                  customersDataOrlando: [],
+                  salesOffsetOrlando: '',
+                  salesDataOrlando: [],
+                });
+              }).bind(this), 100);
             }).bind(this), 200);
           }).bind(this), 200);
         }
