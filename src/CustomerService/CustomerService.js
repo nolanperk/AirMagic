@@ -80,14 +80,26 @@ export default class CustomerService extends Component {
         if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
           this.props.recordId;
           const record = nextState.data.filter(e => e.id === this.props.recordId)[0].fields;
-          setTimeout((function() {
-            this.setState({
-              recordView: true,
-              currentRecord: record,
-              noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-              currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-            })
-          }).bind(this), 0);
+
+          if (record['Notes']) {
+            setTimeout((function() {
+              this.setState({
+                recordView: true,
+                currentRecord: record,
+                currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+                noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              })
+            }).bind(this), 0);
+          } else {
+            setTimeout((function() {
+              this.setState({
+                recordView: true,
+                currentRecord: record,
+                currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
+                noteCharacters: 0,
+              })
+            }).bind(this), 0);
+          }
         } else {
           finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + this.props.recordId;
           return axios
