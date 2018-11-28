@@ -96,7 +96,7 @@ export default class CustomerService extends Component {
                 recordView: true,
                 currentRecord: record,
                 currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-                noteCharacters: 0,
+                noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               })
             }).bind(this), 0);
           }
@@ -1724,39 +1724,52 @@ export default class CustomerService extends Component {
       for (var i in this.state.data) {
         let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
 
-        if (this.state.data[i].fields['Standing'] === 'New Close') {
-          console.log('hi');
+        if (this.state.data[i].fields['Standing'] === 'New Close' || this.state.data[i].fields['Standing'] === 'New Customer') {
           attentionLength ++;
           let newItem = {};
           newItem['fields'] = this.state.data[i].fields;
           newItem['id'] = this.state.data[i].id;
-          newAttentionData['newClose'].push(newItem);
-        } else if (this.state.data[i].fields['Standing'] === 'New Customer') {
+
+
+
+          let startDate;
+
           if (this.state.data[i].fields['Start Date']) {
-            let startDate = new Date(this.state.data[i].fields['Start Date']);
-            let callDate;
+            startDate = new Date(this.state.data[i].fields['Start Date']);
+            let today = new Date();
 
-            if (this.state.data[i].fields['Last Call']) {
-              callDate = new Date(this.state.data[i].fields['Last Call']);
+            if (today < startDate) {
+              newAttentionData['newClose'].push(newItem);
+            } else {
+              //past
 
-              if (startDate > callDate) {
-                console.log('start > call - ' + this.state.data[i].fields['Company Name']);
+              if (this.state.data[i].fields['Last Call']) {
+                let callDate = new Date(this.state.data[i].fields['Last Call']);
+
+                if (startDate > callDate) {
+                  console.log('start > call - ' + this.state.data[i].fields['Company Name']);
+                  attentionLength ++;
+                  let newItem = {};
+                  newItem['fields'] = this.state.data[i].fields;
+                  newItem['id'] = this.state.data[i].id;
+                  newAttentionData['newStart'].push(newItem);
+                } else {
+                  console.log('ELSE - ' + this.state.data[i].fields['Company Name']);
+                }
+              } else {
+                console.log('no call - ' + this.state.data[i].fields['Company Name']);
                 attentionLength ++;
                 let newItem = {};
                 newItem['fields'] = this.state.data[i].fields;
                 newItem['id'] = this.state.data[i].id;
                 newAttentionData['newStart'].push(newItem);
-              } else {
-                console.log('ELSE - ' + this.state.data[i].fields['Company Name']);
               }
-            } else {
-              console.log('no call - ' + this.state.data[i].fields['Company Name']);
-              attentionLength ++;
-              let newItem = {};
-              newItem['fields'] = this.state.data[i].fields;
-              newItem['id'] = this.state.data[i].id;
-              newAttentionData['newStart'].push(newItem);
             }
+          }
+
+        } else if (this.state.data[i].fields['Standing'] === 'New Customer') {
+          if (this.state.data[i].fields['Start Date']) {
+
           }
         } else if (this.state.data[i].fields['Standing'] === 'Crew Change') {
           attentionLength ++;

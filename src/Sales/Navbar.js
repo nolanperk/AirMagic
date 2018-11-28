@@ -175,6 +175,7 @@ export default class Navbar extends Component {
       } else {
         return (
           <div className="rightButtons">
+
             <div className="inputBlock">
               <div className="selectBlock">
                 {this.viewSelects}

@@ -133,8 +133,6 @@ export default class SortBy extends Component {
         salesInitials = 'NWP'
       } else if (this.props.currentRecord['Sales Rep'] === 'Joel Horwitz') {
         salesInitials = 'JDH'
-      } else if (this.props.currentRecord['Sales Rep'] === 'Rob Janke') {
-        salesInitials = 'RWJ'
       } else if (this.props.currentRecord['Sales Rep'] === 'Rafael Milanes') {
         salesInitials = 'RAM'
       } else {
@@ -193,7 +191,7 @@ export default class SortBy extends Component {
         } else if (slackRep === 'none' && slackSet === 'none') {
           secondMessage = '\nWe just got an appointment in *' + this.props.currentRecord['City'] + '*!';
         }
-      } else if (slackSet === 'Joel Horwitz' || slackSet === 'Rob Janke' || slackSet === 'Tyler Perkins' || slackSet === 'Nolan Perkins') {
+      } else if (slackSet === 'Joel Horwitz' || slackSet === 'Tyler Perkins' || slackSet === 'Nolan Perkins') {
         secondMessage = slackSet + 'just set an appointment in *' + this.props.currentRecord['City'] + '*!';
       } else if (slackSet === 'Constant' || slackSet === 'Google' || slackSet === 'Thumbtack') {
         secondMessage = 'We just got an appointment in *' + this.props.currentRecord['City'] + '* from ' + this.props.currentRecord['Appt. Set By'] + '\n*Keep hustling everyone!*';

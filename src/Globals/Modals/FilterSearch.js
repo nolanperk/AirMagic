@@ -69,32 +69,6 @@ export default class FilterSearch extends Component {
                 >Joel All Pipeline</li>
             </ul>
           );
-        } else if (localStorage.getItem('userInitials') === 'RWJ') {
-          return (
-            <ul id="filtersList">
-              <li
-                className="isActive"
-                onClick={this.selectFilterList}
-                id="All"
-                >No Filter</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Rob+Upcoming"
-                >Rob Upcoming</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Rob+Recents"
-                >Rob Recents</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Rob+Follow+Ups"
-                >Rob Follow Ups</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Rob+Pipeline"
-                >Rob All Pipeline</li>
-            </ul>
-          );
         } else {
           return (
             <ul id="filtersList">

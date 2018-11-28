@@ -12,6 +12,7 @@ import ExportRecords from '../Globals/Modals/ExportRecords';
 import RecordExport from '../Globals/Modals/RecordExport';
 import MoveDatabase from '../Globals/Modals/MoveDatabase';
 import SalesMetrics from '../Globals/Modals/SalesMetrics';
+import SalesCloses from '../Globals/Modals/SalesCloses';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -123,4 +124,5 @@ ModalView.propTypes = {
   exportRecord: propTypes.func.isRequired,
   moveDatabasesHandler: propTypes.func,
   currentTable: propTypes.string.isRequired,
+  citySet: propTypes.string.isRequired,
 }

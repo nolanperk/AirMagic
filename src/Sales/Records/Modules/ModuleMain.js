@@ -51,7 +51,6 @@ export default class ModuleMain extends Component {
           <option id="Nolan+Perkins">Nolan Perkins</option>
           <option id="Rafael+Milanes">Rafael Milanes</option>
           <option id="Lisa+Nice">Lisa Nice</option>
-          <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
           <option id="Christy+Subler">Christy Subler</option>
           <option id="FR">FR</option>
@@ -62,7 +61,6 @@ export default class ModuleMain extends Component {
       return (
         <select id="repSelect" value={this.props.rep} onChange={this.props.repChange}>
           <option id="none"></option>
-          <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
           <option id="Christy+Subler">Christy Subler</option>
           <option id="Tyler+Perkins">Tyler Perkins</option>
@@ -140,6 +138,7 @@ export default class ModuleMain extends Component {
                 <option id="Building+Does">Landlord Does</option>
                 <option id="Call+Back">Call Back</option>
                 <option id="Bad+Number">Bad Number</option>
+                <option id="Mark+for+Deletion">Mark forDeletion</option>
               </select>
             </div>
           </div>

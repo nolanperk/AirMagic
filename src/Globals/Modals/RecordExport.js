@@ -103,29 +103,6 @@ export default class RecordExport extends Component {
               data-merge="appt-sheet"
               data-type="Shee">
               Appointment Sheet</option>
-            <option disabled>---------------</option>
-            <option disabled>Rob Janke</option>
-            <option disabled>---------------</option>
-            <option
-              data-merge="rwj-standard"
-              data-type="Proposal">
-              RWJ - Standard</option>
-            <option
-              data-merge="rwj-medical"
-              data-type="Proposal">
-              RWJ - Medical</option>
-            <option
-              data-merge="rwj-schools"
-              data-type="Proposal">
-              RWJ - Schools</option>
-            <option
-              data-merge="rwj-1x"
-              data-type="Proposal">
-              RWJ - 1 X Week</option>
-            <option
-              data-merge="rwj-once"
-              data-type="Proposal">
-              RWJ - 1 X Only</option>
 
             <option disabled>---------------</option>
             <option disabled>Joel Horwitz</option>

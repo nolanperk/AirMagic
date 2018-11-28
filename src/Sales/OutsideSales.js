@@ -1103,12 +1103,6 @@ export default class OutsideSales extends Component {
         if (mergeTemp === 'jdh-schools') {mergeURL.id = '178008/r26mm9';}
         if (mergeTemp === 'jdh-1x') {mergeURL.id = '178009/5ksv9d';}
 
-        if (mergeTemp === 'rwj-standard') {mergeURL.id = '178000/7az53e';}
-        if (mergeTemp === 'rwj-once') {mergeURL.id = '178001/4sqqsv';}
-        if (mergeTemp === 'rwj-medical') {mergeURL.id = '178002/d3fzfn';}
-        if (mergeTemp === 'rwj-schools') {mergeURL.id = '178003/rpdz68';}
-        if (mergeTemp === 'rwj-1x') {mergeURL.id = '178004/ipcmka';}
-
 
 
         let contactArr = mergeData['Main contact'].split(" ");

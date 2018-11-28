@@ -1200,12 +1200,6 @@ export default class Sales extends Component {
         if (mergeTemp === 'jdh-schools') {mergeURL.id = '178008/r26mm9';}
         if (mergeTemp === 'jdh-1x') {mergeURL.id = '178009/5ksv9d';}
 
-        if (mergeTemp === 'rwj-standard') {mergeURL.id = '178000/7az53e';}
-        if (mergeTemp === 'rwj-once') {mergeURL.id = '178001/4sqqsv';}
-        if (mergeTemp === 'rwj-medical') {mergeURL.id = '178002/d3fzfn';}
-        if (mergeTemp === 'rwj-schools') {mergeURL.id = '178003/rpdz68';}
-        if (mergeTemp === 'rwj-1x') {mergeURL.id = '178004/ipcmka';}
-
 
 
         let contactArr = mergeData['Main contact'].split(" ");
@@ -1399,220 +1393,6 @@ export default class Sales extends Component {
 
 
 
-      // this.setState({
-      //   loading: true,
-      //   customersOffsetTampa: '',
-      //   customersDataTampa: [],
-      //   salesOffsetTampa: '',
-      //   salesDataTampa: [],
-      //
-      //   customersOffsetOrlando: '',
-      //   customersDataOrlando: [],
-      //   salesOffsetOrlando: '',
-      //   salesDataOrlando: [],
-      // });
-      //
-      // let tampaSalesID = 'appEX8GXgcD2ln4dB';
-      // let orlandoSalesID = 'appXNufXR9nQARjgs';
-      // let tampaCustomersID = 'apps7GoAgK23yrOoY';
-      // let orlandoCustomersID = 'appBUKBn552B8SlbE';
-
-
-      // let allIsCleared = function() {
-      //   console.log(regionCleared + ' / ' + exportRegions.length);
-      //   console.log(this.state.tampaDownloadData);
-      //   console.log(this.state.orlandoDownloadData);
-      // }.bind(this);
-      //
-      // for (i in exportRegions) {
-      //   if (exportRegions[i] === 'tampa') {
-      //     console.log(exportRegions[i]);
-      //
-      //     let tampaSalesURL;
-      //     let tampaCustomerURL;
-      //
-      //     let tampaFinish = function() {
-      //       setTimeout((function() {
-      //         console.log('finishing!');
-      //         if (clearedCount === 2) {
-      //           let items;
-      //           if (this.state.salesDataTampa.length < this.state.customersDataTampa.length) {
-      //             items = this.state.customersDataTampa;
-      //           } else {
-      //             items = this.state.salesDataTampa;
-      //           }
-      //           this.setState({
-      //             tampaDownloadData: this.state.salesDataTampa,
-      //           });
-      //           regionCleared ++;
-      //           allIsCleared();
-      //         }
-      //       }).bind(this), 250);
-      //     }.bind(this);
-      //
-      //     setTimeout((function() {
-      //       let loadTampaSales = function() {
-      //         console.log('loadTampaSales()');
-      //         let preSalesTampa = this.state.salesDataTampa;
-      //
-      //         tampaSalesURL = this.state.dataURL + tampaSalesID + '/Sales';
-      //         if (this.state.salesOffsetTampa !== '') {tampaSalesURL = tampaSalesURL + '?offset=' + this.state.salesOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //         else {tampaSalesURL = tampaSalesURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //
-      //         tampaSalesURL = tampaSalesURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-      //         console.log(tampaSalesURL);
-      //
-      //         return axios
-      //           .get(tampaSalesURL).then(response => {
-      //             console.log(response.data.records);
-      //             this.setState({
-      //               salesDataTampa: preSalesTampa.concat(response.data.records),
-      //               error: false,
-      //               salesOffsetTampa: response.data.offset,
-      //             });
-      //             setTimeout((function() {
-      //               if (this.state.salesOffsetTampa !== undefined) {
-      //                 loadTampaSales();
-      //               } else {
-      //                 clearedCount ++;
-      //                 tampaFinish();
-      //               }
-      //             }).bind(this), 10);
-      //         });
-      //       }.bind(this);
-      //       let loadTampaCustomers = function() {
-      //         console.log('loadTampaCustomers()');
-      //         let preCustomersTampa = this.state.customersDataTampa;
-      //
-      //
-      //         tampaCustomerURL = this.state.dataURL + tampaCustomersID + '/Customers';
-      //         if (this.state.customersOffsetTampa !== '') {tampaCustomerURL = tampaCustomerURL + '?offset=' + this.state.customersOffsetTampa + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //         else {tampaCustomerURL = tampaCustomerURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //
-      //         tampaCustomerURL = tampaCustomerURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-      //
-      //         return axios
-      //           .get(tampaCustomerURL).then(response => {
-      //             this.setState({
-      //               customersDataTampa: preCustomersTampa.concat(response.data.records),
-      //               error: false,
-      //               customersOffsetTampa: response.data.offset,
-      //             });
-      //           setTimeout((function() {
-      //             if (this.state.customersOffsetTampa !== undefined) {
-      //               loadTampaCustomers();
-      //             } else {
-      //               clearedCount ++;
-      //               tampaFinish();
-      //             }
-      //           }).bind(this), 10);
-      //         });
-      //       }.bind(this);
-      //
-      //       loadTampaSales(); //start loading tampa sales
-      //
-      //       setTimeout((function() { //delay loading tampa customers
-      //         loadTampaCustomers();
-      //       }).bind(this), 500);
-      //
-      //     }).bind(this), 250);
-      //
-      //
-      //   } else if (exportRegions[i] === 'orlando') {
-      //     console.log(exportRegions[i]);
-      //
-      //
-      //     let orlandoSalesURL;
-      //     let orlandoCustomerURL;
-      //
-      //     let orlandoFinish = function() {
-      //       setTimeout((function() {
-      //         if (clearedCount === 2) {
-      //           let items;
-      //           if (this.state.salesDataOrlando.length < this.state.customersDataOrlando.length) {
-      //             items = this.state.customersDataOrlando;
-      //           } else {
-      //             items = this.state.salesDataOrlando;
-      //           }
-      //           this.setState({
-      //             orlandoDownloadData: items,
-      //           });
-      //           regionCleared ++;
-      //           allIsCleared();
-      //         }
-      //       }).bind(this), 250);
-      //     }.bind(this);
-      //
-      //     setTimeout((function() {
-      //       let loadOrlandoSales = function() {
-      //         console.log('loadOrlandoSales()');
-      //         let preSalesOrlando = this.state.salesDataOrlando;
-      //
-      //         orlandoSalesURL = this.state.dataURL + orlandoSalesID + '/Sales';
-      //         if (this.state.salesOffsetOrlando !== '') {orlandoSalesURL = orlandoSalesURL + '?offset=' + this.state.salesOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //         else {orlandoSalesURL = orlandoSalesURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //
-      //         orlandoSalesURL = orlandoSalesURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-      //
-      //         return axios
-      //           .get(orlandoSalesURL).then(response => {
-      //             this.setState({
-      //               salesDataOrlando: preSalesOrlando.concat(response.data.records),
-      //               error: false,
-      //               salesOffsetOrlando: response.data.offset,
-      //             });
-      //           setTimeout((function() {
-      //             if (this.state.salesOffsetOrlando !== undefined) {
-      //               loadOrlandoSales();
-      //             } else {
-      //               clearedCount ++;
-      //               orlandoFinish();
-      //             }
-      //           }).bind(this), 10);
-      //         });
-      //       }.bind(this);
-      //       let loadOrlandoCustomers = function() {
-      //         console.log('loadOrlandoCustomers()');
-      //         let preCustomersOrlando = this.state.customersDataOrlando;
-      //
-      //
-      //         orlandoCustomerURL = this.state.dataURL + orlandoCustomersID + '/Customers';
-      //         if (this.state.customersOffsetOrlando !== '') {orlandoCustomerURL = orlandoCustomerURL + '?offset=' + this.state.customersOffsetOrlando + '&' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //         else {orlandoCustomerURL = orlandoCustomerURL + '?' + 'fields%5B%5D=Company+Name' + exportFields;}
-      //
-      //         orlandoCustomerURL = orlandoCustomerURL + '&filterByFormula=AND(OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22)%2C+IS_AFTER(%7B' + exportFilter.filter1 + '%7D%2C+%22' + startRange + '%22))%2C+OR(IS_SAME(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)%2C+IS_BEFORE(%7B' + exportFilter.filter1 + '%7D%2C+%22' + endRange + '%22)))';
-      //
-      //         return axios
-      //           .get(orlandoCustomerURL).then(response => {
-      //             this.setState({
-      //               customersDataOrlando: preCustomersOrlando.concat(response.data.records),
-      //               error: false,
-      //               customersOffsetOrlando: response.data.offset,
-      //             });
-      //           setTimeout((function() {
-      //             if (this.state.customersOffsetOrlando !== undefined) {
-      //               loadOrlandoCustomers();
-      //             } else {
-      //               clearedCount ++;
-      //               orlandoFinish();
-      //             }
-      //           }).bind(this), 10);
-      //         });
-      //       }.bind(this);
-      //
-      //       loadOrlandoSales(); //start loading tampa sales
-      //
-      //       setTimeout((function() { //delay loading tampa customers
-      //         loadOrlandoCustomers();
-      //       }).bind(this), 500);
-      //
-      //     }).bind(this), 500);
-      //   }
-      // }
-
-
-
-
 
 
       this.setState({
@@ -1638,7 +1418,7 @@ export default class Sales extends Component {
             exportFileName += 'Orlando';
           }
           exportFileName += ' - ' + exportFilter.filter1.replace('+', ' ').replace('.', '') + ' - ';
-          exportFileName += currentMonth + '_' + currentDay + '_' + currentYear;
+          exportFileName += (currentMonth + 1) + '_' + currentDay + '_' + currentYear;
 
 
           setTimeout((function() {
@@ -1670,7 +1450,6 @@ export default class Sales extends Component {
               if (exportRegions.includes('orlando')) {
                 allItems = orlandoItems;
               }
-
             }
 
             setTimeout((function() {
@@ -1759,8 +1538,13 @@ export default class Sales extends Component {
           console.log(finalURL);
           return axios
             .get(finalURL).then(response => {
+              let tampaSalesResponse = response.data.records.map(obj =>{
+                let newItems = obj;
+                newItems.fields['URL'] = 'http://airmagic.co/tampa/sales/' + obj.id;
+                return newItems;
+              });
               this.setState({
-                salesDataTampa: preData.concat(response.data.records),
+                salesDataTampa: preData.concat(tampaSalesResponse),
                 error: false,
                 salesOffsetTampa: response.data.offset,
               });
@@ -1794,8 +1578,13 @@ export default class Sales extends Component {
             // console.log(allExportData);
             return axios
               .get(custURL).then(response => {
+                let tampaCustomersResponse = response.data.records.map(obj =>{
+                  let newItems = obj;
+                  newItems.fields['URL'] = 'http://airmagic.co/tampa/customer-service/all/' + obj.id;
+                  return newItems;
+                });
                 this.setState({
-                  customersDataTampa: allExportData.concat(response.data.records),
+                  customersDataTampa: allExportData.concat(tampaCustomersResponse),
                   error: false,
                   customersOffsetTampa: response.data.offset,
                 });
@@ -1849,8 +1638,13 @@ export default class Sales extends Component {
             console.log(finalURL);
             return axios
               .get(finalURL).then(response => {
+                let orlandoSalesResponse = response.data.records.map(obj =>{
+                  let newItems = obj;
+                  newItems.fields['URL'] = 'http://airmagic.co/orlando/sales/' + obj.id;
+                  return newItems;
+                });
                 this.setState({
-                  salesDataOrlando: preData.concat(response.data.records),
+                  salesDataOrlando: preData.concat(orlandoSalesResponse),
                   error: false,
                   salesOffsetOrlando: response.data.offset,
                 });
@@ -1884,8 +1678,13 @@ export default class Sales extends Component {
               // console.log(allExportData);
               return axios
                 .get(custURL).then(response => {
+                  let orlandoCustomersResponse = response.data.records.map(obj =>{
+                    let newItems = obj;
+                    newItems.fields['URL'] = 'http://airmagic.co/orlando/customer-service/all/' + obj.id;
+                    return newItems;
+                  });
                   this.setState({
-                    customersDataOrlando: allExportData.concat(response.data.records),
+                    customersDataOrlando: allExportData.concat(orlandoCustomersResponse),
                     error: false,
                     customersOffsetOrlando: response.data.offset,
                   });
@@ -2145,6 +1944,11 @@ export default class Sales extends Component {
         this.setState({
           activeModal: true,
           modalType: 'salesMetrics',
+        });
+      } else if(e.target.id === 'salesCloses') {
+        this.setState({
+          activeModal: true,
+          modalType: 'salesCloses',
         });
       } else if(e.target.id === 'exportList') {
         this.setState({
@@ -2442,6 +2246,7 @@ export default class Sales extends Component {
           baseId={this.state.baseId}
           moveDatabasesHandler={this.moveDatabasesHandler}
           currentTable={this.state.currentTable}
+          citySet={this.props.citySet}
         />
       )
     }

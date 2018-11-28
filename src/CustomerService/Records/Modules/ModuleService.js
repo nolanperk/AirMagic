@@ -76,7 +76,6 @@ export default class ModuleService extends Component {
           <option id="Nolan+Perkins">Nolan Perkins</option>
           <option id="Rafael+Milanes">Rafael Milanes</option>
           <option id="Lisa+Nice">Lisa Nice</option>
-          <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
           <option id="Christy+Subler">Christy Subler</option>
           <option id="FR">FR</option>
@@ -87,7 +86,6 @@ export default class ModuleService extends Component {
       return (
         <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
           <option id="none"></option>
-          <option id="Rob+Janke">Rob Janke</option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
           <option id="Christy+Subler">Christy Subler</option>
           <option id="Tyler+Perkins">Tyler Perkins</option>
