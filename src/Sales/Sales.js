@@ -26,6 +26,8 @@ let dataIndex = [];
 let fallbackRecordIndex;
 let keyChangeDirection = '';
 let finalURL;
+let mergeTemp;
+let mergeType;
 
 export default class Sales extends Component {
   constructor(props) {
@@ -1159,12 +1161,7 @@ export default class Sales extends Component {
   }
 
 
-
-  exportRecord = e => {
-    e.preventDefault();
-
-    let mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-merge');
-    let mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+  createDocument = () => {
     let mergeURL;
     let finalURL;
 
@@ -1290,10 +1287,6 @@ export default class Sales extends Component {
       return axios
         .post(finalURL)
         .then(response => {
-          this.setState({
-            activeModal: false,
-            modalType: '',
-          })
           let finalDate;
           if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
           else {finalDate = 'DATE'}
@@ -1327,13 +1320,302 @@ export default class Sales extends Component {
             currentRecord: currentRecordState,
             recordChanges: true,
             isExporting: true,
-          })
+          });
+
           setTimeout((function() {
             this.saveRecordHandler();
           }).bind(this), 250);
         })
     }
   }
+
+
+
+  exportRecord = e => {
+    e.preventDefault();
+    mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-merge');
+    mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+
+    let showModal = function() {
+      this.setState({
+        activeModal: true,
+        modalType: 'forecast',
+      });
+    }.bind(this)
+
+
+    if (this.state.currentRecord['Proposal Date']) { //theres a date. Check it!
+      let previousDate = new Date(this.state.currentRecord['Proposal Date']); //adding six months because we don't want to show this too often
+      let currentDate = new Date();
+      console.log(currentDate + ">" + previousDate);
+      if (currentDate >= previousDate) {
+        this.setState({
+          activeModal: false,
+          modalType: '',
+        });
+        this.createDocument();
+      } else {
+        showModal();
+      }
+    } else {
+      showModal();
+    }
+
+
+  }
+
+  forecastSave = e => {
+    e.preventDefault();
+    console.log('forecast!');
+
+    let currentRecordState = this.state.currentRecord;
+
+    currentRecordState['Forecast Rating'] = document.getElementById('foreRating').value;
+    currentRecordState['Forecast Speed'] = document.getElementById('foreSpeed').value;
+
+    this.setState({
+      activeModal: false,
+      modalType: '',
+      currentRecord: currentRecordState,
+    });
+    this.createDocument();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  googleCalLink = () => {
+    let timeInput;
+    if (this.state.currentTable === 'Sales') {
+      timeInput = this.state.currentRecord['Appt. Time'];
+    } else {
+      timeInput = '10:00 AM';
+    }
+    let apptDate = this.state.currentRecord['Appt. Date'];
+    timeInput = timeInput.toUpperCase();
+    let finalTime = {hours: 0,minutes: 0,amPm: 'AM'};
+
+    let timeOnly;
+    if (timeInput.includes('AM')) {
+      finalTime.amPm = 'AM'; timeOnly = timeInput.split('AM')[0].replace(/ /g, '');
+    } else if (timeInput.includes('PM')) {
+      finalTime.amPm = 'PM'; timeOnly = timeInput.split('PM')[0].replace(/ /g, '');
+    }
+    if (timeOnly.includes(':')) {
+      finalTime.hours = parseInt(timeOnly.split(':')[0]);
+      console.log(finalTime.hours);
+      finalTime.minutes = parseInt(timeOnly.split(':')[1]);
+    } if (timeOnly.length === 4 && !timeOnly.includes(':')) {
+      finalTime.hours = timeOnly.substring(0, 2);
+      finalTime.minutes = timeOnly.substring(2, 4);
+    } else {
+      finalTime.hours = parseInt(timeOnly);
+    }
+    if (finalTime.amPm === 'PM' && finalTime.hours !== 12) {
+      finalTime.hours = finalTime.hours + 12; //fix for 1-11pm
+    }
+    if (finalTime.amPm === 'AM' && finalTime.hours === 12) {
+      finalTime.hours = 0; //fix for midnight
+    }
+
+    let startApptDate = new Date(this.state.currentRecord['Appt. Date']);
+    startApptDate = new Date(startApptDate.getTime() + Math.abs(startApptDate.getTimezoneOffset()*60000)); //fix the date
+    startApptDate.setHours(finalTime.hours);//set hours
+    startApptDate.setMinutes(finalTime.minutes);//set minutes
+    let startApptDateTime = (new Date(startApptDate)).toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    let endApptDate = new Date(startApptDate.getTime() + Math.abs(startApptDate.getTimezoneOffset()*60000)); //fix the date
+    endApptDate.setHours(finalTime.hours);//set hours
+    endApptDate.setMinutes(finalTime.minutes + 30);//set minutes
+    let endApptDateTime = (new Date(endApptDate)).toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    console.log(finalTime);
+
+    let salesInitials;
+
+    if (this.state.currentRecord['Sales Rep'] === 'Tyler Perkins') {
+      salesInitials = 'TMP';
+    } else if (this.state.currentRecord['Sales Rep'] === 'Nolan Perkins') {
+      salesInitials = 'NWP'
+    } else if (this.state.currentRecord['Sales Rep'] === 'Joel Horwitz') {
+      salesInitials = 'JDH'
+    } else if (this.state.currentRecord['Sales Rep'] === 'Rafael Milanes') {
+      salesInitials = 'RAM'
+    } else {
+      salesInitials = this.state.currentRecord['Sales Rep'].replace(/ /g, '+');
+    }
+
+    let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+<a+href="' + window.location.href + '">' + window.location.href + '</a>';
+    finalCalURL += '&location=' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ',+';
+    if(this.state.currentRecord['Address 1']) {
+      finalCalURL += this.state.currentRecord['Address 1'].replace(/ /g, '+').replace(/&/g, 'and');
+    } if (this.state.currentRecord['Address 2']) {
+      finalCalURL += '+'+this.state.currentRecord['Address 2'].replace(/ /g, '+').replace(/&/g, 'and');
+    } if (this.state.currentRecord['City']) {
+      finalCalURL += ',+' + this.state.currentRecord['City'].replace(/ /g, '+').replace(/&/g, 'and') + ',+FL+';
+    } if (this.state.currentRecord['Zip']) {
+      finalCalURL += this.state.currentRecord['Zip'].replace(/ /g, '+').replace(/&/g, 'and');
+    }
+    finalCalURL += '&sf=true&output=xml';
+    console.log(finalCalURL);
+
+    var fakeLinkA = document.createElement('a');
+    fakeLinkA.setAttribute('href', finalCalURL);
+    fakeLinkA.setAttribute('target', '_blank');
+    fakeLinkA.style.display = 'none';
+    document.body.appendChild(fakeLinkA);
+    fakeLinkA.click();
+    document.body.removeChild(fakeLinkA);
+
+    setTimeout((function() {
+      this.saveRecordHandler();
+    }).bind(this), 2000);
+
+    delete axios.defaults.headers.common["Authorization"];
+    let slackMessage = ":bellhop_bell: :bellhop_bell:";
+    let slackRep;
+    if (this.state.currentRecord['Sales Rep'] && this.state.currentRecord['Sales Rep'] !== '') {
+      slackRep = this.state.currentRecord['Sales Rep'].split(' ')[0];
+      console.log('Sales Rep is ' + slackRep);
+    } else {
+      slackRep = 'none';
+      console.log('no sales rep set');
+    }
+
+    let slackSet;
+    if (this.state.currentRecord['Appt. Set By'] && this.state.currentRecord['Appt. Set By'] !== '') {
+      slackSet = this.state.currentRecord['Appt. Set By'].split(' ')[0];
+      console.log('Set By is ' + slackSet);
+    } else {
+      slackSet = 'none';
+      console.log('no set by');
+    }
+    let secondMessage;
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla') {
+      if (slackRep !== 'none' && slackSet !== 'none') { //we have both
+        secondMessage = "\nLet's all give *" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.currentRecord['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.currentRecord['City'] + '*';
+      } else if (slackRep !== 'none') { //rep is set
+        secondMessage = '\nWe just got an appointment for *' + this.state.currentRecord['Sales Rep'].split(' ')[0] + '* in *' + this.state.currentRecord['City'] + '*!';
+      } else if (slackSet !== 'none') { //set by is set
+        secondMessage = "\nLet's all give *" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting an appt. in *' + this.state.currentRecord['City'] + '*';
+      } else if (slackRep === 'none' && slackSet === 'none') {
+        secondMessage = '\nWe just got an appointment in *' + this.state.currentRecord['City'] + '*!';
+      }
+    } else if (slackSet === 'Joel Horwitz' || slackSet === 'Tyler Perkins' || slackSet === 'Nolan Perkins') {
+      secondMessage = slackSet + 'just set an appointment in *' + this.state.currentRecord['City'] + '*!';
+    } else if (slackSet === 'Constant' || slackSet === 'Google' || slackSet === 'Thumbtack') {
+      secondMessage = 'We just got an appointment in *' + this.state.currentRecord['City'] + '* from ' + this.state.currentRecord['Appt. Set By'] + '\n*Keep hustling everyone!*';
+    } else if (slackSet === 'Incoming') {
+      secondMessage = 'We just got an appointment in *' + this.state.currentRecord['City'] + '* from an Incoming Call.*\n*Keep hustling everyone!*';
+    } else if (slackSet === 'Referral') {
+      secondMessage = 'We just got an appointment from a referral in *' + this.state.currentRecord['City'] + '*.\n*Great job Customer Service team!*';
+    } else {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+      return;
+    }
+
+    axios.post('https://hooks.slack.com/services/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', '{"text":"' + slackMessage + '"}')
+    .then(response => {
+      setTimeout((function() {
+        axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMessage + '"}')
+        .then(response => {
+            console.log(response);
+            setTimeout((function() {
+              let secondMess;
+              delete axios.defaults.headers.common["Authorization"];
+
+              if (slackRep !== 'none' && slackSet !== 'none') { //we have both
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+                return;
+              } else if (slackRep !== 'none') { //rep is set
+                secondMess = '>' + "Inside sales, make sure you mark yourself to get credit :speak_no_evil:";
+              } else if (slackSet !== 'none') { //set by is set
+                secondMess = "> PS, it seems you didn't set a sales rep :grimacing:";
+              } else if (slackRep === 'none' && slackSet === 'none') {
+                secondMess = '>' + "Inside sales, neither Sales Rep or Set By is set :slightly_frowning_face:";
+              }
+
+
+              axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMess + '"}')
+                .then(response => {
+                  axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+
+
+                });
+            }).bind(this), 2500);
+
+        });
+      }).bind(this), 2000);
+    });
+  }
+
+
+
+
+
+
+
+
+
+  setAppt = e => {
+    console.log('setAppt()');
+    let timeInput = this.state.currentRecord['Appt. Time'];
+    let apptDate = this.state.currentRecord['Appt. Date'];
+    console.log(timeInput +' && '+ apptDate);
+    if (timeInput && apptDate) {
+      this.setState({
+        activeModal: true,
+        modalType: 'insideForecast',
+      });
+    } else {
+      alert('Please fill in the Appointment Date and Time before trying again.')
+    }
+  }
+
+  insideForecastSave = e => {
+    e.preventDefault();
+
+    let currentRecordState = this.state.currentRecord;
+
+    currentRecordState['Inside Forecast Rating'] = document.getElementById('foreRatingInside').value;
+    currentRecordState['Inside Forecast Speed'] = document.getElementById('foreSpeedInside').value;
+    currentRecordState['Status'] = 'Appointment Set';
+
+    console.log(this.state.currentRecord);
+
+    this.setState({
+      activeModal: false,
+      modalType: '',
+      currentRecord: currentRecordState,
+    });
+    this.googleCalLink();
+  }
+
+  skipForecast = e => {
+    this.googleCalLink();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   submitExport = e => {
     e.preventDefault();
@@ -1506,7 +1788,7 @@ export default class Sales extends Component {
             }).bind(this), 200);
           }).bind(this), 200);
         }
-      }.bind(this)
+      }
 
 
 
@@ -2221,6 +2503,8 @@ export default class Sales extends Component {
           newRecordHandler={this.newRecordHandler}
           currentRecord={this.state.currentRecord}
           currentTable={this.state.currentTable}
+          setAppt={this.setAppt}
+          skipForecast={this.skipForecast}
         />
       </div>
     );
@@ -2242,11 +2526,14 @@ export default class Sales extends Component {
           userChangeHandler={this.userChangeHandler}
           userSubmitHandler={this.userSubmitHandler}
           submitExport={this.submitExport}
+          forecastSave={this.forecastSave}
           exportRecord={this.exportRecord}
           baseId={this.state.baseId}
           moveDatabasesHandler={this.moveDatabasesHandler}
           currentTable={this.state.currentTable}
           citySet={this.props.citySet}
+          currentRecord={this.state.currentRecord}
+          insideForecastSave={this.insideForecastSave}
         />
       )
     }

@@ -9,6 +9,11 @@
 
   .btn {
     margin-right: 10px;
+
+    &.disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
   }
 
   .modalInner {
@@ -56,6 +61,10 @@
     a {
       display: block;
     }
+  }
+
+  .doubleModal {
+    border: solid $secondary 25px;
   }
 }
 

@@ -15,6 +15,7 @@ export default class ControlsBar extends Component {
           arrowKeyHandler={this.props.arrowKeyHandler}
           currentRecord={this.props.currentRecord}
           currentTable={this.props.currentTable}
+          setAppt={this.props.setAppt}
         />
       );
     } else {
@@ -54,4 +55,5 @@ ControlsBar.propTypes ={
   newRecordHandler: propTypes.func.isRequired,
   currentRecord: propTypes.array.isRequired,
   currentTable: propTypes.string.isRequired,
+  setAppt: propTypes.func.isRequired,
 }

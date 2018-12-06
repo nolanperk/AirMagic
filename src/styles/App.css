@@ -1262,6 +1262,9 @@ hr {
   z-index: 10; }
   .modal .btn {
     margin-right: 10px; }
+    .modal .btn.disabled {
+      opacity: 0.25;
+      pointer-events: none; }
   .modal .modalInner {
     position: absolute;
     left: 50%;
@@ -1294,6 +1297,8 @@ hr {
           opacity: 0.8; }
     .modal .modalInner a {
       display: block; }
+  .modal .doubleModal {
+    border: solid #1FC26A 25px; }
 
 .LoadModal {
   text-align: center; }

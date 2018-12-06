@@ -13,6 +13,8 @@ import RecordExport from '../Globals/Modals/RecordExport';
 import MoveDatabase from '../Globals/Modals/MoveDatabase';
 import SalesMetrics from '../Globals/Modals/SalesMetrics';
 import SalesCloses from '../Globals/Modals/SalesCloses';
+import Forecast from '../Globals/Modals/Forecast';
+import InsideForecast from '../Globals/Modals/InsideForecast';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -88,6 +90,25 @@ export default class ModalView extends Component {
           moveDatabasesHandler={this.props.moveDatabasesHandler}
         />
       )
+    } else if (this.props.modalType === 'forecast') {
+      return (
+        <Forecast
+          forecastSave={this.props.forecastSave}
+          rating={this.props.currentRecord['Forecast Rating']}
+          speed={this.props.currentRecord['Forecast Speed']}
+        />
+      )
+    } else if (this.props.modalType === 'insideForecast') {
+      return (
+        <InsideForecast
+          forecastSave={this.props.forecastSave}
+          controlsModalToggle={this.props.controlsModalToggle}
+          rating={this.props.currentRecord['Inside Forecast Rating']}
+          speed={this.props.currentRecord['Inside Forecast Speed']}
+          insideForecastSave={this.props.insideForecastSave}
+          skipForecast={this.props.skipForecast}
+        />
+      )
     }
   }
 
@@ -117,12 +138,16 @@ ModalView.propTypes = {
   currentId: propTypes.string.isRequired,
   modalType: propTypes.string.isRequired,
   userName: propTypes.string.isRequired,
+  currentRecord: propTypes.object.isRequired,
   baseId: propTypes.string.isRequired,
   activeModal: propTypes.bool.isRequired,
   userSubmitHandler: propTypes.func.isRequired,
   submitExport: propTypes.func.isRequired,
   exportRecord: propTypes.func.isRequired,
   moveDatabasesHandler: propTypes.func,
+  forecastSave: propTypes.func,
   currentTable: propTypes.string.isRequired,
   citySet: propTypes.string.isRequired,
+  skipForecast: propTypes.func.isRequired,
+  insideForecastSave: propTypes.func.isRequired,
 }
