@@ -22,6 +22,7 @@ export default class ProactiveView extends Component {
 
     let allURL = '/' + this.props.citySet + '/customer-service/all';
     let attURL = '/' + this.props.citySet + '/customer-service/attention';
+    let visURL = '/' + this.props.citySet + '/customer-service/visit';
 
 
     return (
@@ -36,6 +37,7 @@ export default class ProactiveView extends Component {
           <div className="rightButtons">
             <a href={allURL.replace('//', '/')} className="btn softGrad--secondary" onClick={this.props.changeAlt} id="browseAll">All Records</a>
             <a href={attURL.replace('//', '/')} className="btn softGrad--primary" onClick={this.props.changeAlt} id="proactive">Needs Attention</a>
+            <a href={visURL.replace('//', '/')} className="btn softGrad--black" onClick={this.props.changeAlt} id="vis">Visits</a>
           </div>
         </div>
 

@@ -1788,7 +1788,7 @@ export default class Sales extends Component {
             }).bind(this), 200);
           }).bind(this), 200);
         }
-      }
+      }.bind(this);
 
 
 

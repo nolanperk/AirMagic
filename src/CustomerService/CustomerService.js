@@ -22,6 +22,7 @@ import FranchiseView from './FranchiseView';
 import SplashView from './SplashView';
 import AttentionView from './Attention/AttentionView'
 import ProactiveView from './Proactive/ProactiveView'
+import VisitView from './Visit/VisitView'
 
 let currentRecordState = [];
 let currentFranchiseState = [];
@@ -1667,7 +1668,12 @@ export default class CustomerService extends Component {
         viewType: 'proactive',
       });
       this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/proactive');
-
+    } else if (e.target.closest(".splashCard").id === 'visit') {
+      console.log('visit');
+      this.setState({
+        viewType: 'visit',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/visit');
     }
   }
 
@@ -1691,7 +1697,12 @@ export default class CustomerService extends Component {
         viewType: 'proactive',
       });
       this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/proactive');
-
+    } else if (e.target.id === 'visit') {
+      console.log('visit');
+      this.setState({
+        viewType: 'visit',
+      });
+      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/visit');
     }
   }
 
@@ -1857,6 +1868,126 @@ export default class CustomerService extends Component {
       }.bind(this);
       loadAttention(); //start loading attention
     }).bind(this), 250);
+  }
+
+  loadVisitData = () => {
+    let clearedCount = 0;
+
+    this.setState({
+      loading: true,
+      visitOffset: '',
+      data: [],
+      visitData: [],
+      clearedVisit: false,
+      loadingText: 'Finding Things Needing a Visit'
+    });
+
+    let visitURL;
+
+
+    let splashLoadFinish = function() {
+      console.log(this.state.data);
+      //FILTER OUT UNNECESARY PROACTIVES
+      let newVisitData = {
+        "needsVisit": [],
+        "upcomingVisit": [],
+        "noNeed": [],
+      };
+      let visitLength = 0;
+
+
+      let totalOver = 0;
+      for (var i in this.state.data) {
+        if (this.state.data[i].fields['Monthly Amount']) {
+          let lastVisit = new Date(this.state.data[i].fields['Last Visit']);
+
+          let fortnightAway = new Date(+new Date - 12096e5);
+          let monthAway = new Date(+new Date - 2.592e+9);
+          let twoMonthsAway = new Date(+new Date - 5.184e+9);
+          let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
+
+          if (lastVisit < monthAway) {
+            visitLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newVisitData['needsVisit'].push(newItem);
+          } else if (lastVisit < fortnightAway) {
+            visitLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newVisitData['upcomingVisit'].push(newItem);
+          } else {
+            visitLength ++;
+            let newItem = {};
+            newItem['fields'] = this.state.data[i].fields;
+            newItem['id'] = this.state.data[i].id;
+            newVisitData['noNeed'].push(newItem);
+          }
+        }
+      }
+
+      let finalDataVis = [];
+      for (var i in newVisitData.needsVisit) {
+        finalDataVis.push(newVisitData.needsVisit[i]);
+      }
+      for (var i in newVisitData.upcomingVisit) {
+        finalDataVis.push(newVisitData.upcomingVisit[i]);
+      }
+      for (var i in newVisitData.noNeed) {
+        finalDataVis.push(newVisitData.noNeed[i]);
+      }
+      this.setState({
+        visitData: newVisitData,
+        data: finalDataVis,
+        visitLength: visitLength,
+      });
+      setTimeout((function() {
+        this.setState({
+          loading: false,
+        });
+      }).bind(this), 250);
+    }.bind(this);
+
+
+    setTimeout((function() {
+      let loadVisit = function() {
+        console.log('load visit');
+        let preVisit = this.state.data;
+
+        visitURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '?view=Visits';
+        visitURL = visitURL + '&sort%5B0%5D%5Bfield%5D=Monthly+Amount&sort%5B0%5D%5Bdirection%5D=desc';
+
+        if (this.state.visitOffset !== '') {visitURL = visitURL + '&offset=' + this.state.visitOffset;}
+
+        console.log(visitURL);
+        return axios
+          .get(visitURL).then(response => {
+            this.setState({
+              data: preVisit.concat(response.data.records),
+              error: false,
+              visitOffset: response.data.offset,
+            });
+          if (response.data.offset) {
+            loadVisit();
+            console.log('noooooo1');
+          } else {
+            this.setState({
+              clearedVisit: true,
+              loadingText: 'Loading',
+            });
+            setTimeout((function() {
+              console.log('clearing loadVisit()');
+              splashLoadFinish();
+            }).bind(this), 50);
+          }
+        });
+      }.bind(this);
+
+      loadVisit();
+
+    }).bind(this), 500);
   }
 
   loadProactiveData = () => {
@@ -2157,6 +2288,8 @@ export default class CustomerService extends Component {
         this.loadAttentionData();
       } else if (this.props.viewType === 'proactive') {
         this.loadProactiveData();
+      } else if (this.props.viewType === 'visit') {
+        this.loadVisitData();
       } else if (this.props.viewType === 'all') {
         if (sessionStorage.getItem('searchQuery')) {
           this.setState({
@@ -2195,6 +2328,13 @@ export default class CustomerService extends Component {
           userName: usersInitials,
         });
       }
+    }
+
+    if (localStorage.getItem('userInitials') === 'ALP') {
+      this.setState({
+        currentRecordView: 'accounting',
+        listView: 'view=All',
+      });
     }
   }
 
@@ -2487,18 +2627,33 @@ export default class CustomerService extends Component {
               data={this.state.data}
             />
           );
-        } else {
+        }
+      } else if (this.props.viewType === 'visit') {
+        if (this.state.visitData) {
           return (
-            <div className="modal">
-              <div className="LoadModal modalInner">
-                <div className="modalTitle">
-                  <img src={loader} alt="" />
-                  <h4>{this.state.loadingText}</h4>
-                </div>
+            <VisitView
+              citySet={this.props.citySet}
+              visitData={this.state.visitData}
+              visitLength={this.state.visitLength}
+              noNeed = {this.state.visitData.noNeed.length}
+              needsVisit = {this.state.visitData.needsVisit.length}
+              upcomingVisit = {this.state.visitData.upcomingVisit.length}
+              openRecordHandler = {this.openRecordHandler}
+              data={this.state.data}
+            />
+          );
+        }
+      } else {
+        return (
+          <div className="modal">
+            <div className="LoadModal modalInner">
+              <div className="modalTitle">
+                <img src={loader} alt="" />
+                <h4>{this.state.loadingText}</h4>
               </div>
             </div>
-          )
-        }
+          </div>
+        )
       }
     }
   }

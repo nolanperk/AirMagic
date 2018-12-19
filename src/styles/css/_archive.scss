@@ -194,6 +194,27 @@
   }
 }
 
+.VisitItem.isActive {
+  &.happy .subInfo {
+    background: rgba(31, 194, 167, 0.5);
+  }
+  &.very .subInfo {
+    background: rgba($secondary, 0.75);
+  }
+  &.unhappy .subInfo {
+    background: rgba($primary, 0.35);
+  }
+  &.crew .subInfo {
+    background: rgba(#E2630D, 0.35);
+  }
+  &.new .subInfo {
+    background: rgba(#1F92C2, 0.6);
+  }
+  &.satisfied .subInfo {
+    background: rgba($black, 0.15);
+  }
+}
+
 @media only screen and (max-width: 1440px) {
   .ArchiveItems .cardContainer .ArchiveItem {
     width: 20%;

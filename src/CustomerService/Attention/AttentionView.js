@@ -22,6 +22,7 @@ export default class AttentionView extends Component {
 
     let allURL = '/' + this.props.citySet + '/customer-service/all';
     let proURL = '/' + this.props.citySet + '/customer-service/proactive';
+    let visURL = '/' + this.props.citySet + '/customer-service/visit';
 
 
     return (
@@ -36,6 +37,7 @@ export default class AttentionView extends Component {
           <div className="rightButtons">
             <a href={allURL.replace('//', '/')} className="btn softGrad--secondary" onClick={this.props.changeAlt} id="browseAll">All Records</a>
             <a href={proURL.replace('//', '/')} className="btn softGrad--blue" onClick={this.props.changeAlt} id="proactive">Proactives</a>
+            <a href={visURL.replace('//', '/')} className="btn softGrad--black" onClick={this.props.changeAlt} id="vis">Visits</a>
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 import attentionImage from '../assets/icons/white/attention.png';
 import phoneImg from '../assets/icons/white/phone.png';
+import accountImg from '../assets/icons/white/account.png';
 import loader from '../assets/loader.gif';
 import search from '../assets/icons/white/search.png';
 
@@ -13,6 +14,7 @@ export default class SplashView extends Component {
       let allURL = this.props.pathname + '/all';
       let proURL = this.props.pathname + '/proactive';
       let attURL = this.props.pathname + '/attention';
+      let visitURL = this.props.pathname + '/visit';
 
       if (e.target.closest('.splashCard').id === 'attention') {
         this.props.history.push(attURL.replace('//', '/'));
@@ -20,6 +22,8 @@ export default class SplashView extends Component {
         this.props.history.push(proURL.replace('//', '/'));
       } else if (e.target.closest('.splashCard').id === 'browseAll') {
         this.props.history.push(allURL.replace('//', '/'));
+      } else if (e.target.closest('.splashCard').id === 'visits') {
+        this.props.history.push(visitURL.replace('//', '/'));
       }
     }
   }
@@ -35,8 +39,7 @@ export default class SplashView extends Component {
         <div className="splashWrapper">
           <div className="linkSet">
 
-            <div className="dualCard">
-            <div id="attention" className="splashCard splashCard--attention" onClick={this.splashSelect}>
+              <div id="attention" className="splashCard splashCard--attention" onClick={this.splashSelect}>
                 <div className="inner">
                   {this.cornerAtt}
                   <div className="circleDot">
@@ -51,46 +54,52 @@ export default class SplashView extends Component {
                   <div className="circleDot">
                     <img src={phoneImg} />
                   </div>
-                  <p>Proactive List</p>
+                  <p>Proactive Calls</p>
                 </div>
               </div>
-            </div>
 
-            <div id="browseAll" className="splashCard splashCard--all" onClick={this.splashSelect}>
-              <div className="inner">
-                <div className="circleDot"></div>
-                <p>Browse All</p>
+              <div id="visits" className="splashCard splashCard--visit" onClick={this.splashSelect}>
+                <div className="inner">
+                  <div className="circleDot">
+                    <img src={accountImg} />
+                  </div>
+                  <p>Proative Visits</p>
+                </div>
               </div>
-            </div>
+              <div id="browseAll" className="splashCard splashCard--all" onClick={this.splashSelect}>
+                <div className="inner">
+                  <div className="circleDot"></div>
+                  <p>Browse All</p>
+                </div>
+              </div>
           </div>
+        </div>
 
 
-          <div className="vr"></div>
 
 
-          <div className="searchArea">
-            <div className="innerSearch">
-              <h2>Search for Customer</h2>
+        <div className="searchArea">
+          <div className="innerSearch">
+            <h2>Search for Customer</h2>
 
-              <form className="ControlsBar--search" onSubmit={this.props.searchHandler}>
-                <input type="text" placeholder="search records" id="searchInput" />
-                <select id="searchBy">
-                  <option value="Company+Name" id="Company+Name">Company</option>
-                  <option value="Main+Contact" id="Main+Contact">Contact</option>
-                  <option value="Zip" id="Zip">Zip</option>
-                  <option value="Address+1" id="Address+1">Address</option>
-                  <option value="Office+Phone" id="Office+Phone">Office #</option>
-                  <option value="Email" id="Email">Email</option>
-                  <option value="Standing" id="Standing">Standing</option>
-                  <option value="PAM" id="PAM">PAM</option>
-                  <option value="SP+Name" id="SP+Name">SP Name</option>
-                </select>
-                <button type="submit" className="navIcon softGrad--primary">
-                  <img src={search} alt="search" />
-                </button>
-              </form>
+            <form className="ControlsBar--search" onSubmit={this.props.searchHandler}>
+              <input type="text" placeholder="search records" id="searchInput" />
+              <select id="searchBy">
+                <option value="Company+Name" id="Company+Name">Company</option>
+                <option value="Main+Contact" id="Main+Contact">Contact</option>
+                <option value="Zip" id="Zip">Zip</option>
+                <option value="Address+1" id="Address+1">Address</option>
+                <option value="Office+Phone" id="Office+Phone">Office #</option>
+                <option value="Email" id="Email">Email</option>
+                <option value="Standing" id="Standing">Standing</option>
+                <option value="PAM" id="PAM">PAM</option>
+                <option value="SP+Name" id="SP+Name">SP Name</option>
+              </select>
+              <button type="submit" className="navIcon softGrad--primary">
+                <img src={search} alt="search" />
+              </button>
+            </form>
 
-            </div>
           </div>
         </div>
       </div>
