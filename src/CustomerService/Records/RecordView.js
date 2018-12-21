@@ -29,7 +29,7 @@ export default class RecordView extends Component {
 
 
     return (
-      <div className="RecordView" key={this.props.currentId}>
+      <div className={'RecordView Tab--' + this.props.currentTab + ' RecordView--' + this.props.mobileHand} key={this.props.currentId}>
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleMain
@@ -149,7 +149,10 @@ export default class RecordView extends Component {
 
 
 RecordView.propTypes ={
+  currentTab: propTypes.string.isRequired,
+  mobileHand: propTypes.string.isRequired,
   spChangeHandler: propTypes.func.isRequired,
+  recordView: propTypes.bool.isRequired,
   loadSPInfo: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,
   recordChanges: propTypes.bool.isRequired,

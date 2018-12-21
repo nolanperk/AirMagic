@@ -6,6 +6,7 @@ import exit from '../assets/icons/white/exit.png';
 import hamburger from '../assets/icons/white/hamburger.png';
 import exportImg from '../assets/icons/primary/export.png';
 import sortImg from '../assets/icons/black/sort.png';
+import switchHands from '../assets/icons/primary/switch.png';
 
 export default class Navbar extends Component {
 
@@ -46,7 +47,7 @@ export default class Navbar extends Component {
 
     return (
       <div className={navClass}>
-        <div className="Navbar">
+        <div className={'Navbar Navbar--' + this.props.mobileHand}>
           {this.closeButton}
           <h4>
             <span>{preTitle}</span>
@@ -155,23 +156,38 @@ export default class Navbar extends Component {
       }
     } else {
       if (this.props.recordView) {
-        return (
-          <div className="rightButtons">
-            <div className="inputBlock">
-              <div className="selectBlock">
-                {this.viewSelects}
+        if (window.innerWidth > 900) { //non-mobile
+          return (
+            <div className="rightButtons">
+              <div className="inputBlock">
+                <div className="selectBlock">
+                  {this.viewSelects}
+                </div>
+              </div>
+
+              <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
+                <img src={sortImg} alt="Export" />
+              </div>
+
+              <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+                <img src={exportImg} alt="Export" />
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="rightButtons">
+              <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+                <img src={exportImg} alt="Export" />
+              </div>
+
+              <div className="navIcon whiteCard exportBtn" onClick={this.props.switchHandHandler} id="switchHands">
+                <img src={switchHands} alt="Switch Hands" />
               </div>
             </div>
 
-            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="moveDatabase">
-              <img src={sortImg} alt="Export" />
-            </div>
-
-            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-              <img src={exportImg} alt="Export" />
-            </div>
-          </div>
-        );
+          );
+        }
       } else {
         return (
           <div className="rightButtons">
@@ -198,6 +214,8 @@ export default class Navbar extends Component {
 Navbar.propTypes ={
   recordView: propTypes.bool.isRequired,
   viewSelect: propTypes.func.isRequired,
+  switchHandHandler: propTypes.func.isRequired,
+  mobileHand: propTypes.string.isRequired,
   currentRecordView: propTypes.string.isRequired,
   jumpLetters: propTypes.func.isRequired,
   currentLetter: propTypes.string.isRequired,

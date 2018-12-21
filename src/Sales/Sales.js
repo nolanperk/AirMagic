@@ -60,6 +60,8 @@ export default class Sales extends Component {
       newRecord: false,
       listIsVisible: props.recordId == null,
       currentRecordView: 'default',
+      currentTab: 'contact',
+      mobileHand: 'right'
     }
   }
 
@@ -2294,6 +2296,32 @@ export default class Sales extends Component {
     }).bind(this), 100);
   }
 
+
+
+
+  mobileTabHandler = e => {
+    // currentTab
+    let clickedID = e;
+
+    this.setState({
+      currentTab: e
+    });
+  }
+
+  switchHandHandler = () => {
+    if (this.state.mobileHand !== 'left') {
+      this.setState({
+        mobileHand: 'left'
+      });
+    } else {
+      this.setState({
+        mobileHand: 'right'
+      });
+    }
+  }
+
+
+
   selectFilterHandler = e => {
     let filterId = document.getElementById('filtersList').getElementsByClassName('isActive')[0].id;
 
@@ -2489,6 +2517,9 @@ export default class Sales extends Component {
           citySet={this.props.citySet}
           currentRecordView={this.state.currentRecordView}
           viewSelect={this.viewSelect}
+          switchHandHandler={this.switchHandHandler}
+          mobileHand={this.state.mobileHand}
+          currentTab={this.state.currentTab}
         />
 
         {this.currentView}
@@ -2505,6 +2536,10 @@ export default class Sales extends Component {
           currentTable={this.state.currentTable}
           setAppt={this.setAppt}
           skipForecast={this.skipForecast}
+          mobileTabHandler={this.mobileTabHandler}
+          mobileHand={this.state.mobileHand}
+          currentTab={this.state.currentTab}
+          recordChanges= {this.state.recordChanges}
         />
       </div>
     );
@@ -2565,6 +2600,8 @@ export default class Sales extends Component {
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2590,6 +2627,8 @@ export default class Sales extends Component {
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -2615,6 +2654,8 @@ export default class Sales extends Component {
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -2640,6 +2681,8 @@ export default class Sales extends Component {
             repChange={this.repChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       }

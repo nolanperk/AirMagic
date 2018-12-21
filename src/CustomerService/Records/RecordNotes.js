@@ -50,7 +50,9 @@ export default class RecordNotes extends Component {
 }
 
 RecordNotes.propTypes ={
+  currentTab: propTypes.string.isRequired,
   notes: propTypes.string,
+  mobileHand: propTypes.string.isRequired,
   changeNotesHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
 }

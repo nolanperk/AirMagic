@@ -13,7 +13,7 @@ export default class ModuleSpecial extends Component {
     let special = this.props.specialNotes;
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleSpecial">
         <div className="inner">
 
 

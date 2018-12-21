@@ -1,0 +1,375 @@
+
+@media only screen and (max-width: 767px) {
+
+  //
+  //modules
+  //
+  .ModuleContainer {
+    width: 80%;
+    left: auto;
+    right: 0;
+    margin: 0;
+    height: 90% !important;
+
+    .ModuleList {
+      padding: 80px 0;
+    }
+  }
+
+  .ModuleCard .inputBlock {
+    input, select, textarea {
+      font-size: 16px;
+    }
+  }
+
+  //
+  //navbar
+  //
+  .Customers .Navbar .rightButtons .btn {
+    display: none;
+  }
+  .Customers .Navbar {
+    width: 100%;
+  }
+  .recordNav .Navbar {
+    width: 100%;
+
+    &::before {
+      left: 22%;
+    }
+
+    h4 {
+      margin-left: 30px;
+    }
+    .inputBlock {
+      display: none;
+    }
+
+    .navIcon.exit {
+      margin: 0 6px;
+    }
+  }
+
+
+  //
+  //controls
+  //
+  .ControlsBar.recordControls {
+   width: 20%;
+   height: 100%;
+   background: $white;
+   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+   z-index: 1;
+   padding: 0;
+
+   .tabList {
+     position: absolute;
+      width: 100%;
+      height: 74%;
+      top: 13%;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      .tabItem {
+        flex: 1 1 0;
+        position: relative;
+
+        .inner {
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        img {
+          width: 28%;
+          opacity: 0.3;
+        }
+
+        p {
+          opacity: 0.3;
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: bold;
+          margin-top: 1px;
+        }
+
+        &.isActive {
+          background: $primary;
+
+          img {
+            filter: invert(100%) brightness(100);
+            opacity: 1;
+          }
+
+          p {
+            opacity: 1;
+            color: $white;
+          }
+        }
+      }
+
+      .saveBTN {
+        position: fixed;
+        bottom: calc(10% + 20px);
+        width: 60%;
+        right: 10%;
+      }
+
+      .recapBtn {
+        color: white;
+        width: 100vw;
+        height: 10%;
+        position: fixed;
+        bottom: 0;
+
+        p {
+          position: absolute;
+          width: 90%;
+          left: 5%;
+          top: 50%;
+          transform: translateY(-50%);
+          font-weight: bold;
+        }
+      }
+   }
+  }
+
+
+
+  .RecordView--right {
+    .ModuleContainer {
+      right: auto;
+      left: 0;
+    }
+  }
+
+  .Controls--right {
+    right: 0;
+
+    &.recordControls .tabList {
+      .saveBTN {
+        right: auto;
+        left: 10%;
+      }
+      .recapBtn {
+        right: 0;
+      }
+    }
+  }
+
+  .recordNav {
+    .Navbar--right {
+      &.Navbar::before {
+        left: 0%;
+        right: 22%;
+      }
+
+      h4 {
+        margin-left: 0;
+        margin-right: 30px;
+        padding: 12px 0px;
+      }
+
+      h4, .navIcon {
+        float: right;
+      }
+
+      .rightButtons {
+        position: absolute;
+        float: left;
+        .navIcon {
+          margin-left: 0;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+  .Customers {
+    .RecordNotes {
+      display: none;
+    }
+    .Tab--notes {
+      .ModuleList {
+        display: none;
+      }
+      .RecordNotes {
+        display: block;
+        bottom: auto;
+        height: calc(90% - 90px);
+        width: calc(80% - 40px);
+        top: 70px;
+        border-radius: 7px;
+        padding: 10px;
+
+        .NotesNav {
+          width: 93%;
+          position: absolute;
+        }
+        .NotesList {
+          font-size: 16px;
+          width: 100%;
+        }
+      }
+    }
+
+
+    .ModuleList {
+      .ModuleCard {
+        display: none;
+      }
+    }
+
+
+    .Tab--contact .ModuleContainer {
+      .moduleMain { display: block }
+    }
+    .Tab--franch .ModuleContainer {
+      .moduleSP { display: block }
+    }
+    .Tab--service .ModuleContainer {
+      .moduleSchedule { display: block }
+      .moduleNumbers { display: block }
+    }
+    .Tab--manage .ModuleContainer {
+      .moduleService { display: block }
+    }
+    .Tab--location .ModuleContainer {
+      .moduleLocation { display: block }
+    }
+    .Tab--history .ModuleContainer {
+      .moduleSales { display: block }
+    }
+  }
+
+
+  .Sales {
+    .RecordView {
+      .ModuleContainer {
+        height: 100% !important;
+      }
+    }
+    .RightPanel {
+      display: none;
+    }
+    .Tab--notes {
+      .ModuleList {
+        display: none;
+      }
+      .RightPanel {
+        display: block;
+        bottom: auto;
+        height: calc(90% - 20px);
+        width: calc(80% - 30px);
+        top: 70px;
+        border-radius: 7px;
+        padding: 0;
+
+        .NotesNav {
+          width: 93%;
+          position: absolute;
+        }
+
+        .RecordNotes {
+          height: 100%;
+        }
+        .NotesList {
+          font-size: 16px;
+          width: 100%;
+          height: 100%;
+        }
+
+        #streetWindow {
+          height: calc(100% - 38px);
+
+          img {
+            width: 100%;
+            height: 50%;
+            top: auto;
+            bottom: 0;
+            position: absolute;
+          }
+
+          .mapSide {
+            width: 100%;
+            height: 50%;
+          }
+        }
+      }
+    }
+
+
+    .ModuleList {
+      .ModuleCard {
+        display: none;
+      }
+    }
+
+    .Tab--contact .ModuleContainer {
+      .moduleContact { display: block }
+    }
+    .Tab--main .ModuleContainer {
+      .moduleMain { display: block }
+      .moduleSpecial { display: block }
+    }
+    .Tab--status .ModuleContainer {
+      .moduleSchedule { display: block }
+      .moduleNumbers { display: block }
+    }
+    .Tab--location .ModuleContainer {
+      .moduleLocation { display: block }
+      .moduleArea { display: block }
+    }
+    .Tab--history .ModuleContainer {
+      .modulePipeline { display: block }
+      .moduleSales { display: block }
+    }
+  }
+
+
+  .ModuleList .ModuleCard .inputBlock {
+    flex-basis: 100%;
+  }
+
+  .RecordView--right {
+    .RightPanel {
+      right: auto;
+      left: 15px;
+
+      .RecordNotes {
+        left: 0;
+      }
+    }
+    .RecordNotes {
+      right: auto;
+      left: 20px;
+    }
+  }
+
+  .RecordView--left {
+    .RightPanel {
+      right: 15px;
+      left: auto;
+
+      .RecordNotes {
+        right: 0;
+      }
+    }
+    .RecordNotes {
+      right: 20px;
+      left: auto;
+    }
+  }
+
+}

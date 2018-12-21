@@ -9,10 +9,6 @@
 }
 
 
-.ControlsBar.recordControls {
-  width: 60%;
-}
-
 .hiddenSPName {
   display: none;
 }
@@ -30,9 +26,6 @@ hr {
   img {
     pointer-events: none;
   }
-}
-.recordNav .Navbar {
-  width: 60%;
 }
 .RecordView {
   left: 0;
@@ -309,6 +302,9 @@ hr {
     display: none;
   }
   .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 100%;
+  }
+  .normalNav .Navbar {
     width: 100%;
   }
   .ModuleContainer {

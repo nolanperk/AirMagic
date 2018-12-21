@@ -48,6 +48,7 @@ export default class VisitItem extends Component {
 
     return (
       <div className={"VisitItem ArchiveItem " + classNames} onClick={()=>this.props.openRecordHandler(visitData.fields, visitData.id, index)}>
+        {/* <a href={''} className="absLink"></a> */}
         <div className="inner">
           <div className="whiteCard">
             <p className="boldText">{visitData.fields['Company Name']}</p>

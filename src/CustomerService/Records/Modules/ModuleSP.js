@@ -27,7 +27,7 @@ export default class ModuleSP extends Component {
     let spNumber = this.props.spNumber;
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleSP">
         <div className="inner">
 
           <div className="inputBlock inputBlock--full">

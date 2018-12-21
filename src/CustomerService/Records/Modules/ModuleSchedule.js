@@ -10,7 +10,7 @@ export default class ModuleSchedule extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleSchedule">
         {this.AccountingView}
       </div>
     );

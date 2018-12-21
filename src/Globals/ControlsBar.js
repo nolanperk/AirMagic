@@ -16,6 +16,9 @@ export default class ControlsBar extends Component {
           currentRecord={this.props.currentRecord}
           currentTable={this.props.currentTable}
           setAppt={this.props.setAppt}
+          mobileTabHandler={this.props.mobileTabHandler}
+          mobileHand={this.props.mobileHand}
+          recordChanges= {this.props.recordChanges}
         />
       );
     } else {
@@ -45,9 +48,11 @@ export default class ControlsBar extends Component {
 }
 
 ControlsBar.propTypes ={
+  mobileHand: propTypes.string.isRequired,
   recordView: propTypes.bool.isRequired,
   newRecord: propTypes.bool.isRequired,
   franchiseView: propTypes.bool.isRequired,
+  mobileTabHandler: propTypes.func.isRequired,
   searchHandler: propTypes.func.isRequired,
   saveRecordHandler: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,

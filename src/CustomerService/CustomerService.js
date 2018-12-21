@@ -70,6 +70,8 @@ export default class CustomerService extends Component {
       loadingText: 'Loading',
       clearedAttention: true,
       clearedProactive: true,
+      currentTab: 'contact',
+      mobileHand: 'right'
     }
   }
 
@@ -1906,24 +1908,26 @@ export default class CustomerService extends Component {
           let twoMonthsAway = new Date(+new Date - 5.184e+9);
           let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
 
-          if (lastVisit < monthAway) {
-            visitLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newVisitData['needsVisit'].push(newItem);
-          } else if (lastVisit < fortnightAway) {
-            visitLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newVisitData['upcomingVisit'].push(newItem);
-          } else {
-            visitLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newVisitData['noNeed'].push(newItem);
+          if (thisMonthly > 700) {
+            if (lastVisit < monthAway) {
+              visitLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.data[i].fields;
+              newItem['id'] = this.state.data[i].id;
+              newVisitData['needsVisit'].push(newItem);
+            } else if (lastVisit < fortnightAway) {
+              visitLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.data[i].fields;
+              newItem['id'] = this.state.data[i].id;
+              newVisitData['upcomingVisit'].push(newItem);
+            } else {
+              visitLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.data[i].fields;
+              newItem['id'] = this.state.data[i].id;
+              newVisitData['noNeed'].push(newItem);
+            }
           }
         }
       }
@@ -2201,6 +2205,27 @@ export default class CustomerService extends Component {
     }).bind(this), 100);
   }
 
+  mobileTabHandler = e => {
+    // currentTab
+    let clickedID = e;
+
+    this.setState({
+      currentTab: e
+    });
+  }
+
+  switchHandHandler = () => {
+    if (this.state.mobileHand !== 'left') {
+      this.setState({
+        mobileHand: 'left'
+      });
+    } else {
+      this.setState({
+        mobileHand: 'right'
+      });
+    }
+  }
+
 
 
 
@@ -2404,6 +2429,9 @@ export default class CustomerService extends Component {
             citySet={this.props.citySet}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            switchHandHandler={this.switchHandHandler}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
 
           {this.currentView}
@@ -2419,6 +2447,10 @@ export default class CustomerService extends Component {
             newRecordHandler={this.newRecordHandler}
             currentRecord={this.state.currentRecord}
             currentTable={this.state.currentTable}
+            mobileTabHandler={this.mobileTabHandler}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
+            recordChanges= {this.state.recordChanges}
           />
         </div>
       );
@@ -2437,6 +2469,9 @@ export default class CustomerService extends Component {
             citySet={this.props.citySet}
             currentRecordView={this.state.currentRecordView}
             viewSelect={this.viewSelect}
+            switchHandHandler={this.switchHandHandler}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
 
           {this.currentView}
@@ -2452,6 +2487,10 @@ export default class CustomerService extends Component {
             newRecordHandler={this.newRecordHandler}
             currentRecord={this.state.currentRecord}
             currentTable={this.state.currentTable}
+            mobileTabHandler={this.mobileTabHandler}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
+            recordChanges= {this.state.recordChanges}
           />
         </div>
       );
@@ -2512,6 +2551,8 @@ export default class CustomerService extends Component {
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
             noteCharacters={this.state.noteCharacters}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       } else if (this.state.currentRecordView === 'accounting') {
@@ -2536,6 +2577,8 @@ export default class CustomerService extends Component {
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
             noteCharacters={this.state.noteCharacters}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       } else if (this.state.currentRecordView === 'crews') {
@@ -2560,6 +2603,8 @@ export default class CustomerService extends Component {
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
             noteCharacters={this.state.noteCharacters}
+            mobileHand={this.state.mobileHand}
+            currentTab={this.state.currentTab}
           />
         );
       }

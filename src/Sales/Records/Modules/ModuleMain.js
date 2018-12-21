@@ -37,7 +37,7 @@ export default class ModuleMain extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleMain">
         {this.salesMain}
       </div>
     );

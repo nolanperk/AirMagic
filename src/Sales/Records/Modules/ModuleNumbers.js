@@ -14,7 +14,7 @@ export default class ModuleNumbers extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleNumbers">
         {this.SalesNumber}
       </div>
     );

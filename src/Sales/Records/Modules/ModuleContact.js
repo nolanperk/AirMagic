@@ -29,7 +29,7 @@ export default class ModuleContact extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleContact">
         {this.ContactType}
       </div>
     );

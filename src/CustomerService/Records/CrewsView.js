@@ -29,7 +29,7 @@ export default class CrewsView extends Component {
 
 
     return (
-      <div className="RecordView" key={this.props.currentId}>
+      <div className={'RecordView Tab--' + this.props.currentTab + ' RecordView--' + this.props.mobileHand} key={this.props.currentId}>
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleMain
@@ -143,6 +143,8 @@ export default class CrewsView extends Component {
 
 
 CrewsView.propTypes ={
+  currentTab: propTypes.string.isRequired,
+  mobileHand: propTypes.string.isRequired,
   spChangeHandler: propTypes.func.isRequired,
   loadSPInfo: propTypes.func.isRequired,
   currentRecordView: propTypes.string.isRequired,

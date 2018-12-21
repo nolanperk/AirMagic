@@ -38,7 +38,7 @@ export default class ModuleNumbers extends Component {
     let other = this.props.other;
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleNumbers">
         <div className="inner">
 
 

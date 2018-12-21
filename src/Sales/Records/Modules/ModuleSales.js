@@ -19,7 +19,7 @@ export default class ModuleSales extends Component {
     let cancel = this.props.cancel;
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleSales">
         <div className="inner">
 
 

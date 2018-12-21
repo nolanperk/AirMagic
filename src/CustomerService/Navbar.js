@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import exit from '../assets/icons/white/exit.png';
 import hamburger from '../assets/icons/white/hamburger.png';
 import exportImg from '../assets/icons/primary/export.png';
+import switchHands from '../assets/icons/primary/switch.png';
 
 export default class Navbar extends Component {
 
@@ -39,17 +40,13 @@ export default class Navbar extends Component {
       <div className="TabList"></div>
     ) : (
       <div className="TabList">
-        <ul>
-          <li className="TabItem isActive" onClick={this.props.switchTableHandler} id="customers">Customers</li>
-          <li className="TabItem" onClick={this.props.switchTableHandler} id="franchise-info">Franchise Info</li>
-        </ul>
       </div>
     );
 
 
     return (
       <div className={navClass}>
-        <div className="Navbar">
+        <div className={'Navbar Navbar--' + this.props.mobileHand}>
           {this.closeButton}
           <h4>
             <span>{preTitle}</span>
@@ -77,14 +74,14 @@ export default class Navbar extends Component {
   get closeButton() {
     if (this.props.recordView) {
       return (
-        <div className="navIcon softGrad--primary" onClick={this.props.closeRecordHandler}>
+        <div className="navIcon exit softGrad--primary" onClick={this.props.closeRecordHandler}>
           <img src={exit} alt="exit" />
         </div>
       );
     } else {
       return (
         <Link to={`/`}>
-          <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
+          <div className="navIcon exit softGrad--primary" onClick={this.revertMemory}>
             <img src={hamburger} alt="databases" />
           </div>
         </Link>
@@ -96,18 +93,32 @@ export default class Navbar extends Component {
     let attURL = '/' + this.props.citySet + '/customer-service/attention';
 
     if (this.props.recordView) {
-      return (
-        <div className="rightButtons">
-          <div className="inputBlock">
-            <div className="selectBlock">
-              {this.viewSelects}
+      if (window.innerWidth > 900) { //non-mobile
+        return (
+          <div className="rightButtons">
+            <div className="inputBlock">
+              <div className="selectBlock">
+                {this.viewSelects}
+              </div>
+            </div>
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+              <img src={exportImg} alt="Export" />
             </div>
           </div>
-          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-            <img src={exportImg} alt="Export" />
+        );
+      } else {
+        return (
+          <div className="rightButtons">
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+              <img src={exportImg} alt="Export" />
+            </div>
+
+            <div className="navIcon whiteCard exportBtn" onClick={this.props.switchHandHandler} id="switchHands">
+              <img src={switchHands} alt="Switch Hands" />
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     } else {
       return (
         <div className="rightButtons">
@@ -126,6 +137,8 @@ export default class Navbar extends Component {
 Navbar.propTypes ={
   recordView: propTypes.bool.isRequired,
   viewSelect: propTypes.func.isRequired,
+  switchHandHandler: propTypes.func.isRequired,
+  mobileHand: propTypes.string.isRequired,
   currentRecordView: propTypes.string.isRequired,
   closeRecordHandler: propTypes.func.isRequired,
   switchTableHandler: propTypes.func.isRequired,

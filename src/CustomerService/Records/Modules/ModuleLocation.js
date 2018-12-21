@@ -25,7 +25,7 @@ export default class ModuleLocation extends Component {
 
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleLocation">
         <div className="inner">
 
           <div className="inputBlock inputBlock--large">

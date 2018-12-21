@@ -103,6 +103,7 @@ export default class RecordModules extends Component {
 }
 
 RecordModules.propTypes ={
+  mobileHand: propTypes.string.isRequired,
   changeContentHandler: propTypes.func.isRequired,
   changeRecordHandler: propTypes.func.isRequired,
   isLoading: propTypes.bool.isRequired,

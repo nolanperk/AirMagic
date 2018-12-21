@@ -29,13 +29,21 @@ export default class AccountingView extends Component {
 
 
     return (
-      <div className="RecordView" key={this.props.currentId}>
+      <div className={'RecordView Tab--' + this.props.currentTab + ' RecordView--' + this.props.mobileHand} key={this.props.currentId}>
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleMain
               changeRecordHandler={this.props.changeRecordHandler}
-              currentRecordView={this.props.currentRecordView}
               company={this.props.currentRecord['Company Name']}
+              salutation={this.props.currentRecord['Salutation']}
+              contact={this.props.currentRecord['Main contact']}
+              title={this.props.currentRecord['Title']}
+              altContact={this.props.currentRecord['Alternate Contact']}
+              phone={this.props.currentRecord['Office Phone']}
+              ext={this.props.currentRecord['Extension']}
+              cell={this.props.currentRecord['Cell Phone']}
+              email={this.props.currentRecord['Email']}
+              newRecord={this.props.newRecord}
             />
             <ModuleSP
               changeRecordHandler={this.props.changeRecordHandler}
@@ -98,6 +106,8 @@ export default class AccountingView extends Component {
 
 
 AccountingView.propTypes ={
+  currentTab: propTypes.string.isRequired,
+  mobileHand: propTypes.string.isRequired,
   spChangeHandler: propTypes.func.isRequired,
   loadSPInfo: propTypes.func.isRequired,
   currentId: propTypes.string.isRequired,

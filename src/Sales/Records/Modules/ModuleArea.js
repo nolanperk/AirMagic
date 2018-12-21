@@ -96,7 +96,7 @@ export default class ModuleArea extends Component {
 
     if (this.state.error) {
       return (
-        <div className="ModuleCard">
+        <div className="ModuleCard moduleArea">
           <div className="inner">
             <p>{this.state.errorMess}</p>
             <div className="cardTag">
@@ -109,7 +109,7 @@ export default class ModuleArea extends Component {
 
     if (this.state.loaded) {
       return (
-        <div className="ModuleCard">
+        <div className="ModuleCard moduleArea">
           <div className="inner">
 
             <p>Nearby Customers</p>
@@ -130,7 +130,7 @@ export default class ModuleArea extends Component {
       )
     }
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleArea">
         <div className="inner">
           <div className="cardTag">
             <a className="btn softGrad--black" onClick={this.loadArea}>Load Area Info</a>

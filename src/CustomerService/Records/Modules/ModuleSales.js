@@ -27,7 +27,7 @@ export default class ModuleSales extends Component {
   // ----------------------------------------------------
   render() {
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleSales">
         {this.AccountingView}
       </div>
     );

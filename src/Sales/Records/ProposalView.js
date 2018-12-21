@@ -23,7 +23,7 @@ export default class ProposalView extends Component {
 
 
     return (
-      <div className="RecordView" key={this.props.currentId}>
+      <div className={'RecordView Tab--' + this.props.currentTab + ' RecordView--' + this.props.mobileHand} key={this.props.currentId}>
         <div className="ModuleContainer">
           <div className="ModuleList">
             <ModuleContact

@@ -28,7 +28,7 @@ export default class ModulePipeline extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard modulePipeline">
         {this.ModuleProposal}
       </div>
     );

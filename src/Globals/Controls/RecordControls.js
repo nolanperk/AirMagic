@@ -9,7 +9,24 @@ import arrow_back from '../../assets/icons/black/arrow_back.png';
 import phoneImg from '../../assets/icons/white/phone.png';
 import ApiConfig from '../../config'
 
+import calendarB from '../../assets/icons/black/calendar.png';
+import account from '../../assets/icons/black/account.png';
+import edit from '../../assets/icons/black/edit.png';
+import phoneImgB from '../../assets/icons/black/phone.png';
+import done from '../../assets/icons/black/done.png';
+import location from '../../assets/icons/black/location.png';
+import notes from '../../assets/icons/black/notes.png';
+
 export default class SortBy extends Component {
+
+  tabSwitcher = e => {
+    let clickedID = e.target.closest('.tabItem').id;
+    console.log(clickedID);
+    this.props.mobileTabHandler(clickedID);
+
+    document.getElementsByClassName('tabItem isActive')[0].className= 'tabItem'
+    e.target.closest('.tabItem').className = 'tabItem isActive';
+  }
 
   addCalendar = () => {
     let record = this.props.currentRecord;
@@ -80,93 +97,210 @@ export default class SortBy extends Component {
   // ----------------------------------------------------
   render() {
     return (
-      <div className="ControlsBar recordControls">
+      <div className={'ControlsBar recordControls Controls--' + this.props.mobileHand}>
         {this.botButtons}
       </div>
     );
   }
 
   get botButtons() {
+    if (window.innerWidth > 900) { //non-mobile
+      let btnClasses = 'ControlsBar--btn';
+      if (this.props.newRecord) {
+        btnClasses = 'ControlsBar--btn disabled';
+      }
 
+      let callBackClasses = 'navIcon softGrad--primary';
+      let googleCalButton = 'navIcon softGrad--blue';
+      if (this.props.newRecord) {
+        googleCalButton = 'navIcon softGrad--primary isHidden';
+        callBackClasses = 'navIcon softGrad--primary isHidden';
+      }
 
-    let btnClasses = 'ControlsBar--btn';
-    if (this.props.newRecord) {
-      btnClasses = 'ControlsBar--btn disabled';
-    }
-
-    let callBackClasses = 'navIcon softGrad--primary';
-    let googleCalButton = 'navIcon softGrad--blue';
-    if (this.props.newRecord) {
-      googleCalButton = 'navIcon softGrad--primary isHidden';
-      callBackClasses = 'navIcon softGrad--primary isHidden';
-    }
-
-    if (localStorage.getItem('isOutside') === 'true') {
-      return (
-        <div>
-          <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
-            <div className="navIcon whiteCard">
-              <img src={arrow_back} alt="previous" />
+      if (localStorage.getItem('isOutside') === 'true') {
+        return (
+          <div>
+            <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
+              <div className="navIcon whiteCard">
+                <img src={arrow_back} alt="previous" />
+              </div>
+              <p>Previous Record</p>
             </div>
-            <p>Previous Record</p>
-          </div>
 
-          <div className="ControlsBar--btn saveBtn">
-            <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
-              <img src={save} alt="save changes" />
+            <div className="ControlsBar--btn saveBtn">
+              <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
+                <img src={save} alt="save changes" />
+              </div>
+            </div>
+
+
+            <div className={btnClasses} onClick={this.props.recordChanger} id="next">
+              <p>Next Record</p>
+              <div className="navIcon whiteCard">
+                <img src={arrow_forward} alt="next" />
+              </div>
             </div>
           </div>
+        )
+      } else {
+        return (
+          <div>
+            <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
+              <div className="navIcon whiteCard">
+                <img src={arrow_back} alt="previous" />
+              </div>
+              <p>Previous Record</p>
+            </div>
+
+            <div className="ControlsBar--btn saveBtn">
 
 
-          <div className={btnClasses} onClick={this.props.recordChanger} id="next">
-            <p>Next Record</p>
-            <div className="navIcon whiteCard">
-              <img src={arrow_forward} alt="next" />
+              <div className={googleCalButton} onClick={this.props.setAppt}>
+                <img src={calendar} alt="Add to Google Calendar" />
+              </div>
+
+              <div className={callBackClasses} onClick={this.addCalendar}>
+                <img src={phoneImg} alt="callback" />
+              </div>
+              <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
+                <img src={save} alt="save changes" />
+              </div>
+            </div>
+
+
+            <div className={btnClasses} onClick={this.props.recordChanger} id="next">
+              <p>Next Record</p>
+              <div className="navIcon whiteCard">
+                <img src={arrow_forward} alt="next" />
+              </div>
             </div>
           </div>
-        </div>
-      )
+        )
+      }
     } else {
-      return (
-        <div>
-          <div className={btnClasses} onClick={this.props.recordChanger} id="prev">
-            <div className="navIcon whiteCard">
-              <img src={arrow_back} alt="previous" />
+      if (this.props.currentTable === 'Customers') {
+        return (
+          <div className="tabList">
+            <div id="history" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={calendarB} />
+                <p>History</p>
+              </div>
             </div>
-            <p>Previous Record</p>
+
+            <div id="franch" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={account} />
+                <p>Franch.</p>
+              </div>
+            </div>
+
+            <div id="manage" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={edit} />
+                <p>Manage</p>
+              </div>
+            </div>
+
+            <div id="location" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={location} />
+                <p>Location</p>
+              </div>
+            </div>
+
+            <div id="service" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={done} />
+                <p>Service</p>
+              </div>
+            </div>
+
+            <div id="contact" className="tabItem isActive" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={phoneImgB} />
+                <p>Contact</p>
+              </div>
+            </div>
+
+            <div id="notes" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={notes} />
+                <p>Notes</p>
+              </div>
+            </div>
+
+            <div className="recapBtn softGrad--secondary">
+              <p>Recap Visit</p>
+            </div>
+            {this.props.recordChanges ? this.saveButton : ''}
           </div>
-
-          <div className="ControlsBar--btn saveBtn">
-
-            <div className={googleCalButton} onClick={this.props.setAppt}>
-              <img src={calendar} alt="Add to Google Calendar" />
+        )
+      } else {
+        return (
+          <div className="tabList noRecap">
+            <div id="history" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={calendarB} />
+                <p>History</p>
+              </div>
             </div>
 
-            <div className={callBackClasses} onClick={this.addCalendar}>
-              <img src={phoneImg} alt="callback" />
+            <div id="status" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={edit} />
+                <p>Status</p>
+              </div>
             </div>
-            <div className="navIcon softGrad--secondary" onClick={this.props.saveRecordHandler}>
-              <img src={save} alt="save changes" />
+
+            <div id="location" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={location} />
+                <p>Location</p>
+              </div>
             </div>
+
+            <div id="contact" className="tabItem isActive" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={phoneImgB} />
+                <p>Contact</p>
+              </div>
+            </div>
+
+            <div id="main" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={account} />
+                <p>Main</p>
+              </div>
+            </div>
+
+            <div id="notes" className="tabItem" onClick={this.tabSwitcher}>
+              <div className="inner">
+                <img src={notes} />
+                <p>Notes</p>
+              </div>
+            </div>
+            {this.props.recordChanges ? this.saveButton : ''}
           </div>
-
-
-          <div className={btnClasses} onClick={this.props.recordChanger} id="next">
-            <p>Next Record</p>
-            <div className="navIcon whiteCard">
-              <img src={arrow_forward} alt="next" />
-            </div>
-          </div>
-        </div>
-      )
+        )
+      }
     }
+
+  }
+
+  get saveButton() {
+    return (
+      <a className="btn softGrad--black saveBTN" onClick={this.props.saveRecordHandler}>Save Changes</a>
+    )
   }
 }
 
 
 SortBy.propTypes = {
+  mobileHand: propTypes.string.isRequired,
   newRecord: propTypes.bool.isRequired,
   recordChanger: propTypes.func.isRequired,
+  mobileTabHandler: propTypes.func.isRequired,
   saveRecordHandler: propTypes.func.isRequired,
   currentRecord: propTypes.array.isRequired,
   setAppt: propTypes.func.isRequired,

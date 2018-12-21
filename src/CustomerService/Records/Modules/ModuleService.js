@@ -41,7 +41,7 @@ export default class ModuleService extends Component {
   render() {
 
     return (
-      <div className="ModuleCard">
+      <div className="ModuleCard moduleService">
         {this.crewsView}
       </div>
     );

@@ -183,7 +183,7 @@ export class RecordNotes extends Component {
         </div>
         <div id="streetWindow">
           <img src={this.state.streetViewSrc} alt=" " id="finalImg" />
-          <Link to={this.props.pathName + '/maps'}>
+          {/* <Link to={this.props.pathName + '/maps'}> */}
             <div className="mapSide">
               <Map
                 google={this.props.google}
@@ -201,7 +201,7 @@ export class RecordNotes extends Component {
                   name={'Current location'} />
               </Map>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
 
         <a className="btn softGrad--secondary hideThis" id="appraiserBtn" href={this.state.appraiserSearch} target="_blank">Property Appraiser</a>

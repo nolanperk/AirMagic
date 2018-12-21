@@ -304,7 +304,7 @@ ul {
   padding: 20px;
   position: fixed;
   z-index: 2;
-  width: 100%; }
+  width: 60%; }
   .Navbar .navIcon, .Navbar h4, .Navbar .TabList {
     display: inline-block;
     vertical-align: middle;
@@ -845,9 +845,6 @@ ul {
   left: 0;
   width: 60%; }
 
-.ControlsBar.recordControls {
-  width: 60%; }
-
 .hiddenSPName {
   display: none; }
 
@@ -862,9 +859,6 @@ hr {
   float: right; }
   .exportBtn img {
     pointer-events: none; }
-
-.recordNav .Navbar {
-  width: 60%; }
 
 .RecordView {
   left: 0;
@@ -1066,6 +1060,8 @@ hr {
   #appraiserBtn {
     display: none; }
   .ControlsBar.recordControls, .recordNav .Navbar, .ModuleContainer {
+    width: 100%; }
+  .normalNav .Navbar {
     width: 100%; }
   .ModuleContainer {
     height: calc(65% - 93px) !important;
@@ -1494,6 +1490,18 @@ hr {
     font-size: 10px;
     color: gray; }
 
+@media only screen and (max-width: 900px) {
+  .modal .modalInner {
+    width: 85%;
+    max-height: 90vh;
+    overflow-y: scroll; }
+    .modal .modalInner .modalTitle {
+      width: 100%; }
+  .LoadModal img {
+    padding: 0;
+    width: 50%;
+    margin-top: 20px; } }
+
 .DayPicker {
   position: absolute;
   background: white;
@@ -1884,7 +1892,23 @@ hr {
 
 @media only screen and (max-width: 900px) {
   .rowItems .ArchiveItem {
-    width: 33%; } }
+    width: 33%; }
+  .SplashView .searchArea {
+    padding: 15px 4%; }
+  .SplashView .splashWrapper .linkSet {
+    flex-wrap: wrap; }
+    .SplashView .splashWrapper .linkSet .splashCard {
+      margin-right: 0;
+      flex-basis: 47%;
+      margin-bottom: 3%; }
+      .SplashView .splashWrapper .linkSet .splashCard:nth-child(odd) {
+        margin-right: 5%; }
+      .SplashView .splashWrapper .linkSet .splashCard#browseAll .circleDot {
+        width: 60px;
+        height: 60px; }
+      .SplashView .splashWrapper .linkSet .splashCard .circleDot {
+        width: 60px;
+        height: 60px; } }
 
 @media only screen and (max-width: 767px) {
   .rowItems .ArchiveItem {
@@ -2135,3 +2159,219 @@ hr {
             width: 7%; }
           .ModuleList .ModuleCard.cardFull .fullInner .inner table tr:nth-child(odd) select, .ModuleList .ModuleCard.cardFull .fullInner .inner table tr:nth-child(odd) input {
             background: #f3f6fb; }
+
+@media only screen and (max-width: 767px) {
+  .ModuleContainer {
+    width: 80%;
+    left: auto;
+    right: 0;
+    margin: 0;
+    height: 90% !important; }
+    .ModuleContainer .ModuleList {
+      padding: 80px 0; }
+  .ModuleCard .inputBlock input, .ModuleCard .inputBlock select, .ModuleCard .inputBlock textarea {
+    font-size: 16px; }
+  .Customers .Navbar .rightButtons .btn {
+    display: none; }
+  .Customers .Navbar {
+    width: 100%; }
+  .recordNav .Navbar {
+    width: 100%; }
+    .recordNav .Navbar::before {
+      left: 22%; }
+    .recordNav .Navbar h4 {
+      margin-left: 30px; }
+    .recordNav .Navbar .inputBlock {
+      display: none; }
+    .recordNav .Navbar .navIcon.exit {
+      margin: 0 6px; }
+  .ControlsBar.recordControls {
+    width: 20%;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 0; }
+    .ControlsBar.recordControls .tabList {
+      position: absolute;
+      width: 100%;
+      height: 74%;
+      top: 13%;
+      display: flex;
+      flex-direction: column;
+      text-align: center; }
+      .ControlsBar.recordControls .tabList .tabItem {
+        flex: 1 1 0;
+        position: relative; }
+        .ControlsBar.recordControls .tabList .tabItem .inner {
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+        .ControlsBar.recordControls .tabList .tabItem img {
+          width: 28%;
+          opacity: 0.3; }
+        .ControlsBar.recordControls .tabList .tabItem p, .ControlsBar.recordControls .tabList .tabItem .fieldsList label, .fieldsList .ControlsBar.recordControls .tabList .tabItem label {
+          opacity: 0.3;
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: bold;
+          margin-top: 1px; }
+        .ControlsBar.recordControls .tabList .tabItem.isActive {
+          background: #C31F2F; }
+          .ControlsBar.recordControls .tabList .tabItem.isActive img {
+            filter: invert(100%) brightness(100);
+            opacity: 1; }
+          .ControlsBar.recordControls .tabList .tabItem.isActive p, .ControlsBar.recordControls .tabList .tabItem.isActive .fieldsList label, .fieldsList .ControlsBar.recordControls .tabList .tabItem.isActive label {
+            opacity: 1;
+            color: #fff; }
+      .ControlsBar.recordControls .tabList .saveBTN {
+        position: fixed;
+        bottom: calc(10% + 20px);
+        width: 60%;
+        right: 10%; }
+      .ControlsBar.recordControls .tabList .recapBtn {
+        color: white;
+        width: 100vw;
+        height: 10%;
+        position: fixed;
+        bottom: 0; }
+        .ControlsBar.recordControls .tabList .recapBtn p, .ControlsBar.recordControls .tabList .recapBtn .fieldsList label, .fieldsList .ControlsBar.recordControls .tabList .recapBtn label {
+          position: absolute;
+          width: 90%;
+          left: 5%;
+          top: 50%;
+          transform: translateY(-50%);
+          font-weight: bold; }
+  .RecordView--right .ModuleContainer {
+    right: auto;
+    left: 0; }
+  .Controls--right {
+    right: 0; }
+    .Controls--right.recordControls .tabList .saveBTN {
+      right: auto;
+      left: 10%; }
+    .Controls--right.recordControls .tabList .recapBtn {
+      right: 0; }
+  .recordNav .Navbar--right.Navbar::before {
+    left: 0%;
+    right: 22%; }
+  .recordNav .Navbar--right h4 {
+    margin-left: 0;
+    margin-right: 30px;
+    padding: 12px 0px; }
+  .recordNav .Navbar--right h4, .recordNav .Navbar--right .navIcon {
+    float: right; }
+  .recordNav .Navbar--right .rightButtons {
+    position: absolute;
+    float: left; }
+    .recordNav .Navbar--right .rightButtons .navIcon {
+      margin-left: 0;
+      margin-right: 8px; }
+  .Customers .RecordNotes {
+    display: none; }
+  .Customers .Tab--notes .ModuleList {
+    display: none; }
+  .Customers .Tab--notes .RecordNotes {
+    display: block;
+    bottom: auto;
+    height: calc(90% - 90px);
+    width: calc(80% - 40px);
+    top: 70px;
+    border-radius: 7px;
+    padding: 10px; }
+    .Customers .Tab--notes .RecordNotes .NotesNav {
+      width: 93%;
+      position: absolute; }
+    .Customers .Tab--notes .RecordNotes .NotesList {
+      font-size: 16px;
+      width: 100%; }
+  .Customers .ModuleList .ModuleCard {
+    display: none; }
+  .Customers .Tab--contact .ModuleContainer .moduleMain {
+    display: block; }
+  .Customers .Tab--franch .ModuleContainer .moduleSP {
+    display: block; }
+  .Customers .Tab--service .ModuleContainer .moduleSchedule {
+    display: block; }
+  .Customers .Tab--service .ModuleContainer .moduleNumbers {
+    display: block; }
+  .Customers .Tab--manage .ModuleContainer .moduleService {
+    display: block; }
+  .Customers .Tab--location .ModuleContainer .moduleLocation {
+    display: block; }
+  .Customers .Tab--history .ModuleContainer .moduleSales {
+    display: block; }
+  .Sales .RecordView .ModuleContainer {
+    height: 100% !important; }
+  .Sales .RightPanel {
+    display: none; }
+  .Sales .Tab--notes .ModuleList {
+    display: none; }
+  .Sales .Tab--notes .RightPanel {
+    display: block;
+    bottom: auto;
+    height: calc(90% - 20px);
+    width: calc(80% - 30px);
+    top: 70px;
+    border-radius: 7px;
+    padding: 0; }
+    .Sales .Tab--notes .RightPanel .NotesNav {
+      width: 93%;
+      position: absolute; }
+    .Sales .Tab--notes .RightPanel .RecordNotes {
+      height: 100%; }
+    .Sales .Tab--notes .RightPanel .NotesList {
+      font-size: 16px;
+      width: 100%;
+      height: 100%; }
+    .Sales .Tab--notes .RightPanel #streetWindow {
+      height: calc(100% - 38px); }
+      .Sales .Tab--notes .RightPanel #streetWindow img {
+        width: 100%;
+        height: 50%;
+        top: auto;
+        bottom: 0;
+        position: absolute; }
+      .Sales .Tab--notes .RightPanel #streetWindow .mapSide {
+        width: 100%;
+        height: 50%; }
+  .Sales .ModuleList .ModuleCard {
+    display: none; }
+  .Sales .Tab--contact .ModuleContainer .moduleContact {
+    display: block; }
+  .Sales .Tab--main .ModuleContainer .moduleMain {
+    display: block; }
+  .Sales .Tab--main .ModuleContainer .moduleSpecial {
+    display: block; }
+  .Sales .Tab--status .ModuleContainer .moduleSchedule {
+    display: block; }
+  .Sales .Tab--status .ModuleContainer .moduleNumbers {
+    display: block; }
+  .Sales .Tab--location .ModuleContainer .moduleLocation {
+    display: block; }
+  .Sales .Tab--location .ModuleContainer .moduleArea {
+    display: block; }
+  .Sales .Tab--history .ModuleContainer .modulePipeline {
+    display: block; }
+  .Sales .Tab--history .ModuleContainer .moduleSales {
+    display: block; }
+  .ModuleList .ModuleCard .inputBlock {
+    flex-basis: 100%; }
+  .RecordView--right .RightPanel {
+    right: auto;
+    left: 15px; }
+    .RecordView--right .RightPanel .RecordNotes {
+      left: 0; }
+  .RecordView--right .RecordNotes {
+    right: auto;
+    left: 20px; }
+  .RecordView--left .RightPanel {
+    right: 15px;
+    left: auto; }
+    .RecordView--left .RightPanel .RecordNotes {
+      right: 0; }
+  .RecordView--left .RecordNotes {
+    right: 20px;
+    left: auto; } }

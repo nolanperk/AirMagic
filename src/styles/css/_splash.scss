@@ -396,6 +396,36 @@
   .rowItems .ArchiveItem {
     width: 33%;
   }
+  .SplashView {
+
+    .searchArea {
+      padding: 15px 4%;
+    }
+    .splashWrapper .linkSet {
+      flex-wrap: wrap;
+      .splashCard {
+        margin-right: 0;
+        flex-basis: 47%;
+        margin-bottom: 3%;
+
+        &:nth-child(odd) {
+          margin-right:5%;
+        }
+
+        &#browseAll {
+          .circleDot {
+            width: 60px;
+            height: 60px;
+          }
+        }
+
+        .circleDot {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+  }
 }
 @media only screen and (max-width: 767px) {
   .rowItems .ArchiveItem {
