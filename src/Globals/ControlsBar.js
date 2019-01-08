@@ -19,6 +19,7 @@ export default class ControlsBar extends Component {
           mobileTabHandler={this.props.mobileTabHandler}
           mobileHand={this.props.mobileHand}
           recordChanges= {this.props.recordChanges}
+          recapVisit={this.props.recapVisit}
         />
       );
     } else {

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import VisitItem from './VisitItem'
 import Isotope from 'isotope-layout';
 
+import CustomerDashNav from '../CustomerDashNav'
 import attentionImage from '../../assets/icons/white/attention.png';
 import phoneImg from '../../assets/icons/white/phone.png';
 import exportImg from '../../assets/icons/primary/export.png';
@@ -27,18 +28,13 @@ export default class VisitView extends Component {
 
     return (
       <div className="VisitView">
-        <div className="Navbar">
+        <div className="Navbar SplashBar">
           <Link to={`/`}>
             <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
               <img src={hamburger} alt="databases" />
             </div>
           </Link>
-          <h4>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} / Visit</h4>
-          <div className="rightButtons">
-            <a href={allURL.replace('//', '/')} className="btn softGrad--secondary" onClick={this.props.changeAlt} id="browseAll">All Records</a>
-            <a href={attURL.replace('//', '/')} className="btn softGrad--primary" onClick={this.props.changeAlt} id="visit">Needs Attention</a>
-            <a href={proURL.replace('//', '/')} className="btn softGrad--blue" onClick={this.props.changeAlt} id="proactive">Proactives</a>
-          </div>
+          <h4><span>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} Dashboard</span> <br /> Proactive Visits</h4>
         </div>
 
 
@@ -60,6 +56,15 @@ export default class VisitView extends Component {
           </div>
 
         </div>
+
+        <CustomerDashNav
+          searchHandler={this.props.searchHandler}
+          splashSelect={this.props.splashSelect}
+          pathName={this.props.pathname}
+          citySet={this.props.citySet}
+          pathName={this.props.pathName}
+          loadAttentionData={this.props.loadAttentionData}
+        />
       </div>
     );
   }

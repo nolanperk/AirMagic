@@ -274,6 +274,10 @@ export default class FilterSearch extends Component {
             >Happy</li>
             <li
               onClick={this.selectFilterList}
+              id="Travis"
+            >Travis' Accounts</li>
+            <li
+              onClick={this.selectFilterList}
               id="David"
             >David's Accounts</li>
             <li

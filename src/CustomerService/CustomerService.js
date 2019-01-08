@@ -19,10 +19,10 @@ import ListContent from './Archive/ListContent';
 import ControlsBar from '../Globals/ControlsBar';
 import ModalView from '../Globals/ModalView';
 import FranchiseView from './FranchiseView';
-import SplashView from './SplashView';
 import AttentionView from './Attention/AttentionView'
 import ProactiveView from './Proactive/ProactiveView'
 import VisitView from './Visit/VisitView'
+import TicketView from './TicketView'
 
 let currentRecordState = [];
 let currentFranchiseState = [];
@@ -71,13 +71,16 @@ export default class CustomerService extends Component {
       clearedAttention: true,
       clearedProactive: true,
       currentTab: 'contact',
-      mobileHand: 'right'
+      mobileHand: 'right',
+      recapSlide: 'initial',
+
     }
   }
 
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.loading && !nextState.loading) {
       if (this.props.recordId != null) {
+        console.log('yo-1');
         console.log(this.props.recordId);
         console.log(nextState.data.filter(e => e.id === this.props.recordId));
         if (nextState.data != null && nextState.data.filter(e => e.id === this.props.recordId)[0]) {
@@ -572,6 +575,161 @@ export default class CustomerService extends Component {
       }
     }
   }
+
+  recapVisit = () => {
+    this.setState({
+      activeModal: true,
+      modalType: 'recapVisit',
+    })
+  }
+
+  recapSubmit = e => {
+    e.preventDefault();
+
+    console.log(e.target);
+
+    if (this.state.recapSlide === 'initial') {
+      if (e.target.id === 'create') {
+        this.setState({
+          recapSlide: 'createTicket',
+          newTicket: {},
+        })
+      } else {
+        this.setState({
+          recapSlide: 'noTicket',
+        })
+      }
+    } else {
+      let targetForm = e.target.closest('form');
+      let textArea = targetForm.childNodes[1];
+
+      if (targetForm.id === 'RecapTicket') {
+        let newItem = this.state.newTicket;
+        newItem['Company Name'] = this.state.currentRecord['Company Name'];
+        newItem['Company ID'] = this.state.data[this.state.currentRecordIndex].id;
+        newItem['Ticket Issues'] = textArea.value;
+        newItem['Status'] = 'Ticket Created';
+
+        //created date
+        let formattedLastEdit = new Date();
+        formattedLastEdit = (formattedLastEdit.getMonth()+1) + '/' + formattedLastEdit.getDate() + '/' + formattedLastEdit.getFullYear();
+        newItem['Created Date'] = formattedLastEdit;
+
+        let finalMonthly = parseInt(this.state.currentRecord['Monthly Amount']);
+
+        if (this.props.citySet === 'tampa') {
+          if (finalMonthly < 750) {
+            newItem['Rep'] = 'Lisa';
+          } else if (finalMonthly < 1500) {
+            newItem['Rep'] = 'Travis';
+          } else {
+            newItem['Rep'] = 'David';
+          }
+        }
+        let pushTable;
+        if (this.props.citySet === 'tampa') {
+          pushTable = 'Tampa';
+        } else {
+          pushTable = 'Orlando'
+        }
+        this.setState({
+          newTicket: newItem,
+        });
+
+        setTimeout((function() {
+          let finalPush = {"fields": newItem};
+          console.log(finalPush);
+          axios
+          .post(this.state.dataURL + 'app3fdViobj1a5BQD/' + pushTable, finalPush)
+            .then(response => {
+              this.setState({
+                recapSlide: 'initial',
+                activeModal: false,
+                modalType: '',
+              });
+
+              let today  = new Date();
+              let dayTime;
+              if (today.getHours() > 11) {
+                if (today.getMinutes() < 10) {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 11) + ":0" + today.getMinutes() + " PM";
+                } else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 11) + ":" + today.getMinutes() + " PM"; }
+              } else {
+                if (today.getMinutes() < 10) {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " AM";
+                } else {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " AM";  }
+              }
+
+              let finalEntry;
+              if (this.state.userName !== '') {
+                finalEntry = dayTime + ' - ' + this.state.userName + '\n';
+              } else {
+                finalEntry = dayTime + ' - ' + '\n';
+              }
+
+              finalEntry += 'TICKET CREATED' + '\n' + this.state.newTicket['Ticket Issues'] + '\n\n' + this.state.currentRecord['Notes'];
+
+              let currentRecState = this.state.currentRecord;
+              currentRecState['Notes'] = finalEntry;
+
+              this.saveRecordHandler();
+
+              //open tickets in new tab
+              var fakeDownloadA = document.createElement('a');
+              fakeDownloadA.setAttribute('href', '/' + this.props.citySet + '/customer-service/tickets');
+              fakeDownloadA.setAttribute('target', '_blank');
+              fakeDownloadA.style.display = 'none';
+              document.body.appendChild(fakeDownloadA);
+              fakeDownloadA.click();
+              document.body.removeChild(fakeDownloadA);
+            })
+          .catch(response => {
+            console.error("error: ", response);
+          });
+        }).bind(this), 5);
+      } else {
+        let today  = new Date();
+        let dayTime;
+        if (today.getHours() > 11) {
+          if (today.getMinutes() < 10) {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 11) + ":0" + today.getMinutes() + " PM";
+          } else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 11) + ":" + today.getMinutes() + " PM"; }
+        } else {
+          if (today.getMinutes() < 10) {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " AM";
+          } else {  dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " AM";  }
+        }
+        let finalEntry;
+        if (this.state.userName !== '') {
+          finalEntry = dayTime + ' - ' + this.state.userName + '\n';
+        } else {
+          finalEntry = dayTime + ' - ' + '\n';
+        }
+
+        this.setState({
+          recapSlide: 'initial',
+          activeModal: false,
+          modalType: '',
+        });
+
+        finalEntry += textArea.value + '\n\n' + this.state.currentRecord['Notes'];
+
+        let currentRecState = this.state.currentRecord;
+        currentRecState['Notes'] = finalEntry;
+
+        this.saveRecordHandler();
+      }
+    }
+
+
+
+  }
+
+  recapBack = e => {
+    let backBtn = e.target.closest('.backArrow');
+    if (backBtn.id === 'notesBack' || backBtn.id === 'createBack') {
+      this.setState({
+        recapSlide: 'initial',
+      })
+    }
+  }
+
   changeNotesHandler = e => {
     if (e.target.id === 'special') {
       currentRecordState = this.state.currentRecord;
@@ -1566,75 +1724,77 @@ export default class CustomerService extends Component {
             console.log(savedOffset);
 
             let exitChangerLoadMore = setInterval(function() {
-              if (this.state.dataOffset.includes(savedOffset)) {
-                clearInterval(exitChangerLoadMore);
-                console.log('cleared!');
-                setTimeout((function() {
-                  if (this.state.recordView === false) {
-                    if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
-                      window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
-                      document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
-                      console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
-                    }
-                  }
-                  if (this.state.recordView) {
-                    this.setState({
-                      currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-                    });
-                  }
-                  sessionStorage.removeItem('innerOffset'); //reset it!
-                  sessionStorage.removeItem('innerClosedID'); //reset it!
-
+              if (this.state.dataOffset) {
+                if (this.state.dataOffset.includes(savedOffset)) {
+                  clearInterval(exitChangerLoadMore);
+                  console.log('cleared!');
                   setTimeout((function() {
-                    // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
-                    // console.log();
-                  }).bind(this), 1000);
-                }).bind(this), 500);
-              } else {
-                console.log('loadmore!');
-                let preData = this.state.data;
-                this.setState({
-                  loadingMore: true,
-                });
-                finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-                if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
-                  finalURL = finalURL + '?';
-
-                  if (this.state.dataOffset !== '') {
-                    finalURL = finalURL + 'offset=' + this.state.dataOffset;
-                    if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-                      finalURL = finalURL + '&';
+                    if (this.state.recordView === false) {
+                      if (document.getElementById(sessionStorage.getItem('innerClosedID'))) {
+                        window.scrollTo(0, (parseInt(document.getElementById(sessionStorage.getItem('innerClosedID')).style.top) - 150));
+                        document.getElementById(sessionStorage.getItem('innerClosedID')).classList.add('recentlyClosed');
+                        console.log(document.getElementById(sessionStorage.getItem('innerClosedID')));
+                      }
                     }
-                  }
-                  if (this.state.listView !== '') {
-                    finalURL = finalURL + this.state.listView;
-                    if (this.state.sortByLabel !== '') {
-                      finalURL = finalURL + '&';
-                    }
-                  }
-                  if (this.state.sortByLabel !== '') {
-                    finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
-                  }
-                }
-                return axios
-                  .get(finalURL)
-                  .then(response => {
-                    // console.log(response.data.records);
-
-                    this.setState({
-                      data: preData.concat(response.data.records),
-                      //put it here
-                      totalLoads: this.state.totalLoads + 1,
-                      loading: false,
-                      error: false,
-                      dataOffset: response.data.offset,
-                    });
-                    setTimeout((function() {
+                    if (this.state.recordView) {
                       this.setState({
-                        loadingMore: false,
+                        currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
                       });
-                    }).bind(this), 500);
-                  })
+                    }
+                    sessionStorage.removeItem('innerOffset'); //reset it!
+                    sessionStorage.removeItem('innerClosedID'); //reset it!
+
+                    setTimeout((function() {
+                      // document.getElementsByClassName('recentlyClosed')[0].classNames = 'ArchiveItem isActive tele crew'
+                      // console.log();
+                    }).bind(this), 1000);
+                  }).bind(this), 500);
+                } else {
+                  console.log('loadmore!');
+                  let preData = this.state.data;
+                  this.setState({
+                    loadingMore: true,
+                  });
+                  finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
+                  if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '') {
+                    finalURL = finalURL + '?';
+
+                    if (this.state.dataOffset !== '') {
+                      finalURL = finalURL + 'offset=' + this.state.dataOffset;
+                      if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+                        finalURL = finalURL + '&';
+                      }
+                    }
+                    if (this.state.listView !== '') {
+                      finalURL = finalURL + this.state.listView;
+                      if (this.state.sortByLabel !== '') {
+                        finalURL = finalURL + '&';
+                      }
+                    }
+                    if (this.state.sortByLabel !== '') {
+                      finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+                    }
+                  }
+                  return axios
+                    .get(finalURL)
+                    .then(response => {
+                      // console.log(response.data.records);
+
+                      this.setState({
+                        data: preData.concat(response.data.records),
+                        //put it here
+                        totalLoads: this.state.totalLoads + 1,
+                        loading: false,
+                        error: false,
+                        dataOffset: response.data.offset,
+                      });
+                      setTimeout((function() {
+                        this.setState({
+                          loadingMore: false,
+                        });
+                      }).bind(this), 500);
+                    })
+                }
               }
             }.bind(this), 500);
           }
@@ -1649,35 +1809,6 @@ export default class CustomerService extends Component {
       });
     }).bind(this), 10);
   };
-
-  splashSelect = e => {
-    if (e.target.closest(".splashCard").id === 'browseAll') {
-      console.log('browse');
-      this.setState({
-        viewType: '',
-        altView: false,
-      });
-      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/all');
-    } else if (e.target.closest(".splashCard").id === 'attention') {
-      console.log('attention');
-      this.setState({
-        viewType: 'attention',
-      });
-      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/attention');
-    } else if (e.target.closest(".splashCard").id === 'proactive') {
-      console.log('proactive');
-      this.setState({
-        viewType: 'proactive',
-      });
-      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/proactive');
-    } else if (e.target.closest(".splashCard").id === 'visit') {
-      console.log('visit');
-      this.setState({
-        viewType: 'visit',
-      });
-      this.props.history.push('/' + this.props.citySet + '/customer-service/' + this.props.viewType + '/visit');
-    }
-  }
 
   changeAlt = e => {
     if (e.target.id === 'browseAll') {
@@ -1737,46 +1868,41 @@ export default class CustomerService extends Component {
       for (var i in this.state.data) {
         let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
 
-        if (this.state.data[i].fields['Standing'] === 'New Close' || this.state.data[i].fields['Standing'] === 'New Customer') {
+        if (this.state.data[i].fields['Standing'] === 'New Close') {
           attentionLength ++;
           let newItem = {};
           newItem['fields'] = this.state.data[i].fields;
           newItem['id'] = this.state.data[i].id;
 
+          newAttentionData['newClose'].push(newItem);
 
-
+        } else if (this.state.data[i].fields['Standing'] === 'New Customer') {
           let startDate;
 
           if (this.state.data[i].fields['Start Date']) {
             startDate = new Date(this.state.data[i].fields['Start Date']);
             let today = new Date();
 
-            if (today < startDate) {
-              newAttentionData['newClose'].push(newItem);
-            } else {
-              //past
+            if (this.state.data[i].fields['Last Call']) {
+              let callDate = new Date(this.state.data[i].fields['Last Call']);
 
-              if (this.state.data[i].fields['Last Call']) {
-                let callDate = new Date(this.state.data[i].fields['Last Call']);
-
-                if (startDate > callDate) {
-                  console.log('start > call - ' + this.state.data[i].fields['Company Name']);
-                  attentionLength ++;
-                  let newItem = {};
-                  newItem['fields'] = this.state.data[i].fields;
-                  newItem['id'] = this.state.data[i].id;
-                  newAttentionData['newStart'].push(newItem);
-                } else {
-                  console.log('ELSE - ' + this.state.data[i].fields['Company Name']);
-                }
-              } else {
-                console.log('no call - ' + this.state.data[i].fields['Company Name']);
+              if (startDate > callDate) {
+                console.log('start > call - ' + this.state.data[i].fields['Company Name']);
                 attentionLength ++;
                 let newItem = {};
                 newItem['fields'] = this.state.data[i].fields;
                 newItem['id'] = this.state.data[i].id;
                 newAttentionData['newStart'].push(newItem);
+              } else {
+                console.log('ELSE - ' + this.state.data[i].fields['Company Name']);
               }
+            } else {
+              console.log('no call - ' + this.state.data[i].fields['Company Name']);
+              attentionLength ++;
+              let newItem = {};
+              newItem['fields'] = this.state.data[i].fields;
+              newItem['id'] = this.state.data[i].id;
+              newAttentionData['newStart'].push(newItem);
             }
           }
 
@@ -1908,25 +2034,72 @@ export default class CustomerService extends Component {
           let twoMonthsAway = new Date(+new Date - 5.184e+9);
           let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
 
-          if (thisMonthly > 700) {
-            if (lastVisit < monthAway) {
-              visitLength ++;
-              let newItem = {};
-              newItem['fields'] = this.state.data[i].fields;
-              newItem['id'] = this.state.data[i].id;
-              newVisitData['needsVisit'].push(newItem);
-            } else if (lastVisit < fortnightAway) {
-              visitLength ++;
-              let newItem = {};
-              newItem['fields'] = this.state.data[i].fields;
-              newItem['id'] = this.state.data[i].id;
-              newVisitData['upcomingVisit'].push(newItem);
-            } else {
-              visitLength ++;
-              let newItem = {};
-              newItem['fields'] = this.state.data[i].fields;
-              newItem['id'] = this.state.data[i].id;
-              newVisitData['noNeed'].push(newItem);
+
+          if (this.state.userName === 'DRR') {
+            if (thisMonthly > 1499) {
+              if (lastVisit < monthAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['needsVisit'].push(newItem);
+              } else if (lastVisit < fortnightAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['upcomingVisit'].push(newItem);
+              } else {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['noNeed'].push(newItem);
+              }
+            }
+          } else if (this.state.userName === 'TSM') {
+            if (thisMonthly > 750 && thisMonthly < 1500) {
+              if (lastVisit < monthAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['needsVisit'].push(newItem);
+              } else if (lastVisit < fortnightAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['upcomingVisit'].push(newItem);
+              } else {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['noNeed'].push(newItem);
+              }
+            }
+          } else {
+            if (thisMonthly > 500) {
+              if (lastVisit < monthAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['needsVisit'].push(newItem);
+              } else if (lastVisit < fortnightAway) {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['upcomingVisit'].push(newItem);
+              } else {
+                visitLength ++;
+                let newItem = {};
+                newItem['fields'] = this.state.data[i].fields;
+                newItem['id'] = this.state.data[i].id;
+                newVisitData['noNeed'].push(newItem);
+              }
             }
           }
         }
@@ -2228,6 +2401,13 @@ export default class CustomerService extends Component {
 
 
 
+  splashSelect = () => {
+    console.log('giasdfsd');
+    setTimeout((function() {
+      window.location.reload();
+    }).bind(this), 100);
+  }
+
 
   selectFilterHandler = e => {
     let filterId = document.getElementById('filtersList').getElementsByClassName('isActive')[0].id;
@@ -2419,6 +2599,7 @@ export default class CustomerService extends Component {
         <div className="Customers">
           {this.modalShow}
           <Navbar
+            recapVisit={this.recapVisit}
             currentRecord={this.state.currentRecord}
             recordView={this.state.recordView}
             closeRecordHandler={this.closeRecordHandler}
@@ -2437,6 +2618,7 @@ export default class CustomerService extends Component {
           {this.currentView}
 
           <ControlsBar
+            recapVisit={this.recapVisit}
             searchHandler={this.searchHandler}
             recordView={this.state.recordView}
             franchiseView={this.state.franchiseView}
@@ -2459,6 +2641,7 @@ export default class CustomerService extends Component {
         <div className="Customers">
           {this.modalShow}
           <Navbar
+            recapVisit={this.recapVisit}
             currentRecord={this.state.currentRecord}
             recordView={this.state.recordView}
             closeRecordHandler={this.closeRecordHandler}
@@ -2477,6 +2660,7 @@ export default class CustomerService extends Component {
           {this.currentView}
 
           <ControlsBar
+            recapVisit={this.recapVisit}
             searchHandler={this.searchHandler}
             recordView={this.state.recordView}
             franchiseView={this.state.franchiseView}
@@ -2522,6 +2706,9 @@ export default class CustomerService extends Component {
           submitExport={this.submitExport}
           exportRecord={this.exportRecord}
           currentTable={this.state.currentTable}
+          recapSubmit={this.recapSubmit}
+          recapSlide={this.state.recapSlide}
+          recapBack={this.recapBack}
         />
         )
     }
@@ -2644,6 +2831,8 @@ export default class CustomerService extends Component {
               unhappyLength = {this.state.attentionData.unhappy.length}
               satisfiedLength = {this.state.attentionData.satisfied.length}
               openRecordHandler = {this.openRecordHandler}
+              pathName={this.props.location.pathname}
+              splashSelect={this.splashSelect}
             />
           );
         } else {
@@ -2670,9 +2859,25 @@ export default class CustomerService extends Component {
               twicePerMonth = {this.state.proactiveData.twicePerMonth.length}
               openRecordHandler = {this.openRecordHandler}
               data={this.state.data}
+              pathName={this.props.location.pathname}
+              splashSelect={this.splashSelect}
             />
           );
         }
+      } else if (this.props.viewType === 'tickets') {
+        return (
+          <TicketView
+            viewType={this.props.viewType}
+            recordI={this.props.recordI}
+            citySet={this.props.citySet}
+            spList={this.state.spList}
+            openRecordHandler = {this.openRecordHandler}
+            data={this.state.data}
+            pathname={this.props.location.pathname}
+            splashSelect={this.splashSelect}
+            userName={this.state.userName}
+          />
+        );
       } else if (this.props.viewType === 'visit') {
         if (this.state.visitData) {
           return (
@@ -2685,6 +2890,8 @@ export default class CustomerService extends Component {
               upcomingVisit = {this.state.visitData.upcomingVisit.length}
               openRecordHandler = {this.openRecordHandler}
               data={this.state.data}
+              pathName={this.props.location.pathname}
+              splashSelect={this.splashSelect}
             />
           );
         }

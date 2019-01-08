@@ -8,6 +8,7 @@ import attentionImage from '../../assets/icons/white/attention.png';
 import phoneImg from '../../assets/icons/white/phone.png';
 import exportImg from '../../assets/icons/primary/export.png';
 import hamburger from '../../assets/icons/white/hamburger.png';
+import CustomerDashNav from '../CustomerDashNav'
 
 export default class AttentionView extends Component {
 
@@ -27,18 +28,13 @@ export default class AttentionView extends Component {
 
     return (
       <div className="AttentionView">
-        <div className="Navbar">
+        <div className="Navbar SplashBar">
           <Link to={`/`}>
             <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
               <img src={hamburger} alt="databases" />
             </div>
           </Link>
-          <h4>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} / Needs Attention</h4>
-          <div className="rightButtons">
-            <a href={allURL.replace('//', '/')} className="btn softGrad--secondary" onClick={this.props.changeAlt} id="browseAll">All Records</a>
-            <a href={proURL.replace('//', '/')} className="btn softGrad--blue" onClick={this.props.changeAlt} id="proactive">Proactives</a>
-            <a href={visURL.replace('//', '/')} className="btn softGrad--black" onClick={this.props.changeAlt} id="vis">Visits</a>
-          </div>
+          <h4><span>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} Dashboard</span> <br /> Needs Attention</h4>
         </div>
 
         <div className="attentionContainer">
@@ -67,6 +63,15 @@ export default class AttentionView extends Component {
             {this.props.attentionData['satisfied'] ? this.props.attentionData['satisfied'].map((e, i) => this.attentionRowSatisfied(e, i)) : ''}
           </div>
         </div>
+
+        <CustomerDashNav
+          searchHandler={this.props.searchHandler}
+          splashSelect={this.props.splashSelect}
+          pathName={this.props.pathname}
+          citySet={this.props.citySet}
+          pathName={this.props.pathName}
+          loadAttentionData={this.props.loadAttentionData}
+        />
       </div>
     );
   }

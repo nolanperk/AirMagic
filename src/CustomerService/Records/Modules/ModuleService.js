@@ -52,6 +52,7 @@ export default class ModuleService extends Component {
         <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
           <option id="none"></option>
           <option id="Lisa+Nice">Lisa Nice</option>
+          <option id="Travis+Martin">Travis Martin</option>
           <option id="David+Rivera">David Rivera</option>
           <option id="Old">Old</option>
         </select>

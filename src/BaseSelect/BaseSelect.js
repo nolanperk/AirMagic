@@ -50,7 +50,7 @@ export default class BaseSelect extends Component {
           <h1>Choose Your Database</h1>
           <ul className="cardContainer">
               <li className="whiteCard">
-                <Link to={`/tampa/customer-service/`}>
+                <Link to={`/tampa/customer-service/tickets`}>
                   <div className="inner">
                     <div className="circleDot"></div>
                     <div className="baseIcon"></div>
@@ -77,7 +77,7 @@ export default class BaseSelect extends Component {
               </Link>
             </li>
             <li className="whiteCard">
-              <Link to={`/orlando/customer-service/`}>
+              <Link to={`/orlando/customer-service/tickets`}>
                 <div className="inner">
                   <div className="circleDot"></div>
                   <div className="baseIcon"></div>

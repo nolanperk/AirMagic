@@ -60,7 +60,7 @@ a:active {
   outline: 0;
   opacity: 0.5; }
 
-.btn {
+.btn, .RecapVisitModal.modalInner, .TicketModal .inner {
   border-radius: 3px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   background-color: #fff; }
@@ -139,9 +139,9 @@ ul {
   #next p, #next .fieldsList label, .fieldsList #next label {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .SplashView .splashWrapper .splashCard .cornerNumber, .SplashView .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .CustomerDashNav .splashWrapper .splashCard .cornerNumber, .CustomerDashNav .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .SplashView .splashWrapper .splashCard .cornerNumber::before, .SplashView .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .CustomerDashNav .splashWrapper .splashCard .cornerNumber::before, .CustomerDashNav .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
     content: "";
     position: absolute;
     top: 0;
@@ -300,6 +300,9 @@ ul {
     .navIcon img {
       width: 12px; } }
 
+.normalNav .Navbar {
+  width: 100%; }
+
 .Navbar {
   padding: 20px;
   position: fixed;
@@ -439,9 +442,12 @@ ul {
   .normalNav .Navbar .inputBlock {
     display: none; } }
 
+.normalControls.ControlsBar {
+  width: 100%; }
+
 .ControlsBar {
   position: fixed;
-  width: 100%;
+  width: 60%;
   bottom: 0;
   background: rgba(235, 235, 232, 0.95);
   padding: 20px;
@@ -1379,6 +1385,55 @@ hr {
     cursor: pointer;
     color: #1FC26A; }
 
+.RecapVisitModal.modalInner {
+  width: 90%;
+  max-width: 900px;
+  height: 90vh;
+  border-radius: 10px;
+  padding: 30px; }
+  .RecapVisitModal.modalInner h3 {
+    float: left;
+    width: calc(100% - 70px);
+    font-size: 4vw;
+    line-height: 4.5vw;
+    padding-top: 3px; }
+  .RecapVisitModal.modalInner .navIcon {
+    float: right; }
+  .RecapVisitModal.modalInner .backArrow {
+    width: 16px;
+    position: absolute;
+    top: 27px;
+    left: 25px;
+    opacity: 0.35; }
+  .RecapVisitModal.modalInner #RecapTicket textarea {
+    width: 100%;
+    margin: 10px 0 20px;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    background: #F7F7F5;
+    outline: none;
+    transition: all 0.25 ease; }
+    .RecapVisitModal.modalInner #RecapTicket textarea:focus {
+      background: rgba(210, 210, 210, 0.35);
+      transition: all 0.25 ease; }
+
+#RecapVisit, #RecapNotes, #RecapTicket {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+  #RecapVisit textarea, #RecapNotes textarea, #RecapTicket textarea {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-top: 10px; }
+  #RecapVisit button, #RecapNotes button, #RecapTicket button {
+    margin: 5px 0;
+    font-size: 4vw;
+    letter-spacing: 0.25vw; }
+    #RecapVisit button#create, #RecapNotes button#create, #RecapTicket button#create {
+      margin-top: 15px; }
+
 #sortTable, #exportForm {
   padding: 1.5vw 0;
   border-top: solid 1px #EBEBE8;
@@ -1636,134 +1691,192 @@ hr {
     .mapNav .customersList {
       max-height: 23vh; } }
 
+.CustomerDashNav .splashWrapper {
+  position: absolute;
+  width: 15%;
+  height: 89vh;
+  top: 0;
+  right: 0; }
+  .CustomerDashNav .splashWrapper a {
+    text-decoration: none; }
+    .CustomerDashNav .splashWrapper a:hover {
+      opacity: 1; }
+  .CustomerDashNav .splashWrapper .searchArea {
+    padding-left: 3%; }
+    .CustomerDashNav .splashWrapper .searchArea .innerSearch {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+  .CustomerDashNav .splashWrapper .vr {
+    background: #c5c5c4;
+    flex-basis: 1px; }
+  .CustomerDashNav .splashWrapper .linkSet {
+    display: flex;
+    flex: 1 1 0;
+    padding: 0;
+    flex-basis: 25%;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 0; }
+    .CustomerDashNav .splashWrapper .linkSet p, .CustomerDashNav .splashWrapper .linkSet .fieldsList label, .fieldsList .CustomerDashNav .splashWrapper .linkSet label {
+      font-size: 14px;
+      line-height: 16px; }
+    .CustomerDashNav .splashWrapper .linkSet .splashCard {
+      flex-basis: 25%;
+      position: relative; }
+      .CustomerDashNav .splashWrapper .linkSet .splashCard a {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0; }
+    .CustomerDashNav .splashWrapper .linkSet .splashCard--all {
+      margin-bottom: 0; }
+  .CustomerDashNav .splashWrapper .isActive {
+    pointer-events: none; }
+    .CustomerDashNav .splashWrapper .isActive .circleDot::before {
+      content: none; }
+    .CustomerDashNav .splashWrapper .isActive p, .CustomerDashNav .splashWrapper .isActive .fieldsList label, .fieldsList .CustomerDashNav .splashWrapper .isActive label {
+      font-weight: 900;
+      color: #fff; }
+  .CustomerDashNav .splashWrapper #ticket .circleDot {
+    background: #fab32a; }
+  .CustomerDashNav .splashWrapper #ticket .cornerNumber {
+    background: #fab32a; }
+  .CustomerDashNav .splashWrapper #ticket.isActive {
+    background: #fab32a; }
+  .CustomerDashNav .splashWrapper #attention .circleDot {
+    background: #C31F2F; }
+  .CustomerDashNav .splashWrapper #attention .cornerNumber {
+    background: #C31F2F; }
+  .CustomerDashNav .splashWrapper #attention.isActive {
+    background: #C31F2F; }
+  .CustomerDashNav .splashWrapper #proactive .circleDot {
+    background: #407ae6; }
+  .CustomerDashNav .splashWrapper #proactive .cornerNumber {
+    background: #407ae6; }
+  .CustomerDashNav .splashWrapper #proactive.isActive {
+    background: #407ae6; }
+  .CustomerDashNav .splashWrapper #visit .circleDot {
+    background: #131313; }
+  .CustomerDashNav .splashWrapper #visit .cornerNumber {
+    background: #131313; }
+  .CustomerDashNav .splashWrapper #visit.isActive {
+    background: #131313; }
+  .CustomerDashNav .splashWrapper #browseAll .circleDot {
+    background: #1FC26A; }
+  .CustomerDashNav .splashWrapper #browseAll.isActive {
+    background: #1FC26A; }
+  .CustomerDashNav .splashWrapper .splashCard {
+    background: #fff;
+    border-radius: 0px;
+    box-shadow: 0 -2px 7px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s ease; }
+    .CustomerDashNav .splashWrapper .splashCard:hover {
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.25); }
+    .CustomerDashNav .splashWrapper .splashCard .cornerNumber {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-left: 16px;
+      padding-right: 10px;
+      padding-top: 8px;
+      padding-bottom: 15px;
+      border-bottom-left-radius: 100px;
+      color: #fff;
+      font-weight: 600; }
+      .CustomerDashNav .splashWrapper .splashCard .cornerNumber.loading {
+        background: none !important; }
+        .CustomerDashNav .splashWrapper .splashCard .cornerNumber.loading img {
+          width: 25px; }
+    .CustomerDashNav .splashWrapper .splashCard .inner {
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+    .CustomerDashNav .splashWrapper .splashCard .circleDot {
+      margin: auto;
+      margin-bottom: 3px;
+      width: 5vw;
+      height: 5vw;
+      border-radius: 100%; }
+      .CustomerDashNav .splashWrapper .splashCard .circleDot img {
+        width: 45%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+
+.CustomerDashNav .searchArea {
+  position: fixed;
+  bottom: 0;
+  height: 11vh;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  background: #fff;
+  border-top: solid 3px #e4e4e4;
+  text-align: center; }
+  .CustomerDashNav .searchArea h2 {
+    font-size: 22px;
+    line-height: 23px; }
+  .CustomerDashNav .searchArea .innerSearch {
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); }
+    .CustomerDashNav .searchArea .innerSearch form {
+      border-radius: 100px;
+      background: #f5f5f5; }
+      .CustomerDashNav .searchArea .innerSearch form input, .CustomerDashNav .searchArea .innerSearch form select {
+        background: #f5f5f5; }
+      .CustomerDashNav .searchArea .innerSearch form input {
+        width: calc(100% - 160px);
+        height: 53px;
+        vertical-align: top;
+        border-radius: 100px;
+        border: none;
+        padding: 10px 20px;
+        outline: 0; }
+      .CustomerDashNav .searchArea .innerSearch form select {
+        width: 90px;
+        margin-right: 10px;
+        height: 53px;
+        vertical-align: top;
+        border-radius: 0;
+        border: none;
+        outline: 0;
+        border-left: 1px solid #dedede; }
+
+.SplashBar {
+  width: 85%; }
+  .SplashBar h4 span {
+    display: inline-block;
+    list-style: none;
+    opacity: 0.45;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    margin-right: 1vw;
+    position: relative; }
+
 .SplashView {
   position: absolute;
   width: 100%;
   height: 100%; }
-  .SplashView .searchArea {
-    position: fixed;
-    bottom: 0;
-    padding: 30px 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    background: #fff;
-    border-top: solid 3px #e4e4e4;
-    text-align: center; }
-    .SplashView .searchArea h2 {
-      font-size: 22px;
-      line-height: 23px; }
-    .SplashView .searchArea .innerSearch {
-      max-width: 500px;
-      margin: auto; }
-      .SplashView .searchArea .innerSearch form {
-        background: #f5f5f5;
-        box-shadow: none; }
-        .SplashView .searchArea .innerSearch form input, .SplashView .searchArea .innerSearch form select {
-          background: #f5f5f5; }
-  .SplashView .splashWrapper {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 1000px;
-    width: 80%;
-    align-items: stretch; }
-    .SplashView .splashWrapper a {
-      text-decoration: none; }
-      .SplashView .splashWrapper a:hover {
-        opacity: 1; }
-    .SplashView .splashWrapper .searchArea {
-      padding-left: 3%; }
-      .SplashView .splashWrapper .searchArea .innerSearch {
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%); }
-    .SplashView .splashWrapper .vr {
-      background: #c5c5c4;
-      flex-basis: 1px; }
-    .SplashView .splashWrapper .linkSet {
-      display: flex;
-      flex: 1 1 0;
-      padding: 0;
-      flex-basis: 25%; }
-      .SplashView .splashWrapper .linkSet .splashCard {
-        flex-basis: 25%;
-        margin-right: 3%; }
-      .SplashView .splashWrapper .linkSet .splashCard--all {
-        margin-right: 0; }
-    .SplashView .splashWrapper #proactive .circleDot {
-      background: #407ae6; }
-    .SplashView .splashWrapper #proactive .cornerNumber {
-      background: #407ae6; }
-    .SplashView .splashWrapper #visits .circleDot {
-      background: #131313; }
-    .SplashView .splashWrapper #visits .cornerNumber {
-      background: #131313; }
-    .SplashView .splashWrapper #browseAll a {
-      height: 100%;
-      position: absolute;
-      width: 100%; }
-    .SplashView .splashWrapper #browseAll .inner {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%); }
-    .SplashView .splashWrapper #browseAll .circleDot {
-      background: #1FC26A;
-      width: 95px;
-      height: 95px; }
-    .SplashView .splashWrapper .splashCard {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.5s ease; }
-      .SplashView .splashWrapper .splashCard:hover {
-        transition: all 0.5s ease;
-        transform: translateY(5px);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
-      .SplashView .splashWrapper .splashCard .cornerNumber {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding-left: 16px;
-        padding-right: 10px;
-        padding-top: 8px;
-        padding-bottom: 15px;
-        border-bottom-left-radius: 100px;
-        background: #C31F2F;
-        color: #fff;
-        font-weight: 600;
-        background: #C31F2F; }
-        .SplashView .splashWrapper .splashCard .cornerNumber.loading {
-          background: none !important; }
-          .SplashView .splashWrapper .splashCard .cornerNumber.loading img {
-            width: 25px; }
-      .SplashView .splashWrapper .splashCard .inner {
-        padding: 24% 12%;
-        text-align: center; }
-      .SplashView .splashWrapper .splashCard .circleDot {
-        margin: auto;
-        margin-bottom: 10px;
-        width: 95px;
-        height: 95px;
-        border-radius: 100%;
-        background: #C31F2F; }
-        .SplashView .splashWrapper .splashCard .circleDot img {
-          width: 45%;
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%); }
   .SplashView form {
     background: white;
     border-radius: 100px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    margin-top: 15px; }
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); }
     .SplashView form input {
-      width: calc(100% - 153px);
+      width: calc(100% - 160px);
       height: 53px;
       vertical-align: top;
       border-radius: 100px;
@@ -1783,9 +1896,10 @@ hr {
 
 .attentionContainer {
   position: relative;
-  width: 90%;
-  margin: auto;
-  padding: 8vw 0; }
+  width: 85%;
+  padding: 100px 6% 50px;
+  height: 89vh;
+  overflow: scroll; }
   .attentionContainer .rowItems {
     padding: 0 1%;
     margin-bottom: 50px; }
@@ -1805,26 +1919,10 @@ hr {
       background: rgba(31, 194, 106, 0.75); }
     .attentionContainer .rowItems .everyOtherMonth .subInfo {
       background: rgba(226, 99, 13, 0.35); }
-  .attentionContainer .hrTitle {
-    padding: 20px 2%;
-    position: relative; }
-    .attentionContainer .hrTitle span {
-      background: #F7F7F5;
-      z-index: 1;
-      position: relative;
-      padding: 0 1%; }
-    .attentionContainer .hrTitle::after {
-      content: "";
-      background: #131313;
-      position: absolute;
-      height: 1px;
-      width: 100%;
-      left: 0;
-      top: 50%; }
 
 .rowItems .ArchiveItem {
   padding: 0.5vw;
-  width: 16%;
+  width: 19%;
   position: relative;
   transition: all 0.5s ease;
   cursor: pointer; }
@@ -1891,24 +1989,21 @@ hr {
     width: 25%; } }
 
 @media only screen and (max-width: 900px) {
+  .attentionContainer {
+    width: calc(100% - 75px); }
+  .CustomerDashNav .splashWrapper, .splashWrapper {
+    z-index: 10;
+    width: 75px;
+    background: #fff; }
+    .CustomerDashNav .splashWrapper .linkSet .splashCard .circleDot, .splashWrapper .linkSet .splashCard .circleDot {
+      width: 40px;
+      height: 40px; }
+      .CustomerDashNav .splashWrapper .linkSet .splashCard .circleDot img, .splashWrapper .linkSet .splashCard .circleDot img {
+        top: 42%; }
   .rowItems .ArchiveItem {
     width: 33%; }
   .SplashView .searchArea {
-    padding: 15px 4%; }
-  .SplashView .splashWrapper .linkSet {
-    flex-wrap: wrap; }
-    .SplashView .splashWrapper .linkSet .splashCard {
-      margin-right: 0;
-      flex-basis: 47%;
-      margin-bottom: 3%; }
-      .SplashView .splashWrapper .linkSet .splashCard:nth-child(odd) {
-        margin-right: 5%; }
-      .SplashView .splashWrapper .linkSet .splashCard#browseAll .circleDot {
-        width: 60px;
-        height: 60px; }
-      .SplashView .splashWrapper .linkSet .splashCard .circleDot {
-        width: 60px;
-        height: 60px; } }
+    padding: 15px 4%; } }
 
 @media only screen and (max-width: 767px) {
   .rowItems .ArchiveItem {
@@ -2375,3 +2470,482 @@ hr {
   .RecordView--left .RecordNotes {
     right: 20px;
     left: auto; } }
+
+.TicketList {
+  position: absolute;
+  width: 85%;
+  height: 100%;
+  padding-top: 100px;
+  height: 89vh;
+  padding: 100px 6% 50px;
+  overflow: scroll; }
+  .TicketList .addNewTicket {
+    position: fixed;
+    z-index: 9;
+    bottom: 12vh;
+    left: 15%;
+    width: 50%;
+    text-align: center; }
+  .TicketList .hrTitle {
+    padding: 20px 20px 0px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    color: #fff; }
+    .TicketList .hrTitle.moreIssues {
+      border: solid 2px #C31F2F;
+      border-bottom: 0; }
+      .TicketList .hrTitle.moreIssues span {
+        color: #C31F2F; }
+    .TicketList .hrTitle.created {
+      border: solid 2px #fab32a;
+      border-bottom: 0; }
+      .TicketList .hrTitle.created span {
+        color: #fab32a; }
+    .TicketList .hrTitle.sentToSP {
+      border: solid 2px #407ae6;
+      border-bottom: 0; }
+      .TicketList .hrTitle.sentToSP span {
+        color: #407ae6; }
+    .TicketList .hrTitle.fixedBySP {
+      border: solid 2px #32d8d1;
+      border-bottom: 0; }
+      .TicketList .hrTitle.fixedBySP span {
+        color: #32d8d1; }
+    .TicketList .hrTitle.resolved {
+      border: solid 2px #1FC26A;
+      border-bottom: 0; }
+      .TicketList .hrTitle.resolved span {
+        color: #1FC26A; }
+  .TicketList .rowItems {
+    padding: 20px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-bottom: 20px; }
+    .TicketList .rowItems.moreIssues {
+      border: solid 2px #C31F2F;
+      border-top: 0; }
+    .TicketList .rowItems.created {
+      border: solid 2px #fab32a;
+      border-top: 0; }
+    .TicketList .rowItems.sentToSP {
+      border: solid 2px #407ae6;
+      border-top: 0; }
+    .TicketList .rowItems.fixedBySP {
+      border: solid 2px #32d8d1;
+      border-top: 0; }
+    .TicketList .rowItems.resolved {
+      border: solid 2px #1FC26A;
+      border-top: 0; }
+  .TicketList .TicketItem {
+    width: 29%;
+    margin: 1%; }
+    .TicketList .TicketItem .whiteCard, .TicketList .TicketItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .TicketItem input, .TicketList .TicketItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .TicketItem select {
+      border-radius: 8px; }
+    .TicketList .TicketItem hr {
+      margin: 1vw 0;
+      height: 1px;
+      background: #EBEBE8;
+      width: 100%; }
+    .TicketList .TicketItem .titleArea #created, .TicketList .TicketItem .titleArea #touched {
+      opacity: 0.4;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-style: normal;
+      font-weight: bold; }
+      .TicketList .TicketItem .titleArea #created.warning, .TicketList .TicketItem .titleArea #touched.warning {
+        color: #C31F2F;
+        opacity: 1; }
+    .TicketList .TicketItem .titleArea .isHidden {
+      display: none; }
+    .TicketList .TicketItem .titleArea span.Lisa {
+      color: #1FC26A; }
+    .TicketList .TicketItem .titleArea span.Travis {
+      color: #C31F2F; }
+    .TicketList .TicketItem .titleArea span.David {
+      color: #407ae6; }
+    .TicketList .TicketItem .titleArea span.Christy {
+      color: #1FC26A; }
+    .TicketList .TicketItem .titleArea span.Sergi {
+      color: #C31F2F; }
+    .TicketList .TicketItem .accountLink p, .TicketList .TicketItem .accountLink .fieldsList label, .fieldsList .TicketList .TicketItem .accountLink label {
+      font-size: 12px;
+      line-height: 14px; }
+
+.TicketModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(247, 247, 245, 0.9);
+  z-index: 12; }
+  .TicketModal .inner {
+    position: absolute;
+    width: 90%;
+    max-width: 900px;
+    top: 50%;
+    left: 50%;
+    height: 90vh;
+    border-radius: 10px;
+    transform: translate(-50%, -50%); }
+    .TicketModal .inner .modalTitle {
+      padding: 20px 30px;
+      height: 90px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
+      .TicketModal .inner .modalTitle .navIcon {
+        float: right; }
+      .TicketModal .inner .modalTitle h4 {
+        vertical-align: middle;
+        display: inline-block;
+        padding: 14px 0;
+        width: calc(100% - 100px); }
+        .TicketModal .inner .modalTitle h4 em {
+          opacity: 0.4;
+          text-transform: uppercase;
+          font-size: 11px;
+          letter-spacing: 3px;
+          font-style: normal;
+          vertical-align: middle;
+          margin-left: 10px; }
+    .TicketModal .inner .modalBody {
+      position: absolute;
+      width: 100%;
+      height: calc(100% - 90px); }
+      .TicketModal .inner .modalBody .mainTicket, .TicketModal .inner .modalBody .accountData {
+        overflow-y: scroll;
+        height: 100%;
+        float: left; }
+      .TicketModal .inner .modalBody .mainTicket {
+        width: 58%;
+        padding: 3vw 3vw 2vw; }
+        .TicketModal .inner .modalBody .mainTicket .inputBlock {
+          margin-bottom: 2vw; }
+          .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock {
+            position: relative; }
+            .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock::after {
+              background: url("../assets/icons/white/down_carrot.png");
+              content: "";
+              position: absolute;
+              background-size: cover;
+              width: 16px;
+              height: 16px;
+              pointer-events: none;
+              right: 20px;
+              top: 50%;
+              transform: translateY(-50%); }
+            .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select {
+              -webkit-appearance: none;
+              border: none;
+              width: 100%;
+              padding: 10px 20px;
+              padding-right: 30px;
+              color: #fff;
+              font-size: 14px;
+              outline: 0;
+              cursor: grab;
+              border-radius: 100px;
+              font-weight: bold;
+              background: #d2d2d2; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.blank {
+                background: #d2d2d2; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.Created {
+                background: #fab32a; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.Sent {
+                background: #407ae6; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.Fixed {
+                background: #32d8d1; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.More {
+                background: #C31F2F; }
+              .TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select.Resolved {
+                background: #1FC26A; }
+          .TicketModal .inner .modalBody .mainTicket .inputBlock textarea {
+            width: 100%;
+            font-size: 12px;
+            line-height: 13px;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 15px;
+            background: #F7F7F5;
+            outline: none;
+            transition: all 0.25 ease; }
+            .TicketModal .inner .modalBody .mainTicket .inputBlock textarea:focus {
+              background: rgba(210, 210, 210, 0.35);
+              transition: all 0.25 ease; }
+        .TicketModal .inner .modalBody .mainTicket .pictureList {
+          font-size: 0; }
+          .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem {
+            display: inline-block;
+            width: 48%;
+            padding: 12px 14px;
+            background: #F7F7F5;
+            margin: 1%;
+            vertical-align: middle;
+            border-radius: 5px; }
+            .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem textarea {
+              width: calc(100% + 28px);
+              font-size: 12px;
+              line-height: 13px;
+              background: transparent;
+              border: none;
+              margin-left: -14px;
+              margin-bottom: -12px;
+              padding: 12px 15px;
+              line-height: 17px;
+              outline: none;
+              transition: all 0.25 ease; }
+              .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem textarea:focus {
+                background: rgba(210, 210, 210, 0.25);
+                transition: all 0.25 ease; }
+            .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem img {
+              border-radius: 5px;
+              margin-bottom: 10px; }
+            .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage {
+              padding: 50px 14px;
+              vertical-align: top;
+              text-align: center;
+              cursor: pointer;
+              transition: all 0.25 ease; }
+              .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage:hover {
+                background: rgba(210, 210, 210, 0.35);
+                transition: all 0.25 ease; }
+              .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage #output {
+                display: none; }
+              .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage.imgAdded {
+                padding: 12px 14px; }
+                .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage.imgAdded #output {
+                  display: block; }
+                .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage.imgAdded .uploadInner {
+                  display: none; }
+              .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage .navIcon {
+                padding: 30px;
+                margin-bottom: 1vw; }
+                .TicketModal .inner .modalBody .mainTicket .pictureList .pictureItem.addImage .navIcon img {
+                  width: 40px;
+                  margin: 0; }
+      .TicketModal .inner .modalBody .accountData {
+        background: rgba(210, 210, 210, 0.45);
+        width: 42%;
+        position: relative; }
+        .TicketModal .inner .modalBody .accountData .recordCards {
+          padding: 3vw 2vw 2vw;
+          position: absolute;
+          width: 100%;
+          height: calc(100% - 50px);
+          overflow-y: scroll; }
+        .TicketModal .inner .modalBody .accountData .RecordCard {
+          background: #fff;
+          border-radius: 10px;
+          padding: 2vw 2.5vw;
+          margin: 2vw 0;
+          position: relative; }
+          .TicketModal .inner .modalBody .accountData .RecordCard.card--Notes {
+            max-height: 50vh;
+            overflow-y: scroll; }
+          .TicketModal .inner .modalBody .accountData .RecordCard:first-child {
+            margin-top: 0; }
+          .TicketModal .inner .modalBody .accountData .RecordCard:last-child {
+            margin-bottom: 0; }
+          .TicketModal .inner .modalBody .accountData .RecordCard .spLevel {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 10px;
+            font-weight: 900;
+            border-radius: 100px;
+            padding: 6px 11px;
+            color: #fff; }
+            .TicketModal .inner .modalBody .accountData .RecordCard .spLevel.level--1 {
+              background: #C31F2F; }
+            .TicketModal .inner .modalBody .accountData .RecordCard .spLevel.level--2 {
+              background: #fab32a; }
+            .TicketModal .inner .modalBody .accountData .RecordCard .spLevel.level--3 {
+              background: #32d8d1; }
+            .TicketModal .inner .modalBody .accountData .RecordCard .spLevel.level--4 {
+              background: #407ae6; }
+            .TicketModal .inner .modalBody .accountData .RecordCard .spLevel.level--5 {
+              background: #1FC26A; }
+          .TicketModal .inner .modalBody .accountData .RecordCard p, .TicketModal .inner .modalBody .accountData .RecordCard .fieldsList label, .fieldsList .TicketModal .inner .modalBody .accountData .RecordCard label {
+            font-size: 12px; }
+          .TicketModal .inner .modalBody .accountData .RecordCard h3 {
+            line-height: 19px;
+            font-size: 20px;
+            margin-bottom: 15px; }
+            .TicketModal .inner .modalBody .accountData .RecordCard h3 a {
+              font-size: 18px;
+              color: #407ae6; }
+            .TicketModal .inner .modalBody .accountData .RecordCard h3:last-child {
+              margin-bottom: 0; }
+            .TicketModal .inner .modalBody .accountData .RecordCard h3 span {
+              font-size: 11px;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              opacity: 0.5; }
+        .TicketModal .inner .modalBody .accountData .bottom {
+          background: #131313;
+          border-radius: 4px;
+          padding: 10px 20px;
+          padding-right: 45px;
+          transition: all 0.25s ease;
+          margin-top: 10px;
+          color: #fff;
+          text-decoration: none;
+          position: absolute;
+          bottom: 2%;
+          width: 90%;
+          left: 5%; }
+          .TicketModal .inner .modalBody .accountData .bottom img {
+            width: 14px;
+            position: relative;
+            right: 15px;
+            transition: all 0.25s ease;
+            float: right;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%); }
+          .TicketModal .inner .modalBody .accountData .bottom:hover {
+            text-decoration: none;
+            transition: all 0.25s ease;
+            background: rgba(19, 19, 19, 0.75); }
+            .TicketModal .inner .modalBody .accountData .bottom:hover img {
+              right: 12px;
+              transition: all 0.25s ease; }
+
+.TicketModal.AddTicket .navIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+.TicketModal.AddTicket .backArrow {
+  width: 16px;
+  position: absolute;
+  top: 27px;
+  left: 25px;
+  opacity: 0.35; }
+
+.TicketModal.AddTicket form {
+  padding: 2vw 5vw;
+  position: absolute;
+  width: 100%;
+  top: calc(50%);
+  transform: translateY(-50%);
+  background: transparent;
+  box-shadow: none; }
+  .TicketModal.AddTicket form h3 {
+    width: 70%;
+    line-height: 2vw; }
+  .TicketModal.AddTicket form .innerConfirm {
+    margin: 10px 0 30px;
+    background: #F7F7F5;
+    border-radius: 10px;
+    width: 100%;
+    padding: 3vw;
+    opacity: 0.75; }
+    .TicketModal.AddTicket form .innerConfirm h2 {
+      margin-bottom: 10px; }
+  .TicketModal.AddTicket form textarea {
+    width: 100%;
+    margin: 10px 0 20px;
+    font-size: 12px;
+    line-height: 13px;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 15px;
+    background: #F7F7F5;
+    outline: none;
+    transition: all 0.25 ease; }
+    .TicketModal.AddTicket form textarea:focus {
+      background: rgba(210, 210, 210, 0.35);
+      transition: all 0.25 ease; }
+  .TicketModal.AddTicket form select {
+    width: 100%;
+    background: #F7F7F5;
+    border-radius: 100px;
+    border: 1px solid #d2d2d2;
+    padding: 0 20px;
+    font-weight: 700; }
+  .TicketModal.AddTicket form .selectBlock {
+    margin: 10px 0 30px;
+    position: relative; }
+    .TicketModal.AddTicket form .selectBlock::after {
+      background: url("../assets/icons/black/down_carrot.png");
+      content: "";
+      opacity: 0.5;
+      position: absolute;
+      background-size: cover;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%); }
+
+@media only screen and (max-width: 900px) {
+  .TicketModal.AddTicket form h3 {
+    width: 80%;
+    line-height: 6vw;
+    font-size: 6vw; }
+  .TicketModal .inner .modalTitle {
+    padding: 13px 30px;
+    height: 75px; }
+    .TicketModal .inner .modalTitle h4 {
+      font-size: 3.5vw;
+      width: calc(100% - 70px); }
+      .TicketModal .inner .modalTitle h4 em {
+        font-size: 10px;
+        margin-left: 0;
+        display: block;
+        width: 100%;
+        margin-top: 3px; }
+  .TicketModal .inner .modalBody {
+    overflow-y: scroll; }
+    .TicketModal .inner .modalBody .mainTicket {
+      width: 100%;
+      height: auto;
+      float: none;
+      overflow: auto;
+      padding: 7%; }
+      .TicketModal .inner .modalBody .mainTicket h3 {
+        font-size: 3.65vw; }
+      .TicketModal .inner .modalBody .mainTicket .inputBlock {
+        margin-top: 20px; }
+        .TicketModal .inner .modalBody .mainTicket .inputBlock:first-child {
+          margin-top: 0; }
+    .TicketModal .inner .modalBody .accountData {
+      float: none;
+      width: 100%;
+      height: auto;
+      overflow: auto; }
+      .TicketModal .inner .modalBody .accountData .recordCards {
+        position: relative; }
+        .TicketModal .inner .modalBody .accountData .recordCards .RecordCard h3 {
+          font-size: 5vw;
+          line-height: 5vw; }
+        .TicketModal .inner .modalBody .accountData .recordCards .card--Notes {
+          max-height: none;
+          overflow-y: auto; }
+      .TicketModal .inner .modalBody .accountData .bottom {
+        position: fixed; }
+  .TicketList {
+    width: calc(100% - 75px); }
+    .TicketList .addNewTicket {
+      bottom: 12vh; }
+    .TicketList .TicketItem {
+      width: 100%;
+      margin-bottom: 15px; }
+      .TicketList .TicketItem:last-child {
+        margin-bottom: 0; }
+      .TicketList .TicketItem .titleArea h3 {
+        font-size: 5vw;
+        line-height: 5vw; }
+      .TicketList .TicketItem .titleArea p.boldText, .TicketList .TicketItem .titleArea .fieldsList label.boldText, .fieldsList .TicketList .TicketItem .titleArea label.boldText {
+        font-size: 15px;
+        font-weight: 300; }
+    .TicketList .rowItems {
+      padding: 15px; }
+      .TicketList .rowItems .whiteCard, .TicketList .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .rowItems input, .TicketList .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .rowItems select {
+        padding: 4vw; }
+    .TicketList .hrTitle {
+      padding: 15px;
+      padding-bottom: 0; } }

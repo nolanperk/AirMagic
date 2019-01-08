@@ -9,6 +9,7 @@ import phoneImg from '../../assets/icons/white/phone.png';
 import exportImg from '../../assets/icons/primary/export.png';
 import hamburger from '../../assets/icons/white/hamburger.png';
 
+import CustomerDashNav from '../CustomerDashNav'
 export default class ProactiveView extends Component {
 
   componentDidMount() {
@@ -27,18 +28,13 @@ export default class ProactiveView extends Component {
 
     return (
       <div className="ProactiveView">
-        <div className="Navbar">
+        <div className="Navbar SplashBar">
           <Link to={`/`}>
             <div className="navIcon softGrad--primary" onClick={this.revertMemory}>
               <img src={hamburger} alt="databases" />
             </div>
           </Link>
-          <h4>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} / Proactive</h4>
-          <div className="rightButtons">
-            <a href={allURL.replace('//', '/')} className="btn softGrad--secondary" onClick={this.props.changeAlt} id="browseAll">All Records</a>
-            <a href={attURL.replace('//', '/')} className="btn softGrad--primary" onClick={this.props.changeAlt} id="proactive">Needs Attention</a>
-            <a href={visURL.replace('//', '/')} className="btn softGrad--black" onClick={this.props.changeAlt} id="vis">Visits</a>
-          </div>
+          <h4><span>{this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.slice(1)} Dashboard</span> <br /> Proactive Call List</h4>
         </div>
 
         <div className="attentionContainer">
@@ -46,6 +42,15 @@ export default class ProactiveView extends Component {
             {this.props.data ? this.props.data.map((e, i) => this.proactiveRowBiWeekly(e, i)) : ''}
           </div>
         </div>
+
+        <CustomerDashNav
+          searchHandler={this.props.searchHandler}
+          splashSelect={this.props.splashSelect}
+          pathName={this.props.pathname}
+          citySet={this.props.citySet}
+          pathName={this.props.pathName}
+          loadProactiveData={this.props.loadProactiveData}
+        />
       </div>
     );
   }

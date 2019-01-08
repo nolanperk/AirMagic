@@ -15,6 +15,7 @@ import SalesMetrics from '../Globals/Modals/SalesMetrics';
 import SalesCloses from '../Globals/Modals/SalesCloses';
 import Forecast from '../Globals/Modals/Forecast';
 import InsideForecast from '../Globals/Modals/InsideForecast';
+import RecapVisit from '../Globals/Modals/RecapVisit';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -48,6 +49,17 @@ export default class ModalView extends Component {
           controlsModalToggle={this.props.controlsModalToggle}
           saveNoteHandler={this.props.saveNoteHandler}
           userName={this.props.userName}
+        />
+      )
+    } else if (this.props.modalType === 'recapVisit') {
+      return (
+        <RecapVisit
+          controlsModalToggle={this.props.controlsModalToggle}
+          saveNoteHandler={this.props.saveNoteHandler}
+          userName={this.props.userName}
+          recapSubmit={this.props.recapSubmit}
+          recapSlide={this.props.recapSlide}
+          recapBack={this.props.recapBack}
         />
       )
     } else if (this.props.modalType === 'changeUser') {

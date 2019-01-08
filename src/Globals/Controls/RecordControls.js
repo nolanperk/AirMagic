@@ -230,7 +230,7 @@ export default class SortBy extends Component {
               </div>
             </div>
 
-            <div className="recapBtn softGrad--secondary">
+            <div className="recapBtn softGrad--secondary" onClick={this.props.recapVisit}>
               <p>Recap Visit</p>
             </div>
             {this.props.recordChanges ? this.saveButton : ''}
@@ -248,8 +248,8 @@ export default class SortBy extends Component {
 
             <div id="status" className="tabItem" onClick={this.tabSwitcher}>
               <div className="inner">
-                <img src={edit} />
-                <p>Status</p>
+                <img src={done} />
+                <p>Service</p>
               </div>
             </div>
 

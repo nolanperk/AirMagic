@@ -1,0 +1,624 @@
+.TicketList {
+  position: absolute;
+  width: 85%;
+  height: 100%;
+  padding-top: 100px;
+  height: 89vh;
+  padding: 100px 6% 50px;
+  overflow: scroll;
+
+  .addNewTicket {
+    position: fixed;
+    z-index: 9;
+    bottom: 12vh;
+    left: 15%;
+    width: 50%;
+    text-align: center;
+  }
+
+  .hrTitle {
+    padding: 20px 20px 0px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    color: $white;
+    &.moreIssues {
+      border: solid 2px $primary;
+      border-bottom: 0;
+      span {  color: $primary; }
+    }
+    &.created {
+      border: solid 2px #fab32a;
+      border-bottom: 0;
+      span {  color: #fab32a;  }
+    }
+    &.sentToSP {
+      border: solid 2px $tertiary;
+      border-bottom: 0;
+      span {  color: $tertiary;  }
+    }
+    &.fixedBySP {
+      border: solid 2px #32d8d1;
+      border-bottom: 0;
+      span {  color: #32d8d1;  }
+    }
+    &.resolved {
+      border: solid 2px $secondary;
+      border-bottom: 0;
+      span {  color: $secondary; }
+    }
+  }
+
+  .rowItems {
+    padding: 20px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-bottom: 20px;
+
+    &.moreIssues {   border: solid 2px $primary; border-top: 0;; }
+    &.created {  border: solid 2px #fab32a; border-top: 0;; }
+    &.sentToSP {   border: solid 2px $tertiary; border-top: 0;; }
+    &.fixedBySP {  border: solid 2px #32d8d1; border-top: 0;; }
+    &.resolved {   border: solid 2px $secondary; border-top: 0;; }
+  }
+
+  .TicketItem {
+    width: 29%;
+    margin: 1%;
+
+    .whiteCard {
+      border-radius: 8px;
+    }
+
+    hr {
+      margin: 1vw 0;
+      height: 1px;
+      background: $gray;
+      width: 100%;
+    }
+
+    .titleArea {
+      #created, #touched {
+        opacity: 0.4;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1px;
+        font-style: normal;
+        font-weight: bold;
+
+        &.warning {
+          color: $primary;
+          opacity: 1;
+        }
+      }
+
+      .isHidden {
+        display: none;
+      }
+
+      span {
+        &.Lisa {  color: $secondary; }
+        &.Travis {  color: $primary; }
+        &.David {  color: $tertiary; }
+        &.Christy {  color: $secondary; }
+        &.Sergi {  color: $primary; }
+      }
+    }
+    .accountLink {
+      p {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+}
+
+.TicketModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba($offWhite, 0.9);
+  z-index: 12;
+
+  .inner {
+    position: absolute;
+    @extend %shadowBox;
+    // padding: 30px;
+    width: 90%;
+    max-width: 900px;
+    top: 50%;
+    left: 50%;
+    height: 90vh;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+
+    .modalTitle {
+      padding: 20px 30px;
+      height: 90px;
+      box-shadow: $themeShadow;
+      .navIcon {
+        float: right;
+      }
+      h4 {
+        vertical-align: middle;
+        display: inline-block;
+        padding: 14px 0;
+        width: calc(100% - 100px);
+
+        em {
+          opacity: 0.4;
+          text-transform: uppercase;
+          font-size: 11px;
+          letter-spacing: 3px;
+          font-style: normal;
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .modalBody {
+      position: absolute;
+      width: 100%;
+      height: calc(100% - 90px);
+      .mainTicket, .accountData {
+        overflow-y: scroll;
+        height: 100%;
+        float: left;
+      }
+      .mainTicket {
+        width: 58%;
+        padding: 3vw 3vw 2vw;
+
+        .inputBlock {
+          margin-bottom: 2vw;
+          .selectBlock {
+            position: relative;
+            &::after {
+              background: url('../assets/icons/white/down_carrot.png');
+              content: "";
+              position: absolute;
+              background-size: cover;
+              width: 16px;
+              height: 16px;
+              pointer-events: none;
+              right: 20px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+
+            select {
+              -webkit-appearance: none;
+              border: none;
+              width: 100%;
+              padding: 10px 20px;
+              padding-right: 30px;
+              color: $white;
+              font-size: 14px;
+              outline: 0;
+              cursor: grab;
+              border-radius: 100px;
+              font-weight: bold;
+              background: $medGray;
+
+              &.blank { background: $medGray; }
+              &.Created { background: #fab32a; }
+              &.Sent {  background: $tertiary; }
+              &.Fixed { background: #32d8d1; }
+              &.More {  background: $primary; }
+              &.Resolved {  background: $secondary; }
+            }
+          }
+
+          textarea {
+            width: 100%;
+            font-size: 12px;
+            line-height: 13px;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 15px;
+            background: $offWhite;
+            outline: none;
+            transition: all 0.25 ease;
+
+            &:focus {
+              background: rgba($medGray, 0.35);
+              transition: all 0.25 ease;
+            }
+          }
+        }
+
+        .pictureList {
+          font-size: 0;
+          .pictureItem {
+            display: inline-block;
+            width: 48%;
+            padding: 12px 14px;
+            background: $offWhite;
+            margin: 1%;
+            vertical-align: middle;
+            border-radius: 5px;
+
+            textarea {
+              width: calc(100% + 28px);
+              font-size: 12px;
+              line-height: 13px;
+              background: transparent;
+              border: none;
+              margin-left: -14px;
+              margin-bottom: -12px;
+              padding: 12px 15px;
+              line-height: 17px;
+              outline: none;
+              transition: all 0.25 ease;
+
+              &:focus {
+                background: rgba($medGray, 0.25);
+                transition: all 0.25 ease;
+              }
+            }
+
+            img {
+              border-radius: 5px;
+              margin-bottom: 10px;
+            }
+
+            &.addImage {
+              padding: 50px 14px;
+              vertical-align: top;
+              text-align: center;
+              cursor: pointer;
+              transition: all 0.25 ease;
+              &:hover {
+                background: rgba($medGray, 0.35);
+                transition: all 0.25 ease;
+              }
+
+              #output {
+                display: none;
+              }
+              &.imgAdded {
+                padding: 12px 14px;
+                #output {
+                  display: block;
+                }
+                .uploadInner {
+                  display: none;
+                }
+              }
+
+              .navIcon {
+                padding: 30px;
+                margin-bottom: 1vw;
+                img {
+                  width: 40px;
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+      .accountData {
+        background: rgba($medGray, 0.45);
+        width: 42%;
+        position: relative;
+
+        .recordCards {
+          padding: 3vw 2vw 2vw;
+          position: absolute;
+          width: 100%;
+          height: calc(100% - 50px);
+          overflow-y: scroll;
+        }
+
+        .RecordCard {
+          background: $white;
+          border-radius: 10px;
+          padding: 2vw 2.5vw;
+          margin: 2vw 0;
+          position: relative;
+
+          &.card--Notes {
+            max-height: 50vh;
+            overflow-y: scroll;
+          }
+
+          &:first-child {
+            margin-top: 0;
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .spLevel {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 10px;
+            font-weight: 900;
+            border-radius: 100px;
+            padding: 6px 11px;
+            color: $white;
+
+            &.level--1 {  background: $primary; }
+            &.level--2 {  background: #fab32a; }
+            &.level--3 {  background: #32d8d1; }
+            &.level--4 {  background: $tertiary; }
+            &.level--5 {  background: $secondary; }
+          }
+
+          p {
+            font-size: 12px;
+          }
+
+          h3 {
+            line-height: 19px;
+            font-size: 20px;
+            margin-bottom: 15px;
+
+            a {
+              font-size: 18px;
+              color: $tertiary;
+            }
+            &:last-child {
+              margin-bottom: 0;
+            }
+            span {
+              font-size: 11px;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              opacity: 0.5;
+            }
+          }
+        }
+
+        .bottom {
+          background: $black;
+          border-radius: 4px;
+          padding: 10px 20px;
+          padding-right: 45px;
+          transition: all 0.25s ease;
+          margin-top: 10px;
+          color: $white;
+          text-decoration: none;
+
+          position: absolute;
+          bottom: 2%;
+          width: 90%;
+          left: 5%;
+
+          img {
+            width: 14px;
+            position: relative;
+            right: 15px;
+            transition: all 0.25s ease;
+            float: right;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+
+          &:hover {
+            text-decoration: none;
+            transition: all 0.25s ease;
+            background: rgba($black, 0.75);
+            img {
+              right: 12px;
+              transition: all 0.25s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.TicketModal.AddTicket {
+  .navIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .backArrow {
+    width: 16px;
+    position: absolute;
+    top: 27px;
+    left: 25px;
+    opacity: 0.35;
+  }
+
+  form {
+    padding: 2vw 5vw;
+    position: absolute;
+    width: 100%;
+    top: calc(50%);
+    transform: translateY(-50%);
+    background: transparent;
+    box-shadow: none;
+
+    h3 {
+      width: 70%;
+      line-height: 2vw;
+    }
+
+    .innerConfirm {
+      margin: 10px 0 30px;
+      background: $offWhite;
+      border-radius: 10px;
+      width: 100%;
+      padding: 3vw;
+      opacity: 0.75;
+
+      h2 {
+        margin-bottom: 10px;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      margin: 10px 0 20px;
+      font-size: 12px;
+      line-height: 13px;
+      border: none;
+      border-radius: 5px;
+      padding: 12px 15px;
+      background: $offWhite;
+      outline: none;
+      transition: all 0.25 ease;
+
+      &:focus {
+        background: rgba($medGray, 0.35);
+        transition: all 0.25 ease;
+      }
+    }
+
+    select {
+      width: 100%;
+      background: $offWhite;
+      border-radius: 100px;
+      border: 1px solid $medGray;
+      padding: 0 20px;
+      font-weight: 700;
+    }
+
+    .selectBlock {
+      margin: 10px 0 30px;
+      position: relative;
+
+      &::after {
+        background: url('../assets/icons/black/down_carrot.png');
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        background-size: cover;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .TicketModal.AddTicket form h3 {
+    width: 80%;
+    line-height: 6vw;
+    font-size: 6vw;
+  }
+  .TicketModal .inner {
+    .modalTitle {
+      padding: 13px 30px;
+      height: 75px;
+      h4 {
+        font-size: 3.5vw;
+        width: calc(100% - 70px);
+
+        em {
+          font-size: 10px;
+          margin-left: 0;
+          display: block;
+          width: 100%;
+          margin-top: 3px;
+        }
+      }
+    }
+    .modalBody {
+      overflow-y: scroll;
+      .mainTicket {
+        width: 100%;
+        height: auto;
+        float: none;
+        overflow: auto;
+        padding: 7%;
+
+        h3 {
+          font-size: 3.65vw;
+        }
+
+        .inputBlock {
+          margin-top: 20px;
+
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+
+      .accountData {
+        float: none;
+        width: 100%;
+        height: auto;
+        overflow: auto;
+
+        .recordCards {
+          position: relative;
+
+          .RecordCard h3 {
+            font-size: 5vw;
+            line-height: 5vw;
+          }
+
+          .card--Notes {
+            max-height: none;
+            overflow-y: auto;
+          }
+        }
+
+        .bottom {
+          position: fixed;
+        }
+      }
+    }
+  }
+
+
+  .TicketList {
+    width: calc(100% - 75px);
+
+    .addNewTicket {
+      bottom: 12vh;
+    }
+
+    .TicketItem {
+      width: 100%;
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .titleArea {
+        h3 {
+          font-size: 5vw;
+          line-height: 5vw;
+        }
+
+        p.boldText {
+          font-size: 15px;
+          font-weight: 300;
+        }
+      }
+    }
+
+
+    .rowItems {
+      padding: 15px;
+
+      .whiteCard {
+        padding: 4vw;
+      }
+    }
+    .hrTitle {
+      padding: 15px;
+      padding-bottom: 0;
+    }
+  }
+}

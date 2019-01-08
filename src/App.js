@@ -59,7 +59,6 @@ class App extends Component {
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
           <Route exact path='/outside/' component={UserBaseSelect} />
 
-          <Route exact path='/:citySet/customer-service/' component={bindRouteParamsToProps()(CustomersSelect)} />
           <Route exact path='/:citySet/customer-service/:viewType/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
           <Route exact path='/:citySet/customer-service/:viewType/' component={bindRouteParamsToProps()(CustomerService)} />
 

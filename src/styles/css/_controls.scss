@@ -1,6 +1,10 @@
+.normalControls.ControlsBar {
+  width: 100%;
+}
+
 .ControlsBar {
   position: fixed;
-  width: 100%;
+  width: 60%;
   bottom: 0;
   background: rgba($gray, 0.95);
   padding: 20px;

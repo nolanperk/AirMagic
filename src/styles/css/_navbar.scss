@@ -1,3 +1,7 @@
+.normalNav .Navbar {
+  width: 100%;
+}
+
 .Navbar {
   @extend %fadeOut;
   padding: 20px;
