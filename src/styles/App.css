@@ -139,9 +139,9 @@ ul {
   #next p, #next .fieldsList label, .fieldsList #next label {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .CustomerDashNav .splashWrapper .splashCard .cornerNumber, .CustomerDashNav .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
+.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .BaseList .FollowUpsModal .followUpItem .circleDot, .FollowUpsModal .BaseList .followUpItem .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .CustomerDashNav .splashWrapper .splashCard .cornerNumber, .CustomerDashNav .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .CustomerDashNav .splashWrapper .splashCard .cornerNumber::before, .CustomerDashNav .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
+  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .BaseList .FollowUpsModal .followUpItem .circleDot::before, .FollowUpsModal .BaseList .followUpItem .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .CustomerDashNav .splashWrapper .splashCard .cornerNumber::before, .CustomerDashNav .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
     content: "";
     position: absolute;
     top: 0;
@@ -248,14 +248,14 @@ ul {
     width: 100%;
     margin-top: 20px; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner, .rowItems .ArchiveItem .subInfo, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem, .rowItems .ArchiveItem .subInfo, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue {
   cursor: pointer; }
-  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal:hover::after, .softGrad--blue:hover {
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .FollowUpsModal .followUpItem:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal:hover::after, .softGrad--blue:hover {
     transform: translateY(-5%);
     box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease; }
@@ -266,7 +266,7 @@ ul {
   flex-wrap: wrap;
   padding: 0; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem {
   border: solid 1px #F5F5F5;
   list-style: none; }
 
@@ -628,33 +628,33 @@ ul {
     margin-bottom: 2vw; }
   .BaseList .cardContainer {
     justify-content: space-evenly; }
-  .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select {
+  .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select, .BaseList .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .followUpItem {
     width: 30%;
     margin-bottom: 1.25vw; }
-    .BaseList .whiteCard a, .BaseList .ControlsBar .ControlsBar--search input a, .ControlsBar .ControlsBar--search .BaseList input a, .BaseList .ControlsBar .ControlsBar--search select a, .ControlsBar .ControlsBar--search .BaseList select a {
+    .BaseList .whiteCard a, .BaseList .ControlsBar .ControlsBar--search input a, .ControlsBar .ControlsBar--search .BaseList input a, .BaseList .ControlsBar .ControlsBar--search select a, .ControlsBar .ControlsBar--search .BaseList select a, .BaseList .FollowUpsModal .followUpItem a, .FollowUpsModal .BaseList .followUpItem a {
       text-decoration: none; }
-    .BaseList .whiteCard .inner, .BaseList .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList input .inner, .BaseList .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList select .inner {
+    .BaseList .whiteCard .inner, .BaseList .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList input .inner, .BaseList .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList select .inner, .BaseList .FollowUpsModal .followUpItem .inner, .FollowUpsModal .BaseList .followUpItem .inner {
       padding: 2.75vw; }
-    .BaseList .whiteCard.disabled, .BaseList .ControlsBar .ControlsBar--search input.disabled, .ControlsBar .ControlsBar--search .BaseList input.disabled, .BaseList .ControlsBar .ControlsBar--search select.disabled, .ControlsBar .ControlsBar--search .BaseList select.disabled {
+    .BaseList .whiteCard.disabled, .BaseList .ControlsBar .ControlsBar--search input.disabled, .ControlsBar .ControlsBar--search .BaseList input.disabled, .BaseList .ControlsBar .ControlsBar--search select.disabled, .ControlsBar .ControlsBar--search .BaseList select.disabled, .BaseList .FollowUpsModal .disabled.followUpItem, .FollowUpsModal .BaseList .disabled.followUpItem {
       opacity: 0.25;
       pointer-events: none; }
-    .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
+    .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .BaseList .FollowUpsModal .followUpItem .circleDot, .FollowUpsModal .BaseList .followUpItem .circleDot {
       margin: auto;
       margin-bottom: 10px;
       width: 60px;
       height: 60px;
       border-radius: 100%; }
-    .BaseList .whiteCard:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(1) .circleDot {
+    .BaseList .whiteCard:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(1) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(1) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(1) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(1) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(1) .circleDot {
       background: #C31F68; }
-    .BaseList .whiteCard:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(2) .circleDot {
+    .BaseList .whiteCard:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(2) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(2) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(2) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(2) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(2) .circleDot {
       background: #C31F2F; }
-    .BaseList .whiteCard:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(3) .circleDot {
+    .BaseList .whiteCard:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(3) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(3) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(3) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(3) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(3) .circleDot {
       background: #EC9730; }
-    .BaseList .whiteCard:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(4) .circleDot {
+    .BaseList .whiteCard:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(4) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(4) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(4) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(4) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(4) .circleDot {
       background: #1FC26A; }
-    .BaseList .whiteCard:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(5) .circleDot {
+    .BaseList .whiteCard:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(5) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(5) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(5) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(5) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(5) .circleDot {
       background: #1FC2C2; }
-    .BaseList .whiteCard:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(6) .circleDot {
+    .BaseList .whiteCard:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(6) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(6) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(6) .circleDot {
       background: #1F7DC2; }
 
 @media only screen and (max-width: 900px) {
@@ -663,11 +663,11 @@ ul {
     .BaseList h1 {
       font-size: 25px;
       margin-bottom: 50px; }
-    .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select {
+    .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select, .BaseList .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .followUpItem {
       width: 48%; } }
 
 @media only screen and (max-width: 600px) {
-  .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot {
+  .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .BaseList .FollowUpsModal .followUpItem .circleDot, .FollowUpsModal .BaseList .followUpItem .circleDot {
     width: 20vw;
     height: 20vw;
     margin-bottom: 5vw; } }
@@ -692,12 +692,12 @@ ul {
       transform: translateY(-5%);
       background: none;
       transition: all 0.5s ease; }
-      .ArchiveItems .cardContainer .ArchiveItem:hover .whiteCard, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover input, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover select, .ArchiveItems .cardContainer .ArchiveItem:hover .subInfo {
+      .ArchiveItems .cardContainer .ArchiveItem:hover .whiteCard, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover input, .ArchiveItems .cardContainer .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem:hover select, .ArchiveItems .cardContainer .ArchiveItem:hover .FollowUpsModal .followUpItem, .FollowUpsModal .ArchiveItems .cardContainer .ArchiveItem:hover .followUpItem, .ArchiveItems .cardContainer .ArchiveItem:hover .subInfo {
         box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08); }
-    .ArchiveItems .cardContainer .ArchiveItem .whiteCard:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select:hover {
+    .ArchiveItems .cardContainer .ArchiveItem .whiteCard:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input:hover, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select:hover, .ArchiveItems .cardContainer .ArchiveItem .FollowUpsModal .followUpItem:hover, .FollowUpsModal .ArchiveItems .cardContainer .ArchiveItem .followUpItem:hover {
       transform: none;
       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
-    .ArchiveItems .cardContainer .ArchiveItem .whiteCard, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select {
+    .ArchiveItems .cardContainer .ArchiveItem .whiteCard, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem input, .ArchiveItems .cardContainer .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer .ArchiveItem select, .ArchiveItems .cardContainer .ArchiveItem .FollowUpsModal .followUpItem, .FollowUpsModal .ArchiveItems .cardContainer .ArchiveItem .followUpItem {
       padding-bottom: 1vw; }
     .ArchiveItems .cardContainer .ArchiveItem .subInfo {
       padding: 1vw 2vw;
@@ -759,7 +759,7 @@ ul {
       background: #EBEBE8; }
       .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo p, .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo .fieldsList label, .fieldsList .ArchiveItems .cardContainer .ArchiveItem.nonActive .subInfo label {
         color: #131313; }
-  .ArchiveItems .cardContainer .whiteCard, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer input, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer select {
+  .ArchiveItems .cardContainer .whiteCard, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer input, .ArchiveItems .cardContainer .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .ArchiveItems .cardContainer select, .ArchiveItems .cardContainer .FollowUpsModal .followUpItem, .FollowUpsModal .ArchiveItems .cardContainer .followUpItem {
     padding: 2vw;
     width: 100%; }
 
@@ -851,6 +851,10 @@ ul {
   left: 0;
   width: 60%; }
 
+.postApptLink {
+  display: block;
+  width: 100%; }
+
 .hiddenSPName {
   display: none; }
 
@@ -875,6 +879,14 @@ hr {
   width: 40%;
   cursor: default;
   top: 0; }
+  .RecordNotes h4 span {
+    font-weight: 400;
+    cursor: pointer; }
+    .RecordNotes h4 span.isActive, .RecordNotes h4 span#noteCharCount {
+      font-weight: 700;
+      pointer-events: none; }
+    .RecordNotes h4 span.isActive {
+      text-decoration: underline; }
 
 .Sales .RecordNotes {
   top: auto;
@@ -1306,7 +1318,8 @@ hr {
       color: #626255;
       padding: 1vw; }
     .modal .modalInner .modalTitle {
-      width: 500px; }
+      width: 500px;
+      position: relative; }
       .modal .modalInner .modalTitle h4 {
         float: left;
         padding: 15px 0; }
@@ -1544,6 +1557,169 @@ hr {
     letter-spacing: 2px;
     font-size: 10px;
     color: gray; }
+
+.navBtns {
+  display: flex; }
+  .navBtns p, .navBtns .fieldsList label, .fieldsList .navBtns label {
+    opacity: 0.4;
+    margin-right: 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer; }
+    .navBtns p.isActive, .navBtns .fieldsList label.isActive, .fieldsList .navBtns label.isActive {
+      opacity: 1;
+      text-decoration: underline;
+      pointer-events: none;
+      font-weight: bold; }
+
+.modal .modalInner.FollowUpsModal .btn {
+  text-align: center; }
+
+.modal .modalInner.FollowUpsModal .modalTitle {
+  width: 100%; }
+  .modal .modalInner.FollowUpsModal .modalTitle .backArrow {
+    float: left;
+    width: 27px;
+    opacity: 0.4;
+    padding: 12px 5px;
+    margin-right: 15px; }
+  .modal .modalInner.FollowUpsModal .modalTitle span.ViewRec {
+    float: right; }
+    .modal .modalInner.FollowUpsModal .modalTitle span.ViewRec a {
+      display: inline-block;
+      cursor: pointer; }
+  .modal .modalInner.FollowUpsModal .modalTitle a.ViewRec {
+    float: right; }
+
+.modal .modalInner.FollowUpsModal textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0; }
+
+.modal .modalInner.FollowUpsModal #emailSubject {
+  width: 100%;
+  margin: 10px 0; }
+
+.modal .modalInner.FollowUpsModal .splitHalf {
+  display: flex;
+  margin: 10px 0 10px; }
+  .modal .modalInner.FollowUpsModal .splitHalf .half {
+    flex-basis: 50%;
+    padding: 0 10px; }
+    .modal .modalInner.FollowUpsModal .splitHalf .half .btn {
+      text-align: center;
+      margin-top: 10px; }
+    .modal .modalInner.FollowUpsModal .splitHalf .half #copyBody {
+      height: 38vh; }
+    .modal .modalInner.FollowUpsModal .splitHalf .half form {
+      font-size: 0; }
+      .modal .modalInner.FollowUpsModal .splitHalf .half form select, .modal .modalInner.FollowUpsModal .splitHalf .half form input, .modal .modalInner.FollowUpsModal .splitHalf .half form button.btn {
+        display: inline-block;
+        margin: 0;
+        outline: 0;
+        height: 44px;
+        vertical-align: top;
+        font-size: 14px;
+        margin-bottom: 10px; }
+      .modal .modalInner.FollowUpsModal .splitHalf .half form input {
+        width: 45%;
+        padding: 5px 10px;
+        border: 1px solid #d2d2d2;
+        border-radius: 100px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
+      .modal .modalInner.FollowUpsModal .splitHalf .half form select {
+        width: 25%;
+        border-radius: 0;
+        -webkit-appearance: none;
+        padding: 5px 10px;
+        border: 1px solid #d2d2d2;
+        border-right: 0;
+        border-left: 0; }
+      .modal .modalInner.FollowUpsModal .splitHalf .half form button.btn {
+        width: 30%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+    .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox {
+      background: rgba(19, 19, 19, 0.08);
+      padding: 15px;
+      height: 39vh;
+      border-radius: 10px;
+      overflow-y: scroll; }
+      .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem {
+        padding: 15px;
+        border-radius: 8px;
+        width: 100%;
+        display: inline-block;
+        margin: 2% 0;
+        cursor: pointer; }
+        .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem:hover {
+          opacity: 0.7; }
+        .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo {
+          display: inline-block;
+          vertical-align: middle; }
+          .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes p, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes .fieldsList label, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes label, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes textarea, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo p, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo .fieldsList label, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo label, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo textarea {
+            font-size: 14px; }
+            .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes p.med, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes .fieldsList label.med, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes label.med, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes textarea.med, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo p.med, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo .fieldsList label.med, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo label.med, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo textarea.med {
+              font-size: 16px; }
+            .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes p.small, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes .fieldsList label.small, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes label.small, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes textarea.small, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo p.small, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo .fieldsList label.small, .fieldsList .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo label.small, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo textarea.small {
+              font-size: 12px; }
+          .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes textarea, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo textarea {
+            background: transparent;
+            border: none;
+            padding: 0;
+            border-color: white;
+            outline: none;
+            pointer-events: none; }
+        .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refNotes {
+          width: 30%; }
+        .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem .refInfo {
+          border-left: 1px solid #131313;
+          padding-left: 10px;
+          width: 69%; }
+
+.modal .modalInner.FollowUpsModal .btn {
+  width: 49%;
+  display: inline-block; }
+
+.FollowUpsModal {
+  width: 80%; }
+  .FollowUpsModal .repList {
+    background: #fff4eb;
+    height: 60vh;
+    overflow-y: scroll;
+    text-align: left;
+    padding: 25px;
+    margin: 30px -20px -25px;
+    width: calc(100% + 40px); }
+  .FollowUpsModal hr {
+    border-top: solid 1px #131313;
+    background: transparent;
+    margin: 30px 0; }
+  .FollowUpsModal .followUpItem {
+    display: inline-block;
+    margin: 2px;
+    border-radius: 3px;
+    padding: 12px;
+    overflow: hidden;
+    border: solid 1px #C31F2F; }
+    .FollowUpsModal .followUpItem.blown {
+      padding: 6px;
+      opacity: 0.6;
+      background: rgba(255, 255, 255, 0.4);
+      border: 0; }
+    .FollowUpsModal .followUpItem.missed {
+      border: 0; }
+    .FollowUpsModal .followUpItem h2 {
+      font-size: 14px; }
+    .FollowUpsModal .followUpItem p, .FollowUpsModal .followUpItem .fieldsList label, .fieldsList .FollowUpsModal .followUpItem label {
+      font-size: 11px;
+      text-transform: uppercase;
+      opacity: 0.4;
+      letter-spacing: 0.5px;
+      line-height: 11px; }
 
 @media only screen and (max-width: 900px) {
   .modal .modalInner {
@@ -1933,12 +2109,12 @@ hr {
     transform: translateY(-5%);
     background: none;
     transition: all 0.5s ease; }
-    .rowItems .ArchiveItem:hover .whiteCard, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover input, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover select, .rowItems .ArchiveItem:hover .subInfo {
+    .rowItems .ArchiveItem:hover .whiteCard, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover input, .rowItems .ArchiveItem:hover .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem:hover select, .rowItems .ArchiveItem:hover .FollowUpsModal .followUpItem, .FollowUpsModal .rowItems .ArchiveItem:hover .followUpItem, .rowItems .ArchiveItem:hover .subInfo {
       box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08); }
-  .rowItems .ArchiveItem .whiteCard:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select:hover {
+  .rowItems .ArchiveItem .whiteCard:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input:hover, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select:hover, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select:hover, .rowItems .ArchiveItem .FollowUpsModal .followUpItem:hover, .FollowUpsModal .rowItems .ArchiveItem .followUpItem:hover {
     transform: none;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08); }
-  .rowItems .ArchiveItem .whiteCard, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select {
+  .rowItems .ArchiveItem .whiteCard, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem input, .rowItems .ArchiveItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems .ArchiveItem select, .rowItems .ArchiveItem .FollowUpsModal .followUpItem, .FollowUpsModal .rowItems .ArchiveItem .followUpItem {
     padding-bottom: 1vw; }
   .rowItems .ArchiveItem .subInfo {
     padding: 1vw 2vw;
@@ -1974,7 +2150,7 @@ hr {
       width: 24px;
       margin-right: 2px; }
 
-.rowItems .whiteCard, .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems input, .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems select {
+.rowItems .whiteCard, .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .rowItems input, .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .rowItems select, .rowItems .FollowUpsModal .followUpItem, .FollowUpsModal .rowItems .followUpItem {
   padding: 2vw;
   width: 100%; }
 
@@ -2542,7 +2718,7 @@ hr {
   .TicketList .TicketItem {
     width: 29%;
     margin: 1%; }
-    .TicketList .TicketItem .whiteCard, .TicketList .TicketItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .TicketItem input, .TicketList .TicketItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .TicketItem select {
+    .TicketList .TicketItem .whiteCard, .TicketList .TicketItem .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .TicketItem input, .TicketList .TicketItem .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .TicketItem select, .TicketList .TicketItem .FollowUpsModal .followUpItem, .FollowUpsModal .TicketList .TicketItem .followUpItem {
       border-radius: 8px; }
     .TicketList .TicketItem hr {
       margin: 1vw 0;
@@ -2944,7 +3120,7 @@ hr {
         font-weight: 300; }
     .TicketList .rowItems {
       padding: 15px; }
-      .TicketList .rowItems .whiteCard, .TicketList .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .rowItems input, .TicketList .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .rowItems select {
+      .TicketList .rowItems .whiteCard, .TicketList .rowItems .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .TicketList .rowItems input, .TicketList .rowItems .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .TicketList .rowItems select, .TicketList .rowItems .FollowUpsModal .followUpItem, .FollowUpsModal .TicketList .rowItems .followUpItem {
         padding: 4vw; }
     .TicketList .hrTitle {
       padding: 15px;

@@ -17,7 +17,7 @@ export default class ModuleVolumeOwed extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-    const { ipDue, arDue, rpDue, aaCharge } = this.props;
+    const { volOwed, arDue, rpDue, aaCharge } = this.props;
 
 
     return (
@@ -26,45 +26,15 @@ export default class ModuleVolumeOwed extends Component {
           <h4>Owed & Charged</h4>
           <a className="btn softGrad--black" onClick={this.props.updateOwed}>Refresh</a>
           <div className="inputBlock inputBlock--half">
-            <label>IP Due</label>
+            <label>Still Owed</label>
             <div className="inputWithTag">
               <div className="inputTag">
                 <img src={dollarImg} alt="" />
               </div>
               <input
                 type="text"
-                value={ipDue}
-                id="ipDue"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>AR Due</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={dollarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={arDue}
-                id="arDue"
-                onChange={this.props.changeRecordHandler}
-              />
-            </div>
-          </div>
-
-          <div className="inputBlock inputBlock--half">
-            <label>RP Due</label>
-            <div className="inputWithTag">
-              <div className="inputTag">
-                <img src={dollarImg} alt="" />
-              </div>
-              <input
-                type="text"
-                value={rpDue}
-                id="rpDue"
+                value={volOwed}
+                id="volOwed"
                 onChange={this.props.changeRecordHandler}
               />
             </div>

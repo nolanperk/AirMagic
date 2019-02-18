@@ -93,7 +93,8 @@ export default class CustomerService extends Component {
                 recordView: true,
                 currentRecord: record,
                 currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-                noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                // noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+
               })
             }).bind(this), 0);
           } else {
@@ -102,7 +103,7 @@ export default class CustomerService extends Component {
                 recordView: true,
                 currentRecord: record,
                 currentRecordIndex: this.state.data.findIndex(obj => obj.id == this.props.recordId),
-                noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                // noteCharacters: record['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               })
             }).bind(this), 0);
           }
@@ -116,7 +117,7 @@ export default class CustomerService extends Component {
                 recordView: true,
                 loading: false,
                 error: false,
-                noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                // noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 currentRecord: response.data.fields,
               });
             })
@@ -141,7 +142,7 @@ export default class CustomerService extends Component {
               recordView: true,
               loading: false,
               error: false,
-              noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              // noteCharacters: response.data.fields['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               currentRecord: response.data.fields,
             });
           })
@@ -739,6 +740,14 @@ export default class CustomerService extends Component {
         currentRecord: currentRecordState,
         recordChanges: true,
       })
+    } else if (e.target.id === 'oldNotes') {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['Archived Notes'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      })
     } else {
       currentRecordState = this.state.currentRecord;
       currentRecordState['Notes'] = e.target.value;
@@ -748,7 +757,7 @@ export default class CustomerService extends Component {
       let noteCharacters = currentRecordState['Notes'].length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
       console.log(currentRecordState['Notes'].length);
-      if (parseInt(this.props.noteCharacters) > 90000 && currentRecordState['Notes'].length < 98000) {
+      if (currentRecordState['Notes'].length > 90000 && currentRecordState['Notes'].length < 98000) {
         document.getElementById('noteCharCount').classNames = 'warning';
       } else if (currentRecordState['Notes'].length >= 98000) {
         document.getElementById('noteCharCount').classNames = 'broken';
@@ -2737,7 +2746,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
-            noteCharacters={this.state.noteCharacters}
+            // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
           />
@@ -2763,7 +2772,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
-            noteCharacters={this.state.noteCharacters}
+            // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
           />
@@ -2789,7 +2798,7 @@ export default class CustomerService extends Component {
             handleDayClick={this.handleDayClick}
             toggleDayPicker={this.toggleDayPicker}
             currentRecordView={this.state.currentRecordView}
-            noteCharacters={this.state.noteCharacters}
+            // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
           />

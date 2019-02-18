@@ -15,7 +15,7 @@ export default class ExportRecords extends Component {
   }
 
   selectChange = e => {
-    if (e.target.options[e.target.selectedIndex].getAttribute('data-range') === 'true') {
+    if (e.target.options[e.target.selectedIndex].getAttribute('data-filter-type') === 'default') {
       document.getElementById('startRange').className = 'isHidden';
       document.getElementById('endRange').className = 'isHidden';
     } else {
@@ -175,8 +175,9 @@ export default class ExportRecords extends Component {
             <div className="selectBox">
               <select className="year">
                 <option disabled>Year</option>
-                <option>2019</option>
-                <option selected>2018</option>
+                <option>2020</option>
+                <option selected>2019</option>
+                <option>2018</option>
                 <option>2017</option>
                 <option>2016</option>
                 <option>2015</option>
@@ -253,8 +254,9 @@ export default class ExportRecords extends Component {
             <div className="selectBox">
               <select className="year">
                 <option disabled>Year</option>
-                <option>2019</option>
-                <option selected>2018</option>
+                <option>2020</option>
+                <option selected>2019</option>
+                <option>2018</option>
                 <option>2017</option>
                 <option>2016</option>
                 <option>2015</option>
@@ -440,8 +442,9 @@ export default class ExportRecords extends Component {
               <div className="selectBox">
                 <select className="year">
                   <option disabled>Year</option>
-                  <option>2019</option>
-                  <option selected>2018</option>
+                  <option>2020</option>
+                  <option selected>2019</option>
+                  <option>2018</option>
                   <option>2017</option>
                   <option>2016</option>
                   <option>2015</option>
@@ -518,8 +521,9 @@ export default class ExportRecords extends Component {
               <div className="selectBox">
                 <select className="year">
                   <option disabled>Year</option>
-                  <option>2019</option>
-                  <option selected>2018</option>
+                  <option>2020</option>
+                  <option selected>2019</option>
+                  <option>2018</option>
                   <option>2017</option>
                   <option>2016</option>
                   <option>2015</option>
@@ -550,6 +554,11 @@ export default class ExportRecords extends Component {
                   data-fields="fields%5B%5D=SP+Name&fields%5B%5D=Status&fields%5B%5D=Address&fields%5B%5D=City&fields%5B%5D=Zip&fields%5B%5D=County&fields%5B%5D=Home+Phone&fields%5B%5D=Cellphone&fields%5B%5D=Email&fields%5B%5D=Partner+Name&fields%5B%5D=Partner+Phone&fields%5B%5D=Source&fields%5B%5D=Contact+Date&fields%5B%5D=Appt.+Date&fields%5B%5D=EIN&fields%5B%5D=Franchise+Level&fields%5B%5D=Plan+Type&fields%5B%5D=Additional+Revenue&fields%5B%5D=Graduation+Date&fields%5B%5D=Number"
                   data-filter-1="FIND(%22Active%22%2C%7BStatus%7D)">
                   All Actives</option>
+                <option
+                  data-filter-type="default"
+                  data-fields="fields%5B%5D=SP+Name&fields%5B%5D=Franchise+Level&fields%5B%5D=County"
+                  data-filter-1="FIND(%22Active%22%2C%7BStatus%7D)">
+                  Franchise Levels</option>
                 <option disabled>Needs Range</option>
                 <option
                   data-filter-type="ranged"
@@ -622,8 +631,9 @@ export default class ExportRecords extends Component {
             <div className="selectBox">
               <select className="year">
                 <option disabled>Year</option>
-                <option>2019</option>
-                <option selected>2018</option>
+                <option>2020</option>
+                <option selected>2019</option>
+                <option>2018</option>
                 <option>2017</option>
                 <option>2016</option>
                 <option>2015</option>
@@ -700,8 +710,9 @@ export default class ExportRecords extends Component {
             <div className="selectBox">
               <select className="year">
                 <option disabled>Year</option>
-                <option>2019</option>
-                <option selected>2018</option>
+                <option>2020</option>
+                <option selected>2019</option>
+                <option>2018</option>
                 <option>2017</option>
                 <option>2016</option>
                 <option>2015</option>

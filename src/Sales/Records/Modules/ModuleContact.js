@@ -14,6 +14,42 @@ export default class ModuleContact extends Component {
     }
   }
 
+  handleClick = e => {
+    let proposalLink = 'mailto:';
+    proposalLink += this.props.email;
+
+    let currRep;
+    if (this.props.userName === 'NWP') {
+      currRep = 'Nolan';
+    } else if (this.props.userName === 'TMP') {
+      currRep = 'Tyler';
+    } else if (this.props.userName === 'JDH') {
+      currRep = 'Joel';
+    }
+    let contactFirst;
+
+    if (this.props.contact) {
+      if (this.props.contact.indexOf(' ') < 0) {
+        contactFirst = this.props.contact;
+      } else {
+        contactFirst = this.props.contact.split(' ')[0];
+      }
+      proposalLink += "?subject=Vanguard%20Cleaning%20Systems%20Proposal";
+      proposalLink += "&body=Good%20afternoon%20" + contactFirst + "%2C%0A%0AThank%20you%20for%20your%20time%20today%20and%20for%20the%20opportunity%20to%20earn%20your%20business.%20It%20was%20a%20pleasure%20meeting%20you.%0ABased%20on%20our%20conversation%20and%20what%20I%20saw%20during%20my%20visit%2C%20I%E2%80%99ve%20attached%20a%20" + this.props.timesPerWeek + "Week%20proposal%20which%20includes%20our%20price%20and%20your%20service%20schedule%20detailing%20everything%20we%20are%20offering%20to%20clean%20on%20a%20weekly%2C%20and%20monthly%20basis.%20Also%20included%20is%20our%20certificate%20of%20insurance.%0A%0AWe%20are%20very%20flexible%20so%20if%20you%20need%20anything%20changed%2C%20please%20let%20me%20know.%0A%0AA%20bit%20about%20us%0AVanguard%20Cleaning%20of%20Tampa%20Bay%20has%20been%20family%20owned%20and%20operated%20for%20over%2016%20years.%20Our%201%2C000%2B%20customers%20stay%20with%20us%20double%20the%20industry%20average%20even%20with%20our%20month-to-month%20agreements%20because%20we%20work%20hard%20to%20earn%20your%20business%20every%20day.%0A%0AThanks%20again%20and%20I%20look%20forward%20to%20hearing%20from%20you%2C";
+
+
+      var fakeDownloadA = document.createElement('a');
+      fakeDownloadA.setAttribute('href', proposalLink);
+
+      fakeDownloadA.style.display = 'none';
+      document.body.appendChild(fakeDownloadA);
+
+      fakeDownloadA.click();
+
+      document.body.removeChild(fakeDownloadA);
+    }
+  }
+
 
   callStatusChange = e => {this.setState({callStatus: e.target.value});}
 
@@ -27,7 +63,6 @@ export default class ModuleContact extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-
     return (
       <div className="ModuleCard moduleContact">
         {this.ContactType}
@@ -47,20 +82,6 @@ export default class ModuleContact extends Component {
     let source = this.props.source;
     let callStatus = this.props.callStatus;
 
-
-    // if (this.props.newRecord === false) {
-    //   // if(phone.match) {
-    //   //   if(phone.match(/^s+$/) || phone == "" ) {
-    //   //     console.log("success: " + phone);
-    //   //   }
-    //   // } else {
-    //   //     console.log("not a string: " + phone);
-    //   // }
-    // }
-
-    // if (phone.toString().matches("[0-9]+") && phone.toString().length() > 2) {
-      // console.log(phone.toString());
-    // }
 
     let officeLink = 'tel:' + phone;
     let cellLink = 'tel:' + cell;
@@ -199,7 +220,7 @@ export default class ModuleContact extends Component {
             <label>Email</label>
             <div className="inputWithTag">
               <div className="inputTag">
-                <a href={emailLink}></a>
+                <a onContextMenu={this.handleClick} href={emailLink}></a>
                 <img src={emailImg} />
               </div>
               <input
@@ -215,7 +236,6 @@ export default class ModuleContact extends Component {
     } else {
       return (
         <div className="inner">
-
           <div className="inputBlock inputBlock--full">
             <label>Call Status</label>
             <div
@@ -302,7 +322,7 @@ export default class ModuleContact extends Component {
             <label>Email</label>
             <div className="inputWithTag">
               <div className="inputTag">
-                <a href={emailLink}></a>
+                <a onContextMenu={this.handleClick} href={emailLink}></a>
                 <img src={emailImg} />
               </div>
               <input

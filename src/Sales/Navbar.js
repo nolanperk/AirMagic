@@ -60,6 +60,37 @@ export default class Navbar extends Component {
 
     );
   }
+
+  get postApptLink() {
+    let postApptLink = 'mailto:';
+    postApptLink += this.props.currentRecord['Email'];
+    let contact = this.props.currentRecord['Main contact'];
+
+
+    let currRep;
+    if (this.props.userName === 'NWP') {
+      currRep = 'Nolan';
+    } else if (this.props.userName === 'TMP') {
+      currRep = 'Tyler';
+    } else if (this.props.userName === 'JDH') {
+      currRep = 'Joel';
+    }
+    let contactFirst;
+
+    if (contact) {
+      if (contact.indexOf(' ') < 0) {
+        contactFirst = contact;
+      } else {
+        contactFirst = contact.split(' ')[0];
+      }
+      postApptLink += "?subject=" + currRep + "%20from%20Vanguard%20Cleaning%20Systems";
+      postApptLink += "&body=Good%20morning%20" + contactFirst + "%2C%0D%0A%0D%0AThank%20you%20for%20your%20time%20today%20and%20for%20allowing%20me%20to%20visit%20your%20facility.%20It%20was%20a%20pleasure%20meeting%20you.%0D%0AI%20will%20be%20getting%20back%20to%20the%20office%20this%20afternoon%20at%20which%20point%20I%20will%20be%20putting%20together%20your%20proposal.%20I%20will%20have%20it%20to%20you%20by%20the%20end%20of%20the%20day.%0D%0A%0D%0AA%20bit%20about%20Vanguard%20Cleaning%0D%0AVanguard%20Cleaning%20of%20Central%20Florida%20has%20been%20family%20owned%20and%20operated%20for%20over%2016%20years%20and%20we%20have%20over%201%2C000%20customers%20across%20Central%20Florida%20who%20stay%20with%20us%20over%204%20years%E2%80%94double%20the%20industry%20average%E2%80%94even%20with%20our%20no-contracts%20policy%20because%20we%20work%20hard%20to%20earn%20your%20business%20every%20day.%0D%0A%0D%0AThanks%20again%20and%20I%20will%20speak%20with%20you%20soon%2C";
+    }
+
+    return (
+      <a className="postApptLink" href={postApptLink}>Post-Appt Email</a>
+    );
+  }
   get viewSelects() {
     if (this.props.recordView) {
       return (
@@ -198,6 +229,7 @@ export default class Navbar extends Component {
               </div>
             </div>
 
+            <a className="btn softGrad--blue" id="salesFollows" onClick={this.props.controlsModalToggle}>Follow Ups</a>
             <a className="btn softGrad--black" id="salesMetrics" onClick={this.props.controlsModalToggle}>Sales Data</a>
 
             <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">

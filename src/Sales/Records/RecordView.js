@@ -12,6 +12,7 @@ import ModuleNumbers from './Modules/ModuleNumbers';
 import ModuleSchedule from './Modules/ModuleSchedule';
 import ModuleSpecial from './Modules/ModuleSpecial';
 import ModuleArea from './Modules/ModuleArea';
+import ModuleFollow from './Modules/ModuleFollow';
 
 
 export default class RecordView extends Component {
@@ -60,6 +61,8 @@ export default class RecordView extends Component {
               email={this.props.currentRecord['Email']}
               source={this.props.currentRecord['Lead Source']}
               newRecord={this.props.newRecord}
+              userName={this.props.userName}
+              timesPerWeek={this.props.currentRecord['Times per Week']}
             />
             <ModulePipeline
               changeRecordHandler={this.props.changeRecordHandler}
@@ -140,6 +143,21 @@ export default class RecordView extends Component {
               zip={this.props.currentRecord['Zip']}
               county={this.props.currentRecord['County']}
               citySet={this.props.citySet}
+            />
+            <ModuleFollow
+              changeRecordHandler={this.props.changeRecordHandler}
+              callStatus={this.props.currentRecord['Call Status']}
+              currentRecordView={this.props.currentRecordView}
+              contact={this.props.currentRecord['Main contact']}
+              followDate={this.props.currentRecord['Last Contact']}
+              followCount={this.props.currentRecord['Follow Ups']}
+              followUsed={this.props.currentRecord['Follow Ups Used']}
+              followStatus={this.props.currentRecord['Follow Status']}
+              email={this.props.currentRecord['Email']}
+              newRecord={this.props.newRecord}
+              handleDayClick={this.props.handleDayClick}
+              toggleDayPicker={this.props.toggleDayPicker}
+              userName={this.props.userName}
             />
           </div>
         </div>

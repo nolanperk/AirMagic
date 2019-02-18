@@ -16,6 +16,7 @@ import SalesCloses from '../Globals/Modals/SalesCloses';
 import Forecast from '../Globals/Modals/Forecast';
 import InsideForecast from '../Globals/Modals/InsideForecast';
 import RecapVisit from '../Globals/Modals/RecapVisit';
+import SalesFollowUps from '../Globals/Modals/SalesFollowUps';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -93,6 +94,16 @@ export default class ModalView extends Component {
       return (
         <SalesMetrics
           controlsModalToggle={this.props.controlsModalToggle}
+        />
+      )
+    } else if (this.props.modalType === 'salesFollows') {
+      return (
+        <SalesFollowUps
+          userName={this.props.userName}
+          currentTable={this.props.currentTable}
+          baseId={this.props.baseId}
+          controlsModalToggle={this.props.controlsModalToggle}
+          citySet={this.props.citySet}       
         />
       )
     } else if (this.props.modalType === 'moveDatabase') {

@@ -215,7 +215,7 @@ export default class TicketView extends Component {
         console.log('load active');
         let preActive = this.state.activeCustomers;
 
-        activeURL = this.state.dataURL + this.state.customerBase + '/Customers?view=All+Actives&fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount';
+        activeURL = this.state.dataURL + this.state.customerBase + '/Customers?view=All+Actives&fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
 
         if (this.state.activeOffset !== '') {activeURL = activeURL + '&offset=' + this.state.activeOffset;}
 

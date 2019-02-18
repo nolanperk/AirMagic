@@ -402,28 +402,37 @@ export default class Franchisees extends Component {
     let ipDue = 0; let arDue = 0; let rpDue = 0; let aaCharge = 0;
     let ipLine; let rpLine; let aaLine; let ipAr;
 
-    if (document.getElementById('ipOwed')) {ipLine = document.getElementById('ipOwed').innerText; ipAr = ipLine.split('$')[1];}
-    if (document.getElementById('rpOwed')) {rpLine = document.getElementById('rpOwed').innerText; rpDue = rpLine.split('$')[1];}
-    if (document.getElementById('aaOwed')) {aaLine = document.getElementById('aaOwed').innerText; aaCharge = aaLine.split('$')[1];}
-
-
-    if (ipAr < 1) {
-      arDue = 0;
-      ipDue = 0;
-    } else {
-      if (ipAr < planRev) {
-        ipDue = 0;
-        arDue = ipAr - planRev;
-
-        if (arDue < 0) {
-          arDue = 0;
-        }
-      }
+    if (document.getElementById('ipOwed')) {
+      ipLine = document.getElementById('ipOwed').innerText;
+      ipAr = parseInt(ipLine.split('$')[1]);
     }
-    currentRecordState['IP Due'] = ipDue.toString();
-    currentRecordState['AR Due'] = arDue.toString();
-    currentRecordState['RP Due'] = rpDue.toString();
-    currentRecordState['AA Charge'] = aaCharge.toString();
+    if (document.getElementById('rpOwed')) {
+      rpLine = document.getElementById('rpOwed').innerText;
+      rpDue = parseInt(rpLine.split('$')[1]);
+    }
+    if (document.getElementById('aaOwed')) {
+      aaLine = document.getElementById('aaOwed').innerText;
+      aaCharge = parseInt(aaLine.split('$')[1]);
+    }
+
+    let allOwed = ipAr + rpDue;
+
+
+    // if (ipAr < 1) {
+    //   arDue = 0;
+    //   ipDue = 0;
+    // } else {
+    //   if (ipAr < planRev) {
+    //     ipDue = 0;
+    //     arDue = ipAr - planRev;
+    //
+    //     if (arDue < 0) {
+    //       arDue = 0;
+    //     }
+    //   }
+    // }
+    currentRecordState['Owed'] = allOwed.toString();
+    currentRecordState['Chargeable'] = aaCharge.toString();
     this.setState({
       currentRecord: currentRecordState,
       recordChanges: true,
@@ -463,9 +472,7 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'ar') {currentRecordState['Additional Revenue'] = e.target.value}
     else if (e.target.id === 'area') {currentRecordState['Coverage Area'] = e.target.value}
 
-    else if (e.target.id === 'ipDue') {currentRecordState['IP Due'] = e.target.value}
-    else if (e.target.id === 'arDue') {currentRecordState['AR Due'] = e.target.value}
-    else if (e.target.id === 'rpDue') {currentRecordState['RP Due'] = e.target.value}
+    else if (e.target.id === 'volOwed') {currentRecordState['Owed'] = e.target.value}
     else if (e.target.id === 'aaCharge') {currentRecordState['AA Charge'] = e.target.value}
 
     else if (e.target.id === 'apptTime') {currentRecordState['Appt. Time'] = e.target.value}

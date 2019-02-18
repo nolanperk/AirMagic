@@ -127,6 +127,7 @@ export default class RecordView extends Component {
         </div>
 
         <RecordNotes
+          oldNotes={this.props.currentRecord['Archived Notes']}
           notes={this.props.currentRecord['Notes']}
           changeNotesHandler={this.props.changeNotesHandler}
           noteCharacters={this.props.noteCharacters}

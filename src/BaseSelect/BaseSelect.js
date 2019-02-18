@@ -35,6 +35,16 @@ export default class BaseSelect extends Component {
   render() {
     const { index, data } = this.props;
 
+    let tampaCustomers = '/tampa/customer-service';
+    let orlandoCustomers = '/orlando/customer-service';
+    if (localStorage.getItem('userInitials') === 'ALP' || localStorage.getItem('userRole') === 'sales') {
+      tampaCustomers += '/all';
+      orlandoCustomers += '/all';
+    } else {
+      tampaCustomers += '/tickets';
+      orlandoCustomers += '/tickets';
+    }
+
 
     return (
       <div className="wrapper">
@@ -50,7 +60,7 @@ export default class BaseSelect extends Component {
           <h1>Choose Your Database</h1>
           <ul className="cardContainer">
               <li className="whiteCard">
-                <Link to={`/tampa/customer-service/tickets`}>
+                <Link to={tampaCustomers}>
                   <div className="inner">
                     <div className="circleDot"></div>
                     <div className="baseIcon"></div>
@@ -77,7 +87,7 @@ export default class BaseSelect extends Component {
               </Link>
             </li>
             <li className="whiteCard">
-              <Link to={`/orlando/customer-service/tickets`}>
+              <Link to={orlandoCustomers}>
                 <div className="inner">
                   <div className="circleDot"></div>
                   <div className="baseIcon"></div>

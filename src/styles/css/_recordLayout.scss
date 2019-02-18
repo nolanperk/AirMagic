@@ -9,6 +9,11 @@
 }
 
 
+.postApptLink {
+  display: block;
+  width: 100%;
+}
+
 .hiddenSPName {
   display: none;
 }
@@ -38,6 +43,22 @@ hr {
   @extend %card;
   cursor: default;
   top: 0;
+
+  h4 {
+    span {
+      font-weight: 400;
+      cursor: pointer;
+
+      &.isActive, &#noteCharCount {
+        font-weight: 700;
+        pointer-events: none;
+      }
+
+      &.isActive {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 .Sales .RecordNotes {

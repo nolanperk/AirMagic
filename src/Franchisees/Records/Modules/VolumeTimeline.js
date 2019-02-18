@@ -11,6 +11,12 @@ import VolumeItem from './VolumeItem';
 import exit from '../../../assets/icons/white/exit.png';
 
 export default class VolumeTimeline extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      timelineData: [],
+    }
+  }
 
   sortDates = () => {
     let { volumeData } = this.props;
@@ -23,7 +29,7 @@ export default class VolumeTimeline extends Component {
       startItem['id'] = volumeData[i].id;
       startItem['date'] = volumeData[i].fields['Start Date'];
       startItem['type'] = 'start';
-      startItem['Company Name'] = volumeData[i].fields['Company Name'];
+      startItem['Account Name'] = volumeData[i].fields['Account Name'];
       startItem['Start Date'] = volumeData[i].fields['Start Date'];
       startItem['Rep. %'] = volumeData[i].fields['Rep. %'];
       startItem['RP Revenue'] = volumeData[i].fields['RP Revenue'];
@@ -55,7 +61,7 @@ export default class VolumeTimeline extends Component {
         stopItem['id'] = volumeData[i].id;
         stopItem['date'] = volumeData[i].fields['Stop Date'];
         stopItem['type'] = 'stop';
-        stopItem['Company Name'] = volumeData[i].fields['Company Name'];
+        stopItem['Account Name'] = volumeData[i].fields['Account Name'];
         stopItem['Stop Date'] = volumeData[i].fields['Stop Date'];
       stopItem['Rep. %'] = volumeData[i].fields['Rep. %'];
       stopItem['RP Revenue'] = volumeData[i].fields['RP Revenue'];
@@ -82,15 +88,12 @@ export default class VolumeTimeline extends Component {
       }
     }
 
-    // array.sort(function(a,b){
-    //   // Turn your strings into dates, and then subtract them
-    //   // to get a value that is either negative, positive, or zero.
-    //   return new Date(b.date) - new Date(a.date);
-    // });
+    let finalArray = stopsArray.concat(startsArray);
 
-    console.log(volumeData);
-    console.log(startsArray);
-    console.log(stopsArray);
+    finalArray.sort((a,b) => (new Date(a.date) > new Date(b.date)) ? 1 : ((new Date(b.date) > new Date(a.date)) ? -1 : 0));
+    this.setState({
+      timelineData: finalArray
+    })
   }
 
   componentDidMount() {
@@ -103,7 +106,18 @@ export default class VolumeTimeline extends Component {
 
     return (
       <div className="VolumeTimeline">
+        {this.state.timelineData ? this.state.timelineData.map((e, i) => this.timelineData(e, i)) : ''}
+      </div>
+    )
+  }
 
+
+  timelineData(timelineData, index) {
+    let thisItem = this.state.timelineData[index];
+    return (
+      <div className={'TimelineItem Item--' + thisItem.type}>
+        <p>{thisItem.type} - {thisItem.date}</p>
+        <h3>{thisItem['Account Name']}</h3>
       </div>
     )
   }

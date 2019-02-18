@@ -291,6 +291,7 @@ export default class Sales extends Component {
     else if (this.state.pickerId === 'proposal') {currentRecordState['Proposal Date'] = finalDate}
     else if (this.state.pickerId === 'callDate') {currentRecordState['Recent Call Date'] = finalDate}
     else if (this.state.pickerId === 'callBack') {currentRecordState['Callback Date'] = finalDate}
+    else if (this.state.pickerId === 'followDate') {currentRecordState['Last Contact'] = finalDate}
 
     this.setState({
       currentRecord: currentRecordState,
@@ -388,9 +389,12 @@ export default class Sales extends Component {
         'Sales Rep': '',
         'Notes': '',
         'Special Notes': '',
-
         'Status': 'Active',
         'Standing': 'New Close',
+        'Last Contact': '',
+        'Follow Ups': 0,
+        'Follow Ups Used': '',
+        'Follow Status': '',
       }
       if(this.state.currentRecord['Company Name']) {pushRecord['Company Name'] = this.state.currentRecord['Company Name']}
       if(this.state.currentRecord['Main contact']) {pushRecord['Main contact'] = this.state.currentRecord['Main contact']}
@@ -435,6 +439,11 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Sales Rep']) {pushRecord['Sales Rep'] = this.state.currentRecord['Sales Rep']}
       if(this.state.currentRecord['Notes']) {pushRecord['Notes'] = this.state.currentRecord['Notes']}
       if(this.state.currentRecord['Special Notes']) {pushRecord['Special Notes'] = this.state.currentRecord['Special Notes']}
+      if(this.state.currentRecord['Last Contact']) {pushRecord['Last Contact'] = this.state.currentRecord['Last Contact']}
+      if(this.state.currentRecord['Follow Ups']) {pushRecord['Follow Ups'] = parseInt(this.state.currentRecord['Follow Ups'])}
+      if(this.state.currentRecord['Follow Ups Used']) {pushRecord['Follow Ups Used'] = this.state.currentRecord['Follow Ups Used']}
+      if(this.state.currentRecord['Follow Status']) {pushRecord['Follow Status'] = this.state.currentRecord['Follow Status']}
+
       let destinationURL;
       let finalPush = {"fields": pushRecord}
 
@@ -664,6 +673,10 @@ export default class Sales extends Component {
     else if (e.target.id === 'sqFtPer') {currentRecordState['SQ Ft. per Hour'] = e.target.value}
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
+
+    else if (e.target.id === 'followDate') {currentRecordState['Last Contact'] = e.target.value}
+    else if (e.target.id === 'followCount') {currentRecordState['Follow Ups'] = parseInt(e.target.value)}
+    else if (e.target.id === 'followUsed') {currentRecordState['Follow Ups Used'] = e.target.value}
 
 
     this.setState({
@@ -941,6 +954,9 @@ export default class Sales extends Component {
         fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
         fullDataSet["Call Status"] = document.getElementById('callStatus').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
+        fullDataSet["Follow Status"] = document.getElementById('followStatus').value;
+
+
 
         let officePhone = this.state.currentRecord["Office Phone"];
         if (officePhone) {
@@ -1018,6 +1034,7 @@ export default class Sales extends Component {
       if (pushRecord["Recent Call Date"] === '') {pushRecord["Recent Call Date"] = undefined;}
       if (pushRecord["Close Date"] === '') {pushRecord["Close Date"] = undefined;}
       if (pushRecord["Proposal Date"] === '') {pushRecord["Proposal Date"] = undefined;}
+      if (pushRecord["Follow Status"] === '') {pushRecord["Follow Status"] = undefined;}
 
       let officePhone = this.state.currentRecord["Office Phone"];
       if (officePhone) {
@@ -1053,7 +1070,7 @@ export default class Sales extends Component {
         pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
         pushRecord["Call Status"] = document.getElementById('callStatus').value;
-
+        pushRecord["Follow Status"] = document.getElementById('followStatus').value;
 
         let finalPush = {"fields": pushRecord}
         console.log(finalPush);
@@ -1312,8 +1329,10 @@ export default class Sales extends Component {
           }
 
           if (mergeType === 'Proposal') {
-            currentRecordState['Status'] = 'APPC';
             currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            currentRecordState['Follow Ups'] = 0;
+            currentRecordState['Status'] = 'APPC';
             setTimeout((function() {
               document.getElementById('statusSelect').value = 'APPC';
             }).bind(this), 50);
@@ -2229,6 +2248,11 @@ export default class Sales extends Component {
           activeModal: true,
           modalType: 'salesMetrics',
         });
+      } else if(e.target.id === 'salesFollows') {
+        this.setState({
+          activeModal: true,
+          modalType: 'salesFollows',
+        });
       } else if(e.target.id === 'salesCloses') {
         this.setState({
           activeModal: true,
@@ -2602,6 +2626,7 @@ export default class Sales extends Component {
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            userName={this.state.userName}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2629,6 +2654,7 @@ export default class Sales extends Component {
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            userName={this.state.userName}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -2656,6 +2682,7 @@ export default class Sales extends Component {
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            userName={this.state.userName}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -2683,6 +2710,7 @@ export default class Sales extends Component {
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            userName={this.state.userName}
           />
         );
       }

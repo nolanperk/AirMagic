@@ -42,6 +42,7 @@
 
     .modalTitle {
       width: 500px;
+      position: relative;
       @extend %clear;
 
       h4 {
@@ -374,6 +375,230 @@
     letter-spacing: 2px;
     font-size: 10px;
     color: gray;
+  }
+}
+
+
+.navBtns {
+  display: flex;
+  // position: absolute;
+  // bottom: -6px;
+
+  p {
+    opacity: 0.4;
+    margin-right: 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &.isActive {
+      opacity: 1;
+      text-decoration: underline;
+      pointer-events: none;
+      font-weight: bold;
+    }
+  }
+}
+
+.modal .modalInner.FollowUpsModal {
+
+
+  .btn {
+    text-align: center;
+  }
+  .modalTitle {
+    width: 100%;
+
+    .backArrow {
+      float: left;
+      width: 27px;
+      opacity: 0.4;
+      padding: 12px 5px;
+      margin-right: 15px;
+    }
+
+    span.ViewRec {
+      float: right;
+
+      a {
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+    a.ViewRec {
+      float: right;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+  }
+
+  #emailSubject {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .splitHalf {
+    display: flex;
+    margin: 10px 0 10px;
+
+    .half {
+      flex-basis: 50%;
+      padding: 0 10px;
+      .btn {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      #copyBody {
+        height: 38vh;
+      }
+      form {
+        font-size: 0;
+        select, input, button.btn {
+          display: inline-block;
+          margin: 0;
+          outline: 0;
+          height: 44px;
+          vertical-align: top;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+        input {
+          width: 45%;
+          padding: 5px 10px;
+          border: 1px solid $medGray;
+          border-radius: 100px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        select {
+          width: 25%;
+          border-radius: 0;
+          -webkit-appearance: none;
+          padding: 5px 10px;
+          border: 1px solid $medGray;
+          border-right: 0;
+          border-left: 0;
+        }
+        button.btn {
+          width: 30%;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      #resultsBox {
+        background: rgba($black, 0.08);
+        padding: 15px;
+        height: 39vh;
+        border-radius: 10px;
+        overflow-y: scroll;
+
+        .referenceItem {
+          @extend %card;
+          padding: 15px;
+          border-radius: 8px;
+          width: 100%;
+          display: inline-block;
+          margin: 2% 0;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.7;
+          }
+
+          .refNotes, .refInfo {
+            display: inline-block;
+            vertical-align: middle;
+
+            p, textarea {
+              font-size: 14px;
+
+              &.med { font-size: 16px;  }
+              &.small { font-size: 12px;  }
+            }
+
+            textarea {
+              background: transparent;
+              border: none;
+              padding: 0;
+              border-color: white;
+              outline: none;
+              pointer-events: none;
+            }
+          }
+          .refNotes {
+            width: 30%;
+          }
+          .refInfo {
+            border-left: 1px solid $black;
+            padding-left: 10px;
+            width: 69%;
+          }
+        }
+      }
+    }
+  }
+
+
+  .btn {
+    width: 49%;
+    display: inline-block;
+  }
+}
+.FollowUpsModal {
+  width: 80%;
+  .repList {
+    background: #fff4eb;
+    height: 60vh;
+    overflow-y: scroll;
+    text-align: left;
+    padding: 25px;
+    margin: 30px -20px -25px;
+    width: calc(100% + 40px);
+  }
+  hr {
+    border-top: solid 1px $black;
+    background: transparent;
+    margin: 30px 0;
+  }
+
+  .followUpItem {
+    @extend .whiteCard;
+    display: inline-block;
+    margin: 2px;
+    border-radius: 3px;
+    padding: 12px;
+    overflow: hidden;
+    border: solid 1px $primary;
+
+    &.blown {
+      padding: 6px;
+      opacity: 0.6;
+      background: rgba($white, 0.4);
+      border: 0;
+    }
+
+    &.missed {
+      border: 0;
+    }
+
+
+    h2 {
+      font-size: 14px;
+    }
+    p {
+      font-size: 11px;
+      text-transform: uppercase;
+      opacity: 0.4;
+      letter-spacing: 0.5px;
+      line-height: 11px;
+    }
   }
 }
 
