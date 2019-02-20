@@ -1602,17 +1602,33 @@ hr {
   width: 100%;
   margin: 10px 0; }
 
+.modal .modalInner.FollowUpsModal .splitNotes {
+  display: flex;
+  margin: 10px 0 10px; }
+  .modal .modalInner.FollowUpsModal .splitNotes .followUp {
+    flex-basis: 65%;
+    padding: 0 10px; }
+  .modal .modalInner.FollowUpsModal .splitNotes .noteSide {
+    flex-basis: 35%;
+    padding: 0 10px; }
+    .modal .modalInner.FollowUpsModal .splitNotes .noteSide textarea {
+      background: #f7f7f5;
+      border: none;
+      outline: none;
+      height: 33.5vh;
+      border-radius: 10px; }
+
 .modal .modalInner.FollowUpsModal .splitHalf {
   display: flex;
   margin: 10px 0 10px; }
   .modal .modalInner.FollowUpsModal .splitHalf .half {
-    flex-basis: 50%;
+    flex-basis: 40%;
     padding: 0 10px; }
     .modal .modalInner.FollowUpsModal .splitHalf .half .btn {
       text-align: center;
       margin-top: 10px; }
     .modal .modalInner.FollowUpsModal .splitHalf .half #copyBody {
-      height: 38vh; }
+      height: 40vh; }
     .modal .modalInner.FollowUpsModal .splitHalf .half form {
       font-size: 0; }
       .modal .modalInner.FollowUpsModal .splitHalf .half form select, .modal .modalInner.FollowUpsModal .splitHalf .half form input, .modal .modalInner.FollowUpsModal .splitHalf .half form button.btn {
@@ -1642,6 +1658,11 @@ hr {
         width: 30%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0; }
+    .modal .modalInner.FollowUpsModal .splitHalf .half.noteSide textarea {
+      background: #f7f7f5;
+      border: none;
+      outline: none;
+      height: 44.75vh; }
     .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox {
       background: rgba(19, 19, 19, 0.08);
       padding: 15px;

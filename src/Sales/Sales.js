@@ -391,10 +391,6 @@ export default class Sales extends Component {
         'Special Notes': '',
         'Status': 'Active',
         'Standing': 'New Close',
-        'Last Contact': '',
-        'Follow Ups': 0,
-        'Follow Ups Used': '',
-        'Follow Status': '',
       }
       if(this.state.currentRecord['Company Name']) {pushRecord['Company Name'] = this.state.currentRecord['Company Name']}
       if(this.state.currentRecord['Main contact']) {pushRecord['Main contact'] = this.state.currentRecord['Main contact']}
@@ -439,10 +435,6 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Sales Rep']) {pushRecord['Sales Rep'] = this.state.currentRecord['Sales Rep']}
       if(this.state.currentRecord['Notes']) {pushRecord['Notes'] = this.state.currentRecord['Notes']}
       if(this.state.currentRecord['Special Notes']) {pushRecord['Special Notes'] = this.state.currentRecord['Special Notes']}
-      if(this.state.currentRecord['Last Contact']) {pushRecord['Last Contact'] = this.state.currentRecord['Last Contact']}
-      if(this.state.currentRecord['Follow Ups']) {pushRecord['Follow Ups'] = parseInt(this.state.currentRecord['Follow Ups'])}
-      if(this.state.currentRecord['Follow Ups Used']) {pushRecord['Follow Ups Used'] = this.state.currentRecord['Follow Ups Used']}
-      if(this.state.currentRecord['Follow Status']) {pushRecord['Follow Status'] = this.state.currentRecord['Follow Status']}
 
       let destinationURL;
       let finalPush = {"fields": pushRecord}

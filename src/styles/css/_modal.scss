@@ -443,12 +443,35 @@
     margin: 10px 0;
   }
 
+  .splitNotes {
+    display: flex;
+    margin: 10px 0 10px;
+
+    .followUp {
+      flex-basis: 65%;
+      padding: 0 10px;
+    }
+
+    .noteSide {
+      flex-basis: 35%;
+      padding: 0 10px;
+
+      textarea {
+        background: #f7f7f5;
+        border: none;
+        outline: none;
+        height: 33.5vh;
+        border-radius: 10px;
+      }
+    }
+  }
+
   .splitHalf {
     display: flex;
     margin: 10px 0 10px;
 
     .half {
-      flex-basis: 50%;
+      flex-basis: 40%;
       padding: 0 10px;
       .btn {
         text-align: center;
@@ -456,7 +479,7 @@
       }
 
       #copyBody {
-        height: 38vh;
+        height: 40vh;
       }
       form {
         font-size: 0;
@@ -490,6 +513,16 @@
           width: 30%;
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
+        }
+      }
+
+
+      &.noteSide {
+        textarea {
+          background: #f7f7f5;
+          border: none;
+          outline: none;
+          height: 44.75vh;
         }
       }
 

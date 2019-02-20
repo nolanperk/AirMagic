@@ -424,11 +424,11 @@ export default class SalesFollowUps extends Component {
                 let twoAgo;
                 let blownAgo;
                 if (propDate.getDay() === 5) {
-                  twoAgo = new Date(+new Date - 1000*60*60*24*3);
+                  twoAgo = new Date(+new Date - 1000*60*60*24*2);
                   threeAgo = new Date(+new Date - 1000*60*60*24*4);
                   blownAgo = new Date(+new Date - 1000*60*60*24*9);
                 } else {
-                  twoAgo = new Date(+new Date - 1000*60*60*24*2);
+                  twoAgo = new Date(+new Date - 1000*60*60*24*1);
                   threeAgo = new Date(+new Date - 1000*60*60*24*3);
                   blownAgo = new Date(+new Date - 1000*60*60*24*7);
                 }
@@ -891,6 +891,12 @@ export default class SalesFollowUps extends Component {
           contactFirst = this.state.openedFollow.fields['Main contact'].split(' ')[0];
         }
 
+        let timeOfDay = 'Morning';
+        let today = new Date();
+        let halfTime = today.getHours();
+        if (halfTime > 11) {
+          timeOfDay = 'Afternoon';
+        }
 
 
         if (this.state.currentView === 'hot' && this.state.followType === 'reference') {
@@ -911,9 +917,10 @@ export default class SalesFollowUps extends Component {
                 <div className="half">
                   <p>{this.state.openedFollow.fields['Email']}</p>
                   <input id="emailSubject" defaultValue={this.state.currentFollowUp.fields['Subject']} onClick={this.copySubject} />
-                  <textarea id="copyBody" rows='9' defaultValue={this.state.currentFollowUp.fields['Email Template'].replace('FIRST_NAME', contactFirst)} />
+                  <textarea id="copyBody" rows='9' defaultValue={this.state.currentFollowUp.fields['Email Template'].replace('FIRST_NAME', contactFirst).replace('TIME_OF_DAY', timeOfDay)} />
                 </div>
-                <div className="half">
+                <div className="half referenceSide">
+                  <p>Current - ${this.state.openedFollow.fields['Monthly Amount']} | {this.state.openedFollow.fields['Actual Sq Footage']}sqft</p>
                   <form onSubmit={this.loadReferences}>
                     <input id="searchTerm" placeholder="Add Search Term (optional)" />
                     <select id="zoomFilter">
@@ -927,6 +934,10 @@ export default class SalesFollowUps extends Component {
                   <div className="inner" id="resultsBox">
                     {referenceList.length > 0 ? referenceList.map((e, i) => this.referenceItem(e, i)): <h2>No Results</h2>}
                   </div>
+                </div>
+                <div className="half noteSide">
+                  <p>Notes</p>
+                  <textarea rows='9' defaultValue={this.state.openedFollow.fields['Notes']} />
                 </div>
               </div>
               <a className="btn softGrad--primary centerIt" onClick={this.copyEmail}>Copy Follow Up</a>
@@ -948,9 +959,17 @@ export default class SalesFollowUps extends Component {
                 <span className="ViewRec"><a onClick={this.heardBack}>Heard Back</a> / <Link target="_blank" to={linkTo}>View Record</Link></span>
               </div>
 
-              <p>{this.state.openedFollow.fields['Email']}</p>
-              <input id="emailSubject" defaultValue={this.state.currentFollowUp.fields['Subject']} onClick={this.copySubject} />
-              <textarea id="copyBody" rows='9' defaultValue={this.state.currentFollowUp.fields['Email Template'].replace('FIRST_NAME', contactFirst)} />
+              <div className="splitNotes">
+                <div className="followUp">
+                  <p>{this.state.openedFollow.fields['Email']}</p>
+                  <input id="emailSubject" defaultValue={this.state.currentFollowUp.fields['Subject']} onClick={this.copySubject} />
+                  <textarea id="copyBody" rows='9' defaultValue={this.state.currentFollowUp.fields['Email Template'].replace('FIRST_NAME', contactFirst).replace('TIME_OF_DAY', timeOfDay)} />
+                </div>
+                <div className="noteSide">
+                  <p>Notes</p>
+                  <textarea rows='9' defaultValue={this.state.openedFollow.fields['Notes']} />
+                </div>
+              </div>
               <a className="btn softGrad--primary" onClick={this.copyEmail}>Copy Follow Up</a>
               <a className="btn softGrad--black centerIt" onClick={this.sentEmail}>Sent Email</a>
 
