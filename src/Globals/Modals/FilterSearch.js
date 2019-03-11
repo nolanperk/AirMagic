@@ -95,6 +95,10 @@ export default class FilterSearch extends Component {
               >Cold Calls</li>
               <li
                 onClick={this.selectFilterList}
+                id="David+Callbacks"
+              >David Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
                 id="Joel+Pipeline"
               >Joel Pipeline</li>
               <li
@@ -177,6 +181,10 @@ export default class FilterSearch extends Component {
                 onClick={this.selectFilterList}
                 id="From+Customer+Service+TM"
               >From Customer Service TM</li>
+              <li
+                onClick={this.selectFilterList}
+                id="David+Callbacks"
+              >David Callbacks</li>
               <li
                 onClick={this.selectFilterList}
                 id="Cold+Calls"

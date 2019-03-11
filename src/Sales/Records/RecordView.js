@@ -13,6 +13,9 @@ import ModuleSchedule from './Modules/ModuleSchedule';
 import ModuleSpecial from './Modules/ModuleSpecial';
 import ModuleArea from './Modules/ModuleArea';
 import ModuleFollow from './Modules/ModuleFollow';
+import ModuleService from './Modules/ModuleService';
+import ModuleOffer from './Modules/ModuleOffer';
+import ModuleProjects from './Modules/ModuleProjects';
 
 
 export default class RecordView extends Component {
@@ -22,7 +25,6 @@ export default class RecordView extends Component {
   render() {
     const { index, data } = this.props;
     this.gridLayout()
-
 
     return (
       <div className={'RecordView Tab--' + this.props.currentTab + ' RecordView--' + this.props.mobileHand} key={this.props.currentId}>
@@ -36,7 +38,8 @@ export default class RecordView extends Component {
               company={this.props.currentRecord['Company Name']}
               status={this.props.currentRecord['Status']}
               standing={this.props.currentRecord['Standing']}
-              industry={this.props.currentRecord['Industry']}
+              // industry={this.props.currentRecord['Industry']}
+              category={this.props.currentRecord['Category']}
               rep={this.props.currentRecord['Sales Rep']}
               recentCaller={this.props.currentRecord['Recent Caller']}
               callDate={this.props.currentRecord['Recent Call Date']}
@@ -46,6 +49,7 @@ export default class RecordView extends Component {
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
               repChange={this.props.repChange}
+              categoryChange={this.props.categoryChange}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -104,6 +108,7 @@ export default class RecordView extends Component {
               weekDays={this.props.currentRecord['Days of Week']}
               timesPerWeekChange={this.props.timesPerWeekChange}
               toggleDayPicker={this.props.toggleDayPicker}
+              serviceTime={this.props.currentRecord['Service Time']}
             />
             <ModuleNumbers
               changeRecordHandler={this.props.changeRecordHandler}
@@ -158,6 +163,29 @@ export default class RecordView extends Component {
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
               userName={this.props.userName}
+            />
+            <ModuleService
+              changeNotesHandler={this.props.changeNotesHandler}
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              serviceNotes={this.props.currentRecord['Service Notes']}
+            />
+            <ModuleOffer
+              changeNotesHandler={this.props.changeNotesHandler}
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              serviceScheduleNotes={this.props.currentRecord['Service Schedule Changes']}
+            />
+
+
+            <ModuleProjects
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              strip={this.props.currentRecord['Strip & Wax']}
+              carpet={this.props.currentRecord['Carpet Cleaning']}
+              tile={this.props.currentRecord['Tile & Grout']}
+              preClean={this.props.currentRecord['Pre-Clean']}
+              windows={this.props.currentRecord['Window Cleaning']}
             />
           </div>
         </div>

@@ -38,12 +38,23 @@ export default class LoginForm extends Component {
           if (this.state.checkData.filter(user => user.fields['Initials'] === this.state.use)[0]) {
             userRecord = this.state.checkData.filter(user => user.fields['Initials'] === this.state.use)[0];
             console.log(userRecord.fields);
+            let lastLog = new Date();
+            lastLog = (lastLog.getMonth()+1) + '/' + lastLog.getDate() + '/' + lastLog.getFullYear();
             if (this.state.pw === userRecord.fields['Phrase']) {
               localStorage.setItem('isLogged', 'true');
               localStorage.setItem('isOutside', 'false');
               localStorage.setItem('userInitials', userRecord.fields['Initials']);
               localStorage.setItem('userName', userRecord.fields['Name']);
+              localStorage.setItem('userTitle', userRecord.fields['Title']);
               localStorage.setItem('userOffice', userRecord.fields['Office']);
+              localStorage.setItem('userCell', userRecord.fields['Cellphone']);
+              localStorage.setItem('lastLogin', lastLog);
+
+              if (userRecord.fields['Signature']) {
+                localStorage.setItem('userSig', userRecord.fields['Signature'][0].url);
+              }
+              localStorage.setItem('userEmail', userRecord.fields['Email']);
+              localStorage.setItem('userExt', userRecord.fields['Ext']);
               localStorage.setItem('userRole', userRecord.fields['Role']);
 
               if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {

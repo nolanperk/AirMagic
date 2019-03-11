@@ -19,6 +19,7 @@ export default class ModuleSchedule extends Component {
     let sqFt = this.props.sqFt;
     let sqFtReal = this.props.sqFtReal;
     let amount = this.props.amount;
+    let serviceTime = this.props.serviceTime;
     let hoursPer = this.props.hoursPer;
     let sqFtPer = this.props.sqFtPer;
     let timesPerWeek = this.props.timesPerWeek;
@@ -90,12 +91,23 @@ export default class ModuleSchedule extends Component {
             />
           </div>
 
-          <div className="inputBlock inputBlock--full">
+          <div className="inputBlock inputBlock--half">
             <label>Days of Week</label>
             <input
               type="text"
               value={weekDays}
               id="weekDays"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>Time of Service</label>
+            <input
+              type="text"
+              value={serviceTime}
+              id="serviceTime"
               onChange={this.props.changeRecordHandler}
             />
           </div>

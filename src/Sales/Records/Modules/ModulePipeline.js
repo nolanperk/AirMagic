@@ -59,9 +59,9 @@ export default class ModulePipeline extends Component {
                 <option disabled>---------------</option>
                 <option disabled>Inside Sales</option>
                 <option disabled>---------------</option>
-                <option id="Linda+Goldberg">Linda Goldberg</option>
-                <option id="Eric+Kleeman">Eric Kleeman</option>
                 <option id="Carla+Milian">Carla Milian</option>
+                <option id="David+Lovic">David Lovic</option>
+                <option id="Jet">Jet</option>
                 <option disabled>---------------</option>
                 <option disabled>Outside Sales</option>
                 <option disabled>---------------</option>
@@ -72,9 +72,12 @@ export default class ModulePipeline extends Component {
                 <option disabled>Other</option>
                 <option disabled>---------------</option>
                 <option id="Prospectr">Prospectr</option>
-                <option id="Jet">Jet</option>
                 <option id="Referral">Referral</option>
                 <option id="Incoming+Call">Incoming Call</option>
+                <option disabled>---------------</option>
+                <option disabled>Old</option>
+                <option id="Linda+Goldberg">Linda Goldberg</option>
+                <option id="Eric+Kleeman">Eric Kleeman</option>
                 <option disabled>---------------</option>
                 <option disabled>Marketing</option>
                 <option disabled>---------------</option>
@@ -185,9 +188,9 @@ export default class ModulePipeline extends Component {
                 <option disabled>---------------</option>
                 <option disabled>Inside Sales</option>
                 <option disabled>---------------</option>
-                <option id="Linda+Goldberg">Linda Goldberg</option>
-                <option id="Eric+Kleeman">Eric Kleeman</option>
                 <option id="Carla+Milian">Carla Milian</option>
+                <option id="David+Lovic">David Lovic</option>
+                <option id="Jet">Jet</option>
                 <option disabled>---------------</option>
                 <option disabled>Outside Sales</option>
                 <option disabled>---------------</option>
@@ -198,9 +201,12 @@ export default class ModulePipeline extends Component {
                 <option disabled>Other</option>
                 <option disabled>---------------</option>
                 <option id="Prospectr">Prospectr</option>
-                <option id="Jet">Jet</option>
                 <option id="Referral">Referral</option>
                 <option id="Incoming+Call">Incoming Call</option>
+                <option disabled>---------------</option>
+                <option disabled>Old</option>
+                <option id="Linda+Goldberg">Linda Goldberg</option>
+                <option id="Eric+Kleeman">Eric Kleeman</option>
                 <option disabled>---------------</option>
                 <option disabled>Marketing</option>
                 <option disabled>---------------</option>

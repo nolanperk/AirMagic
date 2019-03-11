@@ -189,7 +189,7 @@ export default class ModuleMain extends Component {
             </div>
           </div>
 
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--full">
             <label>Email</label>
             <div className="inputWithTag">
               <div className="inputTag">
@@ -218,6 +218,47 @@ export default class ModuleMain extends Component {
                 value={cell}
                 onChange={this.props.changeRecordHandler}
               />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Category</label>
+            <div
+              className="selectBlock"
+              id="category"
+              >
+              <select id="categorySelect"  value={this.props.category} onChange={this.props.categoryChange}>
+                <option></option>
+                <option disabled>Standard</option>
+                <option>General Office</option>
+                <option>Manufacturing</option>
+                <option>Government</option>
+                <option>Law Office</option>
+                <option>Retail</option>
+
+                <option disabled>--------</option>
+                <option disabled>Medical</option>
+                <option>Standard Medical</option>
+                <option>Clinic</option>
+                <option>Dialysis / Oncology</option>
+                <option>Dentist</option>
+                <option>Veterinarian</option>
+
+                <option disabled>--------</option>
+                <option>Residential Common Area</option>
+                <option>Residential Living</option>
+
+                <option disabled>--------</option>
+                <option>School</option>
+                <option>Daycare / VPK</option>
+
+                <option disabled>--------</option>
+                <option>Church</option>
+
+                <option disabled>--------</option>
+                <option>Restaurant</option>
+                <option>Bar</option>
+              </select>
             </div>
           </div>
         </div>

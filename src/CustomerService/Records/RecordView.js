@@ -11,6 +11,9 @@ import ModuleService from './Modules/ModuleService';
 import ModuleNumbers from './Modules/ModuleNumbers';
 import ModuleSP from './Modules/ModuleSP';
 import ModuleSchedule from './Modules/ModuleSchedule';
+import ModuleServiceNotes from './Modules/ModuleServiceNotes';
+import ModuleOffer from './Modules/ModuleOffer';
+import ModuleProjects from './Modules/ModuleProjects';
 
 
 export default class RecordView extends Component {
@@ -44,6 +47,8 @@ export default class RecordView extends Component {
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
               newRecord={this.props.newRecord}
+              categoryChange={this.props.categoryChange}
+              category={this.props.currentRecord['Category']}
             />
             <ModuleSP
               changeRecordHandler={this.props.changeRecordHandler}
@@ -76,6 +81,7 @@ export default class RecordView extends Component {
               sqFtPer={this.props.currentRecord['SQ Ft. per Hour']}
               timesPerWeek={this.props.currentRecord['Times per Week']}
               weekDays={this.props.currentRecord['Days of Week']}
+              serviceTime={this.props.currentRecord['Service Time']}
               sqFt={this.props.currentRecord['Sq. Footage']}
               sqFtReal={this.props.currentRecord['Actual Sq Footage']}
             />
@@ -122,6 +128,27 @@ export default class RecordView extends Component {
               source={this.props.currentRecord['Lead Source']}
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
+            />
+            <ModuleServiceNotes
+              changeNotesHandler={this.props.changeNotesHandler}
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              serviceNotes={this.props.currentRecord['Service Notes']}
+            />
+            <ModuleOffer
+              changeNotesHandler={this.props.changeNotesHandler}
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              serviceScheduleNotes={this.props.currentRecord['Service Schedule Changes']}
+            />
+            <ModuleProjects
+              changeRecordHandler={this.props.changeRecordHandler}
+              currentRecordView={this.props.currentRecordView}
+              strip={this.props.currentRecord['Strip & Wax']}
+              carpet={this.props.currentRecord['Carpet Cleaning']}
+              tile={this.props.currentRecord['Tile & Grout']}
+              preClean={this.props.currentRecord['Pre-Clean']}
+              windows={this.props.currentRecord['Window Cleaning']}
             />
           </div>
         </div>

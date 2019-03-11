@@ -824,6 +824,16 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
 
+    else if (e.target.id === 'serviceTime') {currentRecordState['Service Time']}
+    else if (e.target.id === 'category') {currentRecordState['Category']}
+    else if (e.target.id === 'serviceNotes') {currentRecordState['Service Notes']}
+    else if (e.target.id === 'serviceScheduleNotes') {currentRecordState['Service Schedule Changes']}
+    else if (e.target.id === 'strip') {currentRecordState['Strip & Wax' ]}
+    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning']}
+    else if (e.target.id === 'windows') {currentRecordState['Window Cleaning' ]}
+    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout']}
+    else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean']}
+
 
     this.setState({
       currentRecord: currentRecordState,
@@ -1256,6 +1266,14 @@ export default class CustomerService extends Component {
     }
   }
 
+
+  categoryChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Category'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
 
   saveNoteHandler = e => {
     let newNote = document.getElementById("newNoteBox").value;
@@ -2494,61 +2512,72 @@ export default class CustomerService extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
+      let twoWeeksAgo = new Date(+new Date - 1000*60*60*24*14);
+      if (localStorage.getItem('lastLogin')) { //logged in after update
+        let lastLog = new Date(localStorage.getItem('lastLogin'));
+        if (lastLog > twoWeeksAgo) { //logged in within past two weeks
+          if (localStorage.getItem('userInitials') === 'JETT') {
+            this.props.history.push('/jett/');
+          }
+          if (this.props.viewType === 'attention') {
+            this.loadAttentionData();
+          } else if (this.props.viewType === 'proactive') {
+            this.loadProactiveData();
+          } else if (this.props.viewType === 'visit') {
+            this.loadVisitData();
+          } else if (this.props.viewType === 'all') {
+            if (sessionStorage.getItem('searchQuery')) {
+              this.setState({
+                searchQuery: sessionStorage.getItem('searchQuery'),
+                searchBy: sessionStorage.getItem('searchBy'),
+                loading: true,
+              });
+              this.loadPrevSearch();
+            } else {
+              this.loadData();
+            }
 
-      if (localStorage.getItem('userInitials') === 'JETT') {
-        this.props.history.push('/jett/');
-      }
-      if (this.props.viewType === 'attention') {
-        this.loadAttentionData();
-      } else if (this.props.viewType === 'proactive') {
-        this.loadProactiveData();
-      } else if (this.props.viewType === 'visit') {
-        this.loadVisitData();
-      } else if (this.props.viewType === 'all') {
-        if (sessionStorage.getItem('searchQuery')) {
-          this.setState({
-            searchQuery: sessionStorage.getItem('searchQuery'),
-            searchBy: sessionStorage.getItem('searchBy'),
-            loading: true,
-          });
-          this.loadPrevSearch();
+
+            if (sessionStorage.getItem('serviceView')) {
+              this.setState({
+                currentRecordView: sessionStorage.getItem('serviceView')
+              });
+            } else {
+              this.setState({
+                currentRecordView: 'default'
+              });
+            }
+          }
+
+
+          if (sessionStorage.getItem('tampaSPLoaded') !== true) {
+            this.loadSPList();
+          } else {
+            this.setState({
+              spList: sessionStorage.getItem('tampaSPList')
+            });
+          }
+          if (localStorage.getItem('userInitials')) {
+            let usersInitials = localStorage.getItem('userInitials');
+            this.setState({
+              userName: usersInitials,
+            });
+          }
+          if (localStorage.getItem('userInitials') === 'ALP') {
+            this.setState({
+              currentRecordView: 'accounting',
+              listView: 'view=All',
+            });
+          }
         } else {
-          this.loadData();
+          sessionStorage.clear();
+          localStorage.clear();
         }
-
-
-        if (sessionStorage.getItem('serviceView')) {
-          this.setState({
-            currentRecordView: sessionStorage.getItem('serviceView')
-          });
-        } else {
-          this.setState({
-            currentRecordView: 'default'
-          });
-        }
-      }
-
-
-      if (sessionStorage.getItem('tampaSPLoaded') !== true) {
-        this.loadSPList();
       } else {
-        this.setState({
-          spList: sessionStorage.getItem('tampaSPList')
-        });
+        sessionStorage.clear();
+        localStorage.clear();
+        this.props.history.push('/login');
       }
-      if (localStorage.getItem('userInitials')) {
-        let usersInitials = localStorage.getItem('userInitials');
-        this.setState({
-          userName: usersInitials,
-        });
-      }
-    }
-
-    if (localStorage.getItem('userInitials') === 'ALP') {
-      this.setState({
-        currentRecordView: 'accounting',
-        listView: 'view=All',
-      });
     }
   }
 
@@ -2729,6 +2758,7 @@ export default class CustomerService extends Component {
         return (
           <RecordView
             isLoading={this.state.loading}
+            categoryChange={this.categoryChange}
             controlsModalToggle={this.controlsModalToggle}
             currentId={this.state.currentId}
             recordChanges= {this.state.recordChanges}
@@ -2755,6 +2785,7 @@ export default class CustomerService extends Component {
         return (
           <AccountingView
             isLoading={this.state.loading}
+            categoryChange={this.categoryChange}
             controlsModalToggle={this.controlsModalToggle}
             currentId={this.state.currentId}
             recordChanges= {this.state.recordChanges}
@@ -2781,6 +2812,7 @@ export default class CustomerService extends Component {
         return (
           <CrewsView
             isLoading={this.state.loading}
+            categoryChange={this.categoryChange}
             controlsModalToggle={this.controlsModalToggle}
             currentId={this.state.currentId}
             recordChanges= {this.state.recordChanges}

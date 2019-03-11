@@ -125,7 +125,7 @@ export default class SalesFollowUps extends Component {
   heardBack = () => {
     let currState = this.state.openedFollow;
     // console.log(currState);
-    if (this.state.followType === 'proposal') {
+    if (this.state.followType === 'proposal' || this.state.followType === 'reference') {
       currState.fields['Follow Ups'] = currState.fields['Follow Ups'] + 1;
     } else {
       currState.fields['Follow Ups'] = currState.fields['Follow Ups'] + 1;
@@ -909,7 +909,7 @@ export default class SalesFollowUps extends Component {
                 <h4>{this.state.openedFollow.fields['Company Name']}</h4>
 
 
-                <Link target="_blank" className="ViewRec" to={linkTo}>View Record</Link>
+                <span className="ViewRec"><a onClick={this.heardBack}>Skip Reference</a> / <Link target="_blank" to={linkTo}>View Record</Link></span>
 
               </div>
 

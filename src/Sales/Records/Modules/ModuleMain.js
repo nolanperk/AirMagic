@@ -11,6 +11,7 @@ export default class ModuleMain extends Component {
     this.state = {
       statusValue: '',
       standingValue: '',
+      categoryValue: '',
       recentCallerValue: '',
       repValue: '',
     }
@@ -18,6 +19,7 @@ export default class ModuleMain extends Component {
 
 
   statusChange = e => {this.setState({statusValue: e.target.value});}
+  categoryChange = e => {this.setState({categoryValue: e.target.value});}
   standingChange = e => {this.setState({standingValue: e.target.value});}
   recentCallerChange = e => {this.setState({recentCallerValue: e.target.value});}
 
@@ -25,6 +27,7 @@ export default class ModuleMain extends Component {
     setTimeout((function() {
       this.setState({
         statusValue: this.props.status,
+        categoryValue: this.props.category,
         standingValue: this.props.standing,
         recentCallerValue: this.props.recentCaller,
         repValue: this.props.rep,
@@ -86,6 +89,7 @@ export default class ModuleMain extends Component {
 
     googleURL += company;
     let industry = this.props.industry;
+    let category = this.props.category;
     let callDate = this.props.callDate;
     let callBack = this.props.callBack;
     let website = this.props.website;
@@ -151,10 +155,12 @@ export default class ModuleMain extends Component {
               >
               <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
                 <option id="none"></option>
+                <option id="Carla+Milian">Carla Milian</option>
+                <option id="David+Lovic">David Lovic</option>
+                <option id="Jett">Jett</option>
+                <option disabled>----------</option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
-                <option id="Carla+Milian">Carla Milian</option>
-                <option id="Jett">Jett</option>
               </select>
             </div>
           </div>
@@ -253,10 +259,12 @@ export default class ModuleMain extends Component {
                 >
                 <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
                   <option id="none"></option>
+                  <option id="Carla+Milian">Carla Milian</option>
+                  <option id="David+Lovic">David Lovic</option>
+                  <option id="Jett">Jett</option>
+                  <option disabled>----------</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>
                   <option id="Eric+Kleeman">Eric Kleeman</option>
-                  <option id="Carla+Milian">Carla Milian</option>
-                  <option id="Jett">Jett</option>
                 </select>
               </div>
             </div>
@@ -306,15 +314,45 @@ export default class ModuleMain extends Component {
               </div>
             </div>
 
-
             <div className="inputBlock inputBlock--half">
-              <label>Industry</label>
-              <input
-                type="text"
-                id="industry"
-                value={industry}
-                onChange={this.props.changeRecordHandler}
-              />
+              <label>Category</label>
+              <div
+                className="selectBlock"
+                id="category"
+                >
+                <select id="categorySelect"  value={this.props.category} onChange={this.props.categoryChange}>
+                  <option></option>
+                  <option disabled>Standard</option>
+                  <option selected>General Office</option>
+                  <option>Manufacturing</option>
+                  <option>Government</option>
+                  <option>Law Office</option>
+                  <option>Retail</option>
+
+                  <option disabled>--------</option>
+                  <option disabled>Medical</option>
+                  <option>Standard Medical</option>
+                  <option>Clinic</option>
+                  <option>Dialysis / Oncology</option>
+                  <option>Dentist</option>
+                  <option>Veterinarian</option>
+
+                  <option disabled>--------</option>
+                  <option>Residential Common Area</option>
+                  <option>Residential Living</option>
+
+                  <option disabled>--------</option>
+                  <option>School</option>
+                  <option>Daycare / VPK</option>
+
+                  <option disabled>--------</option>
+                  <option>Church</option>
+
+                  <option disabled>--------</option>
+                  <option>Restaurant</option>
+                  <option>Bar</option>
+                </select>
+              </div>
             </div>
             <div className="inputBlock inputBlock--half">
               <label>Website</label>

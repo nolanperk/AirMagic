@@ -391,6 +391,16 @@ export default class Sales extends Component {
         'Special Notes': '',
         'Status': 'Active',
         'Standing': 'New Close',
+
+        'Service Time': '',
+        'Category': '',
+        'Service Notes': '',
+        'Service Schedule Changes': '',
+        'Strip & Wax' : '',
+        'Carpet Cleaning': '',
+        'Window Cleaning' : '',
+        'Tile & Grout': '',
+        'Pre-Clean': '',
       }
       if(this.state.currentRecord['Company Name']) {pushRecord['Company Name'] = this.state.currentRecord['Company Name']}
       if(this.state.currentRecord['Main contact']) {pushRecord['Main contact'] = this.state.currentRecord['Main contact']}
@@ -435,6 +445,16 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Sales Rep']) {pushRecord['Sales Rep'] = this.state.currentRecord['Sales Rep']}
       if(this.state.currentRecord['Notes']) {pushRecord['Notes'] = this.state.currentRecord['Notes']}
       if(this.state.currentRecord['Special Notes']) {pushRecord['Special Notes'] = this.state.currentRecord['Special Notes']}
+
+      if(this.state.currentRecord['Service Time']) {pushRecord['Service Time'] = this.state.currentRecord['Service Time']}
+      if(this.state.currentRecord['Category']) {pushRecord['Category'] = this.state.currentRecord['Category']}
+      if(this.state.currentRecord['Service Notes']) {pushRecord['Service Notes'] = this.state.currentRecord['Service Notes']}
+      if(this.state.currentRecord['Service Schedule Changes']) {pushRecord['Service Schedule Changes'] = this.state.currentRecord['Service Schedule Changes']}
+      if(this.state.currentRecord['Strip & Wax' ]) {pushRecord['Strip & Wax' ] = this.state.currentRecord['Strip & Wax' ]}
+      if(this.state.currentRecord['Carpet Cleaning']) {pushRecord['Carpet Cleaning'] = this.state.currentRecord['Carpet Cleaning']}
+      if(this.state.currentRecord['Window Cleaning' ]) {pushRecord['Window Cleaning' ] = this.state.currentRecord['Window Cleaning' ]}
+      if(this.state.currentRecord['Tile & Grout']) {pushRecord['Tile & Grout'] = this.state.currentRecord['Tile & Grout']}
+      if(this.state.currentRecord['Pre-Clean']) {pushRecord['Pre-Clean'] = this.state.currentRecord['Pre-Clean']}
 
       let destinationURL;
       let finalPush = {"fields": pushRecord}
@@ -596,6 +616,22 @@ export default class Sales extends Component {
         currentRecord: currentRecordState,
         recordChanges: true,
       })
+    } else if (e.target.id === 'serviceNotes') {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['Service Notes'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      })
+    } else if (e.target.id === 'serviceScheduleNotes') {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['Service Schedule Changes'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      })
     } else {
       currentRecordState = this.state.currentRecord;
       currentRecordState['Notes'] = e.target.value;
@@ -665,10 +701,18 @@ export default class Sales extends Component {
     else if (e.target.id === 'sqFtPer') {currentRecordState['SQ Ft. per Hour'] = e.target.value}
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
+    else if (e.target.id === 'serviceTime') {currentRecordState['Service Time'] = e.target.value}
 
     else if (e.target.id === 'followDate') {currentRecordState['Last Contact'] = e.target.value}
     else if (e.target.id === 'followCount') {currentRecordState['Follow Ups'] = parseInt(e.target.value)}
     else if (e.target.id === 'followUsed') {currentRecordState['Follow Ups Used'] = e.target.value}
+
+    else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean'] = e.target.value}
+    else if (e.target.id === 'strip') {currentRecordState['Strip & Wax'] = e.target.value}
+    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning'] = e.target.value}
+    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout'] = e.target.value}
+    else if (e.target.id === 'windows') {currentRecordState['Window Cleaning'] = e.target.value}
+
 
 
     this.setState({
@@ -687,6 +731,13 @@ export default class Sales extends Component {
     console.log('yo');
     let currentsRec = this.state.currentRecord;
     currentsRec['Sales Rep'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+  categoryChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Category'] = e.target.value;
     this.setState({
       currentRecord: currentsRec,
     });
@@ -947,6 +998,7 @@ export default class Sales extends Component {
         fullDataSet["Call Status"] = document.getElementById('callStatus').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
         fullDataSet["Follow Status"] = document.getElementById('followStatus').value;
+        fullDataSet["Category"] = document.getElementById('category').value;
 
 
 
@@ -1027,6 +1079,7 @@ export default class Sales extends Component {
       if (pushRecord["Close Date"] === '') {pushRecord["Close Date"] = undefined;}
       if (pushRecord["Proposal Date"] === '') {pushRecord["Proposal Date"] = undefined;}
       if (pushRecord["Follow Status"] === '') {pushRecord["Follow Status"] = undefined;}
+      if (pushRecord["Category"] === '') {pushRecord["Category"] = undefined;}
 
       let officePhone = this.state.currentRecord["Office Phone"];
       if (officePhone) {
@@ -1063,6 +1116,7 @@ export default class Sales extends Component {
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
         pushRecord["Call Status"] = document.getElementById('callStatus').value;
         pushRecord["Follow Status"] = document.getElementById('followStatus').value;
+        pushRecord["Category"] = document.getElementById('categorySelect').value;
 
         let finalPush = {"fields": pushRecord}
         console.log(finalPush);
@@ -1180,49 +1234,106 @@ export default class Sales extends Component {
       let mergeData = this.state.currentRecord;
 
       if (mergeType === 'Proposal') {
-        mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: ''}
-
-        if (mergeTemp === 'tmp-standard') {mergeURL.id = '177990/dl44vl';}
+        mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: '', Rep_Name: '', Rep_Email: '', Rep_Ext: '', Rep_Cell: '', Rep_Sig: '', Actual_Sq_Footage: '', Restrooms: '', Days_of_Week: '', Service_Time: '', projects: '', strip: '', stripPrice: '', carpet: '', carpetPrice: '', windows: '', windowPrice: '', tile: '', tilePrice: '', preCleanPrice: '', testLogo1: '', testCompany1: '', test1: '', testContact1: '', testLogo2: '', testCompany2: '', test2: '', testContact2: '', testLogo3: '', testCompany3: '', test3: '', testContact3: '',}
         if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
-        if (mergeTemp === 'tmp-medical') {mergeURL.id = '177992/u7ybcx';}
-        if (mergeTemp === 'tmp-schools') {mergeURL.id = '177993/r57mym';}
-        if (mergeTemp === 'tmp-1x') {mergeURL.id = '177994/zwklbq';}
-
-        if (mergeTemp === 'nwp-standard') {mergeURL.id = '177995/2r9k6c';}
         if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
-        if (mergeTemp === 'nwp-medical') {mergeURL.id = '177997/qw4acl';}
-        if (mergeTemp === 'nwp-schools') {mergeURL.id = '177998/u6qxyj';}
-        if (mergeTemp === 'nwp-1x') {mergeURL.id = '177999/ycpgia';}
-
-        if (mergeTemp === 'ram-standard') {mergeURL.id = '177723/u7be1d';}
-        if (mergeTemp === 'ram-once') {mergeURL.id = '177722/u7nscy';}
-        if (mergeTemp === 'ram-medical') {mergeURL.id = '177718/gusxia';}
-        if (mergeTemp === 'ram-medical-1x') {mergeURL.id = '177719/49snjp';}
-        if (mergeTemp === 'ram-healthcare') {mergeURL.id = '177724/gr2r59';}
-        if (mergeTemp === 'ram-multi-tenant') {mergeURL.id = '177720/c6ncuf';}
-        if (mergeTemp === 'ram-schools') {mergeURL.id = '177725/pbf2q4';}
-
-        if (mergeTemp === 'jdh-standard') {mergeURL.id = '178005/iu7f5a';}
         if (mergeTemp === 'jdh-once') {mergeURL.id = '178006/8x13jx';}
-        if (mergeTemp === 'jdh-medical') {mergeURL.id = '178007/fge48u';}
-        if (mergeTemp === 'jdh-schools') {mergeURL.id = '178008/r26mm9';}
-        if (mergeTemp === 'jdh-1x') {mergeURL.id = '178009/5ksv9d';}
 
+
+        if (this.state.exportQuestions.mergeType === 'tampa-standard-1x') { mergeURL.id = '225573/ctvrx5'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-standard') {  mergeURL.id = '225574/ls5hqu'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-medical-1x') {  mergeURL.id = '225575/dqn28l'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-medical') { mergeURL.id = '225576/8cwijp'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-residential-1x') {  mergeURL.id = '225577/y3eiyx'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-residential') { mergeURL.id = '225578/t3vhpt'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-schools-1x') {  mergeURL.id = '225579/xgibvf'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-schools') { mergeURL.id = '225580/ya8adw'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-church-1x') { mergeURL.id = '225581/jq7p2w'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-church') {  mergeURL.id = '225582/br3ib9'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-restaurant-1x') { mergeURL.id = '225583/upsg4n'; }
+        if (this.state.exportQuestions.mergeType === 'tampa-restaurant') {  mergeURL.id = '225585/5ukx3u'; }
+
+
+        if (this.state.exportQuestions.mergeType === 'orlando-standard-1x') { mergeURL.id = '225597/qzyuma'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-standard') {  mergeURL.id = '225596/6xjaxe'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-medical-1x') {  mergeURL.id = '225589/3y7shg'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-medical') { mergeURL.id = '225588/cthgcx'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-residential-1x') {  mergeURL.id = '225591/jnahd5'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-residential') { mergeURL.id = '225590/i7d4fg'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-schools-1x') {  mergeURL.id = '225595/sxgpn2'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-schools') { mergeURL.id = '225594/fqi728'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-church-1x') { mergeURL.id = '225587/gm4pww'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-church') {  mergeURL.id = '225586/suik1p'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-restaurant-1x') { mergeURL.id = '225593/uq53jt'; }
+        if (this.state.exportQuestions.mergeType === 'orlando-restaurant') {  mergeURL.id = '225592/i29e99'; }
 
 
         let contactArr = mergeData['Main contact'].split(" ");
         mergeURL.MrMs = mergeData['Salutation'];
+
+        mergeURL.Rep_Name = localStorage.getItem('userName');
+        mergeURL.Rep_Title = localStorage.getItem('userTitle');
+        mergeURL.Rep_Email = localStorage.getItem('userEmail');
+        mergeURL.Rep_Ext  = localStorage.getItem('userExt');
+        mergeURL.Rep_Cell = localStorage.getItem('userCell');
+        mergeURL.Rep_Sig = localStorage.getItem('userSig');
+
+        mergeURL.Actual_Sq_Footage = mergeData['Actual Sq Footage'];
+        mergeURL.Restrooms = mergeData['Restrooms'];
+        mergeURL.Days_of_Week = mergeData['Days of Week'];
+        mergeURL.Service_Time = mergeData['Service Time'];
+
+
+        if (this.state.exportQuestions.strip) { //if there is Strip and wax work
+          mergeURL.strip  = 'true';
+          mergeURL.stripPrice = this.state.exportQuestions.stripPrice;
+        }
+        if (this.state.exportQuestions.carpet) { //if there is Carpet work
+          mergeURL.carpet  = 'true';
+          mergeURL.carpetPrice = this.state.exportQuestions.carpetPrice;
+        }
+        if (this.state.exportQuestions.windows) { //if there is Exterior Window work
+          mergeURL.windows  = 'true';
+          mergeURL.windowPrice = this.state.exportQuestions.windowPrice;
+        }
+        if (this.state.exportQuestions.tile) { //if there is Tile / Grout work
+          mergeURL.tile  = 'true';
+          mergeURL.tilePrice = this.state.exportQuestions.tilePrice;
+        }
+        mergeURL.preCleanPrice = this.state.exportQuestions.preCleanPrice;
+
+
         mergeURL.Cont_First_Name = contactArr[0];
         mergeURL.Cont_Last_Name = contactArr[1];
-        mergeURL.Contact_Title = mergeData['Title'];
-        mergeURL.Company = mergeData['Company Name'];
+        mergeURL.Contact_Title = encodeURIComponent(mergeData['Title']);
+        mergeURL.Company = encodeURIComponent(mergeData['Company Name']);
         mergeURL.Address_Line_1 = mergeData['Address 1'];
         mergeURL.Address_Line_2 = mergeData['Address 2'];
         mergeURL.City = mergeData['City'];
         mergeURL.Zip_Code = mergeData['Zip'];
         mergeURL.Amount = mergeData['Monthly Amount'];
         mergeURL.Days_Serviced = mergeData['Times per Week'] + 'Week';
-        mergeURL.Proposal_Date = mergeData['Proposal Date'];
+
+        let today  = new Date();
+        let finalProposalDate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+        mergeURL.Proposal_Date = finalProposalDate;
+
+
+        if (this.state.exportQuestions.testimonials[0]['Logo']) {mergeURL.testLogo1 = this.state.exportQuestions.testimonials[0]['Logo'][0].url;}
+        mergeURL.testCompany1 = this.state.exportQuestions.testimonials[0]['Company'];
+        mergeURL.test1 = this.state.exportQuestions.testimonials[0]['Testimonial'];
+        mergeURL.testContact1 = this.state.exportQuestions.testimonials[0]['Contact'];
+
+        if (this.state.exportQuestions.testimonials[1]['Logo']) {mergeURL.testLogo2 = this.state.exportQuestions.testimonials[1]['Logo'][0].url;}
+        mergeURL.testCompany2 = this.state.exportQuestions.testimonials[1]['Company'];
+        mergeURL.test2 = this.state.exportQuestions.testimonials[1]['Testimonial'];
+        mergeURL.testContact2 = this.state.exportQuestions.testimonials[1]['Contact'];
+
+        if (this.state.exportQuestions.testimonials[2]['Logo']) {mergeURL.testLogo3 = this.state.exportQuestions.testimonials[2]['Logo'][0].url;}
+        mergeURL.testCompany3 = this.state.exportQuestions.testimonials[2]['Company'];
+        mergeURL.test3 = this.state.exportQuestions.testimonials[2]['Testimonial'];
+        mergeURL.testContact3 = this.state.exportQuestions.testimonials[2]['Contact'];
+
 
         Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
 
@@ -1238,7 +1349,41 @@ export default class Sales extends Component {
         if (mergeURL.Zip_Code) {finalURL += 'Zip_Code=' + mergeURL.Zip_Code;  finalURL += '&';}  else {finalURL += 'Zip_Code=+';  finalURL += '&';}
         if (mergeURL.Days_Serviced) {finalURL += 'Days_Serviced=' + mergeURL.Days_Serviced;  finalURL += '&';} else {finalURL += 'Days_Serviced=+';  finalURL += '&';}
         if (mergeURL.Amount) {finalURL += 'Amount=' + mergeURL.Amount;  finalURL += '&';} else {finalURL += 'Amount=+';  finalURL += '&';}
-        if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date;} else {finalURL += 'Proposal_Date=+';}
+        if (mergeURL.Proposal_Date) {finalURL += 'Proposal_Date=' + mergeURL.Proposal_Date; finalURL += '&';} else {finalURL += 'Proposal_Date=+';  finalURL += '&';}
+
+        if (mergeURL.Rep_Name) {finalURL += 'Rep_Name=' + mergeURL.Rep_Name;  finalURL += '&';} else {finalURL += 'Rep_Name=+';  finalURL += '&';}
+        if (mergeURL.Rep_Email) {finalURL += 'Rep_Email=' + mergeURL.Rep_Email;  finalURL += '&';} else {finalURL += 'Rep_Email=+';  finalURL += '&';}
+        if (mergeURL.Rep_Ext) {finalURL += 'Rep_Ext=' + mergeURL.Rep_Ext;  finalURL += '&';} else {finalURL += 'Rep_Ext=+';  finalURL += '&';}
+        if (mergeURL.Rep_Cell) {finalURL += 'Rep_Cell=' + mergeURL.Rep_Cell;  finalURL += '&';} else {finalURL += 'Rep_Cell=+';  finalURL += '&';}
+        if (mergeURL.Rep_Sig) {finalURL += 'Rep_Sig=' + mergeURL.Rep_Sig;  finalURL += '&';} else {finalURL += 'Rep_Sig=+';  finalURL += '&';}
+
+        if (mergeURL.Actual_Sq_Footage) {finalURL += 'Actual_Sq_Footage=' + mergeURL.Actual_Sq_Footage;  finalURL += '&';} else {finalURL += 'Actual_Sq_Footage=+';  finalURL += '&';}
+        if (mergeURL.Restrooms) {finalURL += 'Restrooms=' + mergeURL.Restrooms;  finalURL += '&';} else {finalURL += 'Restrooms=+';  finalURL += '&';}
+        if (mergeURL.Days_of_Week) {finalURL += 'Days_of_Week=' + mergeURL.Days_of_Week;  finalURL += '&';} else {finalURL += 'Days_of_Week=+';  finalURL += '&';}
+        if (mergeURL.Service_Time) {finalURL += 'Service_Time=' + mergeURL.Service_Time;  finalURL += '&';} else {finalURL += 'Service_Time=+';  finalURL += '&';}
+
+        if (mergeURL.strip) {finalURL += 'strip=' + mergeURL.strip; finalURL += '&';} else {finalURL += 'strip=+&';}
+        if (mergeURL.stripPrice) {finalURL += 'stripPrice=' + mergeURL.stripPrice; finalURL += '&';} else {finalURL += 'stripPrice=+&';}
+        if (mergeURL.carpet) {finalURL += 'carpet=' + mergeURL.carpet; finalURL += '&';} else {finalURL += 'carpet=+&';}
+        if (mergeURL.carpetPrice) {finalURL += 'carpetPrice=' + mergeURL.carpetPrice; finalURL += '&';} else {finalURL += 'carpetPrice=+&';}
+        if (mergeURL.windows) {finalURL += 'windows=' + mergeURL.windows; finalURL += '&';} else {finalURL += 'windows=+&';}
+        if (mergeURL.windowPrice) {finalURL += 'windowPrice=' + mergeURL.windowPrice; finalURL += '&';} else {finalURL += 'windowPrice=+&';}
+        if (mergeURL.tile) {finalURL += 'tile=' + mergeURL.tile; finalURL += '&';} else {finalURL += 'tile=+&';}
+        if (mergeURL.tilePrice) {finalURL += 'tilePrice=' + mergeURL.tilePrice; finalURL += '&';} else {finalURL += 'tilePrice=+&';}
+        if (mergeURL.preCleanPrice) {finalURL += 'preCleanPrice=' + mergeURL.preCleanPrice; finalURL += '&';} else {finalURL += 'preCleanPrice=+&';}
+
+        if (mergeURL.testLogo1) {finalURL += 'testLogo1=' + mergeURL.testLogo1; finalURL += '&';} else {finalURL += 'testLogo1=+&';}
+        if (mergeURL.test1) {finalURL += 'test1=' + mergeURL.test1; finalURL += '&';} else {finalURL += 'test1=+&';}
+        if (mergeURL.testCompany1) {finalURL += 'testCompany1=' + mergeURL.testCompany1; finalURL += '&';} else {finalURL += 'testCompany1=+&';}
+        if (mergeURL.testContact1) {finalURL += 'testContact1=' + mergeURL.testContact1; finalURL += '&';} else {finalURL += 'testContact1=+&';}
+        if (mergeURL.testLogo2) {finalURL += 'testLogo2=' + mergeURL.testLogo2; finalURL += '&';} else {finalURL += 'testLogo2=+&';}
+        if (mergeURL.test2) {finalURL += 'test2=' + mergeURL.test2; finalURL += '&';} else {finalURL += 'test2=+&';}
+        if (mergeURL.testCompany2) {finalURL += 'testCompany2=' + mergeURL.testCompany2; finalURL += '&';} else {finalURL += 'testCompany2=+&';}
+        if (mergeURL.testContact2) {finalURL += 'testContact2=' + mergeURL.testContact2; finalURL += '&';} else {finalURL += 'testContact2=+&';}
+        if (mergeURL.testLogo3) {finalURL += 'testLogo3=' + mergeURL.testLogo3; finalURL += '&';} else {finalURL += 'testLogo3=+&';}
+        if (mergeURL.test3) {finalURL += 'test3=' + mergeURL.test3; finalURL += '&';} else {finalURL += 'test3=+&';}
+        if (mergeURL.testCompany3) {finalURL += 'testCompany3=' + mergeURL.testCompany3; finalURL += '&';} else {finalURL += 'testCompany3=+&';}
+        if (mergeURL.testContact3) {finalURL += 'testContact3=' + mergeURL.testContact3; finalURL += '&';} else {finalURL += 'testContact3=+&';}
       } else {
         mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', 'Cont_First_Name': '', 'Cont_Last_Name': '', 'Contact_Title': '', 'Company': '', 'Address_Line_1': '', 'Address_Line_2': '', 'City': '', 'Zip_Code': '', 'Appt_Date': '', 'Appt_Time': '', 'Telemarketer': '', 'Account_Rep': '', 'cnty': '', 'Office_Phone': '', 'Office_Phone_Ext': ''}
         if (this.props.citySet === 'tampa') { // IF IS IN TAMPA
@@ -1298,83 +1443,244 @@ export default class Sales extends Component {
       return axios
         .post(finalURL)
         .then(response => {
-          let finalDate;
-          if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
-          else {finalDate = 'DATE'}
-          let alertStr;
-          if (mergeType === 'Proposal') {
-            alertStr = "The $" + mergeData['Monthly Amount'] + ' ' + mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
-          } else {
-            alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
-          }
-          let today  = new Date(); let dayTime;
-          if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
-          let finalEntry;
-          if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
-          currentRecordState = this.state.currentRecord;
-          let newNote = finalEntry + '\n' + alertStr;
-
-          if (currentRecordState['Notes']) {
-            currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
-          } else {
-            currentRecordState['Notes'] = newNote;
-          }
-
-          if (mergeType === 'Proposal') {
-            currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-            currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-            currentRecordState['Follow Ups'] = 0;
-            currentRecordState['Status'] = 'APPC';
-            setTimeout((function() {
-              document.getElementById('statusSelect').value = 'APPC';
-            }).bind(this), 50);
-          }
-          this.setState({
-            currentRecord: currentRecordState,
-            recordChanges: true,
-            isExporting: true,
-          });
-
-          setTimeout((function() {
-            this.saveRecordHandler();
-          }).bind(this), 250);
+          // let finalDate;
+          // if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
+          // else {finalDate = 'DATE'}
+          // let alertStr;
+          // if (mergeType === 'Proposal') {
+          //   alertStr = "The $" + mergeData['Monthly Amount'] + ' ' + mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          // } else {
+          //   alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          // }
+          // let today  = new Date(); let dayTime;
+          // if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
+          // let finalEntry;
+          // if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
+          // currentRecordState = this.state.currentRecord;
+          // let newNote = finalEntry + '\n' + alertStr;
+          //
+          // if (currentRecordState['Notes']) {
+          //   currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
+          // } else {
+          //   currentRecordState['Notes'] = newNote;
+          // }
+          //
+          // if (mergeType === 'Proposal') {
+          //   currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+          //   currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+          //   currentRecordState['Follow Ups'] = 0;
+          //   currentRecordState['Status'] = 'APPC';
+          //   setTimeout((function() {
+          //     document.getElementById('statusSelect').value = 'APPC';
+          //   }).bind(this), 50);
+          // }
+          // this.setState({
+          //   currentRecord: currentRecordState,
+          //   recordChanges: true,
+          //   isExporting: true,
+          // });
+          //
+          // setTimeout((function() {
+          //   this.saveRecordHandler();
+          // }).bind(this), 250);
         })
     }
   }
 
 
+  exportRecord = (exportData, type) => {
+    console.log(exportData);
+    console.log('exportRecord(' + exportData + ', ' + type + ')');
 
-  exportRecord = e => {
-    e.preventDefault();
-    mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-merge');
-    mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+    if (exportData !== 'tampa-additional' && exportData !== 'orlando-additional' && exportData !== 'appt-sheet') {
+      let exportQuestions = {};
 
-    let showModal = function() {
-      this.setState({
-        activeModal: true,
-        modalType: 'forecast',
-      });
-    }.bind(this)
+      exportQuestions.strip  = exportData.strip;
+      exportQuestions.carpet  = exportData.carpet;
+      exportQuestions.windows  = exportData.windows;
+      exportQuestions.tile  = exportData.tile;
+      exportQuestions.preClean  = exportData.preClean;
+      if (exportData.strip) { exportQuestions.stripPrice = exportData.stripPrice;  }
+      if (exportData.carpet) {  exportQuestions.carpetPrice = exportData.carpetPrice;  }
+      if (exportData.window) {  exportQuestions.windowPrice = exportData.windowPrice;  }
+      if (exportData.tile) {  exportQuestions.tilePrice = exportData.tilePrice;  }
+      if (exportData.preClean) {  exportQuestions.preCleanPrice = exportData.preCleanPrice;  }
+
+      exportQuestions.mergeType = exportData.mergeTemp;
 
 
-    if (this.state.currentRecord['Proposal Date']) { //theres a date. Check it!
-      let previousDate = new Date(this.state.currentRecord['Proposal Date']); //adding six months because we don't want to show this too often
-      let currentDate = new Date();
-      console.log(currentDate + ">" + previousDate);
-      if (currentDate >= previousDate) {
-        this.setState({
-          activeModal: false,
-          modalType: '',
-        });
-        this.createDocument();
+      let currRec = this.state.currentRecord;
+      currRec['Service Time'] = exportData.time;
+      currRec['Category'] = exportData.category;
+      currRec['Service Notes'] = exportData.offerNotes;
+      currRec['Service Schedule Changes'] = exportData.serviceSchedule;
+
+
+      if (exportData.strip) { currRec['Strip & Wax'] = exportData.stripPrice;  }
+      if (exportData.carpet) {  currRec['Carpet Cleaning'] = exportData.carpetPrice;  }
+      if (exportData.window) {  currRec['Window Cleaning'] = exportData.windowPrice;  }
+      if (exportData.tile) {  currRec['Tile & Grout'] = exportData.tilePrice;  }
+      if (exportData.preClean) {  currRec['Pre-Clean'] = exportData.preCleanPrice;  }
+
+      if (exportData.daysOfWeek.length === 7) {
+        currRec['Days of Week'] = 'Monday through Sunday';
+      } else if (exportData.daysOfWeek.length === 6) {
+        if (exportData.daysOfWeek.includes('Sun') === false) {
+          currRec['Days of Week'] = 'Monday through Saturday';
+        } else if (exportData.daysOfWeek.includes('Sat') === false) {
+          currRec['Days of Week'] = 'Sunday through Friday';
+        } else if (exportData.daysOfWeek.includes('Fri') === false) {
+          currRec['Days of Week'] = 'Saturday through Thursday';
+        } else if (exportData.daysOfWeek.includes('Thu') === false) {
+          currRec['Days of Week'] = 'Friday through Wednesday';
+        } else if (exportData.daysOfWeek.includes('Wed') === false) {
+          currRec['Days of Week'] = 'Thursday through Tuesday';
+        } else if (exportData.daysOfWeek.includes('Tue') === false) {
+          currRec['Days of Week'] = 'Wednesday through Monday';
+        } else if (exportData.daysOfWeek.includes('Mon') === false) {
+          currRec['Days of Week'] = 'Tuesday through Sunday';
+        }
+      } else if (exportData.daysOfWeek.length === 5) {
+        if (exportData.daysOfWeek.includes('Sat') === false && exportData.daysOfWeek.includes('Sun') === false) {
+          currRec['Days of Week'] = 'Monday through Friday';
+        } else if (exportData.daysOfWeek.includes('Sun') === false && exportData.daysOfWeek.includes('Mon') === false) {
+          currRec['Days of Week'] = 'Tuesday through Saturday';
+        } else if (exportData.daysOfWeek.includes('Mon') === false && exportData.daysOfWeek.includes('Tue') === false) {
+          currRec['Days of Week'] = 'Wednesday through Sunday';
+        } else if (exportData.daysOfWeek.includes('Tue') === false && exportData.daysOfWeek.includes('Wed') === false) {
+          currRec['Days of Week'] = 'Thursday through Monday';
+        } else if (exportData.daysOfWeek.includes('Wed') === false && exportData.daysOfWeek.includes('Thu') === false) {
+          currRec['Days of Week'] = 'Friday through Tuesday';
+        } else if (exportData.daysOfWeek.includes('Thu') === false && exportData.daysOfWeek.includes('Fri') === false) {
+          currRec['Days of Week'] = 'Saturday through Wednesday';
+        } else if (exportData.daysOfWeek.includes('Fri') === false && exportData.daysOfWeek.includes('Sat') === false) {
+          currRec['Days of Week'] = 'Sunday through Thursday';
+        }
       } else {
-        showModal();
+        currRec['Days of Week'] = '' + exportData.daysOfWeek;
       }
+
+      this.setState({
+        currentRecord: currRec,
+        exportQuestions: exportQuestions,
+      });
+
+
+
+
+
+      /////////////////////////////////
+      //  Testimonials Info ///////////
+      /////////////////////////////////
+      let testimonialsURL = 'https://api.airtable.com/v0/app3t50c5Z3rAjx4X/' + this.props.citySet;
+      let exportCat;
+
+      if (exportData.category === 'General Office' || exportData.category === 'Manufacturing' || exportData.category === 'Government' || exportData.category === 'Law Office' || exportData.category === 'Retail') {
+        exportCat = 'Office';
+      } else if (exportData.category === 'Standard Medical' || exportData.category === 'Clinic' || exportData.category === 'Dialysis / Oncology' || exportData.category === 'Dentist' || exportData.category === 'Veterinarian') {
+        exportCat = 'Medical';
+      } else if (exportData.category === 'Residential Common Area' || exportData.category === 'Residential Living') {
+        exportCat = 'Residential';
+      } else if (exportData.category === 'Church') {
+        exportCat = 'Church';
+      } else if (exportData.category === 'School' || exportData.category === 'Daycare / VPK') {
+        exportCat = 'School';
+      } else if (exportData.category === 'Restaurant' || exportData.category === 'Bar') {
+        exportCat = 'Restaurant';
+      }
+      testimonialsURL = testimonialsURL + '?filterByFormula=OR(%7BCategory%7D+%3D+%27Any%27%2C+%7BCategory%7D+%3D+%27' + exportCat + '%27)';
+      console.log(testimonialsURL);
+
+
+      setTimeout((function() {
+        return axios
+          .get(testimonialsURL).then(response => {
+            console.log(response);
+            let testimonial = response.data.records;
+            let nonAnyCount = 0;  let totalCount = 0;
+            let testimonialList = [];
+            let anyItems = [];
+
+            for (var i in testimonial) {
+              console.log(testimonial[i].fields['Company'] + ' - ' + totalCount);
+              if (totalCount < 3) {
+                if (testimonial[i].fields['Category'] !== 'Any') {
+                  nonAnyCount = nonAnyCount + 1;
+                  totalCount = totalCount + 1;
+                  console.log('add total');
+                  testimonialList.push(testimonial[i].fields)
+                } else {
+                  anyItems.push(testimonial[i])
+                }
+              }
+            }
+            console.log(totalCount);
+            if (totalCount < 3) {
+              console.log(anyItems);
+              for (var i in anyItems) {
+                if (totalCount < 3) {
+                  if (anyItems[i].fields['Category'] === 'Any') {
+                    totalCount = totalCount + 1;
+                    testimonialList.push(anyItems[i].fields)
+                  }
+                }
+              }
+            }
+            let currExport = this.state.exportQuestions;
+            currExport.testimonials = testimonialList;
+            this.setState({
+              exportQuestions: currExport,
+            })
+
+            console.log(currExport);
+
+            setTimeout((function() {
+              if (this.state.currentRecord['Proposal Date']) { //theres a date. Check it!
+                let previousDate = new Date(this.state.currentRecord['Proposal Date']); //adding six months because we don't want to show this too often
+                let currentDate = new Date();
+                console.log(currentDate + ">" + previousDate);
+                if (currentDate >= previousDate) {
+                  this.setState({
+                    activeModal: false,
+                    modalType: '',
+                  });
+                  this.createDocument();
+                } else {
+                  showModal();
+                }
+              } else {
+                showModal();
+              }
+            }).bind(this), 50);
+          });
+      }).bind(this), 50);
+
+
+      let showModal = function() {
+        this.setState({
+          activeModal: true,
+          modalType: 'forecast',
+        });
+      }.bind(this)
+
+
+
     } else {
-      showModal();
+      let finalType;
+      if (exportData === 'orlando-additional') {
+        finalType = 'jdh-once'
+      } else if (exportData === 'tampa-additional') {
+        if (this.state.currentRecord['Sales Rep'] === 'Tyler Perkins') {
+          finalType = 'tmp-once';
+        } else {
+          finalType = 'nwp-once';
+        }
+      } else {
+        finalType = exportData;
+      }
+      mergeTemp = finalType;
     }
-
-
+    mergeType = type;
   }
 
   forecastSave = e => {
@@ -2429,40 +2735,53 @@ export default class Sales extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
-      if (localStorage.getItem('isOutside')  === 'true') {
-        if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
-          if (this.props.citySet !== localStorage.getItem('userOffice')) {
-            this.props.history.push('/outside/' + localStorage.getItem('userOffice') + '/');
+      let twoWeeksAgo = new Date(+new Date - 1000*60*60*24*14);
+      if (localStorage.getItem('lastLogin')) { //logged in after update
+        let lastLog = new Date(localStorage.getItem('lastLogin'));
+        if (lastLog > twoWeeksAgo) { //logged in within past two weeks
+          if (localStorage.getItem('isOutside')  === 'true') {
+            if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
+              if (this.props.citySet !== localStorage.getItem('userOffice')) {
+                this.props.history.push('/outside/' + localStorage.getItem('userOffice') + '/');
+              }
+            } else {
+              this.props.history.push('/outside/' + this.props.citySet);
+            }
+          }
+          if (sessionStorage.getItem('searchQuery')) {
+            this.setState({
+              searchQuery: sessionStorage.getItem('searchQuery'),
+              searchBy: sessionStorage.getItem('searchBy'),
+              loading: true,
+            });
+            this.loadPrevSearch();
+          } else {
+            this.loadData();
+          }
+          if (localStorage.getItem('userInitials')) {
+            let usersInitials = localStorage.getItem('userInitials');
+            this.setState({
+              userName: usersInitials,
+            });
+          }
+
+          if (sessionStorage.getItem('salesView')) {
+            this.setState({
+              currentRecordView: sessionStorage.getItem('salesView')
+            });
+          } else {
+            this.setState({
+              currentRecordView: 'default'
+            });
           }
         } else {
-          this.props.history.push('/outside/' + this.props.citySet);
+          sessionStorage.clear();
+          localStorage.clear();
         }
-      }
-      if (sessionStorage.getItem('searchQuery')) {
-        this.setState({
-          searchQuery: sessionStorage.getItem('searchQuery'),
-          searchBy: sessionStorage.getItem('searchBy'),
-          loading: true,
-        });
-        this.loadPrevSearch();
       } else {
-        this.loadData();
-      }
-      if (localStorage.getItem('userInitials')) {
-        let usersInitials = localStorage.getItem('userInitials');
-        this.setState({
-          userName: usersInitials,
-        });
-      }
-
-      if (sessionStorage.getItem('salesView')) {
-        this.setState({
-          currentRecordView: sessionStorage.getItem('salesView')
-        });
-      } else {
-        this.setState({
-          currentRecordView: 'default'
-        });
+        sessionStorage.clear();
+        localStorage.clear();
+        this.props.history.push('/login');
       }
     }
   }
@@ -2585,6 +2904,10 @@ export default class Sales extends Component {
           citySet={this.props.citySet}
           currentRecord={this.state.currentRecord}
           insideForecastSave={this.insideForecastSave}
+          timesPerWeekChange={this.timesPerWeekChange}
+          changeRecordHandler={this.changeRecordHandler}
+          autoPricing={this.autoPricing}
+          categoryChange={this.categoryChange}
         />
       )
     }
@@ -2614,6 +2937,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
@@ -2642,6 +2966,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
@@ -2670,6 +2995,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}
@@ -2698,6 +3024,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
             mobileHand={this.state.mobileHand}

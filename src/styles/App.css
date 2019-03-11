@@ -999,6 +999,8 @@ hr {
       flex-basis: 100%; }
     .ModuleList .inputBlock.inputBlock--small {
       flex-basis: 35%; }
+    .ModuleList .inputBlock.inputBlock--third {
+      flex-basis: 32%; }
     .ModuleList .inputBlock.inputBlock--quart {
       flex-basis: 22%; }
     .ModuleList .inputBlock.inputBlock--75 {
@@ -1741,6 +1743,74 @@ hr {
       opacity: 0.4;
       letter-spacing: 0.5px;
       line-height: 11px; }
+
+.modal .SalesModal.splitted {
+  margin-left: -14vw; }
+
+.modal .SalesModal .ModuleList {
+  background: #eaeaea;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  width: 500px;
+  height: auto !important; }
+  .modal .SalesModal .ModuleList .ModuleCard {
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+    width: 450px;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important; }
+    .modal .SalesModal .ModuleList .ModuleCard.error, .modal .SalesModal .ModuleList .ModuleCard .error {
+      background: #C31F2F; }
+
+.modal .SalesModal .inner {
+  width: 450px; }
+
+.modal .SalesModal form .inner {
+  background: #F7F7F5;
+  padding: 30px;
+  margin: 10px 0; }
+  .modal .SalesModal form .inner select {
+    background: #fff !important; }
+
+.modal .SalesModal form textarea {
+  background: #F7F7F5;
+  padding: 20px;
+  margin: 10px 0;
+  outline: 0;
+  border-radius: 5px;
+  display: block; }
+
+.modal .SalesModal form .splitHalf .notesHalf {
+  position: absolute;
+  right: 0;
+  transform: translateX(105%);
+  width: 26vw;
+  min-width: 0;
+  background: #fff;
+  top: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  height: 95%; }
+
+.modal .SalesModal .daySelect {
+  margin: 20px 0 0; }
+  .modal .SalesModal .daySelect p, .modal .SalesModal .daySelect .fieldsList label, .fieldsList .modal .SalesModal .daySelect label {
+    margin-bottom: 10px; }
+  .modal .SalesModal .daySelect input {
+    display: none !important; }
+  .modal .SalesModal .daySelect input[type=checkbox] + label {
+    display: inline-block;
+    padding: 2px 9px;
+    margin: 0 1px; }
+  .modal .SalesModal .daySelect input[type=checkbox]:checked + label {
+    padding: 2px 9px;
+    margin: 0px 1px;
+    border-radius: 100px;
+    font-weight: bold;
+    background: #407ae6;
+    color: #ffffff; }
 
 @media only screen and (max-width: 900px) {
   .modal .modalInner {

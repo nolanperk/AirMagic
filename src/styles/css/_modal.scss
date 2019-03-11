@@ -635,6 +635,100 @@
   }
 }
 
+.modal .SalesModal {
+  &.splitted {
+    margin-left: -14vw;
+  }
+  .ModuleList {
+    background: #eaeaea;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    width: 500px;
+    height: auto !important;
+
+    .ModuleCard {
+      text-align: left;
+      display: inline-block;
+      width: 100%;
+      width: 450px;
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+
+      &.error, .error {
+        background: $primary
+      }
+    }
+  }
+
+  .inner {
+    width: 450px;
+  }
+
+  form {
+    .inner {
+      background: $offWhite;
+      padding: 30px;
+      margin: 10px 0;
+
+      select {
+        background: $white !important;
+      }
+    }
+
+    textarea {
+      background: $offWhite;
+      padding: 20px;
+      margin: 10px 0;
+      outline: 0;
+      border-radius: 5px;
+      display: block;
+    }
+
+    .splitHalf {
+      .notesHalf {
+        position: absolute;
+        right: 0;
+        transform: translateX(105%);
+        width: 26vw;
+        min-width: 0;
+        background: $white;
+        top: 0;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        height: 95%;
+      }
+    }
+  }
+
+  .daySelect {
+    margin: 20px 0 0;
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    input {
+      display: none!important;
+    }
+
+    input[type=checkbox] + label {
+      display: inline-block;
+      padding: 2px 9px;
+      margin: 0 1px;
+    }
+    input[type=checkbox]:checked + label {
+      padding: 2px 9px;
+      margin: 0px 1px;
+      border-radius: 100px;
+      font-weight: bold;
+      background: $tertiary;
+      color: #ffffff;
+    }
+  }
+
+}
+
 
 
 

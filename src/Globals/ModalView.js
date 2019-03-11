@@ -76,8 +76,10 @@ export default class ModalView extends Component {
       return (
         <ExportRecords
           controlsModalToggle={this.props.controlsModalToggle}
+          currentTable={this.props.currentTable}
           submitExport={this.props.submitExport}
           currentTable={this.props.currentTable}
+          exportRecord={this.props.exportRecord}
         />
       )
     } else if (this.props.modalType === 'recordExport') {
@@ -88,6 +90,12 @@ export default class ModalView extends Component {
           exportRecord={this.props.exportRecord}
           baseId={this.props.baseId}
           currentTable={this.props.currentTable}
+          changeRecordHandler={this.props.changeRecordHandler}
+          currentRecord={this.props.currentRecord}
+          timesPerWeekChange={this.props.timesPerWeekChange}
+          citySet={this.props.citySet}
+          autoPricing={this.props.autoPricing}
+          categoryChange={this.props.categoryChange}
         />
       )
     } else if (this.props.modalType === 'salesMetrics') {
@@ -103,7 +111,7 @@ export default class ModalView extends Component {
           currentTable={this.props.currentTable}
           baseId={this.props.baseId}
           controlsModalToggle={this.props.controlsModalToggle}
-          citySet={this.props.citySet}       
+          citySet={this.props.citySet}
         />
       )
     } else if (this.props.modalType === 'moveDatabase') {
