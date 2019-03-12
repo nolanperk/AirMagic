@@ -96,9 +96,21 @@ export default class RecordExport extends Component {
         viewType: 'salesIntro',
       })
     } else if (this.state.viewType === 'salesDayTime') {
-      this.setState({
-        viewType: 'detailsCheck',
-      })
+      if (this.state.needsDetails) {
+        this.setState({
+          viewType: 'detailsCheck',
+        })
+      } else {
+        if (this.state.needsPrice) {
+          this.setState({
+            viewType: 'priceCheck',
+          })
+        } else {
+          this.setState({
+            viewType: 'salesIntro',
+          })
+        }
+      }
     } else if (this.state.viewType === 'offerNotes') {
       this.setState({
         viewType: 'salesDayTime',
@@ -488,21 +500,16 @@ export default class RecordExport extends Component {
             <div className="ModuleList">
               <div className="ModuleCard" id="amounts">
                 <div className="inner">
-                  <div className="inputBlock inputBlock--full">
-                    <label>Monthly Amount</label>
-                    <div className="inputWithTag">
-                      <div className="inputTag selectable" onClick={this.props.autoPricing}>
-                        <img src={dollarImg} alt="" />
-                      </div>
-                      <input
-                        type="text"
-                        value={this.props.currentRecord['Monthly Amount']}
-                        id="amount"
-                        onChange={this.props.changeRecordHandler}
-                      />
-                    </div>
+                  <div className="inputBlock inputBlock--third">
+                    <label>Actual Sq. Ft.</label>
+                    <input
+                      type="text"
+                      value={this.props.currentRecord['Actual Sq Footage']}
+                      id="sqFtReal"
+                      onChange={this.props.changeRecordHandler}
+                    />
                   </div>
-                  <div className="inputBlock inputBlock--half">
+                  <div className="inputBlock inputBlock--third">
                     <label>Sq Ft. / Hour</label>
                     <input
                       type="text"
@@ -511,12 +518,12 @@ export default class RecordExport extends Component {
                       onChange={this.props.changeRecordHandler}
                     />
                   </div>
-                  <div className="inputBlock inputBlock--half">
-                    <label>Actual Sq. Ft.</label>
+                  <div className="inputBlock inputBlock--third">
+                    <label>Hours Per</label>
                     <input
                       type="text"
-                      value={this.props.currentRecord['Actual Sq Footage']}
-                      id="sqFtReal"
+                      value={this.props.currentRecord['Hours Per']}
+                      id="hoursPer"
                       onChange={this.props.changeRecordHandler}
                     />
                   </div>
@@ -547,6 +554,25 @@ export default class RecordExport extends Component {
                       id="timesPerWeek"
                       onChange={this.props.changeRecordHandler}
                     />
+                  </div>
+                </div>
+              </div>
+
+              <div className="ModuleCard" id="amounts">
+                <div className="inner">
+                  <div className="inputBlock inputBlock--full">
+                    <label>Monthly Amount (click $ to autoprice)</label>
+                    <div className="inputWithTag">
+                      <div className="inputTag selectable" onClick={this.props.autoPricing}>
+                        <img src={dollarImg} alt="" />
+                      </div>
+                      <input
+                        type="text"
+                        value={this.props.currentRecord['Monthly Amount']}
+                        id="amount"
+                        onChange={this.props.changeRecordHandler}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

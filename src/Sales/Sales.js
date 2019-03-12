@@ -1235,37 +1235,39 @@ export default class Sales extends Component {
 
       if (mergeType === 'Proposal') {
         mergeURL = {base: 'https://www.webmerge.me/merge/', id: '', MrMs: '', Cont_First_Name: '', Cont_Last_Name: '', Contact_Title: '', Company: '', Address_Line_1: '', Address_Line_2: '', City: '', Zip_Code: '', Amount: '', Days_Serviced: '', Proposal_Date: '', Rep_Name: '', Rep_Email: '', Rep_Ext: '', Rep_Cell: '', Rep_Sig: '', Actual_Sq_Footage: '', Restrooms: '', Days_of_Week: '', Service_Time: '', projects: '', strip: '', stripPrice: '', carpet: '', carpetPrice: '', windows: '', windowPrice: '', tile: '', tilePrice: '', preCleanPrice: '', testLogo1: '', testCompany1: '', test1: '', testContact1: '', testLogo2: '', testCompany2: '', test2: '', testContact2: '', testLogo3: '', testCompany3: '', test3: '', testContact3: '',}
-        if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
-        if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
-        if (mergeTemp === 'jdh-once') {mergeURL.id = '178006/8x13jx';}
+
+        if (mergeTemp === 'tmp-once' || mergeTemp === 'nwp-once' || mergeTemp === 'jdh-once') {
+          if (mergeTemp === 'tmp-once') {mergeURL.id = '177991/c4yk4s';}
+          if (mergeTemp === 'nwp-once') {mergeURL.id = '177996/xhy3ib';}
+          if (mergeTemp === 'jdh-once') {mergeURL.id = '178006/8x13jx';}
+        } else {
+          if (this.state.exportQuestions.mergeType === 'tampa-standard-1x') { mergeURL.id = '225573/ctvrx5'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-standard') {  mergeURL.id = '225574/ls5hqu'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-medical-1x') {  mergeURL.id = '225575/dqn28l'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-medical') { mergeURL.id = '225576/8cwijp'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-residential-1x') {  mergeURL.id = '225577/y3eiyx'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-residential') { mergeURL.id = '225578/t3vhpt'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-schools-1x') {  mergeURL.id = '225579/xgibvf'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-schools') { mergeURL.id = '225580/ya8adw'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-church-1x') { mergeURL.id = '225581/jq7p2w'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-church') {  mergeURL.id = '225582/br3ib9'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-restaurant-1x') { mergeURL.id = '225583/upsg4n'; }
+          if (this.state.exportQuestions.mergeType === 'tampa-restaurant') {  mergeURL.id = '225585/5ukx3u'; }
 
 
-        if (this.state.exportQuestions.mergeType === 'tampa-standard-1x') { mergeURL.id = '225573/ctvrx5'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-standard') {  mergeURL.id = '225574/ls5hqu'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-medical-1x') {  mergeURL.id = '225575/dqn28l'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-medical') { mergeURL.id = '225576/8cwijp'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-residential-1x') {  mergeURL.id = '225577/y3eiyx'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-residential') { mergeURL.id = '225578/t3vhpt'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-schools-1x') {  mergeURL.id = '225579/xgibvf'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-schools') { mergeURL.id = '225580/ya8adw'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-church-1x') { mergeURL.id = '225581/jq7p2w'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-church') {  mergeURL.id = '225582/br3ib9'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-restaurant-1x') { mergeURL.id = '225583/upsg4n'; }
-        if (this.state.exportQuestions.mergeType === 'tampa-restaurant') {  mergeURL.id = '225585/5ukx3u'; }
-
-
-        if (this.state.exportQuestions.mergeType === 'orlando-standard-1x') { mergeURL.id = '225597/qzyuma'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-standard') {  mergeURL.id = '225596/6xjaxe'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-medical-1x') {  mergeURL.id = '225589/3y7shg'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-medical') { mergeURL.id = '225588/cthgcx'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-residential-1x') {  mergeURL.id = '225591/jnahd5'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-residential') { mergeURL.id = '225590/i7d4fg'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-schools-1x') {  mergeURL.id = '225595/sxgpn2'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-schools') { mergeURL.id = '225594/fqi728'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-church-1x') { mergeURL.id = '225587/gm4pww'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-church') {  mergeURL.id = '225586/suik1p'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-restaurant-1x') { mergeURL.id = '225593/uq53jt'; }
-        if (this.state.exportQuestions.mergeType === 'orlando-restaurant') {  mergeURL.id = '225592/i29e99'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-standard-1x') { mergeURL.id = '225597/qzyuma'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-standard') {  mergeURL.id = '225596/6xjaxe'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-medical-1x') {  mergeURL.id = '225589/3y7shg'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-medical') { mergeURL.id = '225588/cthgcx'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-residential-1x') {  mergeURL.id = '225591/jnahd5'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-residential') { mergeURL.id = '225590/i7d4fg'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-schools-1x') {  mergeURL.id = '225595/sxgpn2'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-schools') { mergeURL.id = '225594/fqi728'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-church-1x') { mergeURL.id = '225587/gm4pww'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-church') {  mergeURL.id = '225586/suik1p'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-restaurant-1x') { mergeURL.id = '225593/uq53jt'; }
+          if (this.state.exportQuestions.mergeType === 'orlando-restaurant') {  mergeURL.id = '225592/i29e99'; }
+        }
 
 
         let contactArr = mergeData['Main contact'].split(" ");
@@ -1284,23 +1286,40 @@ export default class Sales extends Component {
         mergeURL.Service_Time = mergeData['Service Time'];
 
 
-        if (this.state.exportQuestions.strip) { //if there is Strip and wax work
-          mergeURL.strip  = 'true';
-          mergeURL.stripPrice = this.state.exportQuestions.stripPrice;
+        if (this.state.exportQuestions) {
+          if (this.state.exportQuestions.strip) { //if there is Strip and wax work
+            mergeURL.strip  = 'true';
+            mergeURL.stripPrice = this.state.exportQuestions.stripPrice;
+          }
+          if (this.state.exportQuestions.carpet) { //if there is Carpet work
+            mergeURL.carpet  = 'true';
+            mergeURL.carpetPrice = this.state.exportQuestions.carpetPrice;
+          }
+          if (this.state.exportQuestions.windows) { //if there is Exterior Window work
+            mergeURL.windows  = 'true';
+            mergeURL.windowPrice = this.state.exportQuestions.windowPrice;
+          }
+          if (this.state.exportQuestions.tile) { //if there is Tile / Grout work
+            mergeURL.tile  = 'true';
+            mergeURL.tilePrice = this.state.exportQuestions.tilePrice;
+          }
+          mergeURL.preCleanPrice = this.state.exportQuestions.preCleanPrice;
+
+          if (this.state.exportQuestions.testimonials[2]['Logo']) {mergeURL.testLogo1 = this.state.exportQuestions.testimonials[2]['Logo'][2].url;}
+          mergeURL.testCompany1 = this.state.exportQuestions.testimonials[2]['Company'];
+          mergeURL.test1 = this.state.exportQuestions.testimonials[2]['Testimonial'];
+          mergeURL.testContact1 = this.state.exportQuestions.testimonials[2]['Contact'];
+
+          if (this.state.exportQuestions.testimonials[1]['Logo']) {mergeURL.testLogo2 = this.state.exportQuestions.testimonials[1]['Logo'][0].url;}
+          mergeURL.testCompany2 = this.state.exportQuestions.testimonials[1]['Company'];
+          mergeURL.test2 = this.state.exportQuestions.testimonials[1]['Testimonial'];
+          mergeURL.testContact2 = this.state.exportQuestions.testimonials[1]['Contact'];
+
+          if (this.state.exportQuestions.testimonials[0]['Logo']) {mergeURL.testLogo3 = this.state.exportQuestions.testimonials[0]['Logo'][0].url;}
+          mergeURL.testCompany3 = this.state.exportQuestions.testimonials[0]['Company'];
+          mergeURL.test3 = this.state.exportQuestions.testimonials[0]['Testimonial'];
+          mergeURL.testContact3 = this.state.exportQuestions.testimonials[0]['Contact'];
         }
-        if (this.state.exportQuestions.carpet) { //if there is Carpet work
-          mergeURL.carpet  = 'true';
-          mergeURL.carpetPrice = this.state.exportQuestions.carpetPrice;
-        }
-        if (this.state.exportQuestions.windows) { //if there is Exterior Window work
-          mergeURL.windows  = 'true';
-          mergeURL.windowPrice = this.state.exportQuestions.windowPrice;
-        }
-        if (this.state.exportQuestions.tile) { //if there is Tile / Grout work
-          mergeURL.tile  = 'true';
-          mergeURL.tilePrice = this.state.exportQuestions.tilePrice;
-        }
-        mergeURL.preCleanPrice = this.state.exportQuestions.preCleanPrice;
 
 
         mergeURL.Cont_First_Name = contactArr[0];
@@ -1317,23 +1336,6 @@ export default class Sales extends Component {
         let today  = new Date();
         let finalProposalDate = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
         mergeURL.Proposal_Date = finalProposalDate;
-
-
-        if (this.state.exportQuestions.testimonials[0]['Logo']) {mergeURL.testLogo1 = this.state.exportQuestions.testimonials[0]['Logo'][0].url;}
-        mergeURL.testCompany1 = this.state.exportQuestions.testimonials[0]['Company'];
-        mergeURL.test1 = this.state.exportQuestions.testimonials[0]['Testimonial'];
-        mergeURL.testContact1 = this.state.exportQuestions.testimonials[0]['Contact'];
-
-        if (this.state.exportQuestions.testimonials[1]['Logo']) {mergeURL.testLogo2 = this.state.exportQuestions.testimonials[1]['Logo'][0].url;}
-        mergeURL.testCompany2 = this.state.exportQuestions.testimonials[1]['Company'];
-        mergeURL.test2 = this.state.exportQuestions.testimonials[1]['Testimonial'];
-        mergeURL.testContact2 = this.state.exportQuestions.testimonials[1]['Contact'];
-
-        if (this.state.exportQuestions.testimonials[2]['Logo']) {mergeURL.testLogo3 = this.state.exportQuestions.testimonials[2]['Logo'][0].url;}
-        mergeURL.testCompany3 = this.state.exportQuestions.testimonials[2]['Company'];
-        mergeURL.test3 = this.state.exportQuestions.testimonials[2]['Testimonial'];
-        mergeURL.testContact3 = this.state.exportQuestions.testimonials[2]['Contact'];
-
 
         Object.keys(mergeURL).forEach((key) => (mergeURL[key] == undefined) && delete mergeURL[key]);
 
@@ -1443,52 +1445,61 @@ export default class Sales extends Component {
       return axios
         .post(finalURL)
         .then(response => {
-          // let finalDate;
-          // if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
-          // else {finalDate = 'DATE'}
-          // let alertStr;
-          // if (mergeType === 'Proposal') {
-          //   alertStr = "The $" + mergeData['Monthly Amount'] + ' ' + mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
-          // } else {
-          //   alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
-          // }
-          // let today  = new Date(); let dayTime;
-          // if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
-          // let finalEntry;
-          // if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
-          // currentRecordState = this.state.currentRecord;
-          // let newNote = finalEntry + '\n' + alertStr;
-          //
-          // if (currentRecordState['Notes']) {
-          //   currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
-          // } else {
-          //   currentRecordState['Notes'] = newNote;
-          // }
-          //
-          // if (mergeType === 'Proposal') {
-          //   currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-          //   currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-          //   currentRecordState['Follow Ups'] = 0;
-          //   currentRecordState['Status'] = 'APPC';
-          //   setTimeout((function() {
-          //     document.getElementById('statusSelect').value = 'APPC';
-          //   }).bind(this), 50);
-          // }
-          // this.setState({
-          //   currentRecord: currentRecordState,
-          //   recordChanges: true,
-          //   isExporting: true,
-          // });
-          //
-          // setTimeout((function() {
-          //   this.saveRecordHandler();
-          // }).bind(this), 250);
+          let finalDate;
+          if (mergeData['Proposal Date']) {finalDate = mergeData['Proposal Date']}
+          else {finalDate = 'DATE'}
+          let alertStr;
+          if (mergeType === 'Proposal') {
+            alertStr = "The $" + mergeData['Monthly Amount'] + ' ' + mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          } else {
+            alertStr = mergeType + ' has been exported as ' + mergeData['Company Name'] + ' ' + finalDate + '.docx -- Visit "Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + '/' + mergeType + '" to view the file.';
+          }
+          let today  = new Date(); let dayTime;
+          if (today.getHours() > 12) {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";}} else {if (today.getMinutes() < 10) {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " PM";} else {dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " PM";}}
+          let finalEntry;
+          if (this.state.userName !== '') {finalEntry = dayTime + ' - ' + this.state.userName;} else {finalEntry = dayTime + ' - ';}
+          currentRecordState = this.state.currentRecord;
+          let newNote = finalEntry + '\n' + alertStr;
+
+          if (currentRecordState['Notes']) {
+            currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
+          } else {
+            currentRecordState['Notes'] = newNote;
+          }
+
+          if (mergeType === 'Proposal') {
+            currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            currentRecordState['Follow Ups'] = 0;
+            currentRecordState['Status'] = 'APPC';
+            setTimeout((function() {
+              document.getElementById('statusSelect').value = 'APPC';
+            }).bind(this), 50);
+          }
+          this.setState({
+            currentRecord: currentRecordState,
+            recordChanges: true,
+            isExporting: true,
+          });
+
+          setTimeout((function() {
+            this.saveRecordHandler();
+            console.log('hey');
+
+            setTimeout((function() {
+              this.setState({
+                loading: false,
+              });
+            }).bind(this), 1000);
+          }).bind(this), 250);
         })
     }
   }
 
 
   exportRecord = (exportData, type) => {
+    mergeType = '';
+    mergeType = type;
     console.log(exportData);
     console.log('exportRecord(' + exportData + ', ' + type + ')');
 
@@ -1516,11 +1527,11 @@ export default class Sales extends Component {
       currRec['Service Schedule Changes'] = exportData.serviceSchedule;
 
 
-      if (exportData.strip) { currRec['Strip & Wax'] = exportData.stripPrice;  }
-      if (exportData.carpet) {  currRec['Carpet Cleaning'] = exportData.carpetPrice;  }
-      if (exportData.window) {  currRec['Window Cleaning'] = exportData.windowPrice;  }
-      if (exportData.tile) {  currRec['Tile & Grout'] = exportData.tilePrice;  }
-      if (exportData.preClean) {  currRec['Pre-Clean'] = exportData.preCleanPrice;  }
+      if (exportData.strip) { currRec['Strip & Wax'] = '' + exportData.stripPrice;  }
+      if (exportData.carpet) {  currRec['Carpet Cleaning'] = '' + exportData.carpetPrice;  }
+      if (exportData.window) {  currRec['Window Cleaning'] = '' + exportData.windowPrice;  }
+      if (exportData.tile) {  currRec['Tile & Grout'] = '' + exportData.tilePrice;  }
+      if (exportData.preClean) {  currRec['Pre-Clean'] = '' + exportData.preCleanPrice;  }
 
       if (exportData.daysOfWeek.length === 7) {
         currRec['Days of Week'] = 'Monday through Sunday';
@@ -1572,7 +1583,7 @@ export default class Sales extends Component {
       /////////////////////////////////
       //  Testimonials Info ///////////
       /////////////////////////////////
-      let testimonialsURL = 'https://api.airtable.com/v0/app3t50c5Z3rAjx4X/' + this.props.citySet;
+      let testimonialsURL = 'https://api.airtable.com/v0/app3t50c5Z3rAjx4X/all';
       let exportCat;
 
       if (exportData.category === 'General Office' || exportData.category === 'Manufacturing' || exportData.category === 'Government' || exportData.category === 'Law Office' || exportData.category === 'Retail') {
@@ -1670,6 +1681,7 @@ export default class Sales extends Component {
       if (exportData === 'orlando-additional') {
         finalType = 'jdh-once'
       } else if (exportData === 'tampa-additional') {
+        console.log(type);
         if (this.state.currentRecord['Sales Rep'] === 'Tyler Perkins') {
           finalType = 'tmp-once';
         } else {
@@ -1679,8 +1691,8 @@ export default class Sales extends Component {
         finalType = exportData;
       }
       mergeTemp = finalType;
+      this.createDocument();
     }
-    mergeType = type;
   }
 
   forecastSave = e => {
