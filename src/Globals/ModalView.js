@@ -16,7 +16,9 @@ import SalesCloses from '../Globals/Modals/SalesCloses';
 import Forecast from '../Globals/Modals/Forecast';
 import InsideForecast from '../Globals/Modals/InsideForecast';
 import RecapVisit from '../Globals/Modals/RecapVisit';
+import LogCall from '../Globals/Modals/LogCall';
 import SalesFollowUps from '../Globals/Modals/SalesFollowUps';
+import YelpModal from '../Globals/Modals/YelpModal';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -98,13 +100,41 @@ export default class ModalView extends Component {
           categoryChange={this.props.categoryChange}
         />
       )
+    } else if (this.props.modalType === 'logCall') {
+      return (
+        <LogCall
+          controlsModalToggle={this.props.controlsModalToggle}
+          baseId={this.props.baseId}
+          currentTable={this.props.currentTable}
+          changeRecordHandler={this.props.changeRecordHandler}
+          currentRecord={this.props.currentRecord}
+          handleDayClick={this.props.handleDayClick}
+          toggleDayPicker={this.props.toggleDayPicker}
+          citySet={this.props.citySet}
+          repChange={this.props.repChange}
+          standingChange={this.props.standingChange}
+          changeNotesHandler={this.props.changeNotesHandler}
+          logCall={this.props.logCall}
+          timesPerWeekChange={this.props.timesPerWeekChange}
+          mergeGoogle={this.props.mergeGoogle}
+        />
+      )
+    } else if (this.props.modalType === 'yelpModal') {
+      return (
+        <YelpModal
+          controlsModalToggle={this.props.controlsModalToggle}
+          currentTable={this.props.currentTable}
+          baseId={this.props.baseId}
+          citySet={this.props.citySet}
+        />
+      )
     } else if (this.props.modalType === 'salesMetrics') {
       return (
         <SalesMetrics
           controlsModalToggle={this.props.controlsModalToggle}
         />
       )
-    } else if (this.props.modalType === 'salesFollows') {
+    } else if (this.props.modalType === 'salesFollowsOutside') {
       return (
         <SalesFollowUps
           userName={this.props.userName}
@@ -161,6 +191,7 @@ ModalView.propTypes = {
   saveRecordHandler: propTypes.func.isRequired,
   revertRecordHandler: propTypes.func.isRequired,
   mergeRecord: propTypes.func.isRequired,
+  mergeGoogle: propTypes.func.isRequired,
   controlsModalToggle: propTypes.func.isRequired,
   userChangeHandler: propTypes.func.isRequired,
   selectFilterHandler: propTypes.func.isRequired,

@@ -23,45 +23,47 @@ export default class RecordExport extends Component {
       })
     }
 
-    setTimeout((function() {
-      if (this.props.timesPerWeek !== '1x' ||
-      this.props.timesPerWeek !== '2x' ||
-      this.props.timesPerWeek !== '3x' ||
-      this.props.timesPerWeek !== '4x' ||
-      this.props.timesPerWeek !== '5x' ||
-      this.props.timesPerWeek !== '6x' ||
-      this.props.timesPerWeek !== '7x') {
+    if (this.props.currentTable === 'Sales') {
+      setTimeout((function() {
+        if (this.props.timesPerWeek !== '1x' ||
+        this.props.timesPerWeek !== '2x' ||
+        this.props.timesPerWeek !== '3x' ||
+        this.props.timesPerWeek !== '4x' ||
+        this.props.timesPerWeek !== '5x' ||
+        this.props.timesPerWeek !== '6x' ||
+        this.props.timesPerWeek !== '7x') {
+          this.setState({
+            timesPerWeekValue: this.props.timesPerWeek,
+            timesClasses: 'inputBlock inputBlock--half'
+          })
+        } else {
+          this.setState({
+            timesPerWeekValue: this.props.timesPerWeek,
+            timesClasses: 'inputBlock inputBlock--half isHidden'
+          })
+        }
+      }).bind(this), 50);
+
+      let currRec = this.props.currentRecord;
+      if (currRec['Monthly Amount'] && currRec['Times per Week'] && currRec['Actual Sq Footage']) { //move on
+      } else { //show double check.
         this.setState({
-          timesPerWeekValue: this.props.timesPerWeek,
-          timesClasses: 'inputBlock inputBlock--half'
-        })
-      } else {
-        this.setState({
-          timesPerWeekValue: this.props.timesPerWeek,
-          timesClasses: 'inputBlock inputBlock--half isHidden'
+          needsPrice: true
         })
       }
-    }).bind(this), 50);
 
-    let currRec = this.props.currentRecord;
-    if (currRec['Monthly Amount'] && currRec['Times per Week'] && currRec['Actual Sq Footage']) { //move on
-    } else { //show double check.
-      this.setState({
-        needsPrice: true
-      })
-    }
-
-    if (currRec['Restrooms']) {
-      if (currRec['Ceramic'] || currRec['Marble'] || currRec['VCT'] || currRec['Wood'] || currRec['Wood Lam.'] || currRec['Carpet'] || currRec['Other']) { //move on
+      if (currRec['Restrooms']) {
+        if (currRec['Ceramic'] || currRec['Marble'] || currRec['VCT'] || currRec['Wood'] || currRec['Wood Lam.'] || currRec['Carpet'] || currRec['Other']) { //move on
+        } else { //show double check.
+          this.setState({
+            needsDetails: true
+          })
+        }
       } else { //show double check.
         this.setState({
           needsDetails: true
         })
       }
-    } else { //show double check.
-      this.setState({
-        needsDetails: true
-      })
     }
   }
 

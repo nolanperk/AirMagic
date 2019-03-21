@@ -130,19 +130,24 @@ export default class ModuleMain extends Component {
               className="selectBlock"
               id="standing"
               >
-              <select id="standingSelect"  value={this.state.standingValue} onChange={this.standingChange}>
+              <select id="standingSelect"  value={this.props.standing} onChange={this.props.standingChange}>
                 <option id="none"></option>
                 <option id="Left+VM">Left VM</option>
                 <option id="Left+Email">Left Email</option>
-                <option id="Outside+Territory">Outside Territory</option>
+                <option id="No+Answer">No Answer</option>
+                <option disabled>------------</option>
+                <option disabled>Callback Later</option>
                 <option id="Not+Interested">Not Interested</option>
-                <option id="Disconnected">Disconnected</option>
                 <option id="In+House">In House</option>
                 <option id="In+Contract">In Contract</option>
-                <option id="Building+Does">Landlord Does</option>
+                <option id="Landlord+Does">Landlord Does</option>
                 <option id="Call+Back">Call Back</option>
+                <option disabled>------------</option>
+                <option disabled>Issues</option>
+                <option id="Disconnected">Disconnected</option>
+                <option id="Outside+Territory">Outside Territory</option>
                 <option id="Bad+Number">Bad Number</option>
-                <option id="Mark+for+Deletion">Mark forDeletion</option>
+                <option id="Mark+for+Deletion">Mark for Deletion</option>
               </select>
             </div>
           </div>
@@ -156,7 +161,7 @@ export default class ModuleMain extends Component {
               <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
                 <option id="none"></option>
                 <option id="Carla+Milian">Carla Milian</option>
-                <option id="David+Lovic">David Lovic</option>
+                <option id="Shana+Thorn">Shana Thorn</option>
                 <option id="Jett">Jett</option>
                 <option disabled>----------</option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
@@ -236,18 +241,24 @@ export default class ModuleMain extends Component {
                 className="selectBlock"
                 id="standing"
                 >
-                <select id="standingSelect"  value={this.state.standingValue} onChange={this.standingChange}>
-                <option></option>
-                <option id="Left+VM">Left VM</option>
-                <option id="Left+Email">Left Email</option>
-                <option id="Outside+Territory">Outside Territory</option>
-                <option id="Not+Interested">Not Interested</option>
-                <option id="Disconnected">Disconnected</option>
-                <option id="In+House">In House</option>
-                <option id="In+Contract">In Contract</option>
-                <option id="Building+Does">Landlord Does</option>
-                <option id="Call+Back">Call Back</option>
-                <option id="Bad+Number">Bad Number</option>
+                <select id="standingSelect"  value={this.props.standing} onChange={this.props.standingChange}>
+                  <option id="none"></option>
+                  <option id="Left+VM">Left VM</option>
+                  <option id="Left+Email">Left Email</option>
+                  <option id="No+Answer">No Answer</option>
+                  <option disabled>------------</option>
+                  <option disabled>Callback Later</option>
+                  <option id="Not+Interested">Not Interested</option>
+                  <option id="In+House">In House</option>
+                  <option id="In+Contract">In Contract</option>
+                  <option id="Landlord+Does">Landlord Does</option>
+                  <option id="Call+Back">Call Back</option>
+                  <option disabled>------------</option>
+                  <option disabled>Issues</option>
+                  <option id="Disconnected">Disconnected</option>
+                  <option id="Outside+Territory">Outside Territory</option>
+                  <option id="Bad+Number">Bad Number</option>
+                  <option id="Mark+for+Deletion">Mark for Deletion</option>
                 </select>
               </div>
             </div>
@@ -261,7 +272,7 @@ export default class ModuleMain extends Component {
                 <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
                   <option id="none"></option>
                   <option id="Carla+Milian">Carla Milian</option>
-                  <option id="David+Lovic">David Lovic</option>
+                  <option id="Shana+Thorn">Shana Thorn</option>
                   <option id="Jett">Jett</option>
                   <option disabled>----------</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>

@@ -6,6 +6,14 @@ import numberImg from '../../../assets/icons/black/number.png';
 import emailImg from '../../../assets/icons/black/email.png';
 
 export default class ModuleMain extends Component {
+  componentDidMount() {
+    setTimeout((function() {
+      if (this.props.category == undefined) {
+        console.log('hi');
+        document.getElementById('categorySelect').value = '';
+      }
+    }).bind(this), 500);
+  }
 
   // Render
   // ----------------------------------------------------
@@ -258,6 +266,7 @@ export default class ModuleMain extends Component {
                 <option disabled>--------</option>
                 <option>Restaurant</option>
                 <option>Bar</option>
+                <option>Gym</option>
               </select>
             </div>
           </div>

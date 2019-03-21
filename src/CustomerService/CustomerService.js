@@ -740,6 +740,22 @@ export default class CustomerService extends Component {
         currentRecord: currentRecordState,
         recordChanges: true,
       })
+    } else if (e.target.id === 'serviceNotes') {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['Service Notes'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      })
+    } else if (e.target.id === 'serviceScheduleNotes') {
+      currentRecordState = this.state.currentRecord;
+      currentRecordState['Service Schedule Changes'] = e.target.value;
+
+      this.setState({
+        currentRecord: currentRecordState,
+        recordChanges: true,
+      })
     } else if (e.target.id === 'oldNotes') {
       currentRecordState = this.state.currentRecord;
       currentRecordState['Archived Notes'] = e.target.value;
@@ -824,15 +840,14 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'timesPerWeek') {currentRecordState['Times per Week'] = e.target.value}
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
 
-    else if (e.target.id === 'serviceTime') {currentRecordState['Service Time']}
-    else if (e.target.id === 'category') {currentRecordState['Category']}
-    else if (e.target.id === 'serviceNotes') {currentRecordState['Service Notes']}
-    else if (e.target.id === 'serviceScheduleNotes') {currentRecordState['Service Schedule Changes']}
-    else if (e.target.id === 'strip') {currentRecordState['Strip & Wax' ]}
-    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning']}
-    else if (e.target.id === 'windows') {currentRecordState['Window Cleaning' ]}
-    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout']}
-    else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean']}
+    else if (e.target.id === 'serviceTime') {currentRecordState['Service Time'] = e.target.value}
+    else if (e.target.id === 'category') {currentRecordState['Category'] = e.target.value}
+    else if (e.target.id === 'serviceScheduleNotes') {currentRecordState['Service Schedule Changes'] = e.target.value}
+    else if (e.target.id === 'strip') {currentRecordState['Strip & Wax' ] = e.target.value}
+    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning'] = e.target.value}
+    else if (e.target.id === 'windows') {currentRecordState['Window Cleaning' ] = e.target.value}
+    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout'] = e.target.value}
+    else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean'] = e.target.value}
 
 
     this.setState({

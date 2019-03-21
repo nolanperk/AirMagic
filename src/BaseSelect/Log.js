@@ -58,7 +58,11 @@ export default class LoginForm extends Component {
               localStorage.setItem('userRole', userRecord.fields['Role']);
 
               if (localStorage.getItem('userOffice') !== 'both' && localStorage.getItem('userRole') !== 'all') {
-                this.props.history.push('/' + userRecord.fields['Office'] + '/' + userRecord.fields['Role']);
+                if (userRecord.fields['Role'] === 'customer-service') {
+                  this.props.history.push('/' + userRecord.fields['Office'] + '/' + userRecord.fields['Role'] + '/tickets');
+                } else {
+                  this.props.history.push('/' + userRecord.fields['Office'] + '/' + userRecord.fields['Role']);
+                }
               } else {
                 this.props.history.push('/');
               }

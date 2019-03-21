@@ -103,7 +103,6 @@ export default class SalesFollowUps extends Component {
           })
         });
     }).bind(this), 250);
-
   }
 
   copyEmail = () => {
@@ -375,6 +374,7 @@ export default class SalesFollowUps extends Component {
     setTimeout((function() {
       let clearedCount = 0;
 
+      console.log(this.props.userName);
       let currRep;
       if (this.props.userName === 'NWP') {
         currRep = 'Nolan';

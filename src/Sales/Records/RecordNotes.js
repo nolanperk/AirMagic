@@ -191,7 +191,7 @@ export class RecordNotes extends Component {
                   lat: this.state.lat,
                   lng: this.state.lng
                 }}
-                zoom={18}
+                zoom={19}
               >
                 <Marker
                   position={{

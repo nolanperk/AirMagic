@@ -9,6 +9,7 @@
 
   .btn {
     margin-right: 10px;
+    outline: 0;
 
     &.disabled {
       opacity: 0.25;
@@ -233,7 +234,12 @@
   }
 }
 
-
+.yelpBox {
+  .selectBox, a {
+    display: inline-block !important;
+    vertical-align: middle;
+  }
+}
 
 #sortTable, #exportForm {
   padding: 1.5vw 0;
@@ -403,6 +409,17 @@
 
 .modal .modalInner.FollowUpsModal {
 
+  &.AllActives {
+    input {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      outline: 0;
+    }
+    .repList {
+      margin-top: 10px;
+    }
+  }
 
   .btn {
     text-align: center;
@@ -617,6 +634,19 @@
       border: 0;
     }
 
+    &.allList {
+      border: solid 1px $medGray;
+      pointer-events: none;
+      padding: 6px 10px;
+      background: $white;
+
+      p {
+        opacity: 1;
+        color: rgba($black, 0.7);
+        font-weight: bold;
+      }
+    }
+
     &.missed {
       border: 0;
     }
@@ -635,9 +665,361 @@
   }
 }
 
+.logCall.TicketModal {
+  background: transparent;
+
+  .DayPicker {
+    left: 40px;
+    right: auto;
+    top: 0;
+    transform: translate(0%, 70%);
+  }
+
+  .inner .modalTitle {
+    .backArrow {
+      width: 16px;
+      position: absolute;
+      top: 27px;
+      left: 25px;
+      opacity: 0.35;
+    }
+  }
+
+  .inner .modalTitle h4 em {
+    opacity: 1;
+
+    span {
+      padding: 8px 15px;
+      border-radius: 100px;
+      color: $white;
+      &.Carla {
+        background: $primary;
+      }
+      &.Jett {
+        background: $secondary;
+      }
+      &.Shana {
+        background: $tertiary;
+      }
+    }
+  }
+
+  .inputGroup {
+    margin: 40px 0;
+
+    span {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.5;
+      font-weight: bold;
+    }
+    .inputBlock {
+      display: inline-block;
+      p {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        opacity: 0.5;
+        font-weight: bold;
+      }
+
+      &.inputBlock--large {
+        width: 70%;
+      }
+      &.inputBlock--small {
+        margin-left: 5%;
+        width: 25%;
+      }
+
+      &.inputBlock--third {
+        margin-right: 3%;
+        width: 31%;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &.inputBlock--half {
+        width: 48%;
+        margin-right: 4%;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+
+      &.inputBlock--full {
+        width: 100%;
+      }
+
+
+      textarea {
+        width: 100%;
+        font-size: 14px;
+        padding: 15px;
+      }
+    }
+  }
+
+  .inner .modalBody .mainTicket {
+    position: relative;
+    .inputBlock {
+      .selectBlock {
+        select {
+          background: #f7f7f5;
+          color: $black;
+        }
+
+        &::after {
+          background: none;
+          background: url('../assets/icons/black/down_carrot.png');
+        }
+      }
+
+      textarea {
+        font-size: 16px;
+        line-height: 23px;
+      }
+    }
+  }
+  .inner .modalBody .accountData {
+    .recordCards {
+      height: 100%;
+    }
+    .RecordCard.card--Notes {
+      max-height: none;
+    }
+  }
+  .inputBlock {
+    margin-bottom: 15px;
+
+    input {
+      background: #f7f7f5;
+      border: solid 1px #efefef;
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      outline: 0;
+    }
+  }
+}
+
+.qualifyMap {
+  position: relative;
+  width: 78%;
+  padding-bottom: 70%;
+}
+
+.mapArea {
+  display: flex;
+}
+
+.comparison {
+  text-align: center;
+
+  .loading {
+    margin: 50px 20px;
+    width: 100px;
+  }
+  margin-bottom: 100px;
+}
+
+.nextBtn {
+  position: fixed;
+  width: 58%;
+  border-radius: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px 0;
+  text-align: center;
+
+  &:hover {
+    transform: none;
+  }
+}
+
+.innerCompare {
+  border-radius: 10px;
+  background: #ebebeb;
+  text-align: center;
+  overflow: hidden;
+
+  img {
+    margin-top: 20px;
+    width: 100px;
+  }
+
+  .google {
+    padding-bottom: 25px;
+    background: #dce6fb;
+
+    .googleInner {
+      background: white;
+      border: solid 1px #ebecee;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 0 25px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      text-align: center;
+
+
+      .addArea {
+        .addBlock {
+          text-align: left;
+          display: inline-block;
+          margin: 0 5px;
+
+          &.none {
+            display: none;
+          }
+        }
+      }
+
+      &.closed {
+        text-align: center;
+        font-size: 20px;
+        color: white;
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 20px;
+        border: solid 5px $primary;
+
+        .closedH2 {
+          background: $primary;
+          text-align: center;
+          font-size: 20px;
+          color: $white;
+          border-radius: 6px;
+          padding: 10px;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+
+  .update {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0 0;
+  }
+
+  .airmagic {
+    padding-top: 25px;
+    padding-bottom: 15px;
+    background: #ebebeb;
+
+    .airmagicInner {
+      text-align: left;
+      background: white;
+      padding: 10px;
+      margin: 0 20px;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      position: relative;
+      padding-bottom: 20px;
+
+      .airItem {
+        display: inline-block;
+        margin: 0 5px;
+        vertical-align: top;
+        overflow-x: hidden;
+        white-space: nowrap;
+        &.full {
+          width: 97%;
+        }
+        &.most {
+          width: 66%;
+          margin-bottom: 10px;
+        }
+        &.small {
+          width: 28%;
+          margin-bottom: 10px;
+        }
+        &.half {
+          width: 47%;
+        }
+
+        .fakeField {
+          padding: 10px;
+          border: solid 1px $medGray;
+          min-height: 42px;
+        }
+
+        .label {
+          font-weight: bold;
+          font-size: 10px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #8C7376;
+        }
+      }
+    }
+  }
+}
+
+.qualifyMap, .qualifyReference {
+  display: inline-block;
+  vertical-align: top;
+}
+.qualifyReference {
+  width: 105px;
+  padding: 10px 7px;
+  background: #f4f4f4;
+  border-left: 2px solid #e4e4e3;
+
+  p, .reference {
+    display: inline-block;
+  }
+  .reference-3 {
+    width: 75px;
+    height: 50px;
+    background: #e4e4e4;
+    margin-bottom: 20px;
+  }
+  .reference-10 {
+    width: 85px;
+    height: 150px;
+    background: #e4e4e4;
+  }
+}
+
 .modal .SalesModal {
   &.splitted {
     margin-left: -14vw;
+  }
+
+  .stats {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    transform: translateY(105%);
+    bottom: 0;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  #xWeek .inner {
+    border-radius: 10px;
+    background: #fff6d1;
+    select {
+      background: white;
+    }
+  }
+  #address .inner {
+    border-radius: 10px;
+    background: #fff;
+  }
+  #location .inner {
+    border-radius: 10px;
+    background: #f1f1f1;
   }
   .ModuleList {
     background: #eaeaea;

@@ -49,6 +49,8 @@ export default class RecordView extends Component {
               newRecord={this.props.newRecord}
               categoryChange={this.props.categoryChange}
               category={this.props.currentRecord['Category']}
+              city={this.props.currentRecord['City']}
+              currentRecord = {this.props.currentRecord}
             />
             <ModuleSP
               changeRecordHandler={this.props.changeRecordHandler}

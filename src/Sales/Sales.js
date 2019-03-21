@@ -315,11 +315,15 @@ export default class Sales extends Component {
         this.hideDayPicker();
       }
       setTimeout((function() {
-        if (cardParent.style.left !== '0px') {
-          pickerBlock.className = 'pickWrapper isActive cardOnRight';
-        } else {
+        if (cardParent) {
+          if (cardParent.style.left !== '0px') {
+            pickerBlock.className = 'pickWrapper isActive cardOnRight';
+          } else {
+            pickerBlock.className = 'pickWrapper isActive';
+          }
+        } else new Promise(function(resolve, reject) {
           pickerBlock.className = 'pickWrapper isActive';
-        }
+        });
         this.setState({
           pickerId: dayID,
         })
@@ -648,7 +652,8 @@ export default class Sales extends Component {
   changeRecordHandler = e => {
     currentRecordState = this.state.currentRecord;
 
-    if (e.target.id === 'company') {currentRecordState['Company Name'] = e.target.value}
+    if (e.target.id === 'customCallback') {currentRecordState['Callback Date'] = e.callBackDate}
+    else if (e.target.id === 'company') {currentRecordState['Company Name'] = e.target.value}
     else if (e.target.id === 'industry') {currentRecordState['Industry'] = e.target.value}
     else if (e.target.id === 'callCount') {currentRecordState['Times Called'] = e.target.value}
     else if (e.target.id === 'callDate') {currentRecordState['Recent Call Date'] = e.target.value}
@@ -728,9 +733,15 @@ export default class Sales extends Component {
     });
   }
   repChange = e => {
-    console.log('yo');
     let currentsRec = this.state.currentRecord;
     currentsRec['Sales Rep'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+  standingChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Standing'] = e.target.value;
     this.setState({
       currentRecord: currentsRec,
     });
@@ -1305,7 +1316,7 @@ export default class Sales extends Component {
           }
           mergeURL.preCleanPrice = this.state.exportQuestions.preCleanPrice;
 
-          if (this.state.exportQuestions.testimonials[2]['Logo']) {mergeURL.testLogo1 = this.state.exportQuestions.testimonials[2]['Logo'][2].url;}
+          if (this.state.exportQuestions.testimonials[2]['Logo']) {mergeURL.testLogo1 = this.state.exportQuestions.testimonials[2]['Logo'][0].url;}
           mergeURL.testCompany1 = this.state.exportQuestions.testimonials[2]['Company'];
           mergeURL.test1 = this.state.exportQuestions.testimonials[2]['Testimonial'];
           mergeURL.testContact1 = this.state.exportQuestions.testimonials[2]['Contact'];
@@ -1784,7 +1795,25 @@ export default class Sales extends Component {
       salesInitials = this.state.currentRecord['Sales Rep'].replace(/ /g, '+');
     }
 
-    let finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and')+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=<br/><br/>+View+record+<a+href="' + window.location.href + '">' + window.location.href + '</a>';
+    let finalCalURL;
+
+    if (this.state.currentRecord['Main contact']) {
+      let contactFirst;
+      if (this.state.currentRecord['Main contact'].indexOf(' ') < 0) {
+        contactFirst = this.state.currentRecord['Main contact'];
+      } else {
+        contactFirst = this.state.currentRecord['Main contact'].split(' ')[0];
+      }
+      finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ' (' + contactFirst + ')'+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=';
+
+    } else {
+      finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + '&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=';
+    }
+    if (this.state.calendarNote) {
+      finalCalURL += 'Set By - ' + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '<br/>';
+      finalCalURL += this.state.calendarNote;
+    }
+    finalCalURL += '<br/><br/>+View+record+<a+href="' + window.location.href + '">' + window.location.href + '</a>';
     finalCalURL += '&location=' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ',+';
     if(this.state.currentRecord['Address 1']) {
       finalCalURL += this.state.currentRecord['Address 1'].replace(/ /g, '+').replace(/&/g, 'and');
@@ -1805,6 +1834,39 @@ export default class Sales extends Component {
     document.body.appendChild(fakeLinkA);
     fakeLinkA.click();
     document.body.removeChild(fakeLinkA);
+
+
+    let contactFirst;
+    if (this.state.currentRecord['Main contact'] && this.state.currentRecord['Email']) {
+      if (this.state.currentRecord['Main contact'].indexOf(' ') < 0) {
+        contactFirst = this.state.currentRecord['Main contact'];
+      } else {
+        contactFirst = this.state.currentRecord['Main contact'].split(' ')[0];
+      }
+      let timeOfDay = 'Morning';
+      let today = new Date();
+      let halfTime = today.getHours();
+      if (halfTime > 11) {
+        timeOfDay = 'Afternoon';
+      }
+      let apptEmailLink = 'mailto:';
+      apptEmailLink += this.state.currentRecord['Email'];
+      apptEmailLink += "?subject=" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + "%20from%20Vanguard%20Cleaning%20Systems%20Proposal";
+
+      apptEmailLink += "&body=Good%20" + timeOfDay + "%20" + contactFirst;
+      let apptDate = new Date(this.state.currentRecord['Appt. Date']);
+      apptDate = (apptDate.getMonth()+1) + '/' + apptDate.getDate() + '/' + apptDate.getFullYear()
+
+      apptEmailLink += "%2C%0A%0AThank%20you%20so%20much%20for%20your%20time%20today.%20It%20was%20a%20pleasure%20speaking%20with%20you.%0A%20Please%20note%20that%20on%20" + this.state.currentRecord['Appt. Date'] + "%20at%20" + this.state.currentRecord['Appt. Time'] + "%2C%20our%20Regional%20Sales%20Director%2C%20" + this.state.currentRecord['Sales Rep'] + "%2C%20will%20be%20meeting%20with%20you%20to%20learn%20about%20your%20cleaning%20needs%20in%20order%20to%20prepare%20a%20customized%20proposal%20of%20services%20for%20your%20review.%20%0A%0A" + contactFirst + "%2C%20thanks%20again%20for%20your%20time%20and%20consideration%20and%20I%20hope%20you%20have%20a%20great%20rest%20of%20your%20day.";
+
+
+      var fakeEmailLink = document.createElement('a');
+      fakeEmailLink.setAttribute('href', apptEmailLink);
+      fakeEmailLink.style.display = 'none';
+      document.body.appendChild(fakeEmailLink);
+      fakeEmailLink.click();
+      document.body.removeChild(fakeEmailLink);
+    }
 
     setTimeout((function() {
       this.saveRecordHandler();
@@ -1830,7 +1892,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.currentRecord['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.currentRecord['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set
@@ -1918,7 +1980,6 @@ export default class Sales extends Component {
 
     currentRecordState['Inside Forecast Rating'] = document.getElementById('foreRatingInside').value;
     currentRecordState['Inside Forecast Speed'] = document.getElementById('foreSpeedInside').value;
-    currentRecordState['Status'] = 'Appointment Set';
 
     console.log(this.state.currentRecord);
 
@@ -1936,7 +1997,21 @@ export default class Sales extends Component {
 
 
 
+  mergeGoogle = (e) => {
+    console.log(e);
+    let currentRec = this.state.currentRecord;
 
+    currentRec['Company Name'] = e.name;
+    currentRec['Address 1'] = e.addressComponents.quickAdd;
+    currentRec['Address 2'] = e.addressComponents.addr2;
+    currentRec['City'] = e.addressComponents.city;
+    currentRec['Zip'] = e.addressComponents.zip;
+    currentRec['Office Phone'] = e.phone;
+
+    this.setState({
+      currentRecord: currentRec
+    })
+  }
 
 
 
@@ -2558,10 +2633,15 @@ export default class Sales extends Component {
           activeModal: true,
           modalType: 'salesMetrics',
         });
+      } else if(e.target.id === 'yelpModal') {
+        this.setState({
+          activeModal: true,
+          modalType: 'yelpModal',
+        });
       } else if(e.target.id === 'salesFollows') {
         this.setState({
           activeModal: true,
-          modalType: 'salesFollows',
+          modalType: 'salesFollowsOutside',
         });
       } else if(e.target.id === 'salesCloses') {
         this.setState({
@@ -2577,6 +2657,11 @@ export default class Sales extends Component {
         this.setState({
           activeModal: true,
           modalType: 'recordExport',
+        });
+      } else if(e.target.id === 'logCall') {
+        this.setState({
+          activeModal: true,
+          modalType: 'logCall',
         });
       } else if(e.target.id === 'moveDatabase') {
         this.setState({
@@ -2630,7 +2715,40 @@ export default class Sales extends Component {
     }).bind(this), 100);
   }
 
+  logCall = (e, i) => {
+    console.log(e);
+    console.log(i);
+    let currRec = this.state.currentRecord;
+    if (i === 'setAppt') {
+      currRec['Appt. Set By'] = e['Appt. Set By'];
+      currRec['Appt. Set Date'] = e['Appt. Set Date'];
+      currRec['Status'] = e['Status'];
+    }
+    currRec['Recent Call Date'] = e['Recent Call Date'];
+    currRec['Recent Caller'] = e['Recent Caller'];
+    currRec['Notes'] = e['Notes'];
+    currRec['Recent Call Time'] = e['Recent Call Time']
 
+    this.setState({
+      currentRecord: currRec,
+    })
+
+    if (i === 'setAppt') {
+      this.setAppt();
+      this.setState({
+        calendarNote: e['calNote']
+      });
+    } else {
+      setTimeout((function() {
+        this.saveRecordHandler();
+        setTimeout((function() {
+          this.setState({
+            loading: false,
+          });
+        }).bind(this), 1000);
+      }).bind(this), 100);
+    }
+  }
 
 
   mobileTabHandler = e => {
@@ -2858,6 +2976,7 @@ export default class Sales extends Component {
           closeRecordHandler={this.closeRecordHandler}
           currentId= {this.state.currentId}
           recordChanges= {this.state.recordChanges}
+          userName={this.state.userName}
           switchTableHandler= {this.switchTableHandler}
           controlsModalToggle={this.controlsModalToggle}
           jumpLetters={this.jumpLetters}
@@ -2919,7 +3038,13 @@ export default class Sales extends Component {
           timesPerWeekChange={this.timesPerWeekChange}
           changeRecordHandler={this.changeRecordHandler}
           autoPricing={this.autoPricing}
+          repChange={this.repChange}
           categoryChange={this.categoryChange}
+          standingChange={this.standingChange}
+          handleDayClick={this.handleDayClick}
+          toggleDayPicker={this.toggleDayPicker}
+          logCall={this.logCall}
+          mergeGoogle={this.mergeGoogle}
         />
       )
     }
@@ -2955,6 +3080,7 @@ export default class Sales extends Component {
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
             userName={this.state.userName}
+            standingChange={this.standingChange}
           />
         );
       } else if (this.state.currentRecordView === 'appointment') {
@@ -2984,6 +3110,7 @@ export default class Sales extends Component {
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
             userName={this.state.userName}
+            standingChange={this.standingChange}
           />
         );
       } else if (this.state.currentRecordView === 'inside') {
@@ -3013,6 +3140,7 @@ export default class Sales extends Component {
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
             userName={this.state.userName}
+            standingChange={this.standingChange}
           />
         );
       } else if (this.state.currentRecordView === 'proposal') {
@@ -3042,6 +3170,7 @@ export default class Sales extends Component {
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
             userName={this.state.userName}
+            standingChange={this.standingChange}
           />
         );
       }

@@ -69,6 +69,82 @@ export default class FilterSearch extends Component {
                 >Joel All Pipeline</li>
             </ul>
           );
+        } else if (localStorage.getItem('userInitials') === 'CBM') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Carla+Callbacks"
+              >Carla Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Carla+Recent+APPCs"
+              >Carla Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Pipeline"
+              >Joel Pipeline</li>
+            </ul>
+          );
+        } else if (localStorage.getItem('userInitials') === 'SLT') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Shana+Callbacks"
+              >Shana Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Shana+Recent+APPCs"
+              >Shana Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Pipeline"
+              >Joel Pipeline</li>
+            </ul>
+          );
         } else {
           return (
             <ul id="filtersList">
@@ -79,32 +155,20 @@ export default class FilterSearch extends Component {
               >No Filter</li>
               <li
                 onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
                 id="Prospects"
               >Prospects</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Canceled"
-              >Canceled</li>
-              <li
-                onClick={this.selectFilterList}
-                id="From+Customer+Service+TM"
-              >From Customer Service TM</li>
               <li
                 onClick={this.selectFilterList}
                 id="Cold+Calls"
               >Cold Calls</li>
               <li
                 onClick={this.selectFilterList}
-                id="David+Callbacks"
-              >David Callbacks</li>
-              <li
-                onClick={this.selectFilterList}
                 id="Joel+Pipeline"
               >Joel Pipeline</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Rob+Pipeline"
-              >Rob Pipeline</li>
             </ul>
           );
         }
@@ -161,6 +225,178 @@ export default class FilterSearch extends Component {
                 >Tyler All Pipeline</li>
             </ul>
           );
+        // } else if (localStorage.getItem('userInitials') === 'NWP') {
+        } else if (localStorage.getItem('userInitials') === 'CBM') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Carla+Callbacks"
+              >Carla Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Carla+Recent+APPCs"
+              >Carla Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Pipeline"
+              >Tyler Pipeline</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Pipeline"
+              >Nolan Pipeline</li>
+            </ul>
+          );
+        } else if (localStorage.getItem('userInitials') === 'SLT') {
+        // } else if (localStorage.getItem('userInitials') === 'NWP') {
+          // return (
+          //   <ul id="filtersList">
+          //     <li
+          //       className="isActive"
+          //       onClick={this.selectFilterList}
+          //       id="All"
+          //       >No Filter</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Shana+Callbacks"
+          //     >Shana Callbacks</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Missed+Callbacks"
+          //     >Missed Callbacks</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Shana+Recent+APPCs"
+          //     >Shana Recent APPCs</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Old+APPCs"
+          //     >Old APPCs</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Prospects"
+          //     >Prospects</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Tampa"
+          //     >Tampa</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="West+Tampa"
+          //     >West Tampa</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="South+Tampa"
+          //     >South Tampa</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="North+Tampa"
+          //     >North Tampa</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Brandon"
+          //     >Brandon</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Apollo+Beach"
+          //     >Apollo Beach</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="East+Pasco"
+          //     >East Pasco</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="West+Pasco"
+          //     >West Pasco</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="North+Pinellas"
+          //     >North Pinellas</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Largo+Clearwater"
+          //     >Largo / Clearwater</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="St+Pete"
+          //     >St Pete</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Plant+City"
+          //     >Plant City</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="Lakeland"
+          //     >Lakeland</li>
+          //     <li
+          //       onClick={this.selectFilterList}
+          //       id="East+Lakeland"
+          //     >Winter Haven / Lake Wales</li>
+          //   </ul>
+          // );
+
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Shana+Callbacks"
+              >Shana Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Shana+Recent+APPCs"
+              >Shana Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Pipeline"
+              >Tyler Pipeline</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Pipeline"
+              >Nolan Pipeline</li>
+            </ul>
+          );
         } else {
           return (
             <ul id="filtersList">
@@ -171,20 +407,12 @@ export default class FilterSearch extends Component {
               >No Filter</li>
               <li
                 onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
                 id="Prospects"
               >Prospects</li>
-              <li
-                onClick={this.selectFilterList}
-                id="Canceled"
-              >Canceled</li>
-              <li
-                onClick={this.selectFilterList}
-                id="From+Customer+Service+TM"
-              >From Customer Service TM</li>
-              <li
-                onClick={this.selectFilterList}
-                id="David+Callbacks"
-              >David Callbacks</li>
               <li
                 onClick={this.selectFilterList}
                 id="Cold+Calls"
