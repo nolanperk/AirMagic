@@ -739,6 +739,13 @@ export default class Sales extends Component {
       currentRecord: currentsRec,
     });
   }
+  callerChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Recent Caller'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
   standingChange = e => {
     let currentsRec = this.state.currentRecord;
     currentsRec['Standing'] = e.target.value;
@@ -1005,7 +1012,6 @@ export default class Sales extends Component {
       setTimeout((function() {
         fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
         fullDataSet["Standing"] = document.getElementById('standingSelect').value;
-        fullDataSet["Recent Caller"] = document.getElementById('callerSelect').value;
         fullDataSet["Call Status"] = document.getElementById('callStatus').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
         fullDataSet["Follow Status"] = document.getElementById('followStatus').value;
@@ -1123,7 +1129,6 @@ export default class Sales extends Component {
         }
         pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
         pushRecord["Standing"] = document.getElementById('standingSelect').value;
-        pushRecord["Recent Caller"] = document.getElementById('callerSelect').value;
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
         pushRecord["Call Status"] = document.getElementById('callStatus').value;
         pushRecord["Follow Status"] = document.getElementById('followStatus').value;
@@ -2728,6 +2733,8 @@ export default class Sales extends Component {
     currRec['Recent Caller'] = e['Recent Caller'];
     currRec['Notes'] = e['Notes'];
     currRec['Recent Call Time'] = e['Recent Call Time']
+
+    console.log(currRec);
 
     this.setState({
       currentRecord: currRec,

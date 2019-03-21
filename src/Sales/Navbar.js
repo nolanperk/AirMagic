@@ -188,22 +188,34 @@ export default class Navbar extends Component {
     } else {
       if (this.props.recordView) {
         if (window.innerWidth > 900) { //non-mobile
-          return (
-            <div className="rightButtons">
-              <div className="inputBlock">
-                <div className="selectBlock">
-                  {this.viewSelects}
+          if (this.props.userName === 'NWPp' || this.props.userName === 'TMP' || this.props.userName === 'JDH') {
+            return (
+              <div className="rightButtons">
+                <div className="inputBlock">
+                  <div className="selectBlock">
+                    {this.viewSelects}
+                  </div>
+                </div>
+                <div className="btn softGrad--primary" id="logCall" onClick={this.props.controlsModalToggle}>Call</div>
+
+                <div className="btn softGrad--secondary" id="moveDatabase" onClick={this.props.controlsModalToggle}>Close It</div>
+
+                <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+                  <img src={exportImg} alt="Export" />
                 </div>
               </div>
-              <div className="btn softGrad--primary" id="logCall" onClick={this.props.controlsModalToggle}>Call</div>
+            );
+          } else {
+            return (
+              <div className="rightButtons">
+                <div className="btn softGrad--primary" id="logCall" onClick={this.props.controlsModalToggle}>Call</div>
 
-              <div className="btn softGrad--secondary" id="moveDatabase" onClick={this.props.controlsModalToggle}>Close It</div>
-
-              <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-                <img src={exportImg} alt="Export" />
+                <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+                  <img src={exportImg} alt="Export" />
+                </div>
               </div>
-            </div>
-          );
+            );
+          }
         } else {
           return (
             <div className="rightButtons">
@@ -248,10 +260,6 @@ export default class Navbar extends Component {
             </div>
 
             <a className="btn softGrad--primary" id="yelpModal" onClick={this.props.controlsModalToggle}>Yelp!</a>
-
-            <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="exportList">
-              <img src={exportImg} alt="Export" />
-            </div>
           </div>
         );
       }

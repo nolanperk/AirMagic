@@ -111,7 +111,7 @@ export class LogCall extends Component {
       }
     } else if (this.state.viewType === 'apptQuestion') {
       if (e.target.id === 'setAppt') {
-        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn') {
+        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
           logData['Appt. Set By'] = localStorage.getItem('userName');
         } else {
           logData['Appt. Set By'] = '';
@@ -119,12 +119,13 @@ export class LogCall extends Component {
         logData['Appt. Set Date'] = today;
         logData['Status'] = 'Appointment Set';
       }
-      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn') {
+      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
         logData['Recent Caller'] = localStorage.getItem('userName');
       } else {
         logData['Recent Caller'] = '';
       }
       logData['Recent Call Date'] = today;
+      console.log(logData);
 
       this.setState({
         logData: logData,

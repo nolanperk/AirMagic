@@ -163,6 +163,7 @@ export default class ModuleMain extends Component {
                 <option id="Carla+Milian">Carla Milian</option>
                 <option id="Shana+Thorn">Shana Thorn</option>
                 <option id="Jett">Jett</option>
+                <option id="Jason">Jason</option>
                 <option disabled>----------</option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
@@ -274,6 +275,7 @@ export default class ModuleMain extends Component {
                   <option id="Carla+Milian">Carla Milian</option>
                   <option id="Shana+Thorn">Shana Thorn</option>
                   <option id="Jett">Jett</option>
+                  <option id="Jason">Jason</option>
                   <option disabled>----------</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>
                   <option id="Eric+Kleeman">Eric Kleeman</option>
