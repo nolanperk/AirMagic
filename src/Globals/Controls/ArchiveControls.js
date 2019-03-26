@@ -4,13 +4,17 @@ import propTypes from 'prop-types';
 import search from '../../assets/icons/white/search.png';
 import filter from '../../assets/icons/black/filter.png';
 import sort from '../../assets/icons/black/sort.png';
+import location from '../../assets/icons/black/location.png';
 import plus from '../../assets/icons/white/plus.png';
+
+
 
 export default class SortBy extends Component {
 
   // Render
   // ----------------------------------------------------
   render() {
+
     let ControlsClasses = 'ControlsBar normalControls';
     if (this.props.franchiseView) {
       ControlsClasses = 'ControlsBar plusControls';
@@ -20,33 +24,63 @@ export default class SortBy extends Component {
       filterBtnClass = 'ControlsBar--btn hideFilters';
     }
 
-    return (
-      <div className={ControlsClasses}>
-        <div className={filterBtnClass} onClick={this.props.controlsModalToggle} id="filterBtn">
-          <div className="navIcon whiteCard">
-            <img src={filter} alt="filter" />
+    if (this.props.currentTable === 'Sales') {
+      return (
+        <div className={ControlsClasses}>
+          <div className={filterBtnClass} onClick={this.props.controlsModalToggle} id="filterBtn">
+            <div className="navIcon whiteCard">
+              <img src={filter} alt="filter" />
+            </div>
+            <p>No Filter</p>
           </div>
-          <p>No Filter</p>
-        </div>
-        <div className="ControlsBar--btn" onClick={this.props.controlsModalToggle} id="sortBtn">
-          <div className="navIcon whiteCard">
-            <img src={sort} alt="sort" />
+          <div className="ControlsBar--btn" onClick={this.props.controlsModalToggle} id="regionSelect">
+            <div className="navIcon whiteCard">
+              <img src={location} alt="regions" />
+            </div>
+            <p>Regions</p>
           </div>
-          <p>Sort</p>
+
+          <form className="ControlsBar--search" onSubmit={this.props.searchHandler}>
+            <input type="text" placeholder="search records" id="searchInput" />
+            {this.ControlsSelect}
+            <button type="submit" className="navIcon softGrad--primary">
+              <img src={search} alt="search" />
+            </button>
+          </form>
+
+
+          {this.AddNewBtn}
         </div>
+      );
+    } else {
+      return (
+        <div className={ControlsClasses}>
+          <div className={filterBtnClass} onClick={this.props.controlsModalToggle} id="filterBtn">
+            <div className="navIcon whiteCard">
+              <img src={filter} alt="filter" />
+            </div>
+            <p>No Filter</p>
+          </div>
+          <div className="ControlsBar--btn" onClick={this.props.controlsModalToggle} id="sortBtn">
+            <div className="navIcon whiteCard">
+              <img src={sort} alt="sort" />
+            </div>
+            <p>Sort</p>
+          </div>
 
-        <form className="ControlsBar--search" onSubmit={this.props.searchHandler}>
-          <input type="text" placeholder="search records" id="searchInput" />
-          {this.ControlsSelect}
-          <button type="submit" className="navIcon softGrad--primary">
-            <img src={search} alt="search" />
-          </button>
-        </form>
+          <form className="ControlsBar--search" onSubmit={this.props.searchHandler}>
+            <input type="text" placeholder="search records" id="searchInput" />
+            {this.ControlsSelect}
+            <button type="submit" className="navIcon softGrad--primary">
+              <img src={search} alt="search" />
+            </button>
+          </form>
 
 
-        {this.AddNewBtn}
-      </div>
-    );
+          {this.AddNewBtn}
+        </div>
+      );
+    }
   }
   get AddNewBtn() {
     if (localStorage.getItem('isOutside') !== 'true') {

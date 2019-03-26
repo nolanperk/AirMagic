@@ -248,6 +248,20 @@ ul {
     width: 100%;
     margin-top: 20px; }
 
+@media only screen and (min-width: 1440px) {
+  h1 {
+    font-size: 40px;
+    line-height: 35px; }
+  h2 {
+    font-size: 32px;
+    line-height: 30px; }
+  h3 {
+    font-size: 24px;
+    line-height: 32px; }
+  h4 {
+    font-size: 20px;
+    line-height: 25px; } }
+
 .whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem, .rowItems .ArchiveItem .subInfo, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
@@ -1463,6 +1477,8 @@ hr {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px; }
+    #sortTable .selectBox.isHidden, #exportForm .selectBox.isHidden {
+      opacity: 0; }
     #sortTable .selectBox:last-child, #exportForm .selectBox:last-child {
       margin-right: 0; }
     #sortTable .selectBox select, #exportForm .selectBox select {
@@ -1628,7 +1644,7 @@ hr {
     flex-basis: 35%;
     padding: 0 10px; }
     .modal .modalInner.FollowUpsModal .splitNotes .noteSide textarea {
-      background: #f7f7f5;
+      background: #ebebeb;
       border: none;
       outline: none;
       height: 33.5vh;
@@ -1675,7 +1691,7 @@ hr {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0; }
     .modal .modalInner.FollowUpsModal .splitHalf .half.noteSide textarea {
-      background: #f7f7f5;
+      background: #ebebeb;
       border: none;
       outline: none;
       height: 44.75vh; }
@@ -1769,6 +1785,14 @@ hr {
 
 .logCall.TicketModal {
   background: transparent; }
+  .logCall.TicketModal .inner {
+    max-width: none;
+    width: 96%;
+    height: 96vh; }
+    .logCall.TicketModal .inner .modalBody .accountData {
+      width: 25%; }
+    .logCall.TicketModal .inner .modalBody .mainTicket {
+      width: 75%; }
   .logCall.TicketModal .DayPicker {
     left: 40px;
     right: auto;
@@ -1793,7 +1817,7 @@ hr {
       .logCall.TicketModal .inner .modalTitle h4 em span.Shana {
         background: #407ae6; }
   .logCall.TicketModal .inputGroup {
-    margin: 40px 0; }
+    margin: 10px 0; }
     .logCall.TicketModal .inputGroup span {
       font-size: 11px;
       letter-spacing: 2px;
@@ -1809,18 +1833,19 @@ hr {
         opacity: 0.5;
         font-weight: bold; }
       .logCall.TicketModal .inputGroup .inputBlock.inputBlock--large {
-        width: 70%; }
-      .logCall.TicketModal .inputGroup .inputBlock.inputBlock--small {
-        margin-left: 5%;
         width: 25%; }
+      .logCall.TicketModal .inputGroup .inputBlock.inputBlock--small {
+        margin-left: 1%;
+        margin-right: 3%;
+        width: 15%; }
       .logCall.TicketModal .inputGroup .inputBlock.inputBlock--third {
         margin-right: 3%;
-        width: 31%; }
+        width: 25%; }
         .logCall.TicketModal .inputGroup .inputBlock.inputBlock--third:last-child {
           margin-right: 0; }
       .logCall.TicketModal .inputGroup .inputBlock.inputBlock--half {
-        width: 48%;
-        margin-right: 4%; }
+        width: 25%;
+        margin-right: 3%; }
         .logCall.TicketModal .inputGroup .inputBlock.inputBlock--half:last-child {
           margin-right: 0; }
       .logCall.TicketModal .inputGroup .inputBlock.inputBlock--full {
@@ -1830,9 +1855,10 @@ hr {
         font-size: 14px;
         padding: 15px; }
   .logCall.TicketModal .inner .modalBody .mainTicket {
-    position: relative; }
+    position: relative;
+    padding: 3vw 2vw 75px; }
     .logCall.TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock select {
-      background: #f7f7f5;
+      background: #ebebeb;
       color: #131313; }
     .logCall.TicketModal .inner .modalBody .mainTicket .inputBlock .selectBlock::after {
       background: none;
@@ -1847,7 +1873,7 @@ hr {
   .logCall.TicketModal .inputBlock {
     margin-bottom: 15px; }
     .logCall.TicketModal .inputBlock input {
-      background: #f7f7f5;
+      background: #ebebeb;
       border: solid 1px #efefef;
       width: 100%;
       padding: 8px;
@@ -1856,22 +1882,21 @@ hr {
 
 .qualifyMap {
   position: relative;
-  width: 78%;
-  padding-bottom: 70%; }
+  width: 78%; }
 
 .mapArea {
   display: flex; }
 
 .comparison {
   text-align: center;
-  margin-bottom: 100px; }
+  margin-bottom: 40px; }
   .comparison .loading {
     margin: 50px 20px;
     width: 100px; }
 
 .nextBtn {
   position: fixed;
-  width: 58%;
+  width: 75%;
   border-radius: 0;
   bottom: 0;
   left: 0;
@@ -1889,8 +1914,11 @@ hr {
     margin-top: 20px;
     width: 100px; }
   .innerCompare .google {
-    padding-bottom: 25px;
-    background: #dce6fb; }
+    width: 50%;
+    display: inline-block;
+    padding: 0px 0 30px;
+    background: #dce6fb;
+    vertical-align: middle; }
     .innerCompare .google .googleInner {
       background: white;
       border: solid 1px #ebecee;
@@ -1905,6 +1933,10 @@ hr {
         margin: 0 5px; }
         .innerCompare .google .googleInner .addArea .addBlock.none {
           display: none; }
+        .innerCompare .google .googleInner .addArea .addBlock p, .innerCompare .google .googleInner .addArea .addBlock .fieldsList label, .fieldsList .innerCompare .google .googleInner .addArea .addBlock label {
+          font-size: 12px; }
+        .innerCompare .google .googleInner .addArea .addBlock h4 {
+          font-size: 14px; }
       .innerCompare .google .googleInner.closed {
         text-align: center;
         font-size: 20px;
@@ -1923,12 +1955,13 @@ hr {
           margin-top: 20px; }
   .innerCompare .update {
     text-align: center;
-    width: 100%;
-    margin: 10px 0 0; }
+    width: 100%; }
   .innerCompare .airmagic {
-    padding-top: 25px;
-    padding-bottom: 15px;
-    background: #ebebeb; }
+    width: 49%;
+    display: inline-block;
+    padding: 10px 0;
+    background: #ebebeb;
+    vertical-align: middle; }
     .innerCompare .airmagic .airmagicInner {
       text-align: left;
       background: white;
@@ -1947,17 +1980,19 @@ hr {
         .innerCompare .airmagic .airmagicInner .airItem.full {
           width: 97%; }
         .innerCompare .airmagic .airmagicInner .airItem.most {
-          width: 66%;
+          width: 64%;
           margin-bottom: 10px; }
         .innerCompare .airmagic .airmagicInner .airItem.small {
           width: 28%;
           margin-bottom: 10px; }
         .innerCompare .airmagic .airmagicInner .airItem.half {
-          width: 47%; }
+          width: 46%; }
         .innerCompare .airmagic .airmagicInner .airItem .fakeField {
           padding: 10px;
           border: solid 1px #d2d2d2;
-          min-height: 42px; }
+          min-height: 34px;
+          font-size: 13px;
+          line-height: 12px; }
         .innerCompare .airmagic .airmagicInner .airItem .label {
           font-weight: bold;
           font-size: 10px;
@@ -3203,7 +3238,7 @@ hr {
             border: none;
             border-radius: 5px;
             padding: 12px 15px;
-            background: #F7F7F5;
+            background: #ebebeb;
             outline: none;
             transition: all 0.25 ease; }
             .TicketModal .inner .modalBody .mainTicket .inputBlock textarea:focus {
@@ -3516,82 +3551,82 @@ hr {
   opacity: 0; }
   .confetti-piece:nth-child(1) {
     left: 7%;
-    transform: rotate(68deg);
+    transform: rotate(34deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 25ms;
-    animation-duration: 921ms; }
+    animation-delay: 222ms;
+    animation-duration: 1060ms; }
   .confetti-piece:nth-child(2) {
     left: 14%;
-    transform: rotate(-31deg);
+    transform: rotate(-21deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 365ms;
-    animation-duration: 965ms; }
+    animation-delay: 483ms;
+    animation-duration: 881ms; }
   .confetti-piece:nth-child(3) {
     left: 21%;
-    transform: rotate(51deg);
+    transform: rotate(-15deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 429ms;
-    animation-duration: 1184ms; }
+    animation-delay: 212ms;
+    animation-duration: 970ms; }
   .confetti-piece:nth-child(4) {
     left: 28%;
-    transform: rotate(5deg);
+    transform: rotate(-39deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 169ms;
-    animation-duration: 1186ms; }
+    animation-delay: 181ms;
+    animation-duration: 911ms; }
   .confetti-piece:nth-child(5) {
     left: 35%;
-    transform: rotate(16deg);
+    transform: rotate(60deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 427ms;
-    animation-duration: 1014ms; }
+    animation-delay: 443ms;
+    animation-duration: 1091ms; }
   .confetti-piece:nth-child(6) {
     left: 42%;
-    transform: rotate(-49deg);
+    transform: rotate(-59deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 202ms;
-    animation-duration: 776ms; }
+    animation-delay: 483ms;
+    animation-duration: 867ms; }
   .confetti-piece:nth-child(7) {
     left: 49%;
-    transform: rotate(-34deg);
+    transform: rotate(-31deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 143ms;
-    animation-duration: 1170ms; }
+    animation-delay: 124ms;
+    animation-duration: 1174ms; }
   .confetti-piece:nth-child(8) {
     left: 56%;
-    transform: rotate(79deg);
+    transform: rotate(-71deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 213ms;
-    animation-duration: 1119ms; }
+    animation-delay: 414ms;
+    animation-duration: 1103ms; }
   .confetti-piece:nth-child(9) {
     left: 63%;
-    transform: rotate(-20deg);
+    transform: rotate(-80deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 20ms;
-    animation-duration: 791ms; }
+    animation-delay: 147ms;
+    animation-duration: 1089ms; }
   .confetti-piece:nth-child(10) {
     left: 70%;
-    transform: rotate(75deg);
+    transform: rotate(49deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 376ms;
-    animation-duration: 915ms; }
+    animation-delay: 467ms;
+    animation-duration: 729ms; }
   .confetti-piece:nth-child(11) {
     left: 77%;
-    transform: rotate(-46deg);
+    transform: rotate(-43deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 203ms;
-    animation-duration: 838ms; }
+    animation-delay: 307ms;
+    animation-duration: 1055ms; }
   .confetti-piece:nth-child(12) {
     left: 84%;
-    transform: rotate(-65deg);
+    transform: rotate(-77deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 83ms;
-    animation-duration: 873ms; }
+    animation-delay: 460ms;
+    animation-duration: 1021ms; }
   .confetti-piece:nth-child(13) {
     left: 91%;
-    transform: rotate(67deg);
+    transform: rotate(53deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 140ms;
-    animation-duration: 967ms; }
+    animation-delay: 471ms;
+    animation-duration: 946ms; }
   .confetti-piece:nth-child(odd) {
     background: #17d3ff; }
   .confetti-piece:nth-child(even) {

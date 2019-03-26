@@ -1755,6 +1755,9 @@ export default class Sales extends Component {
       finalTime.amPm = 'AM'; timeOnly = timeInput.split('AM')[0].replace(/ /g, '');
     } else if (timeInput.includes('PM')) {
       finalTime.amPm = 'PM'; timeOnly = timeInput.split('PM')[0].replace(/ /g, '');
+    } else {
+      alert('Error! Please include an AM or PM on the APPOINTMENT TIME field');
+      return;
     }
     if (timeOnly.includes(':')) {
       finalTime.hours = parseInt(timeOnly.split(':')[0]);
@@ -1854,23 +1857,25 @@ export default class Sales extends Component {
       if (halfTime > 11) {
         timeOfDay = 'Afternoon';
       }
-      let apptEmailLink = 'mailto:';
-      apptEmailLink += this.state.currentRecord['Email'];
-      apptEmailLink += "?subject=" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + "%20from%20Vanguard%20Cleaning%20Systems%20Proposal";
+      if (this.state.currentRecord['Email']) {
+        let apptEmailLink = 'mailto:';
+        apptEmailLink += this.state.currentRecord['Email'];
+        apptEmailLink += "?subject=" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + "%20from%20Vanguard%20Cleaning%20Systems%20Proposal";
 
-      apptEmailLink += "&body=Good%20" + timeOfDay + "%20" + contactFirst;
-      let apptDate = new Date(this.state.currentRecord['Appt. Date']);
-      apptDate = (apptDate.getMonth()+1) + '/' + apptDate.getDate() + '/' + apptDate.getFullYear()
+        apptEmailLink += "&body=Good%20" + timeOfDay + "%20" + contactFirst;
+        let apptDate = new Date(this.state.currentRecord['Appt. Date']);
+        apptDate = (apptDate.getMonth()+1) + '/' + apptDate.getDate() + '/' + apptDate.getFullYear()
 
-      apptEmailLink += "%2C%0A%0AThank%20you%20so%20much%20for%20your%20time%20today.%20It%20was%20a%20pleasure%20speaking%20with%20you.%0A%20Please%20note%20that%20on%20" + this.state.currentRecord['Appt. Date'] + "%20at%20" + this.state.currentRecord['Appt. Time'] + "%2C%20our%20Regional%20Sales%20Director%2C%20" + this.state.currentRecord['Sales Rep'] + "%2C%20will%20be%20meeting%20with%20you%20to%20learn%20about%20your%20cleaning%20needs%20in%20order%20to%20prepare%20a%20customized%20proposal%20of%20services%20for%20your%20review.%20%0A%0A" + contactFirst + "%2C%20thanks%20again%20for%20your%20time%20and%20consideration%20and%20I%20hope%20you%20have%20a%20great%20rest%20of%20your%20day.";
+        apptEmailLink += "%2C%0A%0AThank%20you%20so%20much%20for%20your%20time%20today.%20It%20was%20a%20pleasure%20speaking%20with%20you.%0A%20Please%20note%20that%20on%20" + this.state.currentRecord['Appt. Date'] + "%20at%20" + this.state.currentRecord['Appt. Time'] + "%2C%20our%20Regional%20Sales%20Director%2C%20" + this.state.currentRecord['Sales Rep'] + "%2C%20will%20be%20meeting%20with%20you%20to%20learn%20about%20your%20cleaning%20needs%20in%20order%20to%20prepare%20a%20customized%20proposal%20of%20services%20for%20your%20review.%20%0A%0A" + contactFirst + "%2C%20thanks%20again%20for%20your%20time%20and%20consideration%20and%20I%20hope%20you%20have%20a%20great%20rest%20of%20your%20day.";
 
 
-      var fakeEmailLink = document.createElement('a');
-      fakeEmailLink.setAttribute('href', apptEmailLink);
-      fakeEmailLink.style.display = 'none';
-      document.body.appendChild(fakeEmailLink);
-      fakeEmailLink.click();
-      document.body.removeChild(fakeEmailLink);
+        var fakeEmailLink = document.createElement('a');
+        fakeEmailLink.setAttribute('href', apptEmailLink);
+        fakeEmailLink.style.display = 'none';
+        document.body.appendChild(fakeEmailLink);
+        fakeEmailLink.click();
+        document.body.removeChild(fakeEmailLink);
+      }
     }
 
     setTimeout((function() {
@@ -2469,13 +2474,37 @@ export default class Sales extends Component {
           }
         }
 
+
+        let regionFilter;
+        if (sessionStorage.getItem('regionZips') != null) {
+          let regionZips = sessionStorage.getItem('regionZips').split(',');
+
+          regionFilter = 'OR(';
+          for (var i in regionZips) {
+            console.log(i);
+            if (i === '0') {  regionFilter += 'FIND(' + regionZips[i] + '%2C+%7BZip%7D)';
+            } else { regionFilter += '%2C+FIND(' + regionZips[i] + '%2C+%7BZip%7D)'; }
+          }
+          regionFilter += ')';
+        }
+
+        console.log(regionFilter);
+
         if (sessionStorage.getItem('jumpLetters')) {
-          finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+          if (sessionStorage.getItem('regionZips') != null) {
+            finalURL += "filterByFormula=AND(FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))%2C" + regionFilter + ")";
+          } else {
+            finalURL += "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))";
+          }
         } else {
-          if (this.state.sortByLabel !== '') {
-            finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+          // if (this.state.sortByLabel !== '') {
+          //   finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+          // }
+          if (sessionStorage.getItem('regionZips') != null) {
+            finalURL += "filterByFormula=" + regionFilter;
           }
         }
+        finalURL += '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
       }
       console.log('loadData()');
       return axios
@@ -2496,6 +2525,10 @@ export default class Sales extends Component {
         if (this.state.sortByLabel !== 'Company+Name') {
           document.getElementById('sortBtn').className='ControlsBar--btn isActive';
           document.getElementById('sortBtn').getElementsByTagName('p')[0].innerHTML='Sorted';
+        }
+        if (sessionStorage.getItem('regionZips') != null) {
+          document.getElementById('regionSelect').className='ControlsBar--btn isActive';
+          document.getElementById('regionSelect').getElementsByTagName('p')[0].innerHTML=sessionStorage.getItem('regionName');
         }
         setTimeout((function() {
           if (sessionStorage.getItem('jumpLetters')) {
@@ -2673,6 +2706,11 @@ export default class Sales extends Component {
           activeModal: true,
           modalType: 'moveDatabase',
         });
+      } else if (e.target.closest(".ControlsBar--btn").id === 'regionSelect') {
+        this.setState({
+          activeModal: true,
+          modalType: 'regionSelect',
+        });
       } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
         this.setState({
           activeModal: true,
@@ -2712,6 +2750,28 @@ export default class Sales extends Component {
       dataOffset: '',
       sortByLabel: sortByLabel,
       sortByOrder: sortByOrder,
+      activeModal: false,
+      modalType: '',
+    });
+    setTimeout((function() {
+      this.loadData();
+    }).bind(this), 100);
+  }
+
+  regionSelectHandler = () => {
+    let regionZips = document.getElementById('regionSelect').value;
+    let regionName = document.getElementById('regionSelect').options[document.getElementById('regionSelect').selectedIndex].innerHTML;
+
+    if (regionZips === 'All Regions') {
+      sessionStorage.removeItem('regionZips');
+      sessionStorage.removeItem('regionName');
+    } else {
+      sessionStorage.setItem('regionZips', regionZips);
+      sessionStorage.setItem('regionName', regionName);
+    }
+
+    this.setState({
+      dataOffset: '',
       activeModal: false,
       modalType: '',
     });
@@ -3028,6 +3088,7 @@ export default class Sales extends Component {
           selectFilterHandler={this.selectFilterHandler}
           controlsModalToggle={this.controlsModalToggle}
           sortSubmitHandler={this.sortSubmitHandler}
+          regionSelectHandler={this.regionSelectHandler}
           currentId= {this.state.currentId}
           userName={this.state.userName}
           saveNoteHandler = {this.saveNoteHandler}

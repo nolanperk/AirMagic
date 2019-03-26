@@ -395,7 +395,7 @@ export class LogCall extends Component {
     if (this.state.viewType === 'qualifyLead') {
       return(
         <div className="modalTitle">
-          <h4>{this.props.currentRecord['Company Name']} | {this.props.currentRecord['Recent Caller'] ? <em>called on {recentCalled} by <span className={this.props.currentRecord['Recent Caller'].split(' ')[0]}>{this.props.currentRecord['Recent Caller']}</span></em> : ''}</h4>
+          <h4>{this.props.currentRecord['Company Name'].slice(0,34) + '...'} | {this.props.currentRecord['Recent Caller'] ? <em>called on {recentCalled} by <span className={this.props.currentRecord['Recent Caller'].split(' ')[0]}>{this.props.currentRecord['Recent Caller']}</span></em> : ''}</h4>
           <div className="navIcon softGrad--primary" onClick={this.props.controlsModalToggle}>
             <img src={exit} alt="exit" />
           </div>
@@ -431,7 +431,7 @@ export class LogCall extends Component {
     } else {
       return(
         <div className="modalTitle">
-          <h4>{this.props.currentRecord['Company Name']} | {this.props.currentRecord['Recent Caller'] ? <em>called on {recentCalled} by <span className={this.props.currentRecord['Recent Caller'].split(' ')[0]}>{this.props.currentRecord['Recent Caller']}</span></em> : ''}</h4>
+          <h4>{this.props.currentRecord['Company Name'].slice(0,34) + '...'} | {this.props.currentRecord['Recent Caller'] ? <em>called on {recentCalled} by <span className={this.props.currentRecord['Recent Caller'].split(' ')[0]}>{this.props.currentRecord['Recent Caller']}</span></em> : ''}</h4>
           <div className="navIcon softGrad--primary" onClick={this.props.controlsModalToggle}>
             <img src={exit} alt="exit" />
           </div>
@@ -443,40 +443,6 @@ export class LogCall extends Component {
     if (this.state.viewType === 'qualifyLead') {
       return(
         <div className="mainTicket">
-          <h3>Building Size & Marker</h3>
-          <div className="inputBlock inputBlock--full mapArea">
-
-
-            <div className="qualifyMap">
-
-              <Map
-                google={this.props.google}
-                onReady={this.qualifyLeadMap}
-                center={{
-                  lat: this.state.lat,
-                  lng: this.state.lng
-                }}
-                zoom={19}>
-                <Marker
-                  position={{
-                    lat: this.state.lat,
-                    lng: this.state.lng
-                  }}
-                  name={this.props.currentRecord['Company Name']} />
-              </Map>
-            </div>
-
-            <div className="qualifyReference">
-              <p>3,000sqft</p>
-              <div className="reference-3"></div>
-
-
-              <p>10,000sqft</p>
-              <div className="reference-10"></div>
-            </div>
-          </div>
-
-          <h3>Confirm Data from Google</h3>
           <div className="comparison">
             <div className="Compare">
               {this.state.places ? this.state.places.map((data, index)=> {
@@ -568,6 +534,36 @@ export class LogCall extends Component {
               }) : <img src={loader} className="loading" alt="" />}
             </div>
           </div>
+
+            <div className="inputBlock inputBlock--full mapArea">
+
+              <div className="qualifyMap">
+                <Map
+                  google={this.props.google}
+                  onReady={this.qualifyLeadMap}
+                  center={{
+                    lat: this.state.lat,
+                    lng: this.state.lng
+                  }}
+                  zoom={19}>
+                  <Marker
+                    position={{
+                      lat: this.state.lat,
+                      lng: this.state.lng
+                    }}
+                    name={this.props.currentRecord['Company Name']} />
+                </Map>
+              </div>
+
+              <div className="qualifyReference">
+                <p>3,000sqft</p>
+                <div className="reference-3"></div>
+
+
+                <p>10,000sqft</p>
+                <div className="reference-10"></div>
+              </div>
+            </div>
           <button onClick={this.submitSales} className="btn softGrad--secondary nextBtn">Start Call</button>
 
         </div>

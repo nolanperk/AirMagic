@@ -1686,6 +1686,106 @@ export default class CustomerService extends Component {
     // window.location.reload();
   }
 
+  setAppt = () => {
+    let timeInput = '10:00 AM';
+    let apptDate = this.state.currentRecord['Appt. Date'];
+    timeInput = timeInput.toUpperCase();
+    let finalTime = {hours: 0,minutes: 0,amPm: 'AM'};
+
+    let timeOnly;
+    if (timeInput.includes('AM')) {
+      finalTime.amPm = 'AM'; timeOnly = timeInput.split('AM')[0].replace(/ /g, '');
+    } else if (timeInput.includes('PM')) {
+      finalTime.amPm = 'PM'; timeOnly = timeInput.split('PM')[0].replace(/ /g, '');
+    } else {
+      alert('Error! Please include an AM or PM on the APPOINTMENT TIME field');
+      return;
+    }
+    if (timeOnly.includes(':')) {
+      finalTime.hours = parseInt(timeOnly.split(':')[0]);
+      console.log(finalTime.hours);
+      finalTime.minutes = parseInt(timeOnly.split(':')[1]);
+    } if (timeOnly.length === 4 && !timeOnly.includes(':')) {
+      finalTime.hours = timeOnly.substring(0, 2);
+      finalTime.minutes = timeOnly.substring(2, 4);
+    } else {
+      finalTime.hours = parseInt(timeOnly);
+    }
+    if (finalTime.amPm === 'PM' && finalTime.hours !== 12) {
+      finalTime.hours = finalTime.hours + 12; //fix for 1-11pm
+    }
+    if (finalTime.amPm === 'AM' && finalTime.hours === 12) {
+      finalTime.hours = 0; //fix for midnight
+    }
+
+    let startApptDate = new Date();
+    startApptDate = new Date(startApptDate.getTime() + Math.abs(startApptDate.getTimezoneOffset()*60000)); //fix the date
+    startApptDate.setHours(finalTime.hours);//set hours
+    startApptDate.setMinutes(finalTime.minutes);//set minutes
+    let startApptDateTime = (new Date(startApptDate)).toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    let endApptDate = new Date(startApptDate.getTime() + Math.abs(startApptDate.getTimezoneOffset()*60000)); //fix the date
+    endApptDate.setHours(finalTime.hours);//set hours
+    endApptDate.setMinutes(finalTime.minutes + 30);//set minutes
+    let endApptDateTime = (new Date(endApptDate)).toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    console.log(finalTime);
+
+    let salesInitials;
+
+    if (this.state.currentRecord['Sales Rep'] === 'Tyler Perkins') {
+      salesInitials = 'TMP';
+    } else if (this.state.currentRecord['Sales Rep'] === 'Nolan Perkins') {
+      salesInitials = 'NWP'
+    } else if (this.state.currentRecord['Sales Rep'] === 'Joel Horwitz') {
+      salesInitials = 'JDH'
+    } else if (this.state.currentRecord['Sales Rep'] === 'Rafael Milanes') {
+      salesInitials = 'RAM'
+    } else {
+      salesInitials = this.state.currentRecord['Sales Rep'].replace(/ /g, '+');
+    }
+
+    let finalCalURL;
+
+    if (this.state.currentRecord['Main contact']) {
+      let contactFirst;
+      if (this.state.currentRecord['Main contact'].indexOf(' ') < 0) {
+        contactFirst = this.state.currentRecord['Main contact'];
+      } else {
+        contactFirst = this.state.currentRecord['Main contact'].split(' ')[0];
+      }
+      finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ' (' + contactFirst + ')'+'&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=';
+
+    } else {
+      finalCalURL = 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + salesInitials + '+-+' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + '&dates='+ startApptDateTime + '/' + endApptDateTime +'&details=';
+    }
+    if (this.state.calendarNote) {
+      finalCalURL += 'Set By - ' + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '<br/>';
+      finalCalURL += this.state.calendarNote;
+    }
+    finalCalURL += '<br/><br/>+View+record+<a+href="' + window.location.href + '">' + window.location.href + '</a>';
+    finalCalURL += '&location=' + this.state.currentRecord['Company Name'].replace(/ /g, '+').replace(/&/g, 'and') + ',+';
+    if(this.state.currentRecord['Address 1']) {
+      finalCalURL += this.state.currentRecord['Address 1'].replace(/ /g, '+').replace(/&/g, 'and');
+    } if (this.state.currentRecord['Address 2']) {
+      finalCalURL += '+'+this.state.currentRecord['Address 2'].replace(/ /g, '+').replace(/&/g, 'and');
+    } if (this.state.currentRecord['City']) {
+      finalCalURL += ',+' + this.state.currentRecord['City'].replace(/ /g, '+').replace(/&/g, 'and') + ',+FL+';
+    } if (this.state.currentRecord['Zip']) {
+      finalCalURL += this.state.currentRecord['Zip'].replace(/ /g, '+').replace(/&/g, 'and');
+    }
+    finalCalURL += '&sf=true&output=xml';
+    console.log(finalCalURL);
+
+    var fakeLinkA = document.createElement('a');
+    fakeLinkA.setAttribute('href', finalCalURL);
+    fakeLinkA.setAttribute('target', '_blank');
+    fakeLinkA.style.display = 'none';
+    document.body.appendChild(fakeLinkA);
+    fakeLinkA.click();
+    document.body.removeChild(fakeLinkA);
+  }
+
   loadData = () => {
     if (window.history.length > 2) {
       if (sessionStorage.getItem('listView') != null) {
@@ -1959,21 +2059,17 @@ export default class CustomerService extends Component {
           newItem['id'] = this.state.data[i].id;
           newAttentionData['crew'].push(newItem);
         } else if (this.state.data[i].fields['Standing'] === 'Unhappy') {
-          if (thisMonthly > 499) {
-            attentionLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newAttentionData['unhappy'].push(newItem);
-          }
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.data[i].fields;
+          newItem['id'] = this.state.data[i].id;
+          newAttentionData['unhappy'].push(newItem);
         } else if (this.state.data[i].fields['Standing'] === 'Satisfied') {
-          if (thisMonthly > 499) {
-            attentionLength ++;
-            let newItem = {};
-            newItem['fields'] = this.state.data[i].fields;
-            newItem['id'] = this.state.data[i].id;
-            newAttentionData['satisfied'].push(newItem);
-          }
+          attentionLength ++;
+          let newItem = {};
+          newItem['fields'] = this.state.data[i].fields;
+          newItem['id'] = this.state.data[i].id;
+          newAttentionData['satisfied'].push(newItem);
         }
       }
       let finalDataAtt = [];
@@ -2246,7 +2342,7 @@ export default class CustomerService extends Component {
           if (localStorage.getItem('userInitials') === 'SBM' && this.state.data[i].fields['PAM'] === 'Christy Subler') {
           } else if (localStorage.getItem('userInitials') === 'ACS' && this.state.data[i].fields['PAM'] === 'Sergibeth Monge') {
           } else {
-            if (thisMonthly > 499 && thisMonthly <= 999) {
+            if (thisMonthly <= 999) {
               if (lastCall < twoMonthsAway) {
                 proactiveLength ++;
                 let newItem = {};
@@ -2686,6 +2782,7 @@ export default class CustomerService extends Component {
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
             recordChanges= {this.state.recordChanges}
+            setAppt={this.setAppt}
           />
         </div>
       );

@@ -21,6 +21,7 @@ export default class Navbar extends Component {
     sessionStorage.removeItem('listView');
     sessionStorage.removeItem('jumpLetters');
     sessionStorage.removeItem('salesView');
+    sessionStorage.removeItem('regionZips');
     this.setState({
       currentRecordView: 'default'
     });
@@ -188,7 +189,7 @@ export default class Navbar extends Component {
     } else {
       if (this.props.recordView) {
         if (window.innerWidth > 900) { //non-mobile
-          if (this.props.userName === 'NWPp' || this.props.userName === 'TMP' || this.props.userName === 'JDH') {
+          if (this.props.userName === 'NWP' || this.props.userName === 'TMP' || this.props.userName === 'JDH') {
             return (
               <div className="rightButtons">
                 <div className="inputBlock">

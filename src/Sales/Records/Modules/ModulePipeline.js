@@ -61,7 +61,7 @@ export default class ModulePipeline extends Component {
                 <option disabled>---------------</option>
                 <option id="Carla+Milian">Carla Milian</option>
                 <option id="Shana+Thorn">Shana Thorn</option>
-                <option id="Jet">Jet</option>
+                <option id="Jett">Jett</option>
                 <option disabled>---------------</option>
                 <option disabled>Outside Sales</option>
                 <option disabled>---------------</option>

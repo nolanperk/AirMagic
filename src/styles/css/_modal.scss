@@ -252,6 +252,10 @@
     vertical-align: middle;
     margin-right: 10px;
 
+    &.isHidden {
+      opacity: 0;
+    }
+
     &:last-child {
       margin-right: 0;
     }
@@ -474,7 +478,7 @@
       padding: 0 10px;
 
       textarea {
-        background: #f7f7f5;
+        background: #ebebeb;
         border: none;
         outline: none;
         height: 33.5vh;
@@ -536,7 +540,7 @@
 
       &.noteSide {
         textarea {
-          background: #f7f7f5;
+          background: #ebebeb;
           border: none;
           outline: none;
           height: 44.75vh;
@@ -668,6 +672,22 @@
 .logCall.TicketModal {
   background: transparent;
 
+  .inner {
+    max-width: none;
+    width: 96%;
+    height: 96vh;
+
+    .modalBody {
+      .accountData {
+        width: 25%;
+      }
+      .mainTicket {
+        width: 75%;
+      }
+    }
+  }
+
+
   .DayPicker {
     left: 40px;
     right: auto;
@@ -705,7 +725,7 @@
   }
 
   .inputGroup {
-    margin: 40px 0;
+    margin: 10px 0;
 
     span {
       font-size: 11px;
@@ -725,16 +745,17 @@
       }
 
       &.inputBlock--large {
-        width: 70%;
+        width: 25%;
       }
       &.inputBlock--small {
-        margin-left: 5%;
-        width: 25%;
+        margin-left: 1%;
+        margin-right: 3%;
+        width: 15%;
       }
 
       &.inputBlock--third {
         margin-right: 3%;
-        width: 31%;
+        width: 25%;
 
         &:last-child {
           margin-right: 0;
@@ -742,8 +763,8 @@
       }
 
       &.inputBlock--half {
-        width: 48%;
-        margin-right: 4%;
+        width: 25%;
+        margin-right: 3%;
 
         &:last-child {
           margin-right: 0;
@@ -766,10 +787,11 @@
 
   .inner .modalBody .mainTicket {
     position: relative;
+    padding: 3vw 2vw 75px;
     .inputBlock {
       .selectBlock {
         select {
-          background: #f7f7f5;
+          background: #ebebeb;
           color: $black;
         }
 
@@ -797,7 +819,7 @@
     margin-bottom: 15px;
 
     input {
-      background: #f7f7f5;
+      background: #ebebeb;
       border: solid 1px #efefef;
       width: 100%;
       padding: 8px;
@@ -810,7 +832,6 @@
 .qualifyMap {
   position: relative;
   width: 78%;
-  padding-bottom: 70%;
 }
 
 .mapArea {
@@ -824,12 +845,13 @@
     margin: 50px 20px;
     width: 100px;
   }
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 }
 
 .nextBtn {
   position: fixed;
-  width: 58%;
+  // width: 58%;
+  width: 75%;
   border-radius: 0;
   bottom: 0;
   left: 0;
@@ -853,8 +875,11 @@
   }
 
   .google {
-    padding-bottom: 25px;
+    width: 50%;
+    display: inline-block;
+    padding: 0px 0 30px;
     background: #dce6fb;
+    vertical-align: middle;
 
     .googleInner {
       background: white;
@@ -875,6 +900,9 @@
           &.none {
             display: none;
           }
+
+          p {font-size: 12px}
+          h4 {font-size: 14px}
         }
       }
 
@@ -903,13 +931,14 @@
   .update {
     text-align: center;
     width: 100%;
-    margin: 10px 0 0;
   }
 
   .airmagic {
-    padding-top: 25px;
-    padding-bottom: 15px;
+    width: 49%;
+    display: inline-block;
+    padding: 10px 0;
     background: #ebebeb;
+    vertical-align: middle;
 
     .airmagicInner {
       text-align: left;
@@ -931,7 +960,7 @@
           width: 97%;
         }
         &.most {
-          width: 66%;
+          width: 64%;
           margin-bottom: 10px;
         }
         &.small {
@@ -939,13 +968,15 @@
           margin-bottom: 10px;
         }
         &.half {
-          width: 47%;
+          width: 46%;
         }
 
         .fakeField {
           padding: 10px;
           border: solid 1px $medGray;
-          min-height: 42px;
+          min-height: 34px;
+          font-size: 13px;
+          line-height: 12px;
         }
 
         .label {

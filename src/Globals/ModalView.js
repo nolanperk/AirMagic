@@ -19,6 +19,7 @@ import RecapVisit from '../Globals/Modals/RecapVisit';
 import LogCall from '../Globals/Modals/LogCall';
 import SalesFollowUps from '../Globals/Modals/SalesFollowUps';
 import YelpModal from '../Globals/Modals/YelpModal';
+import RegionSelect from '../Globals/Modals/RegionSelect';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -78,10 +79,26 @@ export default class ModalView extends Component {
       return (
         <ExportRecords
           controlsModalToggle={this.props.controlsModalToggle}
-          currentTable={this.props.currentTable}
           submitExport={this.props.submitExport}
           currentTable={this.props.currentTable}
           exportRecord={this.props.exportRecord}
+        />
+      )
+    } else if (this.props.modalType === 'regionSelect') {
+      return (
+        <RegionSelect
+          regionSelectHandler={this.props.regionSelectHandler}
+          controlsModalToggle={this.props.controlsModalToggle}
+          mergeRecord={this.props.mergeRecord}
+          exportRecord={this.props.exportRecord}
+          baseId={this.props.baseId}
+          currentTable={this.props.currentTable}
+          changeRecordHandler={this.props.changeRecordHandler}
+          currentRecord={this.props.currentRecord}
+          timesPerWeekChange={this.props.timesPerWeekChange}
+          citySet={this.props.citySet}
+          autoPricing={this.props.autoPricing}
+          categoryChange={this.props.categoryChange}
         />
       )
     } else if (this.props.modalType === 'recordExport') {
