@@ -221,6 +221,44 @@ export default class FilterSearch extends Component {
               >Joel Pipeline</li>
             </ul>
           );
+        } else if (localStorage.getItem('userInitials') === 'JUSTIN') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Justin+Callbacks"
+              >Justin Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Justin+Recent+APPCs"
+              >Justin Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Joel+Pipeline"
+              >Joel Pipeline</li>
+            </ul>
+          );
         } else {
           return (
             <ul id="filtersList">
@@ -447,6 +485,48 @@ export default class FilterSearch extends Component {
                 onClick={this.selectFilterList}
                 id="Jason+Recent+APPCs"
               >Jason Recent APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Old+APPCs"
+              >Old APPCs</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Prospects"
+              >Prospects</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Cold+Calls"
+              >Cold Calls</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Tyler+Pipeline"
+              >Tyler Pipeline</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Nolan+Pipeline"
+              >Nolan Pipeline</li>
+            </ul>
+          );
+        } else if (localStorage.getItem('userInitials') === 'JUSTIN') {
+          return (
+            <ul id="filtersList">
+              <li
+                className="isActive"
+                onClick={this.selectFilterList}
+                id="All"
+                >No Filter</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Justin+Callbacks"
+              >Justin Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Missed+Callbacks"
+              >Missed Callbacks</li>
+              <li
+                onClick={this.selectFilterList}
+                id="Justin+Recent+APPCs"
+              >Justin Recent APPCs</li>
               <li
                 onClick={this.selectFilterList}
                 id="Old+APPCs"

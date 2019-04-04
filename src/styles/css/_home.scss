@@ -14,6 +14,85 @@
     justify-content: space-evenly;
   }
 
+  .selects {
+    display: flex;
+
+    .whiteCard {
+      width: 100%;
+      margin: 0;
+      padding: 50px 30px;
+      border-radius: 10px;
+    }
+
+    .leftSide {
+      flex-basis: 40%;
+      position: relative;
+
+      a {
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+
+        .whiteCard {
+          position: relative;
+          height: 100%;
+
+          .inner {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+
+
+            .circleDot {
+              background: $tertiary;
+              width: 90px;
+              height: 90px;
+            }
+          }
+        }
+      }
+    }
+
+    .rightSide {
+      flex-basis: 60%;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+
+
+      a {
+        flex: 1 1 0;
+        flex-basis: 50%;
+        padding: 10px;
+
+        &:nth-child(1) {
+          .circleDot {
+            background: #C31F68;
+          }
+        }
+        &:nth-child(2) {
+          .circleDot {
+            background: #C31F2F;
+          }
+        }
+        &:nth-child(3) {
+          .circleDot {
+            background: #1FC2C2;
+          }
+        }
+        &:nth-child(4) {
+          .circleDot {
+            background: $secondary;
+          }
+        }
+      }
+    }
+  }
+
   .whiteCard {
     width: 30%;
     margin-bottom: 1.25vw;
@@ -68,6 +147,10 @@
       .circleDot {
         background: #1F7DC2;
       }
+    }
+
+    &.wideChoice {
+      width: calc(100% - 2vw);
     }
   }
 }

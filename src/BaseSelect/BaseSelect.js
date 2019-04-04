@@ -45,7 +45,7 @@ export default class BaseSelect extends Component {
       orlandoCustomers += '/tickets';
     }
 
-    if (localStorage.getItem('userInitials') === 'JETT' || localStorage.getItem('userInitials') === 'JASON') {
+    if (localStorage.getItem('userInitials') === 'JETT' || localStorage.getItem('userInitials') === 'JASON' || localStorage.getItem('userInitials') === 'JUSTIN') {
       return (
         <div className="wrapper">
           <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
@@ -75,6 +75,65 @@ export default class BaseSelect extends Component {
                 </Link>
               </li>
             </ul>
+          </div>
+        </div>
+      );
+    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'CBM') {
+      return (
+        <div className="wrapper">
+          <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
+          <div id="helpButton">
+            <a href={`https://airtable.com/invite/l?inviteId=invfjMMpyxDUxF6m3&inviteToken=7cc8a9aedf1cbfcad5259da4811ef0dfe1981cacac8d2d9e1aaf28c4ba9a7793`} target="_blank" className="btn softGrad--secondary">Tutorials</a>
+            <a href={`https://airtable.com/shrbLvluNfUKIExRt`} target="_blank" className="btn softGrad--black">Issues/Suggestions</a>
+            {/* <Link to={`/maps/tampa`}>
+              <a className="btn softGrad--black">Maps</a>
+            </Link> */}
+          </div>
+          <div className="BaseList">
+            <h1>Choose Your Database</h1>
+            <div className="selects">
+              <div className="leftSide">
+                <Link to={`/sales/`}>
+                  <div className="selectItem whiteCard">
+                    <div className="inner">
+                      <div className="circleDot"></div>
+                      <div className="baseIcon"></div>
+                      <h4>Dashboard</h4>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div className="rightSide">
+                <Link to={`/tampa/sales/`}>
+                  <div className="selectItem whiteCard">
+                    <div className="circleDot"></div>
+                    <div className="baseIcon"></div>
+                    <p>Tampa Sales</p>
+                  </div>
+                </Link>
+                <Link to={`/orlando/sales/`}>
+                  <div className="selectItem whiteCard">
+                    <div className="circleDot"></div>
+                    <div className="baseIcon"></div>
+                    <p>Orlando Sales</p>
+                  </div>
+                </Link>
+                <Link to={tampaCustomers}>
+                  <div className="selectItem whiteCard">
+                    <div className="circleDot"></div>
+                    <div className="baseIcon"></div>
+                    <p>Tampa Customers</p>
+                  </div>
+                </Link>
+                <Link to={orlandoCustomers}>
+                  <div className="selectItem whiteCard">
+                    <div className="circleDot"></div>
+                    <div className="baseIcon"></div>
+                    <p>Orlando Customers</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       );

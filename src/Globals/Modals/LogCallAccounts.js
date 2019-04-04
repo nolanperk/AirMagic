@@ -36,11 +36,14 @@ export default class LogCallAccounts extends Component {
   // Render
   // ----------------------------------------------------
   render() {
+    let logNotes = ''
+    if (this.props.currentRecord['Notes']) {
+      logNotes = this.props.currentRecord['Notes'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+    }
 
     let recentCalled = new Date(this.props.currentRecord['Recent Call Date']);
     recentCalled = (recentCalled.getMonth()+1) + '/' + recentCalled.getDate() + '/' + recentCalled.getFullYear();
 
-    let logNotes = this.props.currentRecord['Notes'].replace(/(?:\r\n|\r|\n)/g, '<br />');
 
     setTimeout((function() {
       document.getElementById('logNotes').innerHTML = logNotes;

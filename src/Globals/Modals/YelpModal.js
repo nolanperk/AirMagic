@@ -210,7 +210,6 @@ export default class YelpModal extends Component {
         }
       });
     }.bind(this);
-
   }
 
   componentDidMount() {

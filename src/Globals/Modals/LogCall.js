@@ -364,7 +364,10 @@ export class LogCall extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-    let logNotes = this.props.currentRecord['Notes'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+    let logNotes = ''
+    if (this.props.currentRecord['Notes']) {
+      logNotes = this.props.currentRecord['Notes'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+    }
 
     setTimeout((function() {
       document.getElementById('logNotes').innerHTML = logNotes;

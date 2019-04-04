@@ -20,12 +20,12 @@ html {
 p, .fieldsList label {
   margin: 0; }
 
-.modal .modalInner .modalTitle {
+.modal .modalInner .modalTitle, .callModal .modalBox .modalNav {
   *zoom: 1; }
-  .modal .modalInner .modalTitle:before, .modal .modalInner .modalTitle:after {
+  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
     content: " ";
     display: table; }
-  .modal .modalInner .modalTitle:after {
+  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
     clear: both; }
 
 body {
@@ -71,12 +71,12 @@ a:active {
   box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
   border: solid 1px #E6E6E6; }
 
-.modal .modalInner .modalTitle {
+.modal .modalInner .modalTitle, .callModal .modalBox .modalNav {
   *zoom: 1; }
-  .modal .modalInner .modalTitle:before, .modal .modalInner .modalTitle:after {
+  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
     content: " ";
     display: table; }
-  .modal .modalInner .modalTitle:after {
+  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
     clear: both; }
 
 .btn {
@@ -139,9 +139,9 @@ ul {
   #next p, #next .fieldsList label, .fieldsList #next label {
     margin-right: 10px; }
 
-.softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .BaseList .FollowUpsModal .followUpItem .circleDot, .FollowUpsModal .BaseList .followUpItem .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .CustomerDashNav .splashWrapper .splashCard .cornerNumber, .CustomerDashNav .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
+.softGrad--primary, .ActivityWrapper .activityItem .prettyLabel.Appt, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .ActivityWrapper .activityItem .prettyLabel.Closed, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .ActivityWrapper .activityItem .prettyLabel.APPC, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel, .BaseList .whiteCard .circleDot, .BaseList .ControlsBar .ControlsBar--search input .circleDot, .ControlsBar .ControlsBar--search .BaseList input .circleDot, .BaseList .ControlsBar .ControlsBar--search select .circleDot, .ControlsBar .ControlsBar--search .BaseList select .circleDot, .BaseList .FollowUpsModal .followUpItem .circleDot, .FollowUpsModal .BaseList .followUpItem .circleDot, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FilterModal li.isActive, .UserModal li.isActive, .CustomerDashNav .splashWrapper .splashCard .cornerNumber, .CustomerDashNav .splashWrapper .splashCard .circleDot, .rowItems .ArchiveItem .subInfo {
   position: relative; }
-  .softGrad--primary::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .softGrad--black::before, .softGrad--blue::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .BaseList .FollowUpsModal .followUpItem .circleDot::before, .FollowUpsModal .BaseList .followUpItem .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .CustomerDashNav .splashWrapper .splashCard .cornerNumber::before, .CustomerDashNav .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
+  .softGrad--primary::before, .ActivityWrapper .activityItem .prettyLabel.Appt::before, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel::before, .softGrad--secondary::before, .ControlsBar .ControlsBar--btn.isActive::before, .ActivityWrapper .activityItem .prettyLabel.Closed::before, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel::before, .softGrad--black::before, .softGrad--blue::before, .ActivityWrapper .activityItem .prettyLabel.APPC::before, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel::before, .BaseList .whiteCard .circleDot::before, .BaseList .ControlsBar .ControlsBar--search input .circleDot::before, .ControlsBar .ControlsBar--search .BaseList input .circleDot::before, .BaseList .ControlsBar .ControlsBar--search select .circleDot::before, .ControlsBar .ControlsBar--search .BaseList select .circleDot::before, .BaseList .FollowUpsModal .followUpItem .circleDot::before, .FollowUpsModal .BaseList .followUpItem .circleDot::before, .ArchiveItems .cardContainer .ArchiveItem .subInfo::before, .FilterModal li.isActive::before, .UserModal li.isActive::before, .CustomerDashNav .splashWrapper .splashCard .cornerNumber::before, .CustomerDashNav .splashWrapper .splashCard .circleDot::before, .rowItems .ArchiveItem .subInfo::before {
     content: "";
     position: absolute;
     top: 0;
@@ -262,14 +262,14 @@ ul {
     font-size: 20px;
     line-height: 25px; } }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem, .rowItems .ArchiveItem .subInfo, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .ActivityWrapper .activityItem .prettyLabel.Appt, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .ActivityWrapper .activityItem .prettyLabel.Closed, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .ActivityWrapper .activityItem .prettyLabel.APPC, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel, .FilterBox, .ArchiveItems .cardContainer .ArchiveItem .subInfo, .FranchiseInfoItems .tableContainer, .RecordNotes, .RightPanel, .ModuleList .ModuleCard .inner, .modal .modalInner, .modal .modalInner.FollowUpsModal .splitHalf .half #resultsBox .referenceItem, .rowItems .ArchiveItem .subInfo, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal {
   background-color: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
   transition: all 0.5s ease; }
 
-.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue {
+.whiteCard, .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search select, .FollowUpsModal .followUpItem, .softGrad--primary, .ActivityWrapper .activityItem .prettyLabel.Appt, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel, .softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .ActivityWrapper .activityItem .prettyLabel.Closed, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel, .softGrad--black, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal::after, .softGrad--blue, .ActivityWrapper .activityItem .prettyLabel.APPC, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel {
   cursor: pointer; }
-  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .FollowUpsModal .followUpItem:hover, .softGrad--primary:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .softGrad--black:hover, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal:hover::after, .softGrad--blue:hover {
+  .whiteCard:hover, .ControlsBar .ControlsBar--search input:hover, .ControlsBar .ControlsBar--search select:hover, .FollowUpsModal .followUpItem:hover, .softGrad--primary:hover, .ActivityWrapper .activityItem .prettyLabel.Appt:hover, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel:hover, .softGrad--secondary:hover, .ControlsBar .ControlsBar--btn.isActive:hover, .ActivityWrapper .activityItem .prettyLabel.Closed:hover, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel:hover, .softGrad--black:hover, .ModuleList .ModuleCard.cardFull .fullInner .inner .timelineWrapper .timelineRow .timelineCal:hover::after, .softGrad--blue:hover, .ActivityWrapper .activityItem .prettyLabel.APPC:hover, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel:hover {
     transform: translateY(-5%);
     box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease; }
@@ -284,11 +284,11 @@ ul {
   border: solid 1px #F5F5F5;
   list-style: none; }
 
-.softGrad--primary {
+.softGrad--primary, .ActivityWrapper .activityItem .prettyLabel.Appt, .ActivityWrapper .activityItem .prettyLabel.Appt .numberLabel {
   background: #C31F2F;
   overflow: hidden; }
 
-.softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive {
+.softGrad--secondary, .ControlsBar .ControlsBar--btn.isActive, .ActivityWrapper .activityItem .prettyLabel.Closed, .ActivityWrapper .activityItem .prettyLabel.Closed .numberLabel {
   background: #1FC26A;
   overflow: hidden; }
 
@@ -296,7 +296,7 @@ ul {
   background: #131313;
   overflow: hidden; }
 
-.softGrad--blue {
+.softGrad--blue, .ActivityWrapper .activityItem .prettyLabel.APPC, .ActivityWrapper .activityItem .prettyLabel.APPC .numberLabel {
   background: #407ae6;
   overflow: hidden; }
 
@@ -642,6 +642,50 @@ ul {
     margin-bottom: 2vw; }
   .BaseList .cardContainer {
     justify-content: space-evenly; }
+  .BaseList .selects {
+    display: flex; }
+    .BaseList .selects .whiteCard, .BaseList .selects .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList .selects input, .BaseList .selects .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList .selects select, .BaseList .selects .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .selects .followUpItem {
+      width: 100%;
+      margin: 0;
+      padding: 50px 30px;
+      border-radius: 10px; }
+    .BaseList .selects .leftSide {
+      flex-basis: 40%;
+      position: relative; }
+      .BaseList .selects .leftSide a {
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0; }
+        .BaseList .selects .leftSide a .whiteCard, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem {
+          position: relative;
+          height: 100%; }
+          .BaseList .selects .leftSide a .whiteCard .inner, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input .inner, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select .inner, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem .inner, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem .inner {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%); }
+            .BaseList .selects .leftSide a .whiteCard .inner .circleDot, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input .inner .circleDot, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select .inner .circleDot, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem .inner .circleDot, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem .inner .circleDot {
+              background: #407ae6;
+              width: 90px;
+              height: 90px; }
+    .BaseList .selects .rightSide {
+      flex-basis: 60%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap; }
+      .BaseList .selects .rightSide a {
+        flex: 1 1 0;
+        flex-basis: 50%;
+        padding: 10px; }
+        .BaseList .selects .rightSide a:nth-child(1) .circleDot {
+          background: #C31F68; }
+        .BaseList .selects .rightSide a:nth-child(2) .circleDot {
+          background: #C31F2F; }
+        .BaseList .selects .rightSide a:nth-child(3) .circleDot {
+          background: #1FC2C2; }
+        .BaseList .selects .rightSide a:nth-child(4) .circleDot {
+          background: #1FC26A; }
   .BaseList .whiteCard, .BaseList .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList input, .BaseList .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList select, .BaseList .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .followUpItem {
     width: 30%;
     margin-bottom: 1.25vw; }
@@ -670,6 +714,8 @@ ul {
       background: #1FC2C2; }
     .BaseList .whiteCard:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search input:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList input:nth-child(6) .circleDot, .BaseList .ControlsBar .ControlsBar--search select:nth-child(6) .circleDot, .ControlsBar .ControlsBar--search .BaseList select:nth-child(6) .circleDot, .BaseList .FollowUpsModal .followUpItem:nth-child(6) .circleDot, .FollowUpsModal .BaseList .followUpItem:nth-child(6) .circleDot {
       background: #1F7DC2; }
+    .BaseList .whiteCard.wideChoice, .BaseList .ControlsBar .ControlsBar--search input.wideChoice, .ControlsBar .ControlsBar--search .BaseList input.wideChoice, .BaseList .ControlsBar .ControlsBar--search select.wideChoice, .ControlsBar .ControlsBar--search .BaseList select.wideChoice, .BaseList .FollowUpsModal .wideChoice.followUpItem, .FollowUpsModal .BaseList .wideChoice.followUpItem {
+      width: calc(100% - 2vw); }
 
 @media only screen and (max-width: 900px) {
   .BaseList {
@@ -3551,82 +3597,82 @@ hr {
   opacity: 0; }
   .confetti-piece:nth-child(1) {
     left: 7%;
-    transform: rotate(34deg);
+    transform: rotate(47deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 222ms;
-    animation-duration: 1060ms; }
+    animation-delay: 254ms;
+    animation-duration: 1164ms; }
   .confetti-piece:nth-child(2) {
     left: 14%;
-    transform: rotate(-21deg);
+    transform: rotate(72deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 483ms;
-    animation-duration: 881ms; }
+    animation-delay: 367ms;
+    animation-duration: 1039ms; }
   .confetti-piece:nth-child(3) {
     left: 21%;
-    transform: rotate(-15deg);
+    transform: rotate(34deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 212ms;
-    animation-duration: 970ms; }
+    animation-delay: 476ms;
+    animation-duration: 757ms; }
   .confetti-piece:nth-child(4) {
     left: 28%;
-    transform: rotate(-39deg);
+    transform: rotate(-27deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 181ms;
-    animation-duration: 911ms; }
+    animation-delay: 241ms;
+    animation-duration: 706ms; }
   .confetti-piece:nth-child(5) {
     left: 35%;
-    transform: rotate(60deg);
+    transform: rotate(-69deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 443ms;
-    animation-duration: 1091ms; }
+    animation-delay: 106ms;
+    animation-duration: 928ms; }
   .confetti-piece:nth-child(6) {
     left: 42%;
-    transform: rotate(-59deg);
+    transform: rotate(-13deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 483ms;
-    animation-duration: 867ms; }
+    animation-delay: 181ms;
+    animation-duration: 1015ms; }
   .confetti-piece:nth-child(7) {
     left: 49%;
-    transform: rotate(-31deg);
+    transform: rotate(51deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 124ms;
-    animation-duration: 1174ms; }
+    animation-delay: 228ms;
+    animation-duration: 1103ms; }
   .confetti-piece:nth-child(8) {
     left: 56%;
-    transform: rotate(-71deg);
+    transform: rotate(74deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 414ms;
-    animation-duration: 1103ms; }
+    animation-delay: 288ms;
+    animation-duration: 1040ms; }
   .confetti-piece:nth-child(9) {
     left: 63%;
-    transform: rotate(-80deg);
+    transform: rotate(46deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 147ms;
-    animation-duration: 1089ms; }
+    animation-delay: 110ms;
+    animation-duration: 1113ms; }
   .confetti-piece:nth-child(10) {
     left: 70%;
-    transform: rotate(49deg);
+    transform: rotate(-16deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 467ms;
-    animation-duration: 729ms; }
+    animation-delay: 121ms;
+    animation-duration: 1086ms; }
   .confetti-piece:nth-child(11) {
     left: 77%;
-    transform: rotate(-43deg);
+    transform: rotate(-70deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 307ms;
-    animation-duration: 1055ms; }
+    animation-delay: 233ms;
+    animation-duration: 873ms; }
   .confetti-piece:nth-child(12) {
     left: 84%;
-    transform: rotate(-77deg);
+    transform: rotate(-2deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 460ms;
-    animation-duration: 1021ms; }
+    animation-delay: 421ms;
+    animation-duration: 1080ms; }
   .confetti-piece:nth-child(13) {
     left: 91%;
-    transform: rotate(53deg);
+    transform: rotate(24deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 471ms;
-    animation-duration: 946ms; }
+    animation-delay: 453ms;
+    animation-duration: 1048ms; }
   .confetti-piece:nth-child(odd) {
     background: #17d3ff; }
   .confetti-piece:nth-child(even) {
@@ -3658,3 +3704,489 @@ hr {
   margin: 0;
   font-size: 14px;
   padding: 12px; }
+
+.callNav {
+  height: 75px;
+  background: #fff;
+  position: absolute;
+  width: 75%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  padding: 12px 15px;
+  z-index: 2; }
+  .callNav a, .callNav h4 {
+    display: inline-block;
+    vertical-align: middle; }
+  .callNav h4 {
+    margin-left: 10px; }
+
+.CallListContainer {
+  background: #F5FAFA;
+  position: absolute;
+  top: 75px;
+  width: 75%;
+  z-index: 1;
+  height: calc(100% - 75px);
+  overflow-y: scroll;
+  text-align: center;
+  padding: 50px; }
+  .CallListContainer .CallList {
+    position: relative; }
+    .CallListContainer .CallList .leftCol {
+      margin: 0 1%;
+      width: 42%;
+      display: inline-block;
+      vertical-align: top; }
+    .CallListContainer .CallList .rightCol {
+      margin: 0 1%;
+      width: 54%;
+      display: inline-block;
+      vertical-align: top; }
+      .CallListContainer .CallList .rightCol .CallListBox .callItem .buttons {
+        width: 65%; }
+        .CallListContainer .CallList .rightCol .CallListBox .callItem .buttons .btn {
+          width: calc(50% - 35px); }
+          .CallListContainer .CallList .rightCol .CallListBox .callItem .buttons .btn:first-child {
+            margin-right: 8px; }
+      .CallListContainer .CallList .rightCol .CallListBox .callItem .companyData {
+        width: 35%; }
+    .CallListContainer .CallList .CallListBox {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      padding: 2.5vw 2vw 1.5vw;
+      display: inline-block;
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 10px;
+      text-align: left; }
+      .CallListContainer .CallList .CallListBox p.cold-select, .CallListContainer .CallList .CallListBox .fieldsList label.cold-select, .fieldsList .CallListContainer .CallList .CallListBox label.cold-select {
+        line-height: 30px;
+        position: relative; }
+      .CallListContainer .CallList .CallListBox #cold-orlando, .CallListContainer .CallList .CallListBox #cold-tampa {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border: solid 1px #cfdede;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 50%; }
+        .CallListContainer .CallList .CallListBox #cold-orlando em, .CallListContainer .CallList .CallListBox #cold-tampa em {
+          font-weight: 600;
+          font-style: normal;
+          opacity: 0.6;
+          pointer-events: none; }
+        .CallListContainer .CallList .CallListBox #cold-orlando.isActive, .CallListContainer .CallList .CallListBox #cold-tampa.isActive {
+          background: #131313;
+          color: #fff;
+          border: solid 1px #131313;
+          cursor: default; }
+      .CallListContainer .CallList .CallListBox #cold-orlando {
+        margin-left: 0px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+      .CallListContainer .CallList .CallListBox #cold-tampa {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
+      .CallListContainer .CallList .CallListBox .cold-orlando, .CallListContainer .CallList .CallListBox .cold-tampa {
+        display: none; }
+        .CallListContainer .CallList .CallListBox .cold-orlando.isActive, .CallListContainer .CallList .CallListBox .cold-tampa.isActive {
+          display: block; }
+      .CallListContainer .CallList .CallListBox h4 span {
+        opacity: 0.4;
+        margin-left: 5px;
+        font-size: 17px; }
+      .CallListContainer .CallList .CallListBox .callItem {
+        background: #ebf0f0;
+        border-radius: 10px;
+        padding: 10px;
+        position: relative;
+        display: flex;
+        margin: 10px 0;
+        border: solid 1px #cfdede; }
+        .CallListContainer .CallList .CallListBox .callItem.called {
+          padding: 0;
+          padding-left: 5px;
+          background: transparent; }
+          .CallListContainer .CallList .CallListBox .callItem.called .companyData {
+            width: calc(100% - 42px); }
+          .CallListContainer .CallList .CallListBox .callItem.called .buttons {
+            box-shadow: none;
+            width: 42px;
+            padding: 10px 13px; }
+            .CallListContainer .CallList .CallListBox .callItem.called .buttons .btn {
+              display: none; }
+            .CallListContainer .CallList .CallListBox .callItem.called .buttons img {
+              margin-left: 0; }
+        .CallListContainer .CallList .CallListBox .callItem .buttons {
+          width: 50%;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+          border-radius: 10px;
+          background: #fff;
+          padding: 10px 18px; }
+          .CallListContainer .CallList .CallListBox .callItem .buttons .btn {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 8px 2px;
+            width: calc(100% - 40px);
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 0;
+            font-weight: 600; }
+          .CallListContainer .CallList .CallListBox .callItem .buttons img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 20px;
+            margin-left: 20px;
+            cursor: pointer; }
+        .CallListContainer .CallList .CallListBox .callItem .companyData {
+          width: 50%;
+          padding: 0 10px;
+          padding-right: 20px;
+          display: flex;
+          vertical-align: middle;
+          align-items: center; }
+          .CallListContainer .CallList .CallListBox .callItem .companyData p, .CallListContainer .CallList .CallListBox .callItem .companyData .fieldsList label, .fieldsList .CallListContainer .CallList .CallListBox .callItem .companyData label {
+            font-size: 10px;
+            opacity: 0.5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1px;
+            line-height: 12px; }
+          .CallListContainer .CallList .CallListBox .callItem .companyData h4 {
+            font-size: 14px;
+            line-height: 16px; }
+
+.ActivityWrapper {
+  width: 25%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  border-left: solid 1px #655c5c;
+  background: #3a3636;
+  padding: 50px 40px;
+  overflow-y: scroll;
+  z-index: 2; }
+  .ActivityWrapper h4 {
+    color: #fff; }
+  .ActivityWrapper .activityItem {
+    opacity: 0.85;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15); }
+    .ActivityWrapper .activityItem.hide {
+      display: none; }
+    .ActivityWrapper .activityItem .prettyLabel {
+      position: relative;
+      width: 35%;
+      padding: 15px;
+      text-align: center;
+      color: #fff;
+      pointer-events: none; }
+      .ActivityWrapper .activityItem .prettyLabel .inner {
+        position: relative; }
+        .ActivityWrapper .activityItem .prettyLabel .inner.centeredIt {
+          display: flex;
+          vertical-align: middle;
+          align-items: center;
+          justify-content: center;
+          height: 100%; }
+      .ActivityWrapper .activityItem .prettyLabel .numberLabel {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-weight: 800;
+        border-radius: 100px;
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 15px;
+        margin-bottom: 6px; }
+      .ActivityWrapper .activityItem .prettyLabel .typeLabel {
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 1px;
+        font-weight: 600; }
+    .ActivityWrapper .activityItem .activityContent {
+      width: 65%;
+      padding: 15px;
+      vertical-align: middle;
+      align-items: center;
+      display: flex; }
+      .ActivityWrapper .activityItem .activityContent .inside, .ActivityWrapper .activityItem .activityContent .outside {
+        font-size: 10px;
+        background: #131313;
+        padding: 3px 9px;
+        border-radius: 100px;
+        display: inline-block;
+        color: #fff;
+        font-weight: bold; }
+      .ActivityWrapper .activityItem .activityContent .inside.Carla {
+        background: #C31F2F; }
+      .ActivityWrapper .activityItem .activityContent .inside.Shana {
+        background: #407ae6; }
+      .ActivityWrapper .activityItem .activityContent .inside.Jett {
+        background: #1FC26A; }
+      .ActivityWrapper .activityItem .activityContent .outside {
+        color: #131313;
+        margin-left: 4px;
+        background: rgba(108, 108, 108, 0.4); }
+        .ActivityWrapper .activityItem .activityContent .outside.Nolan {
+          background: rgba(222, 232, 251, 0.6); }
+        .ActivityWrapper .activityItem .activityContent .outside.Joel {
+          background: rgba(163, 240, 199, 0.6); }
+        .ActivityWrapper .activityItem .activityContent .outside.Tyler {
+          background: rgba(241, 164, 171, 0.6); }
+      .ActivityWrapper .activityItem .activityContent h4 {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 5px; }
+
+.callModal {
+  background: rgba(63, 73, 73, 0.7);
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5; }
+  .callModal .modalBox {
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 40px 40px;
+    position: fixed;
+    width: 92%;
+    height: 90%;
+    top: 5%;
+    left: 4%; }
+    .callModal .modalBox .modalNav .titleArea {
+      float: left;
+      margin-top: 20px; }
+      .callModal .modalBox .modalNav .titleArea .backBtn {
+        width: 17px;
+        opacity: 0.6;
+        vertical-align: middle;
+        margin-right: 18px;
+        cursor: pointer; }
+      .callModal .modalBox .modalNav .titleArea h4, .callModal .modalBox .modalNav .titleArea p, .callModal .modalBox .modalNav .titleArea .fieldsList label, .fieldsList .callModal .modalBox .modalNav .titleArea label {
+        display: inline-block;
+        margin-right: 15px;
+        vertical-align: middle; }
+      .callModal .modalBox .modalNav .titleArea .callType {
+        background: #131313;
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600; }
+        .callModal .modalBox .modalNav .titleArea .callType.Prospect {
+          background: #E2630D; }
+        .callModal .modalBox .modalNav .titleArea .callType.APPC {
+          background: #407ae6; }
+    .callModal .modalBox .modalNav h4 em {
+      font-weight: 800;
+      font-style: normal;
+      text-decoration: underline; }
+    .callModal .modalBox .modalNav .icons {
+      float: right; }
+      .callModal .modalBox .modalNav .icons > a, .callModal .modalBox .modalNav .icons > .navIcon {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 10px; }
+        .callModal .modalBox .modalNav .icons > a:hover, .callModal .modalBox .modalNav .icons > .navIcon:hover {
+          opacity: 1; }
+    .callModal .modalBox .callBoxWrapper {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 80px);
+      margin-top: 20px;
+      display: flex; }
+      .callModal .modalBox .callBoxWrapper .callColumn {
+        background: #ebf0f0;
+        border: solid 1px #cfdede;
+        border-radius: 10px;
+        flex: 1 1 0;
+        overflow: hidden;
+        position: relative; }
+        .callModal .modalBox .callBoxWrapper .callColumn .pickWrapper {
+          position: relative; }
+        .callModal .modalBox .callBoxWrapper .callColumn .pickWrapper.cardOnRight .DayPicker {
+          transform: translate(-10%, 30%); }
+        .callModal .modalBox .callBoxWrapper .callColumn .nextBtn {
+          position: absolute;
+          width: 100%; }
+        .callModal .modalBox .callBoxWrapper .callColumn.activeCall {
+          padding-bottom: 250px;
+          overflow: scroll;
+          padding-top: 10px; }
+          .callModal .modalBox .callBoxWrapper .callColumn.activeCall .topActive {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 240px + 1vw);
+            overflow: scroll;
+            padding-bottom: 1.5vw; }
+        .callModal .modalBox .callBoxWrapper .callColumn .inputGroup {
+          margin: 30px 40px; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup.solo {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 30px 40px;
+            margin: 0; }
+            .callModal .modalBox .callBoxWrapper .callColumn .inputGroup.solo #setAppt {
+              margin-right: 10px; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup select {
+            width: 100%;
+            background: white;
+            border: none;
+            border-radius: 2px;
+            padding: 7px 12px;
+            outline: 0;
+            -webkit-appearance: none; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third {
+            display: inline-block;
+            margin-right: 4%;
+            margin-bottom: 20px; }
+            .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half p, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half .fieldsList label, .fieldsList .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half label, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third p, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third .fieldsList label, .fieldsList .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third label {
+              font-size: 10px;
+              opacity: 0.6;
+              font-weight: 600;
+              letter-spacing: 1px;
+              text-transform: uppercase; }
+            .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half input, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third input {
+              width: 100%;
+              padding: 6px 10px;
+              border-radius: 3px;
+              border: 0;
+              outline: 0; }
+            .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half:last-child, .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third:last-child {
+              margin-right: 0; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--half {
+            width: 40%; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup .inputBlock--third {
+            width: 30%; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup textarea {
+            width: 100%;
+            outline: 0;
+            border: 0;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px; }
+          .callModal .modalBox .callBoxWrapper .callColumn .inputGroup.notepad {
+            position: absolute;
+            bottom: 64px;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 3px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px 40px;
+            margin: 0; }
+            .callModal .modalBox .callBoxWrapper .callColumn .inputGroup.notepad textarea {
+              background: #ebf0f0; }
+        .callModal .modalBox .callBoxWrapper .callColumn.data {
+          margin: 0 10px;
+          flex-basis: calc(35% - 20px);
+          overflow-y: scroll; }
+        .callModal .modalBox .callBoxWrapper .callColumn.notes {
+          width: 350px;
+          flex-basis: 30%; }
+          .callModal .modalBox .callBoxWrapper .callColumn.notes .title {
+            background: rgba(235, 240, 240, 0.9);
+            padding: 20px;
+            position: absolute;
+            z-index: 1;
+            width: 100%; }
+          .callModal .modalBox .callBoxWrapper .callColumn.notes #logNotes {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: scroll;
+            padding-top: 70px; }
+        .callModal .modalBox .callBoxWrapper .callColumn.compareIt {
+          overflow: scroll; }
+          .callModal .modalBox .callBoxWrapper .callColumn.compareIt .comparison {
+            margin-bottom: 0; }
+          .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: scroll; }
+            .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .innerCompare {
+              background: #dce6fb;
+              padding: 20px 10px 40px;
+              border-radius: 0; }
+            .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .qualifyMap.isActive {
+              display: block; }
+            .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea {
+              display: none;
+              background: white;
+              padding: 30px 30px 100px;
+              pointer-events: none; }
+              .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea.isActive {
+                display: flex; }
+              .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea button.gm-control-active, .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea .gmnoprint.gm-bundled-control, .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea .gmnoprint, .callModal .modalBox .callBoxWrapper .callColumn.compareIt .innerWrapper .mapArea .gm-style-cc {
+                display: none; }
+        .callModal .modalBox .callBoxWrapper .callColumn.contact {
+          flex-basis: 35%; }
+          .callModal .modalBox .callBoxWrapper .callColumn.contact .streetView {
+            position: absolute;
+            width: 100%;
+            height: 40%;
+            overflow: hidden;
+            box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+            z-index: 2; }
+          .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            height: 60%;
+            overflow-y: scroll;
+            z-index: 1;
+            padding: 30px 25px; }
+            .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact {
+              display: inline-block;
+              vertical-align: top;
+              margin: 0 6px;
+              margin-bottom: 20px; }
+              .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact p, .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .fieldsList label, .fieldsList .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact label {
+                font-size: 10px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                opacity: 0.55;
+                font-weight: 600; }
+              .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard {
+                box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+                background: #fff;
+                border-radius: 10px;
+                padding: 15px 20px; }
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard.cell {
+                  background: transparent;
+                  box-shadow: none;
+                  padding: 0; }
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard h4 {
+                  font-size: 18px; }
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard p, .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard .fieldsList label, .fieldsList .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard label {
+                  font-size: 12px;
+                  opacity: 0.35;
+                  font-weight: 600;
+                  line-height: 12px; }
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard .content, .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > a {
+                  display: inline-block;
+                  vertical-align: middle; }
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > a {
+                  line-height: 0;
+                  margin-left: 20px; }
+          .callModal .modalBox .callBoxWrapper .callColumn.contact .innerCompare {
+            display: flex;
+            flex-direction: column; }
+            .callModal .modalBox .callBoxWrapper .callColumn.contact .innerCompare .google, .callModal .modalBox .callBoxWrapper .callColumn.contact .innerCompare .airmagic {
+              width: 100%; }
+        .callModal .modalBox .callBoxWrapper .callColumn .ModuleList {
+          padding: 10px;
+          width: 100%;
+          margin: 0; }
+          .callModal .modalBox .callBoxWrapper .callColumn .ModuleList .ModuleCard {
+            width: 100%; }

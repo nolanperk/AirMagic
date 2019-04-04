@@ -17,6 +17,8 @@ import Sales from './Sales/Sales';
 import OutsideSales from './Sales/OutsideSales';
 import Franchisees from './Franchisees/Franchisees';
 
+import SalesDashboard from './Sales/SalesDashboard';
+
 import MapMain from './Maps/Main';
 
 // import OrlandoCustomers from './CustomerService/OrlandoCustomers';
@@ -58,6 +60,8 @@ class App extends Component {
 
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
           <Route exact path='/outside/' component={UserBaseSelect} />
+
+          <Route exact path='/sales/' component={SalesDashboard} />
 
           <Route exact path='/:citySet/customer-service/:viewType/:recordId' component={bindRouteParamsToProps()(CustomerService)} />
           <Route exact path='/:citySet/customer-service/:viewType/' component={bindRouteParamsToProps()(CustomerService)} />

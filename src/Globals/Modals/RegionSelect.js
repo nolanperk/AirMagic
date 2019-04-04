@@ -137,7 +137,6 @@ export default class RegionSelect extends Component {
       });
     }.bind(this);
     loadZipList(); //run on load
-
   }
 
   componentDidMount() {

@@ -238,6 +238,7 @@ export default class Sales extends Component {
       let capitalizedQuery = this.state.searchQuery.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
       });
+      capitalizedQuery = encodeURIComponent(capitalizedQuery);
       searchBy = this.state.searchBy
       finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
       if (this.state.listView !== '') {
@@ -652,12 +653,16 @@ export default class Sales extends Component {
   changeRecordHandler = e => {
     currentRecordState = this.state.currentRecord;
 
-    if (e.target.id === 'customCallback') {currentRecordState['Callback Date'] = e.callBackDate}
+    if (e.target.id === 'customCallback') {
+      if (e.callBackDate) {
+        currentRecordState['Callback Date'] = e.callBackDate
+      } else {currentRecordState['Callback Date'] = undefined;}
+    }
     else if (e.target.id === 'company') {currentRecordState['Company Name'] = e.target.value}
     else if (e.target.id === 'industry') {currentRecordState['Industry'] = e.target.value}
     else if (e.target.id === 'callCount') {currentRecordState['Times Called'] = e.target.value}
     else if (e.target.id === 'callDate') {currentRecordState['Recent Call Date'] = e.target.value}
-    else if (e.target.id === 'callBack') {currentRecordState['Callback Date'] = e.target.value}
+    else if (e.target.id === 'callBack') {if (e.target.value) {currentRecordState['Callback Date'] = e.target.value} else {currentRecordState['Callback Date'] = undefined;}}
     else if (e.target.id === 'website') {currentRecordState['Website'] = e.target.value}
 
     else if (e.target.id === 'apptSet') {currentRecordState['Appt. Set Date'] = e.target.value}

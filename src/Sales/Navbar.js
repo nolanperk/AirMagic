@@ -231,7 +231,7 @@ export default class Navbar extends Component {
 
           );
         }
-      } else if (this.props.userName === 'NWP' || this.props.userName === 'TMP' || this.props.userName === 'JDH') {
+      } else if (this.props.userName === 'NWP' || this.props.userName === 'TMP' || this.props.userName === 'JDH' || this.props.userName === 'WCP') {
         return (
           <div className="rightButtons">
 

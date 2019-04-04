@@ -1,0 +1,700 @@
+.callNav {
+  height: 75px;
+  background: $white;
+  position: absolute;
+  width: 75%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  padding: 12px 15px;
+  z-index: 2;
+
+  a, h4 {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  h4 {
+    margin-left: 10px;
+  }
+}
+
+
+.CallListContainer {
+  background: #F5FAFA;
+  position: absolute;
+  top: 75px;
+  width: 75%;
+  z-index: 1;
+  height: calc(100% - 75px);
+  overflow-y: scroll;
+  text-align: center;
+  padding: 50px;
+
+  .CallList {
+    position: relative;
+
+    .leftCol {
+      margin: 0 1%;
+      width: 42%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .rightCol {
+      margin: 0 1%;
+      width: 54%;
+      display: inline-block;
+      vertical-align: top;
+
+      .CallListBox .callItem {
+        .buttons {
+          width: 65%;
+
+          .btn {
+            width: calc(50% - 35px);
+
+            &:first-child {
+              margin-right: 8px;
+            }
+          }
+        }
+        .companyData {
+          width: 35%;
+        }
+      }
+    }
+
+    .CallListBox {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background: $white;
+      padding: 2.5vw 2vw 1.5vw;
+      display: inline-block;
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 10px;
+      text-align: left;
+
+      p.cold-select {
+        line-height: 30px;
+        position: relative;
+      }
+      #cold-orlando, #cold-tampa {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border: solid 1px #cfdede;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 50%;
+
+        em {
+          font-weight: 600;
+          font-style: normal;
+          opacity: 0.6;
+          pointer-events: none;
+        }
+
+        &.isActive {
+          background: $black;
+          color: $white;
+          border: solid 1px $black;
+          cursor: default;
+        }
+      }
+      #cold-orlando {
+        margin-left: 0px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      #cold-tampa {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .cold-orlando, .cold-tampa {
+        display: none;
+
+        &.isActive {
+          display: block;
+        }
+      }
+
+      h4 span {
+        opacity: 0.4;
+        margin-left: 5px;
+        font-size: 17px;
+      }
+
+      .callItem {
+        background: #ebf0f0;
+        border-radius: 10px;
+        padding: 10px;
+        position: relative;
+        display: flex;
+        margin: 10px 0;
+        border: solid 1px darken(#dee8e8, 5%);
+
+        &.called {
+          padding: 0;
+          padding-left: 5px;
+          background: transparent;
+          .companyData {
+            width: calc(100% - 42px);
+          }
+          .buttons {
+            box-shadow: none;
+            width: 42px;
+            padding: 10px 13px;
+
+            .btn {
+              display: none;
+            }
+            img {
+              margin-left: 0;
+            }
+          }
+        }
+
+        .buttons {
+          width: 50%;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+          border-radius: 10px;
+          background: $white;
+          padding: 10px 18px;
+
+          .btn {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 8px 2px;
+            width: calc(100% - 40px);
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 0;
+            font-weight: 600;
+          }
+
+          img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 20px;
+            margin-left: 20px;
+            cursor: pointer;
+          }
+        }
+
+        .companyData {
+          width: 50%;
+          padding: 0 10px;
+          padding-right: 20px;
+
+          display: flex;
+          vertical-align: middle;
+          align-items: center;
+
+          p {
+            font-size: 10px;
+            opacity: 0.5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1px;
+            line-height: 12px;
+          }
+          h4 {
+            font-size: 14px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.ActivityWrapper {
+  width: 25%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  border-left: solid 1px #655c5c;
+  background: #3a3636;
+  padding: 50px 40px;
+  overflow-y: scroll;
+  z-index: 2;
+
+  h4 {
+    color: $white;
+  }
+
+  .activityItem {
+    opacity: 0.85;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    background: rgba($white, 0.15);
+
+    &.hide {
+      display: none;
+    }
+
+    .prettyLabel {
+      position: relative;
+      width: 35%;
+      padding: 15px;
+      text-align: center;
+      color: $white;
+
+      &.APPC {  @extend .softGrad--blue; .numberLabel { @extend .softGrad--blue;} }
+      &.Appt {  @extend .softGrad--primary; .numberLabel { @extend .softGrad--primary;} }
+      &.Closed {  @extend .softGrad--secondary; .numberLabel { @extend .softGrad--secondary;} }
+      pointer-events: none;
+
+      .inner {
+        position: relative;
+
+        &.centeredIt {
+          display: flex;
+          vertical-align: middle;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+        }
+      }
+
+      .numberLabel {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-weight: 800;
+        border-radius: 100px;
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+
+      .typeLabel {
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+    }
+
+    .activityContent {
+      width: 65%;
+      padding: 15px;
+      vertical-align: middle;
+      align-items: center;
+      display: flex;
+
+      .inside, .outside {
+        font-size: 10px;
+        background: $black;
+        padding: 3px 9px;
+        border-radius: 100px;
+        display: inline-block;
+        color: $white;
+        font-weight: bold;
+      }
+
+      .inside {
+        &.Carla {background: $primary;}
+        &.Shana {background: $tertiary;}
+        &.Jett {background: $secondary;}
+      }
+
+      .outside {
+        color: $black;
+        margin-left: 4px;
+        background: rgba(lighten($black, 35%), 0.4);
+
+        &.Nolan {background: rgba(lighten($tertiary, 35%), 0.6)}
+        &.Joel {background: rgba(lighten($secondary, 35%), 0.6)}
+        &.Tyler {background: rgba(lighten($primary, 35%), 0.6)}
+      }
+
+      h4 {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+.callModal {
+  background: rgba(#3F4949, 0.7);
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+
+  .modalBox {
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+    background: $white;
+    border-radius: 10px;
+    padding: 20px 40px 40px;
+    position: fixed;
+    width: 92%;
+    height: 90%;
+    top: 5%;
+    left: 4%;
+
+
+
+    .modalNav {
+      @extend %clear;
+
+      .titleArea {
+        float: left;
+        margin-top: 20px;
+
+        .backBtn {
+          width: 17px;
+          opacity: 0.6;
+          vertical-align: middle;
+          margin-right: 18px;
+          cursor: pointer;
+        }
+
+        h4, p {
+          display: inline-block;
+          margin-right: 15px;
+          vertical-align: middle;
+        }
+
+        .callType {
+          background: $black;
+          padding: 5px 10px;
+          border-radius: 4px;
+          color: $white;
+          font-size: 14px;
+          font-weight: 600;
+
+          &.Prospect {
+            background: #E2630D;
+          }
+
+          &.APPC {
+            background: $tertiary;
+          }
+        }
+      }
+
+      h4 em {
+        font-weight: 800;
+        font-style: normal;
+        text-decoration: underline;
+      }
+
+      .icons {
+        float: right;
+
+        &>a, &>.navIcon {
+          display: inline-block;
+          vertical-align: top;
+          margin-left: 10px;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+
+    .callBoxWrapper {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 80px);
+      margin-top: 20px;
+      display: flex;
+
+      .callColumn {
+        background: #ebf0f0;
+        border: solid 1px darken(#dee8e8, 5%);
+        border-radius: 10px;
+        flex: 1 1 0;
+        overflow: hidden;
+        position: relative;
+
+        .pickWrapper {
+          position: relative;
+        }
+        .pickWrapper.cardOnRight .DayPicker {
+          transform: translate(-10%, 30%);
+        }
+        .nextBtn {
+          position: absolute;
+          width: 100%;
+        }
+
+        &.activeCall {
+          padding-bottom: 250px;
+          overflow: scroll;
+          padding-top: 10px;
+
+          .topActive {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 240px + 1vw);
+            overflow: scroll;
+            padding-bottom: 1.5vw;
+          }
+        }
+
+        .inputGroup {
+          margin: 30px 40px;
+
+          &.solo {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 30px 40px;
+            margin: 0;
+
+            #setAppt {
+              margin-right: 10px;
+            }
+          }
+
+          select {
+            width: 100%;
+            background: white;
+            border: none;
+            border-radius: 2px;
+            padding: 7px 12px;
+            outline: 0;
+            -webkit-appearance: none;
+          }
+
+          .inputBlock--half, .inputBlock--third {
+            display: inline-block;
+            margin-right: 4%;
+            margin-bottom: 20px;
+
+            p {
+              font-size: 10px;
+              opacity: 0.6;
+              font-weight: 600;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+            }
+
+            input {
+              width: 100%;
+              padding: 6px 10px;
+              border-radius: 3px;
+              border: 0;
+              outline: 0;
+            }
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+          .inputBlock--half {
+            width: 40%;
+          }
+          .inputBlock--third {
+            width: 30%;
+          }
+
+          textarea {
+            width: 100%;
+            outline: 0;
+            border: 0;
+            background: $white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+          }
+
+
+          &.notepad {
+            position: absolute;
+            bottom: 64px;
+            width: 100%;
+            background: $white;
+            box-shadow: 0 3px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px 40px;
+            margin: 0;
+
+
+            textarea {
+              background: #ebf0f0;
+            }
+          }
+        }
+
+        &.data {
+          margin: 0 10px;
+          flex-basis: calc(35% - 20px);
+          overflow-y: scroll;
+        }
+        &.notes {
+          width: 350px;
+          flex-basis: 30%;
+
+          .title {
+            background: rgba(#ebf0f0, 0.9);
+            padding: 20px;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+          }
+          #logNotes {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: scroll;
+            padding-top: 70px;
+          }
+        }
+
+        &.compareIt {
+          overflow: scroll;
+
+          .comparison {
+            margin-bottom: 0;
+          }
+
+          .innerWrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+
+            .innerCompare {
+              background: #dce6fb;
+              padding: 20px 10px 40px;
+              border-radius: 0;
+            }
+
+            .qualifyMap {
+              &.isActive {
+                display: block;
+              }
+            }
+
+            .mapArea {
+              display: none;
+              background: white;
+              padding: 30px 30px 100px;
+              pointer-events: none;
+
+              &.isActive {
+                display: flex;
+              }
+
+              button.gm-control-active, .gmnoprint.gm-bundled-control, .gmnoprint, .gm-style-cc {
+                display: none;
+              }
+            }
+          }
+        }
+
+
+        &.contact {
+          flex-basis: 35%;
+
+          .streetView {
+            position: absolute;
+            width: 100%;
+            height: 40%;
+            overflow: hidden;
+            box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+            z-index: 2;
+          }
+          .contactInfo {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            height: 60%;
+            overflow-y: scroll;
+            z-index: 1;
+            padding: 30px 25px;
+
+            .contact {
+              display: inline-block;
+              vertical-align: top;
+              margin: 0 6px;
+              margin-bottom: 20px;
+              p {
+                font-size: 10px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                opacity: 0.55;
+                font-weight: 600;
+              }
+              .innerCard {
+                box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+                background: $white;
+                border-radius: 10px;
+                padding: 15px 20px;
+
+                &.cell {
+                  background: transparent;
+                  box-shadow: none;
+                  padding: 0;
+                }
+
+                h4 {
+                  font-size: 18px;
+                }
+                p {
+                  font-size: 12px;
+                  opacity: 0.35;
+                  font-weight: 600;
+                  line-height: 12px;
+                }
+
+                .content, &>a {
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+
+                &>a {
+                  line-height: 0;
+                  margin-left: 20px;
+                }
+              }
+            }
+          }
+
+          .innerCompare {
+            display: flex;
+            flex-direction: column;
+
+            .google, .airmagic {
+              width: 100%;
+            }
+          }
+        }
+
+
+        .ModuleList {
+          padding: 10px;
+          width: 100%;
+          margin: 0;
+
+          .ModuleCard {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
