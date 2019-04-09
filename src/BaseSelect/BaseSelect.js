@@ -45,7 +45,7 @@ export default class BaseSelect extends Component {
       orlandoCustomers += '/tickets';
     }
 
-    if (localStorage.getItem('userInitials') === 'JETT' || localStorage.getItem('userInitials') === 'JASON' || localStorage.getItem('userInitials') === 'JUSTIN') {
+    if (localStorage.getItem('userInitials') === 'JETT' || localStorage.getItem('userInitials') === 'JASON' || localStorage.getItem('userInitials') === 'JUSTIN' || localStorage.getItem('userInitials') === 'MIKE') {
       return (
         <div className="wrapper">
           <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>

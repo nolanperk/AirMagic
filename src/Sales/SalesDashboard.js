@@ -77,8 +77,8 @@ export default class Sales extends Component {
 
 
   loadDashboard = () => {
-    let insideRep = 'Carla';
-    // let insideRep = localStorage.getItem('userName').split(' ')[0]
+    // let insideRep = 'Carla';
+    let insideRep = localStorage.getItem('userName').split(' ')[0]
 
     let loadFinish = function() {
       console.log(this.state);

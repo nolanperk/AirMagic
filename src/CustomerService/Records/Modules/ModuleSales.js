@@ -336,16 +336,18 @@ export default class ModuleSales extends Component {
             className="selectBlock"
             id="setBy"
             >
-            <select id="setBySelect" value={this.state.setByValue} onChange={this.setByChange}>
+            <select id="setBySelect" value={this.props.setBy} onChange={this.props.selectChangeHandler}>
               <option id="none"></option>
               <option disabled>---------------</option>
               <option disabled>Inside Sales</option>
               <option disabled>---------------</option>
               <option id="Carla+Milian">Carla Milian</option>
               <option id="Shana+Thorn">Shana Thorn</option>
+              <option disabled>---------------</option>
               <option id="Jett">Jett</option>
               <option id="Jason">Jason</option>
               <option id="Justin">Justin</option>
+              <option id="Mike">Mike</option>
               <option disabled>---------------</option>
               <option disabled>Outside Sales</option>
               <option disabled>---------------</option>

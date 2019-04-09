@@ -1062,6 +1062,30 @@ export default class CustomerService extends Component {
     });
   }
 
+  selectChangeHandler = e => {
+    let currentsRec = this.state.currentRecord;
+
+    if (e.target.id === 'pamSelect') {
+      currentsRec['PAM'] = e.target.value;
+    } else if (e.target.id === 'repSelect') {
+      currentsRec['Sales Rep'] = e.target.value;
+    } else if (e.target.id === 'statusSelect') {
+      currentsRec['Status'] = e.target.value;
+    } else if (e.target.id === 'standingSelect') {
+      currentsRec['Standing'] = e.target.value;
+    } else if (e.target.id === 'cpopSelect') {
+      currentsRec['CPOP'] = e.target.value;
+    } else if (e.target.id === 'suppliesSelect') {
+      currentsRec['Addtl Supplies'] = e.target.value;
+    } else if (e.target.id === 'setBySelect') {
+      currentsRec['Appt. Set By'] = e.target.value;
+    }
+
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+
   saveRecordHandler = () => {
     if (this.state.newRecord) {
       let fullDataSet = this.state.currentRecord;
@@ -1242,6 +1266,8 @@ export default class CustomerService extends Component {
                   recordView: false,
                   currentRecord: []
                 });
+              } else if (this.state.modalType === 'accountChanges') {
+                window.location.reload();
               } else {
                 this.setState({
                   activeModal: false,
@@ -2459,6 +2485,11 @@ export default class CustomerService extends Component {
         setTimeout((function() {
           document.getElementById('newNoteBox').focus();
         }).bind(this), 50);
+      } else if(e.target.id === 'accountChanges') {
+        this.setState({
+          activeModal: true,
+          modalType: 'accountChanges',
+        });
       } else if(e.target.id === 'exportList') {
         this.setState({
           activeModal: true,
@@ -2571,6 +2602,215 @@ export default class CustomerService extends Component {
       this.loadData();
     }).bind(this), 250);
 
+  }
+
+  submitAccountChange = (e, n, oldSP, oldInfo) => {
+    let currentRecordState = this.state.currentRecord;
+    let today  = new Date();
+    let dayTime;
+    if (today.getHours() > 12) {
+      if (today.getMinutes() < 10) {
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":0" + today.getMinutes() + " PM";
+      } else {
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + (today.getHours() - 12) + ":" + today.getMinutes() + " PM";
+      }
+    } else {
+      if (today.getMinutes() < 10) {
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":0" + today.getMinutes() + " AM";
+      } else {
+        dayTime = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " AM";
+      }
+    }
+
+    let finalEntry;
+    if (localStorage.getItem('userInitials') !== '') {
+      finalEntry = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n';
+    } else {
+      finalEntry = dayTime + ' - ';
+    }
+
+
+
+    if (e === 'amountChange') {
+      finalEntry += 'Changes Effective - ' + currentRecordState['Cancel Date'] + '\n';
+      this.setState({
+        oldRecordInfo: oldInfo,
+        oldSP: oldSP,
+        oldStartDate: currentRecordState['Start Date'],
+      })
+      currentRecordState['Standing'] = 'Service Changed';
+      currentRecordState['Start Date'] = currentRecordState['Cancel Date'];
+      currentRecordState['Cancel Date'] = undefined;
+
+      if (currentRecordState['Monthly Amount'] !== oldInfo.amount || currentRecordState['Times per Week'] !== oldInfo.xWeek || currentRecordState['Actual Sq Footage'] !== oldInfo.sqft || currentRecordState['Days of Week'] !== oldInfo.dayOf || currentRecordState['Service Time'] !== oldInfo.serviceTime) {
+        finalEntry += '\n' + 'Changes';
+      }
+      if (currentRecordState['Monthly Amount'] !== oldInfo.amount) {
+        finalEntry += '\n' + 'Monthly Amount Changed - ' + currentRecordState['Monthly Amount'] + ' (was ' + oldInfo.amount + ')';
+      }
+      if (currentRecordState['Times per Week'] !== oldInfo.xWeek) {
+        finalEntry += '\n' + 'Times per Week Changed - ' + currentRecordState['Times per Week'] + ' (was ' + oldInfo.xWeek + ')';
+      }
+      if (currentRecordState['Actual Sq Footage'] !== oldInfo.sqft) {
+        finalEntry += '\n' + 'Sq Footage Changed - ' + currentRecordState['Actual Sq Footage'] + ' (was ' + oldInfo.sqft + ')';
+      }
+      if (currentRecordState['Days of Week'] !== oldInfo.dayOf) {
+        finalEntry += '\n' + 'Days of Week Changed - ' + currentRecordState['Days of Week'] + ' (was ' + oldInfo.dayOf + ')';
+      }
+      if (currentRecordState['Service Time'] !== oldInfo.serviceTime) {
+        finalEntry += '\n' + 'Service Time Changed - ' + currentRecordState['Service Time'] + ' (was ' + oldInfo.serviceTime + ')';
+      }
+
+
+      if (currentRecordState['Address 1'] !== oldInfo.addr1 || currentRecordState['Address 2'] !== oldInfo.addr2 || currentRecordState['City'] !== oldInfo.city || currentRecordState['Zip'] !== oldInfo.zip) {
+        if (currentRecordState['Address 2']) {
+          finalEntry += '\n\n' + 'Address Changed\nNew - ' + currentRecordState['Address 1'] + ' ' + currentRecordState['Address 2'] + ', ' + currentRecordState['City'] + ' ' + currentRecordState['Zip'];
+        } else {
+          finalEntry += '\n\n' + 'Address Changed\nNew - ' + currentRecordState['Address 1'] + ', ' + currentRecordState['City'] + ' ' + currentRecordState['Zip'];
+        }
+        if (oldInfo.addr2) {
+          finalEntry +=  '\n' + 'Old - ' + currentRecordState['Address 1'] + ' ' + oldInfo.addr2 + ', ' + currentRecordState['City'] + ' ' + currentRecordState['Zip'];
+        } else {
+          finalEntry +=  '\n' + 'Old - ' + currentRecordState['Address 1'] + ', ' + currentRecordState['City'] + ' ' + currentRecordState['Zip'];
+        }
+      }
+
+      if (currentRecordState['SP Number'] !== oldSP.number) {
+        finalEntry += '\n\nWITH CREW CHANGE';
+        finalEntry += '\nPrevious Franchise - ' + oldSP.name + ' (' + oldSP.number + ')';
+        finalEntry += '\nNew Franchise - ' + document.getElementById('spSelector').options[document.getElementById('spSelector').selectedIndex].text + ' (' + currentRecordState['SP Number'] + ')';
+      }
+      finalEntry += '\n'
+    } else if (e === 'crewChange') {
+      finalEntry += 'Crew Change Effective - ' + currentRecordState['New SP Start'];
+      finalEntry += '\nPrevious Franchise - ' + oldSP.name + ' (' + oldSP.number + ')';
+      finalEntry += '\nNew Franchise - ' + document.getElementById('spSelector').options[document.getElementById('spSelector').selectedIndex].text + ' (' + currentRecordState['SP Number'] + ')';
+      currentRecordState['Standing'] = 'Crew Change';
+    } else if (e === 'cancellation') {
+      finalEntry += 'Cancellation Effective - ' + currentRecordState['Cancel Date'];
+      currentRecordState['Status'] = 'Canceled';
+    }
+
+    if (n) {
+      currentRecordState['Notes'] = finalEntry + '\nNote - ' + n + '\n\n' + currentRecordState['Notes'];
+    } else {
+      currentRecordState['Notes'] = finalEntry + '\n\n' + currentRecordState['Notes'];
+    }
+
+    this.setState({
+      currentRecord: currentRecordState,
+    });
+
+    setTimeout((function() {
+      if (e !== 'amountChange') {
+        this.saveRecordHandler();
+      } else {
+        let fullDataSet = this.state.currentRecord;
+
+        if (this.state.currentRecordView !== 'default') {
+          this.setState({
+            currentRecordView: 'default',
+          })
+        }
+        setTimeout((function() {
+          fullDataSet["PAM"] = document.getElementById('pamSelect').value;
+          fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
+          fullDataSet["Status"] = document.getElementById('statusSelect').value;
+          fullDataSet["Standing"] = document.getElementById('standingSelect').value;
+          fullDataSet["CPOP"] = document.getElementById('cpopSelect').value;
+          fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
+          fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
+
+
+          let finalPush = {"fields": fullDataSet}
+          axios
+          .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
+            .then(response => {
+              let currentRecordState = this.state.currentRecord;
+              currentRecordState['Notes'] = 'DISABLED RECORD\nNew record - http://airmagic.co/' + this.props.citySet + '/customer-service/all/' + response.data.id + '\n\n\n' + currentRecordState['Notes'];
+              currentRecordState['Status'] = 'Canceled';
+              currentRecordState['Cancel Date'] = currentRecordState['Start Date'];
+              currentRecordState['Start Date'] = this.state.oldStartDate;
+
+
+              currentRecordState['Monthly Amount'] = this.state.oldRecordInfo.amount;
+              currentRecordState['Times per Week'] = this.state.oldRecordInfo.xWeek;
+              currentRecordState['Actual Sq Footage'] = this.state.oldRecordInfo.sqft;
+              currentRecordState['Days of Week'] = this.state.oldRecordInfo.dayOf;
+              currentRecordState['Service Time'] = this.state.oldRecordInfo.serviceTime;
+
+              currentRecordState['Address 1'] = this.state.oldRecordInfo.addr1;
+              currentRecordState['Address 2'] = this.state.oldRecordInfo.addr2;
+              currentRecordState['City'] = this.state.oldRecordInfo.city;
+              currentRecordState['Zip'] = this.state.oldRecordInfo.zip;
+
+              currentRecordState['SP Number'] = this.state.oldSP.number;
+
+
+              this.setState({
+                currentRecord: currentRecordState,
+                newId: response.data.id,
+              });
+              setTimeout((function() {
+                let fullDataSet = this.state.data;
+                let pushRecordId;
+                let pushRecord;
+
+                pushRecord = this.state.currentRecord;
+                if (this.state.currentTable === 'Customers') {
+                  pushRecordId = this.props.recordId;
+                } else {
+                  pushRecordId = this.state.currentId;
+                }
+                if (this.state.currentRecordView !== 'default') {
+                  this.setState({
+                    currentRecordView: 'default',
+                  })
+                }
+
+                setTimeout((function() {
+                  pushRecord["PAM"] = document.getElementById('pamSelect').value;
+                  pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
+                  pushRecord["Status"] = document.getElementById('statusSelect').value;
+                  pushRecord["Standing"] = document.getElementById('standingSelect').value;
+                  pushRecord["CPOP"] = document.getElementById('cpopSelect').value;
+                  pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
+                  pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
+
+                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
+                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
+
+                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined;}
+                  if (pushRecord['Appt. Set Date'] === '') {pushRecord['Appt. Set Date'] = undefined;}
+                  if (pushRecord['Appt. Date'] === '') {pushRecord['Appt. Date'] = undefined;}
+                  if (pushRecord['Close Date'] === '') {pushRecord['Close Date'] = undefined;}
+                  if (pushRecord['Proposal Date'] === '') {pushRecord['Proposal Date'] = undefined;}
+                  if (pushRecord['Walkthrough Date'] === '') {pushRecord['Walkthrough Date'] = undefined;}
+                  if (pushRecord['Start Date'] === '') {pushRecord['Start Date'] = undefined;}
+                  if (pushRecord['Pre-Clean Date'] === '') {pushRecord['Pre-Clean Date'] = undefined;}
+
+
+                  let finalPush = {"fields": pushRecord}
+                  axios
+                  .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
+                    .then(response => {
+                      let destinationURL = '/' + this.props.citySet + '/customer-service/all/' + this.state.newId;
+                      this.props.history.push(destinationURL);
+                      this.loadData();
+
+                      setTimeout((function() {
+                        this.setState({
+                          activeModal: false,
+                          modalType: '',
+                        });
+                      }).bind(this), 10);
+                    })
+                }).bind(this), 10);
+              }).bind(this), 10);
+          })
+        }).bind(this), 10);
+      }
+    }).bind(this), 250);
   }
 
   loadMoreRecords = () => {
@@ -2859,6 +3099,16 @@ export default class CustomerService extends Component {
           recapSubmit={this.recapSubmit}
           recapSlide={this.state.recapSlide}
           recapBack={this.recapBack}
+          currentRecord={this.state.currentRecord}
+          handleDayClick={this.handleDayClick}
+          toggleDayPicker={this.toggleDayPicker}
+
+          changeRecordHandler={this.changeRecordHandler}
+          spChangeHandler={this.spChangeHandler}
+          currentSP={this.state.currentSP}
+          spList={this.state.spList}
+          baseId={this.state.baseId}
+          submitAccountChange={this.submitAccountChange}
         />
         )
     }
@@ -2891,6 +3141,7 @@ export default class CustomerService extends Component {
             // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            selectChangeHandler={this.selectChangeHandler}
           />
         );
       } else if (this.state.currentRecordView === 'accounting') {
@@ -2918,6 +3169,7 @@ export default class CustomerService extends Component {
             // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            selectChangeHandler={this.selectChangeHandler}
           />
         );
       } else if (this.state.currentRecordView === 'crews') {
@@ -2945,6 +3197,7 @@ export default class CustomerService extends Component {
             // noteCharacters={this.state.noteCharacters}
             mobileHand={this.state.mobileHand}
             currentTab={this.state.currentTab}
+            selectChangeHandler={this.selectChangeHandler}
           />
         );
       }

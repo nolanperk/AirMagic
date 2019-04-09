@@ -20,6 +20,7 @@ import LogCall from '../Globals/Modals/LogCall';
 import SalesFollowUps from '../Globals/Modals/SalesFollowUps';
 import YelpModal from '../Globals/Modals/YelpModal';
 import RegionSelect from '../Globals/Modals/RegionSelect';
+import AccountChanges from '../Globals/Modals/AccountChanges';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -187,6 +188,23 @@ export default class ModalView extends Component {
           skipForecast={this.props.skipForecast}
         />
       )
+    } else if (this.props.modalType === 'accountChanges') {
+      return (
+        <AccountChanges
+          controlsModalToggle={this.props.controlsModalToggle}
+          changeRecordHandler={this.props.changeRecordHandler}
+          currentRecord={this.props.currentRecord}
+          handleDayClick={this.props.handleDayClick}
+          toggleDayPicker={this.props.toggleDayPicker}
+
+          submitAccountChange={this.props.submitAccountChange}
+
+          spChangeHandler={this.props.spChangeHandler}
+          currentSP={this.props.currentSP}
+          spList={this.props.spList}
+          baseId={this.props.baseId}
+        />
+      );
     }
   }
 

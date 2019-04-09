@@ -49,7 +49,7 @@ export default class ModuleService extends Component {
   get locationPAM() {
     if (this.props.baseId === 'apps7GoAgK23yrOoY') {
       return (
-        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+        <select id="pamSelect" value={this.props.pam} onChange={this.props.selectChangeHandler}>
           <option id="none"></option>
           <option id="Lisa+Nice">Lisa Nice</option>
           <option id="Travis+Martin">Travis Martin</option>
@@ -59,7 +59,7 @@ export default class ModuleService extends Component {
       )
     } else {
       return (
-        <select id="pamSelect" value={this.state.pamValue} onChange={this.pamChange}>
+        <select id="pamSelect" value={this.props.pam} onChange={this.props.selectChangeHandler}>
           <option id="none"></option>
           <option id="Sergibeth+Monge">Sergibeth Monge</option>
           <option id="Christy+Subler">Christy Subler</option>
@@ -71,7 +71,7 @@ export default class ModuleService extends Component {
   get locationSales() {
     if (this.props.baseId === 'apps7GoAgK23yrOoY') {
       return (
-        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+        <select id="repSelect" value={this.props.rep} onChange={this.props.selectChangeHandler}>
           <option id="none"></option>
           <option id="Tyler+Perkins">Tyler Perkins</option>
           <option id="Nolan+Perkins">Nolan Perkins</option>
@@ -85,7 +85,7 @@ export default class ModuleService extends Component {
       )
     } else {
       return (
-        <select id="repSelect" value={this.state.repValue} onChange={this.repChange}>
+        <select id="repSelect" value={this.props.rep} onChange={this.props.selectChangeHandler}>
           <option id="none"></option>
           <option id="Joel+Horwitz">Joel Horwitz</option>
           <option id="Christy+Subler">Christy Subler</option>
@@ -154,7 +154,7 @@ export default class ModuleService extends Component {
               className="selectBlock"
               id="status"
               >
-              <select id="statusSelect"  value={this.state.statusValue} onChange={this.statusChange}>
+              <select id="statusSelect"  value={this.props.status} onChange={this.props.selectChangeHandler}>
                 <option id="none"></option>
                 <option id="Active">Active</option>
                 <option id="APPC">APPC</option>
@@ -170,7 +170,7 @@ export default class ModuleService extends Component {
               className="selectBlock"
               id="standing"
               >
-              <select id="standingSelect" value={this.state.standingValue} onChange={this.standingChange}>
+              <select id="standingSelect" value={this.props.standing} onChange={this.props.selectChangeHandler}>
                 <option id="none"></option>
                 <option id="Very+Happy">Very Happy</option>
                 <option id="Happy">Happy</option>
@@ -179,6 +179,7 @@ export default class ModuleService extends Component {
                 <option id="New+Customer">New Customer</option>
                 <option id="New+Close">New Close</option>
                 <option id="Crew+Change">Crew Change</option>
+                <option id="Service+Changed">Service Changed</option>
                 <option id="Completed+Work">Completed Work</option>
               </select>
             </div>

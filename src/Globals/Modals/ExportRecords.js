@@ -284,8 +284,8 @@ export default class ExportRecords extends Component {
                 <label for="field-1">Appt. Set By</label>
               </div>
               <div className="CheckItem" onClick={this.toggleCheck}>
-                <input type="checkbox" name="fieldCheck" id="field-1" value="Appt.+Set+Date" />
-                <label for="field-1">Appt. Set Date</label>
+                <input type="checkbox" name="fieldCheck" id="field-apptDate" value="Appt.+Set+Date" />
+                <label for="field-apptDate">Appt. Set Date</label>
               </div>
               <div className="CheckItem" onClick={this.toggleCheck}>
                 <input type="checkbox" name="fieldCheck" id="field-2" value="Sales+Rep" />

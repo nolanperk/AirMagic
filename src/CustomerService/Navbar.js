@@ -104,6 +104,8 @@ export default class Navbar extends Component {
               </div>
             </div>
 
+            <div className="btn softGrad--primary" id="accountChanges" onClick={this.props.controlsModalToggle}>Changes</div>
+
             <div className="navIcon softGrad--secondary" onClick={this.props.recapVisit} id="recapVisit">
               <img src={visitImg} alt="Recap Visit" />
             </div>
@@ -115,6 +117,8 @@ export default class Navbar extends Component {
       } else {
         return (
           <div className="rightButtons">
+
+
             <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
               <img src={exportImg} alt="Export" />
             </div>

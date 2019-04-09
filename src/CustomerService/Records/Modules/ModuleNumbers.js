@@ -126,7 +126,7 @@ export default class ModuleNumbers extends Component {
               className="selectBlock"
               id="cpop"
               >
-              <select id="cpopSelect"  value={this.state.cpopValue} onChange={this.cpopChange}>
+              <select id="cpopSelect"  value={this.props.cpop} onChange={this.props.selectChangeHandler}>
                 <option id="none"></option>
                 <option id="Yes">Yes</option>
                 <option id="No">No</option>
@@ -139,7 +139,7 @@ export default class ModuleNumbers extends Component {
               className="selectBlock"
               id="supplies"
               >
-              <select id="suppliesSelect"  value={this.state.suppliesValue} onChange={this.suppliesChange}>
+              <select id="suppliesSelect"  value={this.props.supplies} onChange={this.props.selectChangeHandler}>
                 <option id="none"></option>
                 <option id="Yes">Yes</option>
                 <option id="No">No</option>

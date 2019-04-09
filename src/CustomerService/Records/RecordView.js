@@ -75,6 +75,7 @@ export default class RecordView extends Component {
               changeSelectBlock={this.props.changeSelectBlock}
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
+              selectChangeHandler={this.props.selectChangeHandler}
             />
             <ModuleSchedule
               amount={this.props.currentRecord['Monthly Amount']}
@@ -101,6 +102,7 @@ export default class RecordView extends Component {
               cpop={this.props.currentRecord['CPOP']}
               supplies={this.props.currentRecord['Addtl Supplies']}
               changeSelectBlock={this.props.changeSelectBlock}
+              selectChangeHandler={this.props.selectChangeHandler}
             />
             <ModuleLocation
               changeRecordHandler={this.props.changeRecordHandler}
@@ -116,7 +118,7 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               newSP={this.props.currentRecord['New SP Start']}
               cancel={this.props.currentRecord['Cancel Date']}
-
+              selectChangeHandler={this.props.selectChangeHandler}
               setBy={this.props.currentRecord['Appt. Set By']}
               apptSetDate={this.props.currentRecord['Appt. Set Date']}
               apptDate={this.props.currentRecord['Appt. Date']}
