@@ -116,6 +116,7 @@ export default class ModalView extends Component {
           citySet={this.props.citySet}
           autoPricing={this.props.autoPricing}
           categoryChange={this.props.categoryChange}
+          noVisitProposal={this.props.noVisitProposal}
         />
       )
     } else if (this.props.modalType === 'logCall') {

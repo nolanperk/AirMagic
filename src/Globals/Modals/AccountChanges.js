@@ -85,6 +85,7 @@ export default class AccountChanges extends Component {
 
     let newSP = this.props.currentRecord['New SP Start'];
     let cancel = this.props.currentRecord['Cancel Date'];
+    let changes = this.props.currentRecord['Changes Date'];
     let start = this.props.currentRecord['Start Date'];
 
     let currentSP = this.props.currentSP;
@@ -145,8 +146,8 @@ export default class AccountChanges extends Component {
                     </div>
                     <input
                       type="text"
-                      value={cancel}
-                      id="cancel"
+                      value={changes}
+                      id="changes"
                       onChange={this.props.changeRecordHandler}
                     />
                   </div>

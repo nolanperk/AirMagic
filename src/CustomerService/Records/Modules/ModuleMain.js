@@ -39,6 +39,8 @@ export default class ModuleMain extends Component {
     let ext = this.props.ext;
     let cell = this.props.cell;
     let email = this.props.email;
+    let altEmail = this.props.altEmail;
+    let altEmailLink = 'mailto:' + altEmail;
 
     let officeLink = 'tel:' + phone;
     let cellLink = 'tel:' + cell;
@@ -197,7 +199,7 @@ export default class ModuleMain extends Component {
             </div>
           </div>
 
-          <div className="inputBlock inputBlock--full">
+          <div className="inputBlock inputBlock--half">
             <label>Email</label>
             <div className="inputWithTag">
               <div className="inputTag">
@@ -208,6 +210,22 @@ export default class ModuleMain extends Component {
                 type="text"
                 id="email"
                 value={email}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <label>Alt. Email</label>
+            <div className="inputWithTag">
+              <div className="inputTag">
+                <a href={altEmailLink}></a>
+                <img src={emailImg} />
+              </div>
+              <input
+                type="text"
+                id="altEmail"
+                value={altEmail}
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -255,6 +273,11 @@ export default class ModuleMain extends Component {
                 <option disabled>--------</option>
                 <option>Residential Common Area</option>
                 <option>Residential Living</option>
+
+                <option disabled>--------</option>
+                <option>Dealership</option>
+                <option>Property Manager</option>
+                <option>Multi-Tenant Building</option>
 
                 <option disabled>--------</option>
                 <option>School</option>

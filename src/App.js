@@ -18,6 +18,7 @@ import OutsideSales from './Sales/OutsideSales';
 import Franchisees from './Franchisees/Franchisees';
 
 import SalesDashboard from './Sales/SalesDashboard';
+import ManageDashboard from './Globals/ManageDashboard';
 
 import MapMain from './Maps/Main';
 
@@ -61,6 +62,7 @@ class App extends Component {
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
           <Route exact path='/outside/' component={UserBaseSelect} />
 
+          <Route exact path='/manage/' component={ManageDashboard} />
           <Route exact path='/sales/' component={SalesDashboard} />
 
           <Route exact path='/:citySet/customer-service/:viewType/:recordId' component={bindRouteParamsToProps()(CustomerService)} />

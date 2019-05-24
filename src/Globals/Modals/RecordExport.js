@@ -89,11 +89,13 @@ export default class RecordExport extends Component {
           viewType: 'priceCheck',
         })
       } else {
+        this.props.noVisitProposal('back');
         this.setState({
           viewType: 'salesIntro',
         })
       }
     } else if (this.state.viewType === 'priceCheck') {
+      this.props.noVisitProposal('back');
       this.setState({
         viewType: 'salesIntro',
       })
@@ -108,6 +110,7 @@ export default class RecordExport extends Component {
             viewType: 'priceCheck',
           })
         } else {
+          this.props.noVisitProposal('back');
           this.setState({
             viewType: 'salesIntro',
           })
@@ -146,6 +149,9 @@ export default class RecordExport extends Component {
 
 
     if (this.state.viewType === 'salesIntro') {
+      if (e.target.id === 'noVisit') {
+        this.props.noVisitProposal('forward');
+      }
       if (this.state.needsPrice) {
         this.setState({
           viewType: 'priceCheck',
@@ -486,6 +492,9 @@ export default class RecordExport extends Component {
             <br />
             <br />
             <button id="normal" onClick={this.submitSales} className="btn softGrad--secondary">Normal Proposal</button>
+            <button id="noVisit" onClick={this.submitSales} className="btn softGrad--primary">No-Visit Proposal</button>
+            <br />
+            <br />
             <button id="additional" onClick={this.nonGenerated} className="btn softGrad--black">Additional Service</button>
           </div>
         );

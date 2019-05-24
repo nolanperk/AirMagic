@@ -46,6 +46,7 @@ export default class RecordView extends Component {
               ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
+              altEmail={this.props.currentRecord['Alternate Email']}
               newRecord={this.props.newRecord}
               categoryChange={this.props.categoryChange}
               category={this.props.currentRecord['Category']}
@@ -118,6 +119,7 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               newSP={this.props.currentRecord['New SP Start']}
               cancel={this.props.currentRecord['Cancel Date']}
+              changes={this.props.currentRecord['Changes Date']}
               selectChangeHandler={this.props.selectChangeHandler}
               setBy={this.props.currentRecord['Appt. Set By']}
               apptSetDate={this.props.currentRecord['Appt. Set Date']}

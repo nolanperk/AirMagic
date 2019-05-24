@@ -46,6 +46,7 @@ export default class ModuleSales extends Component {
     let source = this.props.source;
     let newSP = this.props.newSP;
     let cancel = this.props.cancel;
+    let changes = this.props.changes;
 
     if (this.props.currentRecordView === 'accounting') {
       return (
@@ -102,6 +103,23 @@ export default class ModuleSales extends Component {
               />
             </div>
           </div>
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Changes Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={changes}
+                id="changes"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
 
         </div>
       );
@@ -140,6 +158,24 @@ export default class ModuleSales extends Component {
                 type="text"
                 value={cancel}
                 id="cancel"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Changes Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={changes}
+                id="changes"
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -251,6 +287,23 @@ export default class ModuleSales extends Component {
                 type="text"
                 value={cancel}
                 id="cancel"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--half">
+            <div class="pickWrapper">
+              <DayPicker onDayClick={this.props.handleDayClick} />
+            </div>
+            <label>Changes Date</label>
+            <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+              <div className="inputTag">
+                <img src={calendarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={changes}
+                id="changes"
                 onChange={this.props.changeRecordHandler}
               />
             </div>

@@ -374,6 +374,7 @@ export default class CustomerService extends Component {
     else if (this.state.pickerId === 'apptDate') {currentRecordState['Appt. Date'] = finalDate}
     else if (this.state.pickerId === 'walkthrough') {currentRecordState['Walkthrough Date'] = finalDate}
     else if (this.state.pickerId === 'cancel') {currentRecordState['Cancel Date'] = finalDate}
+    else if (this.state.pickerId === 'changes') {currentRecordState['Changes Date'] = finalDate}
     else if (this.state.pickerId === 'newSP') {currentRecordState['New SP Start'] = finalDate}
     else if (this.state.pickerId === 'lastCall') {currentRecordState['Last Call'] = finalDate}
     else if (this.state.pickerId === 'lastVisit') {currentRecordState['Last Visit'] = finalDate}
@@ -441,6 +442,7 @@ export default class CustomerService extends Component {
         'Extension': null,
         'Cell Phone': null,
         'Email': null,
+        'Alternate Email': null,
         'Lead Source': null,
         'Last Call': null,
         'SP Name': null,
@@ -801,6 +803,7 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'ext') {currentRecordState['Extension'] = e.target.value}
     else if (e.target.id === 'cell') {currentRecordState['Cell Phone'] = e.target.value}
     else if (e.target.id === 'email') {currentRecordState['Email'] = e.target.value}
+    else if (e.target.id === 'altEmail') {currentRecordState['Alternate Email'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Lead Source'] = e.target.value}
     else if (e.target.id === 'lastCall') {currentRecordState['Last Call'] = e.target.value}
     else if (e.target.id === 'spName') {currentRecordState['SP Name'] = e.target.value}
@@ -808,6 +811,7 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'lastVisit') {currentRecordState['Last Visit'] = e.target.value}
     else if (e.target.id === 'newSP') {currentRecordState['New SP Start'] = e.target.value}
     else if (e.target.id === 'cancel') {currentRecordState['Cancel Date'] = e.target.value}
+    else if (e.target.id === 'changes') {currentRecordState['Changes Date'] = e.target.value}
     else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}
     else if (e.target.id === 'addr2') {currentRecordState['Address 2'] = e.target.value}
     else if (e.target.id === 'spEmail') {currentRecordState['SP Email'] = e.target.value}
@@ -1212,9 +1216,8 @@ export default class CustomerService extends Component {
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
 
         if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
-        if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
 
-        if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined;}
+        if (pushRecord['Changes Date'] === '') {pushRecord['Changes Date'] = undefined;}
         if (pushRecord['Appt. Set Date'] === '') {pushRecord['Appt. Set Date'] = undefined;}
         if (pushRecord['Appt. Date'] === '') {pushRecord['Appt. Date'] = undefined;}
         if (pushRecord['Close Date'] === '') {pushRecord['Close Date'] = undefined;}
@@ -1335,10 +1338,24 @@ export default class CustomerService extends Component {
   }
 
   exportRecord = e => {
-    e.preventDefault();
 
-    let mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
-    let mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+    let mergeTemp;
+    let mergeType;
+
+    if (e === 'amountChange') {
+      mergeTemp = 'Account Changes';
+      mergeType = 'Account Changes';
+    } else if (e === 'crewChange') {
+      mergeTemp = 'Crew Change';
+      mergeType = 'Crew Change';
+    } else if (e === 'cancellation') {
+      mergeTemp = 'Account Cancelation';
+      mergeType = 'Account Cancelation';
+    } else {
+      e.preventDefault();
+      mergeTemp = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+      mergeType = document.getElementById('mergeTemplates').options[document.getElementById('mergeTemplates').options.selectedIndex].getAttribute('data-type');
+    }
     let mergeURL; let finalURL;
     let fileLocation = 'Dropbox/' + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase();
 
@@ -2632,15 +2649,13 @@ export default class CustomerService extends Component {
 
 
     if (e === 'amountChange') {
-      finalEntry += 'Changes Effective - ' + currentRecordState['Cancel Date'] + '\n';
+      finalEntry += 'Changes Effective - ' + currentRecordState['Changes Date'] + '\n';
       this.setState({
         oldRecordInfo: oldInfo,
         oldSP: oldSP,
         oldStartDate: currentRecordState['Start Date'],
       })
       currentRecordState['Standing'] = 'Service Changed';
-      currentRecordState['Start Date'] = currentRecordState['Cancel Date'];
-      currentRecordState['Cancel Date'] = undefined;
 
       if (currentRecordState['Monthly Amount'] !== oldInfo.amount || currentRecordState['Times per Week'] !== oldInfo.xWeek || currentRecordState['Actual Sq Footage'] !== oldInfo.sqft || currentRecordState['Days of Week'] !== oldInfo.dayOf || currentRecordState['Service Time'] !== oldInfo.serviceTime) {
         finalEntry += '\n' + 'Changes';
@@ -2702,114 +2717,7 @@ export default class CustomerService extends Component {
     });
 
     setTimeout((function() {
-      if (e !== 'amountChange') {
-        this.saveRecordHandler();
-      } else {
-        let fullDataSet = this.state.currentRecord;
-
-        if (this.state.currentRecordView !== 'default') {
-          this.setState({
-            currentRecordView: 'default',
-          })
-        }
-        setTimeout((function() {
-          fullDataSet["PAM"] = document.getElementById('pamSelect').value;
-          fullDataSet["Sales Rep"] = document.getElementById('repSelect').value;
-          fullDataSet["Status"] = document.getElementById('statusSelect').value;
-          fullDataSet["Standing"] = document.getElementById('standingSelect').value;
-          fullDataSet["CPOP"] = document.getElementById('cpopSelect').value;
-          fullDataSet["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
-          fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
-
-
-          let finalPush = {"fields": fullDataSet}
-          axios
-          .post(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable, finalPush)
-            .then(response => {
-              let currentRecordState = this.state.currentRecord;
-              currentRecordState['Notes'] = 'DISABLED RECORD\nNew record - http://airmagic.co/' + this.props.citySet + '/customer-service/all/' + response.data.id + '\n\n\n' + currentRecordState['Notes'];
-              currentRecordState['Status'] = 'Canceled';
-              currentRecordState['Cancel Date'] = currentRecordState['Start Date'];
-              currentRecordState['Start Date'] = this.state.oldStartDate;
-
-
-              currentRecordState['Monthly Amount'] = this.state.oldRecordInfo.amount;
-              currentRecordState['Times per Week'] = this.state.oldRecordInfo.xWeek;
-              currentRecordState['Actual Sq Footage'] = this.state.oldRecordInfo.sqft;
-              currentRecordState['Days of Week'] = this.state.oldRecordInfo.dayOf;
-              currentRecordState['Service Time'] = this.state.oldRecordInfo.serviceTime;
-
-              currentRecordState['Address 1'] = this.state.oldRecordInfo.addr1;
-              currentRecordState['Address 2'] = this.state.oldRecordInfo.addr2;
-              currentRecordState['City'] = this.state.oldRecordInfo.city;
-              currentRecordState['Zip'] = this.state.oldRecordInfo.zip;
-
-              currentRecordState['SP Number'] = this.state.oldSP.number;
-
-
-              this.setState({
-                currentRecord: currentRecordState,
-                newId: response.data.id,
-              });
-              setTimeout((function() {
-                let fullDataSet = this.state.data;
-                let pushRecordId;
-                let pushRecord;
-
-                pushRecord = this.state.currentRecord;
-                if (this.state.currentTable === 'Customers') {
-                  pushRecordId = this.props.recordId;
-                } else {
-                  pushRecordId = this.state.currentId;
-                }
-                if (this.state.currentRecordView !== 'default') {
-                  this.setState({
-                    currentRecordView: 'default',
-                  })
-                }
-
-                setTimeout((function() {
-                  pushRecord["PAM"] = document.getElementById('pamSelect').value;
-                  pushRecord["Sales Rep"] = document.getElementById('repSelect').value;
-                  pushRecord["Status"] = document.getElementById('statusSelect').value;
-                  pushRecord["Standing"] = document.getElementById('standingSelect').value;
-                  pushRecord["CPOP"] = document.getElementById('cpopSelect').value;
-                  pushRecord["Addtl Supplies"] = document.getElementById('suppliesSelect').value;
-                  pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
-
-                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
-                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined}
-
-                  if (pushRecord['Cancel Date'] === '') {pushRecord['Cancel Date'] = undefined;}
-                  if (pushRecord['Appt. Set Date'] === '') {pushRecord['Appt. Set Date'] = undefined;}
-                  if (pushRecord['Appt. Date'] === '') {pushRecord['Appt. Date'] = undefined;}
-                  if (pushRecord['Close Date'] === '') {pushRecord['Close Date'] = undefined;}
-                  if (pushRecord['Proposal Date'] === '') {pushRecord['Proposal Date'] = undefined;}
-                  if (pushRecord['Walkthrough Date'] === '') {pushRecord['Walkthrough Date'] = undefined;}
-                  if (pushRecord['Start Date'] === '') {pushRecord['Start Date'] = undefined;}
-                  if (pushRecord['Pre-Clean Date'] === '') {pushRecord['Pre-Clean Date'] = undefined;}
-
-
-                  let finalPush = {"fields": pushRecord}
-                  axios
-                  .put(this.state.dataURL + this.state.baseId + '/' + this.state.currentTable + '/' + pushRecordId, finalPush)
-                    .then(response => {
-                      let destinationURL = '/' + this.props.citySet + '/customer-service/all/' + this.state.newId;
-                      this.props.history.push(destinationURL);
-                      this.loadData();
-
-                      setTimeout((function() {
-                        this.setState({
-                          activeModal: false,
-                          modalType: '',
-                        });
-                      }).bind(this), 10);
-                    })
-                }).bind(this), 10);
-              }).bind(this), 10);
-          })
-        }).bind(this), 10);
-      }
+      this.exportRecord(e);
     }).bind(this), 250);
   }
 

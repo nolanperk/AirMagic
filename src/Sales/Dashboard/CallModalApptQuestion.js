@@ -30,7 +30,8 @@ export default class CallModalApptQuestion extends Component {
           </div>
 
           <button id="setAppt" onClick={this.props.callNext} className="btn softGrad--secondary">Yes</button>
-          <button id="noAppt" onClick={this.props.callNext} className="btn softGrad--black">No</button>
+          <button id="noVisit" onClick={this.props.callNext} className="btn softGrad--black">No-Visit Proposal</button> <br /><br />
+          <button id="noAppt" onClick={this.props.callNext} className="btn softGrad--primary">No</button>
         </div>
       </div>
     );

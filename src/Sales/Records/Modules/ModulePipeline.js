@@ -152,6 +152,21 @@ export default class ModulePipeline extends Component {
               />
             </div>
           </div>
+
+
+          <div className="inputBlock inputBlock--half">
+            <label>Proposal Type</label>
+            <div
+              className="selectBlock"
+              id="proposalType"
+              >
+              <select id="proposalTypeSelect" value={this.props.proposalType} onChange={this.props.proposalTypeChange}>
+                <option id="none"></option>
+                <option id="Visited">Visited</option>
+                <option id="No-Visit">No-Visit</option>
+              </select>
+            </div>
+          </div>
         </div>
       );
     } else if (this.props.currentRecordView === 'proposal') {

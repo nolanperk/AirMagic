@@ -39,6 +39,7 @@ export default class RecordView extends Component {
               status={this.props.currentRecord['Status']}
               standing={this.props.currentRecord['Standing']}
               // industry={this.props.currentRecord['Industry']}
+              phone={this.props.currentRecord['Office Phone']}
               category={this.props.currentRecord['Category']}
               rep={this.props.currentRecord['Sales Rep']}
               recentCaller={this.props.currentRecord['Recent Caller']}
@@ -51,6 +52,7 @@ export default class RecordView extends Component {
               repChange={this.props.repChange}
               categoryChange={this.props.categoryChange}
               standingChange={this.props.standingChange}
+              callerChange={this.props.callerChange}
             />
             <ModuleContact
               changeRecordHandler={this.props.changeRecordHandler}
@@ -64,9 +66,11 @@ export default class RecordView extends Component {
               ext={this.props.currentRecord['Extension']}
               cell={this.props.currentRecord['Cell Phone']}
               email={this.props.currentRecord['Email']}
+              altEmail={this.props.currentRecord['Alternate Email']}
               source={this.props.currentRecord['Lead Source']}
               newRecord={this.props.newRecord}
               userName={this.props.userName}
+              currentRecord={this.props.currentRecord}
               timesPerWeek={this.props.currentRecord['Times per Week']}
             />
             <ModulePipeline
@@ -78,7 +82,9 @@ export default class RecordView extends Component {
               apptDate={this.props.currentRecord['Appt. Date']}
               apptTime={this.props.currentRecord['Appt. Time']}
               proposal={this.props.currentRecord['Proposal Date']}
+              proposalType={this.props.currentRecord['Proposal Type']}
 
+              proposalTypeChange={this.props.proposalTypeChange}
               handleDayClick={this.props.handleDayClick}
               toggleDayPicker={this.props.toggleDayPicker}
               setByChange={this.props.setByChange}

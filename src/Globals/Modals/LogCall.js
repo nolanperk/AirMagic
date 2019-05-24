@@ -783,6 +783,7 @@ export class LogCall extends Component {
                 <option id="In+Contract">In Contract</option>
                 <option id="In+House">In House</option>
                 <option id="Landlord+Does">Landlord Does</option>
+                <option id="Call+Corporate+Office">Call Corporate Office</option>
                 <option disabled>------------</option>
                 <option disabled>Issues</option>
                 <option id="Disconnected">Disconnected</option>

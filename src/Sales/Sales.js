@@ -367,6 +367,7 @@ export default class Sales extends Component {
         'Extension': '',
         'Cell Phone': '',
         'Email': '',
+        'Alternate Email': '',
         'Lead Source': '',
         'Address 1': '',
         'Address 2': '',
@@ -415,6 +416,7 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Extension']) {pushRecord['Extension'] = this.state.currentRecord['Extension']}
       if(this.state.currentRecord['Cell Phone']) {pushRecord['Cell Phone'] = this.state.currentRecord['Cell Phone']}
       if(this.state.currentRecord['Email']) {pushRecord['Email'] = this.state.currentRecord['Email']}
+      if(this.state.currentRecord['Alternate Email']) {pushRecord['Alternate Email'] = this.state.currentRecord['Alternate Email']}
       if(this.state.currentRecord['Lead Source']) {pushRecord['Lead Source'] = this.state.currentRecord['Lead Source']}
       if(this.state.currentRecord['Cancel Date']) {pushRecord['Cancel Date'] = this.state.currentRecord['Cancel Date']}
       if(this.state.currentRecord['Address 1']) {pushRecord['Address 1'] = this.state.currentRecord['Address 1']}
@@ -573,6 +575,7 @@ export default class Sales extends Component {
       'Extension': null,
       'Cell Phone': null,
       'Email': null,
+      'Alternate Email': null,
       'Lead Source': null,
 
       'Address 1': null,
@@ -669,6 +672,7 @@ export default class Sales extends Component {
     else if (e.target.id === 'apptDate') {currentRecordState['Appt. Date'] = e.target.value}
     else if (e.target.id === 'apptTime') {currentRecordState['Appt. Time'] = e.target.value}
     else if (e.target.id === 'proposal') {currentRecordState['Proposal Date'] = e.target.value}
+    else if (e.target.id === 'proposalType') {currentRecordState['Proposal Type'] = e.target.value}
     else if (e.target.id === 'closed') {currentRecordState['Close Date'] = e.target.value}
     else if (e.target.id === 'walkthrough') {currentRecordState['Walkthrough Date'] = e.target.value}
     else if (e.target.id === 'start') {currentRecordState['Start Date'] = e.target.value}
@@ -686,6 +690,7 @@ export default class Sales extends Component {
     else if (e.target.id === 'ext') {currentRecordState['Extension'] = e.target.value}
     else if (e.target.id === 'cell') {currentRecordState['Cell Phone'] = e.target.value}
     else if (e.target.id === 'email') {currentRecordState['Email'] = e.target.value}
+    else if (e.target.id === 'altEmail') {currentRecordState['Alternate Email'] = e.target.value}
     else if (e.target.id === 'source') {currentRecordState['Lead Source'] = e.target.value}
 
     else if (e.target.id === 'addr1') {currentRecordState['Address 1'] = e.target.value}
@@ -733,6 +738,13 @@ export default class Sales extends Component {
   setByChange = e => {
     let currentsRec = this.state.currentRecord;
     currentsRec['Appt. Set By'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+  proposalTypeChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Proposal Type'] = e.target.value;
     this.setState({
       currentRecord: currentsRec,
     });
@@ -1138,6 +1150,7 @@ export default class Sales extends Component {
         pushRecord["Call Status"] = document.getElementById('callStatus').value;
         pushRecord["Follow Status"] = document.getElementById('followStatus').value;
         pushRecord["Category"] = document.getElementById('categorySelect').value;
+        pushRecord["Proposal Type"] = document.getElementById('proposalTypeSelect').value;
 
         let finalPush = {"fields": pushRecord}
         console.log(finalPush);
@@ -1515,6 +1528,19 @@ export default class Sales extends Component {
           }).bind(this), 250);
         })
     }
+  }
+
+  noVisitProposal = (e) => {
+    let currRec = this.state.currentRecord;
+    if (e === 'forward') {
+      currRec['Proposal Type'] = 'No-Visit';
+    } else {
+      currRec['Proposal Type'] = undefined;
+    }
+
+    this.setState({
+      currentRecord: currRec
+    })
   }
 
 
@@ -2069,6 +2095,8 @@ export default class Sales extends Component {
           exportFields += currCheck;
         }
       }
+      exportFields += '&fields%5B%5D=';
+      exportFields += 'Proposal+Type';
       console.log(exportFields);
 
       let regionChecked = document.querySelectorAll('input[name=regionCheck]:checked');
@@ -2878,30 +2906,45 @@ export default class Sales extends Component {
       loadingMore: true,
     });
     finalURL = this.state.dataURL + this.state.baseId + '/' + this.state.currentTable;
-    if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
-      finalURL = finalURL + '?';
 
-      if (this.state.dataOffset !== '') {
-        finalURL = finalURL + 'offset=' + this.state.dataOffset;
-        if (this.state.sortByLabel !== '' || this.state.listView !== '') {
-          finalURL = finalURL + '&';
-        }
-      }
+    if (sessionStorage.getItem('searchQuery')) {
+      let capitalizedQuery = sessionStorage.getItem('searchQuery').replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toLowerCase() + txt.substr(1).toLowerCase();
+      });
+      capitalizedQuery = encodeURIComponent(capitalizedQuery);
       if (this.state.listView !== '') {
-        finalURL = finalURL + this.state.listView;
-        if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
-          finalURL = finalURL + '&';
-        }
-      }
-
-      if (sessionStorage.getItem('jumpLetters')) {
-        finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+        finalURL = finalURL + '?' + this.state.listView;
+        finalURL = finalURL + '&filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + sessionStorage.getItem('searchBy') + '%7D)))';
       } else {
-        if (this.state.sortByLabel !== '') {
-          finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+        finalURL = finalURL + '?filterByFormula=(FIND("' + capitalizedQuery + '"%2CLOWER(%7B' + sessionStorage.getItem('searchBy') + '%7D)))';
+      }
+    } else {
+      if (this.state.sortByLabel !== '' || this.state.listView !== '' || this.state.dataOffset !== '' || sessionStorage.getItem('jumpLetters')) {
+        finalURL = finalURL + '?';
+
+        if (this.state.dataOffset !== '') {
+          finalURL = finalURL + 'offset=' + this.state.dataOffset;
+          if (this.state.sortByLabel !== '' || this.state.listView !== '') {
+            finalURL = finalURL + '&';
+          }
+        }
+        if (this.state.listView !== '') {
+          finalURL = finalURL + this.state.listView;
+          if (this.state.sortByLabel !== '' || sessionStorage.getItem('jumpLetters')) {
+            finalURL = finalURL + '&';
+          }
+        }
+
+        if (sessionStorage.getItem('jumpLetters')) {
+          finalURL = finalURL + "filterByFormula=FIND('" + sessionStorage.getItem('jumpLetters') +  "'%2C+LEFT(LOWER(%7BCompany+Name%7D)%2C1))" + '&sort%5B0%5D%5Bfield%5D=Company+Name&sort%5B0%5D%5Bdirection%5D=asc';
+        } else {
+          if (this.state.sortByLabel !== '') {
+            finalURL = finalURL + 'sort%5B0%5D%5Bfield%5D=' + this.state.sortByLabel + '&sort%5B0%5D%5Bdirection%5D=' + this.state.sortByOrder + "&filterByFormula=NOT(%7BCompany+Name%7D+%3D+'')";
+          }
         }
       }
     }
+
     console.log('loadMoreRecords()');
     return axios
       .get(finalURL)
@@ -3112,12 +3155,14 @@ export default class Sales extends Component {
           changeRecordHandler={this.changeRecordHandler}
           autoPricing={this.autoPricing}
           repChange={this.repChange}
+          callerChange={this.callerChange}
           categoryChange={this.categoryChange}
           standingChange={this.standingChange}
           handleDayClick={this.handleDayClick}
           toggleDayPicker={this.toggleDayPicker}
           logCall={this.logCall}
           mergeGoogle={this.mergeGoogle}
+          noVisitProposal={this.noVisitProposal}
         />
       )
     }
@@ -3146,7 +3191,9 @@ export default class Sales extends Component {
             newRecord={this.state.newRecord}
             citySet={this.props.citySet}
             setByChange={this.setByChange}
+            proposalTypeChange={this.proposalTypeChange}
             repChange={this.repChange}
+            callerChange={this.callerChange}
             categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
@@ -3177,6 +3224,7 @@ export default class Sales extends Component {
             citySet={this.props.citySet}
             setByChange={this.setByChange}
             repChange={this.repChange}
+            callerChange={this.callerChange}
             categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
@@ -3206,7 +3254,9 @@ export default class Sales extends Component {
             toggleDayPicker={this.toggleDayPicker}
             citySet={this.props.citySet}
             setByChange={this.setByChange}
+            proposalTypeChange={this.proposalTypeChange}
             repChange={this.repChange}
+            callerChange={this.callerChange}
             categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}
@@ -3236,7 +3286,9 @@ export default class Sales extends Component {
             toggleDayPicker={this.toggleDayPicker}
             citySet={this.props.citySet}
             setByChange={this.setByChange}
+            proposalTypeChange={this.proposalTypeChange}
             repChange={this.repChange}
+            callerChange={this.callerChange}
             categoryChange={this.categoryChange}
             noteCharacters={this.state.noteCharacters}
             pathName={this.props.location.pathname}

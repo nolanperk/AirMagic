@@ -957,7 +957,9 @@ hr {
   .Sales .RecordNotes .NotesNav {
     padding: 2vw; }
   .Sales .RecordNotes .NotesList {
-    padding: 7vw 7% 6.5vw; }
+    padding: 6.5vw 7%; }
+    .Sales .RecordNotes .NotesList:focus {
+      padding: 6.5vw 7%; }
 
 .RightPanel {
   right: 0;
@@ -1024,6 +1026,13 @@ hr {
       .ModuleList .ModuleCard .cardTag .btn {
         width: 100%;
         text-align: center; }
+      .ModuleList .ModuleCard .cardTag.split .btn {
+        width: 49%;
+        text-align: center;
+        display: inline-block;
+        padding: 10px 20px; }
+        .ModuleList .ModuleCard .cardTag.split .btn:last-child {
+          margin-left: 2%; }
     .ModuleList .ModuleCard .scrollList {
       max-height: 250px;
       -webkit-overflow-scrolling: touch;
@@ -1846,6 +1855,7 @@ hr {
     border-radius: 3px;
     padding: 12px;
     overflow: hidden;
+    position: relative;
     border: solid 1px #C31F2F; }
     .FollowUpsModal .followUpItem.blown {
       padding: 6px;
@@ -1871,6 +1881,20 @@ hr {
       opacity: 0.4;
       letter-spacing: 0.5px;
       line-height: 11px; }
+    .FollowUpsModal .followUpItem.noVisit {
+      padding-left: 20px; }
+      .FollowUpsModal .followUpItem.noVisit::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #407ae6;
+        border-radius: 100px;
+        top: 50%;
+        left: 6px;
+        transform: translateY(-50%); }
+  .FollowUpsModal.noVisitHide .noVisit {
+    display: none; }
 
 .logCall.TicketModal {
   background: transparent; }
@@ -2220,7 +2244,7 @@ hr {
 .DayPicker {
   position: absolute;
   background: white;
-  z-index: 1;
+  z-index: 2;
   top: 50%;
   right: 0;
   transform: translate(95%, -50%);
@@ -3640,82 +3664,82 @@ hr {
   opacity: 0; }
   .confetti-piece:nth-child(1) {
     left: 7%;
-    transform: rotate(80deg);
+    transform: rotate(30deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 303ms;
-    animation-duration: 1105ms; }
+    animation-delay: 233ms;
+    animation-duration: 1027ms; }
   .confetti-piece:nth-child(2) {
     left: 14%;
-    transform: rotate(69deg);
+    transform: rotate(-23deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 243ms;
-    animation-duration: 857ms; }
+    animation-delay: 8ms;
+    animation-duration: 1159ms; }
   .confetti-piece:nth-child(3) {
     left: 21%;
-    transform: rotate(-6deg);
+    transform: rotate(63deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 198ms;
-    animation-duration: 959ms; }
+    animation-delay: 374ms;
+    animation-duration: 937ms; }
   .confetti-piece:nth-child(4) {
     left: 28%;
-    transform: rotate(-45deg);
+    transform: rotate(76deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 149ms;
-    animation-duration: 1102ms; }
+    animation-delay: 118ms;
+    animation-duration: 760ms; }
   .confetti-piece:nth-child(5) {
     left: 35%;
-    transform: rotate(-28deg);
+    transform: rotate(-61deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 320ms;
-    animation-duration: 941ms; }
+    animation-delay: 249ms;
+    animation-duration: 1121ms; }
   .confetti-piece:nth-child(6) {
     left: 42%;
-    transform: rotate(-68deg);
+    transform: rotate(30deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 254ms;
-    animation-duration: 1093ms; }
+    animation-delay: 14ms;
+    animation-duration: 847ms; }
   .confetti-piece:nth-child(7) {
     left: 49%;
-    transform: rotate(79deg);
+    transform: rotate(8deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 471ms;
-    animation-duration: 788ms; }
+    animation-delay: 364ms;
+    animation-duration: 970ms; }
   .confetti-piece:nth-child(8) {
     left: 56%;
-    transform: rotate(-34deg);
+    transform: rotate(-13deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 366ms;
-    animation-duration: 1008ms; }
+    animation-delay: 279ms;
+    animation-duration: 1045ms; }
   .confetti-piece:nth-child(9) {
     left: 63%;
-    transform: rotate(-24deg);
+    transform: rotate(-9deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 378ms;
-    animation-duration: 775ms; }
+    animation-delay: 67ms;
+    animation-duration: 1118ms; }
   .confetti-piece:nth-child(10) {
     left: 70%;
-    transform: rotate(67deg);
+    transform: rotate(-50deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 339ms;
-    animation-duration: 1134ms; }
+    animation-delay: 139ms;
+    animation-duration: 1002ms; }
   .confetti-piece:nth-child(11) {
     left: 77%;
-    transform: rotate(-74deg);
+    transform: rotate(-28deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 358ms;
-    animation-duration: 739ms; }
+    animation-delay: 118ms;
+    animation-duration: 764ms; }
   .confetti-piece:nth-child(12) {
     left: 84%;
-    transform: rotate(36deg);
+    transform: rotate(61deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 23ms;
-    animation-duration: 806ms; }
+    animation-delay: 325ms;
+    animation-duration: 924ms; }
   .confetti-piece:nth-child(13) {
     left: 91%;
-    transform: rotate(-25deg);
+    transform: rotate(-12deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 113ms;
-    animation-duration: 1035ms; }
+    animation-delay: 213ms;
+    animation-duration: 1135ms; }
   .confetti-piece:nth-child(odd) {
     background: #17d3ff; }
   .confetti-piece:nth-child(even) {
@@ -3761,6 +3785,9 @@ hr {
     vertical-align: middle; }
   .callNav h4 {
     margin-left: 10px; }
+  .callNav .recentCalls {
+    float: right;
+    margin-left: 10px; }
 
 .CallListContainer {
   background: #F5FAFA;
@@ -3775,11 +3802,13 @@ hr {
   .CallListContainer .CallList {
     position: relative; }
     .CallListContainer .CallList .leftCol {
+      text-align: left;
       margin: 0 1%;
       width: 42%;
       display: inline-block;
       vertical-align: top; }
     .CallListContainer .CallList .rightCol {
+      text-align: left;
       margin: 0 1%;
       width: 54%;
       display: inline-block;
@@ -3792,6 +3821,42 @@ hr {
             margin-right: 8px; }
       .CallListContainer .CallList .rightCol .CallListBox .callItem .companyData {
         width: 35%; }
+      .CallListContainer .CallList .rightCol > h4 {
+        display: inline-block; }
+      .CallListContainer .CallList .rightCol p.cold-select, .CallListContainer .CallList .rightCol .fieldsList label.cold-select, .fieldsList .CallListContainer .CallList .rightCol label.cold-select {
+        line-height: 30px;
+        position: relative;
+        display: inline-block;
+        margin: -5px 6px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 6px;
+        position: relative;
+        top: -3px;
+        border: solid 1px #131313; }
+      .CallListContainer .CallList .rightCol #cold-orlando, .CallListContainer .CallList .rightCol #cold-tampa {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 12px;
+        cursor: pointer;
+        width: 50%; }
+        .CallListContainer .CallList .rightCol #cold-orlando em, .CallListContainer .CallList .rightCol #cold-tampa em {
+          font-weight: 600;
+          font-style: normal;
+          opacity: 0.6;
+          pointer-events: none; }
+        .CallListContainer .CallList .rightCol #cold-orlando.isActive, .CallListContainer .CallList .rightCol #cold-tampa.isActive {
+          background: #131313;
+          color: #fff;
+          border: solid 1px #131313;
+          cursor: default; }
+      .CallListContainer .CallList .rightCol #cold-orlando {
+        margin-left: 0px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+      .CallListContainer .CallList .rightCol #cold-tampa {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
     .CallListContainer .CallList .CallListBox {
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       background: #fff;
@@ -3801,34 +3866,8 @@ hr {
       margin: 10px 0;
       border-radius: 10px;
       text-align: left; }
-      .CallListContainer .CallList .CallListBox p.cold-select, .CallListContainer .CallList .CallListBox .fieldsList label.cold-select, .fieldsList .CallListContainer .CallList .CallListBox label.cold-select {
-        line-height: 30px;
-        position: relative; }
-      .CallListContainer .CallList .CallListBox #cold-orlando, .CallListContainer .CallList .CallListBox #cold-tampa {
-        font-size: 14px;
-        font-weight: 600;
-        padding: 6px 12px;
-        border: solid 1px #cfdede;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 50%; }
-        .CallListContainer .CallList .CallListBox #cold-orlando em, .CallListContainer .CallList .CallListBox #cold-tampa em {
-          font-weight: 600;
-          font-style: normal;
-          opacity: 0.6;
-          pointer-events: none; }
-        .CallListContainer .CallList .CallListBox #cold-orlando.isActive, .CallListContainer .CallList .CallListBox #cold-tampa.isActive {
-          background: #131313;
-          color: #fff;
-          border: solid 1px #131313;
-          cursor: default; }
-      .CallListContainer .CallList .CallListBox #cold-orlando {
-        margin-left: 0px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0; }
-      .CallListContainer .CallList .CallListBox #cold-tampa {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0; }
+      .CallListContainer .CallList .CallListBox.isHidden {
+        display: none; }
       .CallListContainer .CallList .CallListBox .cold-orlando, .CallListContainer .CallList .CallListBox .cold-tampa {
         display: none; }
         .CallListContainer .CallList .CallListBox .cold-orlando.isActive, .CallListContainer .CallList .CallListBox .cold-tampa.isActive {
@@ -3919,7 +3958,8 @@ hr {
     border-radius: 5px;
     display: flex;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.15); }
+    background: rgba(255, 255, 255, 0.15);
+    position: relative; }
     .ActivityWrapper .activityItem.hide {
       display: none; }
     .ActivityWrapper .activityItem .prettyLabel {
@@ -4233,3 +4273,105 @@ hr {
           margin: 0; }
           .callModal .modalBox .callBoxWrapper .callColumn .ModuleList .ModuleCard {
             width: 100%; }
+
+.ManageDash {
+  background: #F5FAFA; }
+  .ManageDash .DashData {
+    position: absolute;
+    width: 75%;
+    height: calc(100% - 75px);
+    bottom: 0;
+    padding: 4vw 5vw;
+    overflow-y: scroll; }
+    .ManageDash .DashData .RegionWrapper {
+      margin-bottom: 4vw; }
+      .ManageDash .DashData .RegionWrapper .pointSet {
+        font-size: 0; }
+        .ManageDash .DashData .RegionWrapper .pointSet .pointCard {
+          display: inline-block;
+          margin: 5px;
+          background: #fff;
+          padding: 2.2vw;
+          border-radius: 10px;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); }
+          .ManageDash .DashData .RegionWrapper .pointSet .pointCard .content, .ManageDash .DashData .RegionWrapper .pointSet .pointCard img {
+            display: inline-block;
+            vertical-align: middle; }
+          .ManageDash .DashData .RegionWrapper .pointSet .pointCard img {
+            width: 3vw;
+            margin-right: 8px; }
+          .ManageDash .DashData .RegionWrapper .pointSet .pointCard .content p, .ManageDash .DashData .RegionWrapper .pointSet .pointCard .content .fieldsList label, .fieldsList .ManageDash .DashData .RegionWrapper .pointSet .pointCard .content label {
+            font-size: 0.9vw;
+            line-height: 0.9vw;
+            opacity: 0.5; }
+          .ManageDash .DashData .RegionWrapper .pointSet .pointCard .content h4 {
+            font-size: 1.5vw;
+            line-height: 1.5vw; }
+      .ManageDash .DashData .RegionWrapper .graphSet .graphCard {
+        display: inline-block;
+        margin: 5px;
+        background: #fff;
+        padding: 1.5vw 2.2vw;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(19, 19, 19, 0.06); }
+        .ManageDash .DashData .RegionWrapper .graphSet .graphCard.clickable {
+          cursor: pointer; }
+    .ManageDash .DashData.salesData .pointSet .pointCard {
+      width: 49%;
+      margin: 1vw 0;
+      margin-right: 2%; }
+      .ManageDash .DashData.salesData .pointSet .pointCard:nth-child(even) {
+        margin-right: 0; }
+    .ManageDash .DashData.salesData .dataSet {
+      margin: 0.5vw 0;
+      border-radius: 10px;
+      padding: 1vw 1.5vw;
+      background: #ebf0f0; }
+    .ManageDash .DashData.salesData .dataItem {
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      background: #fff;
+      padding: 1.25vw 1.5vw;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(19, 19, 19, 0.06); }
+      .ManageDash .DashData.salesData .dataItem p, .ManageDash .DashData.salesData .dataItem .fieldsList label, .fieldsList .ManageDash .DashData.salesData .dataItem label {
+        font-size: 0.9vw;
+        line-height: 0.9vw;
+        opacity: 0.5; }
+      .ManageDash .DashData.salesData .dataItem h4 {
+        font-size: 1.25vw;
+        line-height: 1.25vw; }
+    .ManageDash .DashData.salesData .monthSelector {
+      background: #fff;
+      padding: 2.2vw;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      margin-bottom: 2vw; }
+      .ManageDash .DashData.salesData .monthSelector .selectorInner {
+        display: flex;
+        flex-direction: row; }
+        .ManageDash .DashData.salesData .monthSelector .selectorInner .month {
+          font-size: 12px;
+          flex: 1 1 0;
+          text-align: center;
+          padding: 12px 0px;
+          line-height: 12px;
+          border: solid 1px #131313;
+          border-left: 0;
+          border-right: 0;
+          cursor: pointer; }
+          .ManageDash .DashData.salesData .monthSelector .selectorInner .month.mon-0 {
+            border-left: solid 1px #131313;
+            padding-left: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px; }
+          .ManageDash .DashData.salesData .monthSelector .selectorInner .month.mon-11 {
+            border-right: solid 1px #131313;
+            padding-right: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px; }
+          .ManageDash .DashData.salesData .monthSelector .selectorInner .month.isActive {
+            background: #131313;
+            color: #fff;
+            font-weight: 900; }

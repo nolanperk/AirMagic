@@ -31,6 +31,8 @@ export default class SalesFollowUps extends Component {
 
       generatedEmail: '',
       referenceList: [],
+
+      noVisit: false,
     }
   }
 
@@ -194,6 +196,12 @@ export default class SalesFollowUps extends Component {
 
     let currentFollow = this.state.openedFollow.fields;
     currentFollow['Notes'] = newNotes + currentFollow['Notes'];
+    let amountNum = parseInt(currentFollow['Monthly Amount']);
+    if (currentFollow['Follow Ups'] === 0) { // new proposals
+      if (amountNum < 400 || currentFollow['Proposal Type'] === 'No-Visit') {
+        currentFollow['Follow Ups'] = currentFollow['Follow Ups'] + 1;
+      }
+    }
     currentFollow['Follow Ups'] = currentFollow['Follow Ups'] + 1;
     currentFollow['Last Contact'] = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear();
 
@@ -707,6 +715,12 @@ export default class SalesFollowUps extends Component {
   // ----------------------------------------------------
   render() {
     const { hotData, oldProposalData, retouchesData, referenceList } = this.state;
+
+    let followModalWrapper = "FollowUpsModal modalInner";
+    if (!this.state.noVisit) {
+      followModalWrapper += " noVisitHide";
+    }
+
     if (this.state.loading) {
       return (
         <div className="modalInner">
@@ -729,7 +743,7 @@ export default class SalesFollowUps extends Component {
       if (this.state.viewType === 'list') {
         if (this.state.currentView === 'hot') {
           return (
-            <div className="FollowUpsModal modalInner">
+            <div className={followModalWrapper}>
               <div className="modalTitle">
                 <h4>Follow Ups</h4>
                 <div className="navIcon softGrad--primary" onClick={this.props.controlsModalToggle}>
@@ -787,7 +801,7 @@ export default class SalesFollowUps extends Component {
           );
         } else if (this.state.currentView === 'oldProposals') {
           return (
-            <div className="FollowUpsModal modalInner">
+            <div className={followModalWrapper}>
               <div className="modalTitle">
                 <h4>Follow Ups</h4>
                 <div className="navIcon softGrad--primary" onClick={this.props.controlsModalToggle}>
@@ -835,7 +849,7 @@ export default class SalesFollowUps extends Component {
           );
         } else if (this.state.currentView === 'retouches') {
           return (
-            <div className="FollowUpsModal modalInner">
+            <div className={followModalWrapper}>
               <div className="modalTitle">
                 <h4>Follow Ups</h4>
                 <div className="navIcon softGrad--primary" onClick={this.props.controlsModalToggle}>
@@ -901,7 +915,7 @@ export default class SalesFollowUps extends Component {
 
         if (this.state.currentView === 'hot' && this.state.followType === 'reference') {
           return (
-            <div className="FollowUpsModal modalInner">
+            <div className={followModalWrapper}>
               <div className="modalTitle">
                 <div className="backArrow" onClick={this.backToList}>
                   <img src={arrow_back} alt="Go Back" />
@@ -947,7 +961,7 @@ export default class SalesFollowUps extends Component {
           );
         } else {
           return (
-            <div className="FollowUpsModal modalInner">
+            <div className={followModalWrapper}>
               <div className="modalTitle">
                 <div className="backArrow" onClick={this.backToList}>
                   <img src={arrow_back} alt="Go Back" />
@@ -1026,8 +1040,13 @@ export default class SalesFollowUps extends Component {
 
     let finalDate = (lastContact.getMonth() + 1) + '/' + lastContact.getDate() + '/' + lastContact.getFullYear();
 
+    let followClasses = 'followUpItem';
+    if (followUps.fields['Proposal Type'] === 'No-Visit') {
+      followClasses += ' noVisit';
+    }
+
     return (
-      <div className="followUpItem" onClick={()=>this.openFollowUp(followUps, followType)}>
+      <div className={followClasses} onClick={()=>this.openFollowUp(followUps, followType)}>
         <p>{finalDate}</p>
         <h2>{followUps.fields['Company Name']}</h2>
       </div>
@@ -1038,8 +1057,13 @@ export default class SalesFollowUps extends Component {
     lastContact = new Date(lastContact.getTime() + Math.abs(lastContact.getTimezoneOffset()*60000));
     let finalDate = (lastContact.getMonth() + 1) + '/' + lastContact.getDate() + '/' + lastContact.getFullYear();
 
+    let followClasses = 'followUpItem missed';
+    if (followUps.fields['Proposal Type'] === 'No-Visit') {
+      followClasses += ' noVisit';
+    }
+
     return (
-      <div className="followUpItem missed" onClick={()=>this.openFollowUp(followUps, followType)}>
+      <div className={followClasses} onClick={()=>this.openFollowUp(followUps, followType)}>
         <p>{finalDate}</p>
         <h2>{followUps.fields['Company Name']}</h2>
       </div>
@@ -1050,8 +1074,13 @@ export default class SalesFollowUps extends Component {
     lastContact = new Date(lastContact.getTime() + Math.abs(lastContact.getTimezoneOffset()*60000));
     let finalDate = (lastContact.getMonth() + 1) + '/' + lastContact.getDate() + '/' + lastContact.getFullYear();
 
+    let followClasses = 'followUpItem blown';
+    if (followUps.fields['Proposal Type'] === 'No-Visit') {
+      followClasses += ' noVisit';
+    }
+
     return (
-      <div className="followUpItem blown" onClick={()=>this.openFollowUp(followUps, followType)}>
+      <div className={followClasses} onClick={()=>this.openFollowUp(followUps, followType)}>
         <h2>{followUps.fields['Company Name']}</h2>
       </div>
     );

@@ -684,6 +684,7 @@
     border-radius: 3px;
     padding: 12px;
     overflow: hidden;
+    position: relative;
     border: solid 1px $primary;
 
     &.blown {
@@ -720,6 +721,27 @@
       opacity: 0.4;
       letter-spacing: 0.5px;
       line-height: 11px;
+    }
+
+    &.noVisit {
+      padding-left: 20px;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: $tertiary;
+        border-radius: 100px;
+        top: 50%;
+        left: 6px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  &.noVisitHide {
+    .noVisit {
+      display: none;
     }
   }
 }

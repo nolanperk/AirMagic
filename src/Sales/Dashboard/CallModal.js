@@ -20,6 +20,7 @@ import CallModalActive from './CallModalActive';
 import CallModalApptQuestion from './CallModalApptQuestion';
 
 import CallModalSetAppt from './CallModalSetAppt';
+import CallModalNoVisit from './CallModalNoVisit';
 import CallModalNoAppt from './CallModalNoAppt';
 import CallModalSalesNote from './CallModalSalesNote';
 import CallModalCallBack from './CallModalCallBack';
@@ -47,11 +48,12 @@ export default class CallModal extends Component {
       this.setState({
         viewType: 'activeCall'
       })
-    } else if (this.state.viewType === 'setAppt' || this.state.viewType === 'noAppt') {
+    } else if (this.state.viewType === 'setAppt' || this.state.viewType === 'noAppt' || this.state.viewType === 'noVisit') {
       let logData = this.state.logData;
       logData['Appt. Set By'] = undefined;
       logData['Appt. Set Date'] = undefined;
       logData['Status'] = undefined;
+      logData['Proposal Type'] = undefined;
 
       this.setState({
         logData: logData,
@@ -62,9 +64,16 @@ export default class CallModal extends Component {
         viewType: 'noAppt'
       })
     } else if (this.state.viewType === 'salesNote') {
-      this.setState({
-        viewType: 'setAppt'
-      })
+      let logData = this.state.logData;
+      if (logData['Proposal Type'] === 'No-Visit') {
+        this.setState({
+          viewType: 'noVisit'
+        })
+      } else {
+        this.setState({
+          viewType: 'setAppt'
+        })
+      }
     }
   }
 
@@ -116,7 +125,7 @@ export default class CallModal extends Component {
         })
       }
     } else if (this.state.viewType === 'apptQuestion') {
-      if (e.target.id === 'setAppt') {
+      if (e.target.id === 'setAppt' || e.target.id === 'noVisit') {
         if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
           logData['Appt. Set By'] = localStorage.getItem('userName');
         } else {
@@ -125,6 +134,12 @@ export default class CallModal extends Component {
         logData['Appt. Set Date'] = today;
         logData['Status'] = 'Appointment Set';
       }
+      if (e.target.id === 'noVisit') {
+        logData['Proposal Type'] = 'No-Visit';
+      } else if (e.target.id === 'setAppt' ) {
+        logData['Proposal Type'] = 'Visited';
+      }
+
       if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
         logData['Recent Caller'] = localStorage.getItem('userName');
       } else {
@@ -137,7 +152,7 @@ export default class CallModal extends Component {
         logData: logData,
         viewType: e.target.id
       })
-    } else if (this.state.viewType === 'setAppt') {
+    } else if (this.state.viewType === 'setAppt' || this.state.viewType === 'noVisit') {
       this.setState({
         viewType: 'salesNote'
       })
@@ -178,7 +193,12 @@ export default class CallModal extends Component {
       this.setState({
         logData: logData,
       })
-      this.props.logCall(this.state.logData, 'setAppt');
+
+      if (logData['Proposal Type'] === 'No-Visit') {
+        this.props.logCall(this.state.logData, 'noVisit');
+      } else {
+        this.props.logCall(this.state.logData, 'setAppt');
+      }
     } else if (this.state.viewType === 'noAppt') {
       let callItem = {
         target: {
@@ -351,11 +371,9 @@ export default class CallModal extends Component {
               {fields['Extension'] ? <h4>{fields['Main contact']}</h4> : ''}
             </div>
 
-            <a href={phoneLink}>
               <div className="navIcon softGrad--secondary"  onClick={() => { this.props.callNext() }}>
                 <img src={phoneImg} alt="call" />
               </div>
-            </a>
           </div>
         </div>
       );
@@ -374,11 +392,9 @@ export default class CallModal extends Component {
               <h4>{fields['Cell Phone']}</h4>
             </div>
 
-            <a href={phoneLink}>
               <div className="navIcon softGrad--secondary"  onClick={() => { this.props.callNext() }}>
                 <img src={phoneImg} alt="call" />
               </div>
-            </a>
           </div>
         </div>
       );
@@ -411,6 +427,17 @@ export default class CallModal extends Component {
     } else if (this.state.viewType === 'apptQuestion') {
       return (
         <CallModalApptQuestion
+          openedCall = {this.props.openedCall}
+          changeRecordHandler = {this.props.changeRecordHandler}
+          selectChange = {this.props.selectChange}
+          callNext = {this.callNext}
+          handleDayClick={this.props.handleDayClick}
+          toggleDayPicker={this.props.toggleDayPicker}
+        />
+      )
+    } else if (this.state.viewType === 'noVisit') {
+      return (
+        <CallModalNoVisit
           openedCall = {this.props.openedCall}
           changeRecordHandler = {this.props.changeRecordHandler}
           selectChange = {this.props.selectChange}

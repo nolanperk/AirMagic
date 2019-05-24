@@ -72,7 +72,11 @@ hr {
     padding: 2vw;
   }
   .NotesList {
-    padding: 7vw 7% 6.5vw;
+    padding: 6.5vw 7%;
+
+    &:focus {
+      padding: 6.5vw 7%;
+    }
   }
 }
 .RightPanel {
@@ -159,6 +163,19 @@ hr {
       .btn {
         width: 100%;
         text-align: center;
+      }
+
+      &.split {
+        .btn {
+          width: 49%;
+          text-align: center;
+          display: inline-block;
+          padding: 10px 20px;
+
+          &:last-child {
+            margin-left: 2%;
+          }
+        }
       }
     }
     .scrollList {

@@ -1,0 +1,141 @@
+.ManageDash {
+  background: #F5FAFA;
+
+  .DashData {
+    position: absolute;
+    width: 75%;
+    height: calc(100% - 75px);
+    bottom: 0;
+    padding: 4vw 5vw;
+    overflow-y: scroll;
+
+    .RegionWrapper {
+      margin-bottom: 4vw;
+
+      .pointSet {
+        font-size: 0;
+        .pointCard {
+          display: inline-block;
+          margin: 5px;
+          background: $white;
+          padding: 2.2vw;
+          border-radius: 10px;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+
+          .content, img {
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          img {
+            width: 3vw;
+            margin-right: 8px;
+          }
+
+          .content {
+            p {
+              font-size: 0.9vw;
+              line-height: 0.9vw;
+              opacity: 0.5;
+            }
+            h4 {
+              font-size: 1.5vw;
+              line-height: 1.5vw;
+            }
+          }
+        }
+      }
+
+      .graphSet {
+        .graphCard {
+          display: inline-block;
+          margin: 5px;
+          background: $white;
+          padding: 1.5vw 2.2vw;
+          border-radius: 10px;
+          box-shadow: 0 3px 10px rgba($black, 0.06);
+
+
+          &.clickable {cursor: pointer;}
+        }
+      }
+    }
+
+
+
+    &.salesData {
+      .pointSet .pointCard {
+        width: 49%;
+        margin: 1vw 0;
+        margin-right: 2%;
+        &:nth-child(even) {
+          margin-right: 0;
+        }
+      }
+
+
+      .dataSet {
+        margin: 0.5vw 0;
+        border-radius: 10px;
+        padding: 1vw 1.5vw;
+        background: #ebf0f0;
+      }
+      .dataItem {
+        display: inline-block;
+        text-align: center;
+        margin: 5px;
+        background: $white;
+        padding: 1.25vw 1.5vw;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba($black, 0.06);
+
+        p {
+          font-size: 0.9vw;
+          line-height: 0.9vw;
+          opacity: 0.5;
+        }
+        h4 {
+          font-size: 1.25vw;
+          line-height: 1.25vw;
+        }
+      }
+
+
+
+      .monthSelector {
+        background: $white;
+        padding: 2.2vw;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        margin-bottom: 2vw;
+
+        .selectorInner {
+          display: flex;
+          flex-direction: row;
+
+          .month {
+            font-size: 12px;
+            flex: 1 1 0;
+            text-align: center;
+            padding: 12px 0px;
+            line-height: 12px;
+
+            border: solid 1px $black;
+            border-left: 0;
+            border-right: 0;
+            cursor: pointer;
+
+            &.mon-0 {border-left: solid 1px $black; padding-left: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+            &.mon-11 {border-right: solid 1px $black; padding-right: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+
+            &.isActive {
+              background: $black;
+              color: $white;
+              font-weight: 900;
+            }
+          }
+        }
+      }
+    }
+  }
+}

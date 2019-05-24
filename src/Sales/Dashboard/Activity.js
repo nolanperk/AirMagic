@@ -27,6 +27,7 @@ export default class Activity extends Component {
     if (recentActivity['Status'] === 'APPC') {
       return (
         <div className={recentActivity['Recent Date'] ? 'activityItem' : 'activityItem hide'}>
+          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel APPC'>
             <div class="inner">
               <p className="numberLabel">${recentActivity['Monthly Amount']}</p>
@@ -46,6 +47,7 @@ export default class Activity extends Component {
     } else if (recentActivity['Status'] === 'Closed') {
       return (
         <div className='activityItem'>
+          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel Closed'>
             <div class="inner">
               <p className="numberLabel">${recentActivity['Monthly Amount']}</p>
@@ -65,6 +67,7 @@ export default class Activity extends Component {
     } else {
       return (
         <div className='activityItem'>
+          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel Appt'>
             <div class="inner centeredIt">
               <p className="typeLabel">Appt. Set</p>

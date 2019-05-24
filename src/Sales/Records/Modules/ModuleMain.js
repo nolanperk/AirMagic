@@ -85,9 +85,12 @@ export default class ModuleMain extends Component {
     let rep = this.props.rep;
 
     let company = this.props.company;
+    let phone = this.props.phone;
     let googleURL = 'https://www.google.com/search?q=';
-
     googleURL += company;
+
+    let googlePhoneURL = 'https://www.google.com/search?q=';
+    googlePhoneURL += phone;
     let industry = this.props.industry;
     let category = this.props.category;
     let callDate = this.props.callDate;
@@ -142,6 +145,7 @@ export default class ModuleMain extends Component {
                 <option id="In+Contract">In Contract</option>
                 <option id="Landlord+Does">Landlord Does</option>
                 <option id="Call+Back">Call Back</option>
+                <option id="Call+Corporate+Office">Call Corporate Office</option>
                 <option disabled>------------</option>
                 <option disabled>Issues</option>
                 <option id="Disconnected">Disconnected</option>
@@ -158,7 +162,7 @@ export default class ModuleMain extends Component {
               className="selectBlock"
               id="recentCaller"
               >
-              <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
+              <select id="callerSelect"  value={recentCaller} onChange={this.props.callerChange}>
                 <option id="none"></option>
                 <option id="Carla+Milian">Carla Milian</option>
                 <option id="Shana+Thorn">Shana Thorn</option>
@@ -201,8 +205,9 @@ export default class ModuleMain extends Component {
             </div>
           </div>
 
-          <div className="cardTag">
-            <a className="btn softGrad--primary" href={googleURL} target="_blank">Google Company</a>
+          <div className="cardTag split">
+            <a className="btn softGrad--primary" href={googleURL} target="_blank">Search Name</a>
+            <a className="btn softGrad--black" href={googlePhoneURL} target="_blank">Search #</a>
           </div>
         </div>
       );
@@ -256,6 +261,7 @@ export default class ModuleMain extends Component {
                   <option id="In+Contract">In Contract</option>
                   <option id="Landlord+Does">Landlord Does</option>
                   <option id="Call+Back">Call Back</option>
+                  <option id="Call+Corporate+Office">Call Corporate Office</option>
                   <option disabled>------------</option>
                   <option disabled>Issues</option>
                   <option id="Disconnected">Disconnected</option>
@@ -272,7 +278,7 @@ export default class ModuleMain extends Component {
                 className="selectBlock"
                 id="recentCaller"
                 >
-                <select id="callerSelect"  value={this.state.recentCallerValue} onChange={this.recentCallerChange}>
+                <select id="callerSelect"  value={recentCaller} onChange={this.props.callerChange}>
                   <option id="none"></option>
                   <option id="Carla+Milian">Carla Milian</option>
                   <option id="Shana+Thorn">Shana Thorn</option>
@@ -360,6 +366,11 @@ export default class ModuleMain extends Component {
                   <option>Residential Living</option>
 
                   <option disabled>--------</option>
+                  <option>Dealership</option>
+                  <option>Property Manager</option>
+                  <option>Multi-Tenant Building</option>
+
+                  <option disabled>--------</option>
                   <option>School</option>
                   <option>Daycare / VPK</option>
 
@@ -369,6 +380,7 @@ export default class ModuleMain extends Component {
                   <option disabled>--------</option>
                   <option>Restaurant</option>
                   <option>Bar</option>
+                  <option>Gym</option>
                 </select>
               </div>
             </div>
@@ -382,8 +394,9 @@ export default class ModuleMain extends Component {
               />
             </div>
 
-            <div className="cardTag">
-              <a className="btn softGrad--primary" href={googleURL} target="_blank">Google Company</a>
+            <div className="cardTag split">
+              <a className="btn softGrad--primary" href={googleURL} target="_blank">Search Name</a>
+              <a className="btn softGrad--black" href={googlePhoneURL} target="_blank">Search #</a>
             </div>
           </div>
       );
