@@ -33,6 +33,37 @@ export default class CallModal extends Component {
       logData: {},
       goodLuck: '',
       notepad: '',
+      hasActive: false,
+      actives: {}
+    }
+  }
+
+
+  scrubCheck = () => {
+    console.log(this.props.openedCall);
+
+    let companyName = this.props.openedCall.fields['Company Name'];
+    let address = this.props.openedCall.fields['Address 1'];
+    let phone = this.props.openedCall.fields['Office Phone'];
+    let cell = this.props.openedCall.fields['Cell Phone'];
+
+    let baseId;
+      if (this.props.generatedView === 'tampa') {
+        baseId = 'apps7GoAgK23yrOoY';
+      } else if(this.props.generatedView === 'orlando') {
+        baseId = 'appBUKBn552B8SlbE';
+      }
+
+    let finalURL = 'https://api.airtable.com/v0/' + baseId + '/Customers?view=All+Actives';
+
+    if (phone) {
+      finalURL += '&filterByFormula=' + "IF(%7BOffice+Phone%7D+%3D+'" + phone + "')";
+    }
+    if (address) {
+      finalURL += '&filterByFormula=' + "IF(%7BAddress+1%7D+%3D+'" + address + "')";
+    }
+    if (companyName) {
+      finalURL += '&filterByFormula=' + "IF(%7BAddress+1%7D+%3D+'" + companyName + "')";
     }
   }
 
@@ -126,7 +157,7 @@ export default class CallModal extends Component {
       }
     } else if (this.state.viewType === 'apptQuestion') {
       if (e.target.id === 'setAppt' || e.target.id === 'noVisit') {
-        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
           logData['Appt. Set By'] = localStorage.getItem('userName');
         } else {
           logData['Appt. Set By'] = '';
@@ -140,7 +171,7 @@ export default class CallModal extends Component {
         logData['Proposal Type'] = 'Visited';
       }
 
-      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
         logData['Recent Caller'] = localStorage.getItem('userName');
       } else {
         logData['Recent Caller'] = '';
@@ -233,6 +264,10 @@ export default class CallModal extends Component {
       this.props.logCall(this.state.logData, 'noAppt');
     }
   }
+
+  // componentDidMount() {
+  //   this.scrubCheck();
+  // }
 
   // Render
   // ----------------------------------------------------
@@ -411,6 +446,8 @@ export default class CallModal extends Component {
           callNext = {this.callNext}
           handleDayClick={this.props.handleDayClick}
           toggleDayPicker={this.props.toggleDayPicker}
+          hasActive={this.state.hasActive}
+          actives={this.state.actives}
         />
       )
     } else if (this.state.viewType === 'activeCall') {

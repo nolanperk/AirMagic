@@ -1923,10 +1923,12 @@ hr {
       padding: 8px 15px;
       border-radius: 100px;
       color: #fff; }
-      .logCall.TicketModal .inner .modalTitle h4 em span.Carla {
+      .logCall.TicketModal .inner .modalTitle h4 em span.Mariyah {
         background: #C31F2F; }
-      .logCall.TicketModal .inner .modalTitle h4 em span.Jett {
+      .logCall.TicketModal .inner .modalTitle h4 em span.Paula {
         background: #1FC26A; }
+      .logCall.TicketModal .inner .modalTitle h4 em span.Jett {
+        background: #131313; }
       .logCall.TicketModal .inner .modalTitle h4 em span.Shana {
         background: #407ae6; }
   .logCall.TicketModal .inputGroup {
@@ -3664,82 +3666,82 @@ hr {
   opacity: 0; }
   .confetti-piece:nth-child(1) {
     left: 7%;
-    transform: rotate(30deg);
+    transform: rotate(-43deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 233ms;
-    animation-duration: 1027ms; }
+    animation-delay: 123ms;
+    animation-duration: 711ms; }
   .confetti-piece:nth-child(2) {
     left: 14%;
-    transform: rotate(-23deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 8ms;
-    animation-duration: 1159ms; }
-  .confetti-piece:nth-child(3) {
-    left: 21%;
-    transform: rotate(63deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 374ms;
-    animation-duration: 937ms; }
-  .confetti-piece:nth-child(4) {
-    left: 28%;
-    transform: rotate(76deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 118ms;
-    animation-duration: 760ms; }
-  .confetti-piece:nth-child(5) {
-    left: 35%;
-    transform: rotate(-61deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 249ms;
-    animation-duration: 1121ms; }
-  .confetti-piece:nth-child(6) {
-    left: 42%;
-    transform: rotate(30deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 14ms;
-    animation-duration: 847ms; }
-  .confetti-piece:nth-child(7) {
-    left: 49%;
-    transform: rotate(8deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 364ms;
-    animation-duration: 970ms; }
-  .confetti-piece:nth-child(8) {
-    left: 56%;
-    transform: rotate(-13deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 279ms;
-    animation-duration: 1045ms; }
-  .confetti-piece:nth-child(9) {
-    left: 63%;
-    transform: rotate(-9deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 67ms;
-    animation-duration: 1118ms; }
-  .confetti-piece:nth-child(10) {
-    left: 70%;
-    transform: rotate(-50deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 139ms;
-    animation-duration: 1002ms; }
-  .confetti-piece:nth-child(11) {
-    left: 77%;
     transform: rotate(-28deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 118ms;
-    animation-duration: 764ms; }
+    animation-delay: 434ms;
+    animation-duration: 1035ms; }
+  .confetti-piece:nth-child(3) {
+    left: 21%;
+    transform: rotate(23deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 157ms;
+    animation-duration: 928ms; }
+  .confetti-piece:nth-child(4) {
+    left: 28%;
+    transform: rotate(55deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 353ms;
+    animation-duration: 1057ms; }
+  .confetti-piece:nth-child(5) {
+    left: 35%;
+    transform: rotate(59deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 483ms;
+    animation-duration: 1084ms; }
+  .confetti-piece:nth-child(6) {
+    left: 42%;
+    transform: rotate(-7deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 154ms;
+    animation-duration: 848ms; }
+  .confetti-piece:nth-child(7) {
+    left: 49%;
+    transform: rotate(-33deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 70ms;
+    animation-duration: 985ms; }
+  .confetti-piece:nth-child(8) {
+    left: 56%;
+    transform: rotate(77deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 210ms;
+    animation-duration: 953ms; }
+  .confetti-piece:nth-child(9) {
+    left: 63%;
+    transform: rotate(14deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 11ms;
+    animation-duration: 911ms; }
+  .confetti-piece:nth-child(10) {
+    left: 70%;
+    transform: rotate(69deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 446ms;
+    animation-duration: 942ms; }
+  .confetti-piece:nth-child(11) {
+    left: 77%;
+    transform: rotate(-65deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 443ms;
+    animation-duration: 891ms; }
   .confetti-piece:nth-child(12) {
     left: 84%;
-    transform: rotate(61deg);
+    transform: rotate(34deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 325ms;
-    animation-duration: 924ms; }
+    animation-delay: 337ms;
+    animation-duration: 731ms; }
   .confetti-piece:nth-child(13) {
     left: 91%;
-    transform: rotate(-12deg);
+    transform: rotate(0deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 213ms;
-    animation-duration: 1135ms; }
+    animation-delay: 124ms;
+    animation-duration: 1018ms; }
   .confetti-piece:nth-child(odd) {
     background: #17d3ff; }
   .confetti-piece:nth-child(even) {
@@ -3850,13 +3852,6 @@ hr {
           color: #fff;
           border: solid 1px #131313;
           cursor: default; }
-      .CallListContainer .CallList .rightCol #cold-orlando {
-        margin-left: 0px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0; }
-      .CallListContainer .CallList .rightCol #cold-tampa {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0; }
     .CallListContainer .CallList .CallListBox {
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       background: #fff;
@@ -3868,6 +3863,13 @@ hr {
       text-align: left; }
       .CallListContainer .CallList .CallListBox.isHidden {
         display: none; }
+      .CallListContainer .CallList .CallListBox #cold-orlando {
+        margin-left: 0px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+      .CallListContainer .CallList .CallListBox #cold-tampa {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
       .CallListContainer .CallList .CallListBox .cold-orlando, .CallListContainer .CallList .CallListBox .cold-tampa {
         display: none; }
         .CallListContainer .CallList .CallListBox .cold-orlando.isActive, .CallListContainer .CallList .CallListBox .cold-tampa.isActive {
@@ -4004,12 +4006,14 @@ hr {
         display: inline-block;
         color: #fff;
         font-weight: bold; }
-      .ActivityWrapper .activityItem .activityContent .inside.Carla {
+      .ActivityWrapper .activityItem .activityContent .inside.Mariyah {
         background: #C31F2F; }
+      .ActivityWrapper .activityItem .activityContent .inside.Paula {
+        background: #1FC26A; }
       .ActivityWrapper .activityItem .activityContent .inside.Shana {
         background: #407ae6; }
       .ActivityWrapper .activityItem .activityContent .inside.Jett {
-        background: #1FC26A; }
+        background: #131313; }
       .ActivityWrapper .activityItem .activityContent .outside {
         color: #131313;
         margin-left: 4px;
@@ -4043,6 +4047,13 @@ hr {
     height: 90%;
     top: 5%;
     left: 4%; }
+    .callModal .modalBox .googleBtns {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center; }
+      .callModal .modalBox .googleBtns .btn {
+        margin: 0 0.25vw; }
     .callModal .modalBox .modalNav .titleArea {
       float: left;
       margin-top: 20px; }
@@ -4214,13 +4225,27 @@ hr {
                 display: none; }
         .callModal .modalBox .callBoxWrapper .callColumn.contact {
           flex-basis: 35%; }
-          .callModal .modalBox .callBoxWrapper .callColumn.contact .streetView {
+          .callModal .modalBox .callBoxWrapper .callColumn.contact .qualifyBox {
             position: absolute;
             width: 100%;
             height: 40%;
-            overflow: hidden;
             box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
             z-index: 2; }
+            .callModal .modalBox .callBoxWrapper .callColumn.contact .qualifyBox .streetView {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              overflow: hidden; }
+            .callModal .modalBox .callBoxWrapper .callColumn.contact .qualifyBox.hasActive .streetView {
+              width: 50%; }
+            .callModal .modalBox .callBoxWrapper .callColumn.contact .qualifyBox.hasActive .activeCheck {
+              position: absolute;
+              right: 0;
+              width: 50%;
+              height: 100%;
+              overflow: scroll;
+              background: white;
+              padding: 20px; }
           .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo {
             position: absolute;
             top: 40%;
@@ -4256,10 +4281,10 @@ hr {
                   opacity: 0.35;
                   font-weight: 600;
                   line-height: 12px; }
-                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard .content, .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > a {
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard .content, .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > .navIcon {
                   display: inline-block;
                   vertical-align: middle; }
-                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > a {
+                .callModal .modalBox .callBoxWrapper .callColumn.contact .contactInfo .contact .innerCard > .navIcon {
                   line-height: 0;
                   margin-left: 20px; }
           .callModal .modalBox .callBoxWrapper .callColumn.contact .innerCompare {

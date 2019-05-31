@@ -58,21 +58,58 @@ export default class CallModalIntro extends Component {
       document.getElementById('logNotes').innerHTML = logNotes;
     }).bind(this), 250);
 
-    return (
-      <div className="callColumn contact">
-        <div className="streetView" id="streetWindow">
-          <img src={this.state.streetViewSrc} alt=" " />
-        </div>
+    if (this.props.hasActive) {
+      return (
+        <div className="callColumn contact">
+          <div className="qualifyBox hasActive">
+            <div className="streetView" id="streetWindow">
+              <img src={this.state.streetViewSrc} alt=" " />
+            </div>
 
-        <div className="contactInfo">
-          {this.mainContact}
-          {this.altContact}
-          <br />
-          {this.phoneNumber}
-          {this.cellNumber}
+            <div className="activeCheck" id="">
+              <h4>Active Check</h4>
+              <h4>Duplicate Check</h4>
+            </div>
+          </div>
+
+          <div className="contactInfo">
+            {this.mainContact}
+            {this.altContact}
+            <br />
+            {this.phoneNumber}
+            {this.cellNumber}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+
+      let googleURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Company Name'];
+      let googlePhoneURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Office Phone'];
+
+      return (
+        <div className="callColumn contact">
+          <div className="qualifyBox">
+            <div className="streetView" id="streetWindow">
+              <img src={this.state.streetViewSrc} alt=" " />
+
+
+              <div className="googleBtns split">
+                <a className="btn softGrad--primary" href={googleURL} target="_blank">Search Name</a>
+                <a className="btn softGrad--black" href={googlePhoneURL} target="_blank">Search #</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="contactInfo">
+            {this.mainContact}
+            {this.altContact}
+            <br />
+            {this.phoneNumber}
+            {this.cellNumber}
+          </div>
+        </div>
+      );
+    }
   }
 
   get mainContact() {
@@ -118,11 +155,9 @@ export default class CallModalIntro extends Component {
               {fields['Extension'] ? <h4>{fields['Main contact']}</h4> : ''}
             </div>
 
-            <a href={phoneLink}  onClick={() => { this.props.callNext() }}>
               <div className="navIcon softGrad--secondary"  onClick={() => { this.props.callNext() }}>
                 <img src={phoneImg} alt="call" />
               </div>
-            </a>
           </div>
         </div>
       );
@@ -141,11 +176,9 @@ export default class CallModalIntro extends Component {
               <h4>{fields['Cell Phone']}</h4>
             </div>
 
-            <a href={phoneLink}  onClick={() => { this.props.callNext() }}>
               <div className="navIcon softGrad--secondary"  onClick={() => { this.props.callNext() }}>
                 <img src={phoneImg} alt="call" />
               </div>
-            </a>
           </div>
         </div>
       );

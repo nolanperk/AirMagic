@@ -164,13 +164,15 @@ export default class ModuleMain extends Component {
               >
               <select id="callerSelect"  value={recentCaller} onChange={this.props.callerChange}>
                 <option id="none"></option>
-                <option id="Carla+Milian">Carla Milian</option>
                 <option id="Shana+Thorn">Shana Thorn</option>
+                <option id="Mariyah+Moore">Mariyah Moore</option>
+                <option id="Paula+Anderson">Paula Anderson</option>
                 <option id="Jett">Jett</option>
                 <option id="Jason">Jason</option>
                 <option id="Justin">Justin</option>
                 <option id="Mike">Mike</option>
                 <option disabled>----------</option>
+                <option id="Carla+Milian">Carla Milian</option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
               </select>
@@ -280,13 +282,15 @@ export default class ModuleMain extends Component {
                 >
                 <select id="callerSelect"  value={recentCaller} onChange={this.props.callerChange}>
                   <option id="none"></option>
-                  <option id="Carla+Milian">Carla Milian</option>
                   <option id="Shana+Thorn">Shana Thorn</option>
+                  <option id="Mariyah+Moore">Mariyah Moore</option>
+                  <option id="Paula+Anderson">Paula Anderson</option>
                   <option id="Jett">Jett</option>
                   <option id="Jason">Jason</option>
                   <option id="Justin">Justin</option>
                   <option id="Mike">Mike</option>
                   <option disabled>----------</option>
+                  <option id="Carla+Milian">Carla Milian</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>
                   <option id="Eric+Kleeman">Eric Kleeman</option>
                 </select>

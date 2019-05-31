@@ -752,6 +752,28 @@ export default class ManageDashboard extends Component {
 
           over500: [0,0,0,0,0,0,0,0,0,0,0,0],
         },
+        mariyah: {
+          apptCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+          proposalCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+          closeCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+
+          proposalVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+          closeVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+          startVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+
+          over500: [0,0,0,0,0,0,0,0,0,0,0,0],
+        },
+        paula: {
+          apptCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+          proposalCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+          closeCount: [0,0,0,0,0,0,0,0,0,0,0,0],
+
+          proposalVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+          closeVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+          startVolume: [0,0,0,0,0,0,0,0,0,0,0,0],
+
+          over500: [0,0,0,0,0,0,0,0,0,0,0,0],
+        },
         jett: {
           apptCount: [0,0,0,0,0,0,0,0,0,0,0,0],
           proposalCount: [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -861,6 +883,28 @@ export default class ManageDashboard extends Component {
 
           if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.shana.over500[proposalMonth] += 1;  } }
         }
+        if (insideRep === 'Mariyah Moore') {
+          if(apptYear === todaysYear) {  salesData.mariyah.apptCount[apptMonth] += 1;  }
+          if(proposalYear === todaysYear) {  salesData.mariyah.proposalCount[proposalMonth] += 1;  }
+          if(closeYear === todaysYear) { salesData.mariyah.closeCount[closeMonth] += 1;  }
+
+          if(proposalYear === todaysYear) {  salesData.mariyah.proposalVolume[proposalMonth] += itemAmount;  }
+          if(closeYear === todaysYear) { salesData.mariyah.closeVolume[closeMonth] += itemAmount;  }
+          if(startYear === todaysYear) { salesData.mariyah.startVolume[startMonth] += itemAmount;  }
+
+          if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.mariyah.over500[proposalMonth] += 1;  } }
+        }
+        if (insideRep === 'Paula Anderson') {
+          if(apptYear === todaysYear) {  salesData.paula.apptCount[apptMonth] += 1;  }
+          if(proposalYear === todaysYear) {  salesData.paula.proposalCount[proposalMonth] += 1;  }
+          if(closeYear === todaysYear) { salesData.paula.closeCount[closeMonth] += 1;  }
+
+          if(proposalYear === todaysYear) {  salesData.paula.proposalVolume[proposalMonth] += itemAmount;  }
+          if(closeYear === todaysYear) { salesData.paula.closeVolume[closeMonth] += itemAmount;  }
+          if(startYear === todaysYear) { salesData.paula.startVolume[startMonth] += itemAmount;  }
+
+          if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.paula.over500[proposalMonth] += 1;  } }
+        }
         if (insideRep === 'Jett') {
           if(apptYear === todaysYear) {  salesData.jett.apptCount[apptMonth] += 1; }
           if(proposalYear === todaysYear) {  salesData.jett.proposalCount[proposalMonth] += 1; }
@@ -964,6 +1008,28 @@ export default class ManageDashboard extends Component {
           if(startYear === todaysYear) { salesData.shana.startVolume[startMonth] += itemAmount;  }
 
           if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.shana.over500[proposalMonth] += 1;  } }
+        }
+        if (insideRep === 'Mariyah Moore') {
+          if(apptYear === todaysYear) {  salesData.mariyah.apptCount[apptMonth] += 1;  }
+          if(proposalYear === todaysYear) {  salesData.mariyah.proposalCount[proposalMonth] += 1;  }
+          if(closeYear === todaysYear) { salesData.mariyah.closeCount[closeMonth] += 1;  }
+
+          if(proposalYear === todaysYear) {  salesData.mariyah.proposalVolume[proposalMonth] += itemAmount;  }
+          if(closeYear === todaysYear) { salesData.mariyah.closeVolume[closeMonth] += itemAmount;  }
+          if(startYear === todaysYear) { salesData.mariyah.startVolume[startMonth] += itemAmount;  }
+
+          if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.mariyah.over500[proposalMonth] += 1;  } }
+        }
+        if (insideRep === 'Paula Anderson') {
+          if(apptYear === todaysYear) {  salesData.paula.apptCount[apptMonth] += 1;  }
+          if(proposalYear === todaysYear) {  salesData.paula.proposalCount[proposalMonth] += 1;  }
+          if(closeYear === todaysYear) { salesData.paula.closeCount[closeMonth] += 1;  }
+
+          if(proposalYear === todaysYear) {  salesData.paula.proposalVolume[proposalMonth] += itemAmount;  }
+          if(closeYear === todaysYear) { salesData.paula.closeVolume[closeMonth] += itemAmount;  }
+          if(startYear === todaysYear) { salesData.paula.startVolume[startMonth] += itemAmount;  }
+
+          if (itemAmount >= 500) { if(proposalYear === todaysYear) { salesData.paula.over500[proposalMonth] += 1;  } }
         }
         if (insideRep === 'Jett' || insideRep === 'Justin' || insideRep === 'Jason' || insideRep === 'Mike') {
           if(apptYear === todaysYear) {  salesData.jett.apptCount[apptMonth] += 1; }

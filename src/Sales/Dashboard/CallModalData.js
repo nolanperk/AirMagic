@@ -256,8 +256,9 @@ export default class CallModalStart extends Component {
                   <option disabled>---------------</option>
                   <option disabled>Inside Sales</option>
                   <option disabled>---------------</option>
-                  <option id="Carla+Milian">Carla Milian</option>
                   <option id="Shana+Thorn">Shana Thorn</option>
+                  <option id="Mariyah+Moore">Mariyah Moore</option>
+                  <option id="Paula+Anderson">Paula Anderson</option>
                   <option id="Jett">Jett</option>
                   <option id="Jason">Jason</option>
                   <option id="Justin">Justin</option>
@@ -276,6 +277,7 @@ export default class CallModalStart extends Component {
                   <option id="Incoming+Call">Incoming Call</option>
                   <option disabled>---------------</option>
                   <option disabled>Old</option>
+                  <option id="Carla+Milian">Carla Milian</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>
                   <option id="Eric+Kleeman">Eric Kleeman</option>
                   <option disabled>---------------</option>

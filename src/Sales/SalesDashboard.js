@@ -628,7 +628,7 @@ export default class Sales extends Component {
           }
           console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
           let generateArr = this.state.tampaGenerated;
-          let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+          let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
           return axios
             .get(customersURL).then(response => {
               this.setState({
@@ -813,7 +813,7 @@ export default class Sales extends Component {
           console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
 
           let generateArr = this.state.orlandoGenerated;
-          let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+          let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
           return axios
             .get(customersURL).then(response => {
               this.setState({
@@ -1247,10 +1247,21 @@ export default class Sales extends Component {
   }
 
   showModal = (e, i, r) => {
+    let activeId = '';
+    if (document.getElementById('cold-tampa').className === 'isActive') {
+      this.setState({
+        generatedView: 'tampa',
+      });
+    } else {
+      this.setState({
+        generatedView: 'orlando',
+      });
+    }
     this.setState({
       modal: true,
       openedCall: e,
       itemRegion: r,
+      generatedView: '',
     })
     if (i === 'qualify') {
       this.setState({
@@ -1795,7 +1806,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Paula' || slackSet === 'Mariyah') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.openedCall.fields['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.openedCall.fields['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.openedCall.fields['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set
@@ -2027,6 +2038,7 @@ export default class Sales extends Component {
             changeRecordHandler = {this.changeRecordHandler}
             selectChange = {this.selectChange}
             logCall = {this.logCall}
+            generatedView = {this.state.generatedView}
           />
         )
       }

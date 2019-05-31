@@ -396,6 +396,8 @@ export default class ModuleSales extends Component {
               <option disabled>---------------</option>
               <option id="Carla+Milian">Carla Milian</option>
               <option id="Shana+Thorn">Shana Thorn</option>
+              <option id="Mariyah+Moore">Mariyah Moore</option>
+              <option id="Paula+Anderson">Paula Anderson</option>
               <option disabled>---------------</option>
               <option id="Jett">Jett</option>
               <option id="Jason">Jason</option>
