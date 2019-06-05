@@ -622,9 +622,9 @@ export default class Sales extends Component {
 
           let randomNumb;
           if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
+            randomNumb = Math.floor(Math.random() * 6) + 1; //loads up to 4 from has stipulations
           } else {
-            randomNumb = Math.floor(Math.random() * 12) + 1 //loads up to 12 from green-lit
+            randomNumb = Math.floor(Math.random() * 16) + 1 //loads up to 12 from green-lit
           }
           console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
           let generateArr = this.state.tampaGenerated;
@@ -806,9 +806,9 @@ export default class Sales extends Component {
 
           let randomNumb;
           if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 1 from has stipulations
+            randomNumb = Math.floor(Math.random() * 2) + 1; //loads up to 1 from has stipulations
           } else {
-            randomNumb = Math.floor(Math.random() * 3) + 1 //loads up to 3 from green-lit
+            randomNumb = Math.floor(Math.random() * 6) + 1 //loads up to 5 from green-lit
           }
           console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
 
@@ -1029,6 +1029,7 @@ export default class Sales extends Component {
     }.bind(this);
 
     let propTheAreas = function() {
+
       let tampaActivity = this.state.recentActivityTampa;
       let orlandoActivity = this.state.recentActivityOrlando;
       for (var i in tampaActivity) {
@@ -1047,41 +1048,77 @@ export default class Sales extends Component {
         recentActivityTampa: tampaActivity,
         recentActivityOrlando: orlandoActivity,
       });
+
       finishActivity();
     }.bind(this);
 
 
 
     let finishActivity = function() {
+      console.log(this.state.recentActivityTampa);
+      console.log(this.state.recentActivityOrlando);
+
       let blendedActivity = this.state.recentActivityOrlando.concat(this.state.recentActivityTampa);
       console.log(blendedActivity);
 
       let recentActivity = [];
 
       for (var i in blendedActivity) {
-        let activityItem = blendedActivity[i].fields;
-        activityItem['Recent Date'] = blendedActivity[i].fields['Appt. Set Date'];
-
+        let activityItem = {
+          item: blendedActivity[i].fields,
+          date: '',
+          type: '',
+          region: '',
+        }
         let setDate;  if (blendedActivity[i].fields['Appt. Set Date']){setDate = new Date(blendedActivity[i].fields['Appt. Set Date'])}
+        let apptDate;  if (blendedActivity[i].fields['Appt. Date']){apptDate = new Date(blendedActivity[i].fields['Appt. Date'])}
         let propDate; if (blendedActivity[i].fields['Proposal Date']){propDate = new Date(blendedActivity[i].fields['Proposal Date'])}
         let closeDate;  if (blendedActivity[i].fields['Close Date']){closeDate = new Date(blendedActivity[i].fields['Close Date'])}
 
-        if (propDate > setDate) {
-          if (closeDate > propDate) {
-            activityItem['Recent Date'] = blendedActivity[i].fields['Close Date'];
+        if (setDate) {
+          if (propDate > setDate) {
+            if (closeDate > propDate) {
+              activityItem.type = 'close';
+              activityItem.date = closeDate;
+            } else {
+              activityItem.type = 'proposal';
+              activityItem.date = propDate;
+            }
           } else {
-            activityItem['Recent Date'] = blendedActivity[i].fields['Proposal Date'];
+            activityItem.type = 'appointment';
+            activityItem.date = setDate;
           }
+        } else if (apptDate) {
+          if (propDate > apptDate) {
+            if (closeDate > propDate) {
+              activityItem.type = 'close';
+              activityItem.date = closeDate;
+            } else {
+              activityItem.type = 'proposal';
+              activityItem.date = propDate;
+            }
+          } else {
+            activityItem.type = 'appointment';
+            activityItem.date = apptDate;
+          }
+        } else if (propDate) {
+          if (closeDate > propDate) {
+            activityItem.type = 'close';
+            activityItem.date = closeDate;
+          } else {
+            activityItem.type = 'proposal';
+            activityItem.date = propDate;
+          }
+        } else { //random close without appt or prop
+          activityItem.type = 'close';
+          activityItem.date = closeDate;
         }
         recentActivity.push(activityItem);
       }
 
       recentActivity.sort(function(a,b){
-        return new Date(b['Recent Date']) - new Date(a['Recent Date']);
+        return new Date(b.date) - new Date(a.date);
       });
-
-      // recentActivity.sort((a,b) => (new Date(a['Recent Date']) > new Date(b['Recent Date'])) ? 1 : ((new Date(b['Recent Date']) > new Date(a['Recent Date'])) ? -1 : 0));
-      // recentActivity.reverse();
 
       console.log(recentActivity);
 
@@ -1245,6 +1282,425 @@ export default class Sales extends Component {
       })
     }.bind(this);
   }
+
+
+
+
+
+
+  generateMore = () => {
+    this.setState({
+      loading: true,
+      tampaGenerated: [],
+      orlandoGenerated: [],
+      loadingText: 'Finding More Companies',
+    })
+    let finishZips = function() {
+      let tampaRegions = [];
+      let orlandoRegions = [];
+
+      for (var i in this.state.tampaZips) {
+        let thisZip = this.state.tampaZips[i];
+        let getRegion = thisZip.fields['Region'];
+
+        if (tampaRegions.find(x => x.region === thisZip.fields['Region'])) {
+          let rightRegion = tampaRegions.find(x => x.region === thisZip.fields['Region']);
+          rightRegion.zips.push(thisZip.fields['Zip']);
+        } else {
+          let pushObj = {
+            region: thisZip.fields['Region'],
+            zips: [thisZip.fields['Zip']],
+            stipulation: thisZip.fields['Has Stipulations'],
+          }
+          tampaRegions.push(pushObj);
+        }
+      }
+      for (var i in this.state.orlandoZips) {
+        let thisZip = this.state.orlandoZips[i];
+        let getRegion = thisZip.fields['Region'];
+
+        if (orlandoRegions.find(x => x.region === thisZip.fields['Region'])) {
+          let rightRegion = orlandoRegions.find(x => x.region === thisZip.fields['Region']);
+          rightRegion.zips.push(thisZip.fields['Zip']);
+        } else {
+          let pushObj = {
+            region: thisZip.fields['Region'],
+            zips: [thisZip.fields['Zip']],
+            stipulation: thisZip.fields['Has Stipulations'],
+          }
+          orlandoRegions.push(pushObj);
+        }
+      }
+      setTimeout((function() {
+        this.setState({
+          tampaRegions: tampaRegions,
+          orlandoRegions: orlandoRegions,
+        })
+        setTimeout((function() {
+          generateTampa();
+        }).bind(this), 50);
+      }).bind(this), 100);
+
+    }.bind(this);
+
+    let loadTampaZips = function() {
+      console.log('loadTampaZips');
+      let zipList = this.state.tampaZips;
+
+      let customersURL = 'https://api.airtable.com/v0/' + 'app284jwpxecMvNRZ' + '/' + 'Tampa?view=Callable';
+      if (this.state.regionOffset !== '') {customersURL = customersURL + '&offset=' + this.state.regionOffset;}
+
+      return axios
+        .get(customersURL).then(response => {
+          this.setState({
+            tampaZips: zipList.concat(response.data.records),
+            regionOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadTampaZips();
+        } else {
+          console.log('clearing loadTampaZips()');
+          this.setState({
+            regionOffset: '',
+          });
+          loadOrlandoZips();
+        }
+      });
+    }.bind(this);
+    loadTampaZips(); //run on load
+
+
+    let loadOrlandoZips = function() {
+      console.log('loadOrlandoZips');
+      let zipList = this.state.orlandoZips;
+
+      let customersURL = 'https://api.airtable.com/v0/' + 'app284jwpxecMvNRZ' + '/' + 'Orlando?view=Callable';
+      if (this.state.regionOffset !== '') {customersURL = customersURL + '&offset=' + this.state.regionOffset;}
+
+      return axios
+        .get(customersURL).then(response => {
+          this.setState({
+            orlandoZips: zipList.concat(response.data.records),
+            regionOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadOrlandoZips();
+        } else {
+          console.log('clearing loadOrlandoZips()');
+          this.setState({
+            regionOffset: '',
+          });
+          finishZips();
+        }
+      });
+    }.bind(this);
+
+
+    let generateTampa = function() {
+      let tampaRegionCount =  this.state.tampaRegions.length - 1;
+      let currentCount = 0;
+
+      let loadRegion = function() {
+        let regionFilter = 'OR(';
+        for (var i in this.state.tampaRegions[currentCount].zips) {
+          if (i === '0') {  regionFilter += 'FIND(' + this.state.tampaRegions[currentCount].zips[i] + '%2C+%7BZip%7D)';}
+          else { regionFilter += '%2C+FIND(' + this.state.tampaRegions[currentCount].zips[i] + '%2C+%7BZip%7D)'; }
+        }
+        regionFilter += ')';
+
+        let randomNumb;
+        if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
+          randomNumb = Math.floor(Math.random() * 3) + 1; //loads up to 4 from has stipulations
+        } else {
+          randomNumb = Math.floor(Math.random() * 9) + 1 //loads up to 12 from green-lit
+        }
+        console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
+        let generateArr = this.state.tampaGenerated;
+        let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+        return axios
+          .get(customersURL).then(response => {
+            this.setState({
+              tampaGenerated: generateArr.concat(response.data.records),
+            });
+            if (currentCount === tampaRegionCount) {
+              console.log(this.state.tampaGenerated);
+              finishTampa();
+              this.setState({
+                loadingText: 'Generating Orlando List',
+              })
+            } else {
+              this.setState({
+                loadingText: 'Generating from ' + this.state.tampaRegions[currentCount].region,
+              })
+              currentCount ++;
+              loadRegion();
+            }
+          });
+
+      }.bind(this);
+      loadRegion();
+
+    }.bind(this);
+
+
+    let finishTampa = function() {
+      let finalGenerated = {
+        tampa: {
+          x7: [],
+          x6: [],
+          x5: [],
+          x4: [],
+          x3: [],
+          x2: [],
+          x1: [],
+          unknown: [],
+        },
+        orlando: {
+          x7: [],
+          x6: [],
+          x5: [],
+          x4: [],
+          x3: [],
+          x2: [],
+          x1: [],
+          unknown: [],
+        },
+      };
+
+      let propedGenerated = [];
+      for (var i in this.state.tampaGenerated) {
+        let newitem = this.state.tampaGenerated[i];
+        newitem['Type'] = 'basic';
+        propedGenerated.push(newitem);
+      }
+
+      let newTampaGenerated = propedGenerated;
+
+      for (var i in newTampaGenerated) {
+        let pushRecord = newTampaGenerated[i].fields;
+        let pushRecordId = newTampaGenerated[i].id;
+
+        let generatedOn  = new Date();  generatedOn = (generatedOn.getMonth()+1) + '/' + generatedOn.getDate() + '/' + generatedOn.getFullYear();
+        // let insideRep = 'Carla Milian';
+        let insideRep = localStorage.getItem('userName');
+
+        pushRecord["Caller List"] = insideRep;
+        pushRecord["List Generated On"] = generatedOn;
+
+        let finalPush = {"fields": pushRecord}
+
+
+        if (pushRecord["Times per Week"] === '7x') {
+          finalGenerated.tampa.x7.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '6x') {
+          finalGenerated.tampa.x6.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '5x') {
+          finalGenerated.tampa.x5.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '4x') {
+          finalGenerated.tampa.x4.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '3x') {
+          finalGenerated.tampa.x3.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '2x') {
+          finalGenerated.tampa.x2.push(newTampaGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '1x') {
+          finalGenerated.tampa.x1.push(newTampaGenerated[i]);
+        } else {
+          finalGenerated.tampa.unknown.push(newTampaGenerated[i]);
+        }
+        if (pushRecord["Times per Week"] === '7x' || pushRecord["Times per Week"] === '6x' || pushRecord["Times per Week"] === '5x' || pushRecord["Times per Week"] === '4x' || pushRecord["Times per Week"] === '3x' || pushRecord["Times per Week"] === '2x' || pushRecord["Times per Week"] === '1x') {
+          axios.put(this.state.dataURL + this.state.tampaId + '/Sales/' + pushRecordId, finalPush);
+        }
+      }
+
+
+      let totalKnown = finalGenerated.tampa.x7.length + finalGenerated.tampa.x6.length + finalGenerated.tampa.x5.length + finalGenerated.tampa.x4.length + finalGenerated.tampa.x3.length + finalGenerated.tampa.x2.length + finalGenerated.tampa.x1.length;
+      let totalUnknown = finalGenerated.tampa.unknown.length;
+      let knownRatio = totalKnown/totalUnknown;
+
+      if (totalUnknown > (totalKnown*.7)) {
+        let finalUnknown = [];
+        for (var i in finalGenerated.tampa.unknown) {
+          if (Math.random() < ((totalKnown*.7)/totalUnknown)) {
+            finalUnknown.push(finalGenerated.tampa.unknown[i]);
+          }
+        }
+        finalGenerated.tampa.unknown = finalUnknown;
+      }
+
+      for (var i in finalGenerated.tampa.unknown) {
+        let pushRecord = finalGenerated.tampa.unknown[i].fields;
+        let pushRecordId = finalGenerated.tampa.unknown[i].id;
+        let finalPush = {"fields": pushRecord}
+        axios.put(this.state.dataURL + this.state.tampaId + '/Sales/' + pushRecordId, finalPush);
+      }
+
+      this.setState({
+        allGenerated: finalGenerated,
+        loadingText: 'Generating from ' + this.state.orlandoRegions[0].region,
+      });
+      setTimeout((function() {
+        console.log(this.state.allGenerated);
+      }).bind(this), 50);
+
+      generateOrlando();
+    }.bind(this);
+
+
+
+    let generateOrlando = function() {
+      let orlandoRegionCount =  this.state.orlandoRegions.length - 1;
+      let currentCount = 0;
+
+      let loadRegion = function() {
+        let regionFilter = 'OR(';
+        for (var i in this.state.orlandoRegions[currentCount].zips) {
+          if (i === '0') {  regionFilter += 'FIND(' + this.state.orlandoRegions[currentCount].zips[i] + '%2C+%7BZip%7D)';}
+          else { regionFilter += '%2C+FIND(' + this.state.orlandoRegions[currentCount].zips[i] + '%2C+%7BZip%7D)'; }
+        }
+        regionFilter += ')';
+
+        let randomNumb;
+        if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
+          randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 1 from has stipulations
+        } else {
+          randomNumb = Math.floor(Math.random() * 4) + 1 //loads up to 3 from green-lit
+        }
+        console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
+
+        let generateArr = this.state.orlandoGenerated;
+        let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+        return axios
+          .get(customersURL).then(response => {
+            this.setState({
+              orlandoGenerated: generateArr.concat(response.data.records),
+            });
+            if (currentCount === orlandoRegionCount) {
+              this.setState({
+                loadingText: 'Wrapping up...',
+              })
+              finishOrlando();
+            } else {
+              this.setState({
+                loadingText: 'Generating from ' + this.state.orlandoRegions[currentCount].region,
+              })
+              currentCount ++;
+              loadRegion();
+            }
+          });
+
+      }.bind(this);
+      loadRegion();
+
+    }.bind(this);
+
+
+    let finishOrlando = function() {
+      let finalGenerated = {
+        tampa: this.state.allGenerated.tampa,
+        orlando: {
+          x7: [],
+          x6: [],
+          x5: [],
+          x4: [],
+          x3: [],
+          x2: [],
+          x1: [],
+          unknown: [],
+        },
+      };
+      let propedGenerated = [];
+      for (var i in this.state.orlandoGenerated) {
+        let newitem = this.state.orlandoGenerated[i];
+        newitem['Type'] = 'basic';
+        propedGenerated.push(newitem);
+      }
+
+      let newOrlandoGenerated = propedGenerated;
+
+      for (var i in newOrlandoGenerated) {
+        let pushRecord = newOrlandoGenerated[i].fields;
+        let pushRecordId = newOrlandoGenerated[i].id;
+
+        let generatedOn  = new Date();  generatedOn = (generatedOn.getMonth()+1) + '/' + generatedOn.getDate() + '/' + generatedOn.getFullYear();
+        // let insideRep = 'Carla Milian';
+        let insideRep = localStorage.getItem('userName');
+
+        pushRecord["Caller List"] = insideRep;
+        pushRecord["List Generated On"] = generatedOn;
+
+        let finalPush = {"fields": pushRecord}
+
+
+
+        if (pushRecord["Times per Week"] === '7x') {
+          finalGenerated.orlando.x7.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '6x') {
+          finalGenerated.orlando.x6.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '5x') {
+          finalGenerated.orlando.x5.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '4x') {
+          finalGenerated.orlando.x4.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '3x') {
+          finalGenerated.orlando.x3.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '2x') {
+          finalGenerated.orlando.x2.push(newOrlandoGenerated[i]);
+        } else if (pushRecord["Times per Week"] === '1x') {
+          finalGenerated.orlando.x1.push(newOrlandoGenerated[i]);
+        } else {
+          finalGenerated.orlando.unknown.push(newOrlandoGenerated[i]);
+        }
+        if (pushRecord["Times per Week"] === '7x' || pushRecord["Times per Week"] === '6x' || pushRecord["Times per Week"] === '5x' || pushRecord["Times per Week"] === '4x' || pushRecord["Times per Week"] === '3x' || pushRecord["Times per Week"] === '2x' || pushRecord["Times per Week"] === '1x') {
+          axios.put(this.state.dataURL + this.state.orlandoId + '/Sales/' + pushRecordId, finalPush);
+        }
+      }
+
+      let totalKnown = finalGenerated.orlando.x7.length + finalGenerated.orlando.x6.length + finalGenerated.orlando.x5.length + finalGenerated.orlando.x4.length + finalGenerated.orlando.x3.length + finalGenerated.orlando.x2.length + finalGenerated.orlando.x1.length;
+      let totalUnknown = finalGenerated.orlando.unknown.length;
+      let knownRatio = totalKnown/totalUnknown;
+
+      if (totalUnknown > (totalKnown*.5)) {
+        let finalUnknown = [];
+        for (var i in finalGenerated.orlando.unknown) {
+          if (Math.random() < ((totalKnown*.5)/totalUnknown)) {
+            finalUnknown.push(finalGenerated.orlando.unknown[i]);
+          }
+        }
+        finalGenerated.orlando.unknown = finalUnknown;
+      }
+
+      for (var i in finalGenerated.orlando.unknown) {
+        let pushRecord = finalGenerated.orlando.unknown[i].fields;
+        let pushRecordId = finalGenerated.orlando.unknown[i].id;
+        let finalPush = {"fields": pushRecord}
+        axios.put(this.state.dataURL + this.state.orlandoId + '/Sales/' + pushRecordId, finalPush);
+      }
+
+
+      this.setState({
+        allGenerated: finalGenerated,
+      });
+      setTimeout((function() {
+        window.location.reload();
+      }).bind(this), 50);
+
+    }.bind(this);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   showModal = (e, i, r) => {
     let activeId = '';
@@ -1987,6 +2443,7 @@ export default class Sales extends Component {
           tampaOldAPPC={this.state.tampaOldAPPC}
           orlandoOldAPPC={this.state.orlandoOldAPPC}
           showModal={this.showModal}
+          generateMore={this.generateMore}
         />
 
         <Activity

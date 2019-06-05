@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import mapLink from '../../assets/icons/white/location.png';
@@ -31,10 +32,27 @@ export default class CallModal extends Component {
     this.state = {
       viewType: 'intro',
       logData: {},
+      dataURL: 'https://api.airtable.com/v0/',
+      tampaId: 'appEX8GXgcD2ln4dB',
+      orlandoId: 'appXNufXR9nQARjgs',
       goodLuck: '',
       notepad: '',
       hasActive: false,
-      actives: {}
+      actives: {
+        company: [],
+        phone: [],
+        address: [],
+      },
+      duplicates: {
+        company: [],
+        phone: [],
+        address: [],
+      },
+      // duplicate: {
+      //   company: [],
+      //   phone: [],
+      //   address: [],
+      // }
     }
   }
 
@@ -43,28 +61,201 @@ export default class CallModal extends Component {
     console.log(this.props.openedCall);
 
     let companyName = this.props.openedCall.fields['Company Name'];
-    let address = this.props.openedCall.fields['Address 1'];
+    let address = this.props.openedCall.fields['Address 1'].split(' #')[0];
     let phone = this.props.openedCall.fields['Office Phone'];
     let cell = this.props.openedCall.fields['Cell Phone'];
 
     let baseId;
-      if (this.props.generatedView === 'tampa') {
+      if (this.props.citySet === 'tampa') {
         baseId = 'apps7GoAgK23yrOoY';
-      } else if(this.props.generatedView === 'orlando') {
+      } else if(this.props.citySet === 'orlando') {
         baseId = 'appBUKBn552B8SlbE';
       }
 
-    let finalURL = 'https://api.airtable.com/v0/' + baseId + '/Customers?view=All+Actives';
+    let finalURL = '';
+    let activesProp = {
+      company: [],
+      phone: [],
+      address: [],
+    };
 
-    if (phone) {
-      finalURL += '&filterByFormula=' + "IF(%7BOffice+Phone%7D+%3D+'" + phone + "')";
-    }
-    if (address) {
-      finalURL += '&filterByFormula=' + "IF(%7BAddress+1%7D+%3D+'" + address + "')";
-    }
-    if (companyName) {
-      finalURL += '&filterByFormula=' + "IF(%7BAddress+1%7D+%3D+'" + companyName + "')";
-    }
+    let phoneCheck = function() {
+      let propedArr = [];
+
+      if (phone) {
+        finalURL = 'https://api.airtable.com/v0/' + baseId + '/Customers?view=All+Actives';
+        finalURL += '&filterByFormula=(' + "IF(%7BOffice+Phone%7D+%3D+'" + phone + "'%2CTRUE()))";
+        console.log(finalURL);
+
+        return axios
+          .get(finalURL).then(response => {
+            if (response.data.records.length > 0) {
+              let theseRecs = propedArr.concat(response.data.records);
+              activesProp.phone = theseRecs;
+              console.log(activesProp);
+            }
+
+            addrCheck();
+          });
+      }
+    }.bind(this);
+    phoneCheck();
+
+
+
+    let addrCheck = function() {
+      let propedArr = [];
+      if (address) {
+        finalURL = 'https://api.airtable.com/v0/' + baseId + '/Customers?view=All+Actives';
+        finalURL += '&filterByFormula=(' + "IF(LOWER(%7BAddress+1%7D)+%3D+LOWER('" + address + "')%2CTRUE()))";
+        console.log(finalURL);
+
+        return axios
+          .get(finalURL).then(response => {
+            if (response.data.records.length > 0) {
+              let theseRecs = propedArr.concat(response.data.records);
+              activesProp.address = theseRecs;
+              console.log(activesProp);
+            }
+
+            compCheck();
+          });
+      }
+    }.bind(this);
+
+    let compCheck = function() {
+      let propedArr = [];
+      if (companyName) {
+        finalURL = 'https://api.airtable.com/v0/' + baseId + '/Customers?view=All+Actives';
+        finalURL += '&filterByFormula=(' + "IF(LOWER(%7BCompany+Name%7D)+%3D+LOWER('" + companyName + "')%2CTRUE()))";
+        console.log(finalURL);
+
+        return axios
+          .get(finalURL).then(response => {
+            if (response.data.records.length > 0) {
+              let theseRecs = propedArr.concat(response.data.records);
+              activesProp.company = theseRecs;
+              console.log(activesProp);
+            }
+            finishChecks();
+          });
+      }
+    }.bind(this);
+
+    let finishChecks = function() {
+      if (activesProp.company.length > 0 || activesProp.phone.length > 0 || activesProp.address.length > 0) {
+        this.setState({
+          hasActive: true
+        });
+      }
+      this.setState({
+        actives: activesProp
+      })
+    }.bind(this);
+
+
+
+
+
+    // let recId = this.props.openedCall.id;
+    // baseId = '';
+    // if (this.props.citySet === 'tampa') {
+    //   baseId = 'appEX8GXgcD2ln4dB';
+    // } else if(this.props.citySet === 'orlando') {
+    //   baseId = 'appXNufXR9nQARjgs';
+    // }
+    //
+    //
+    //
+    // let duplicatesProp = {
+    //   company: [],
+    //   phone: [],
+    //   address: [],
+    // };
+    //
+    // let phoneDupes = function() {
+    //   let propedArr = [];
+    //
+    //   if (phone) {
+    //     finalURL = 'https://api.airtable.com/v0/' + baseId + '/Sales';
+    //     finalURL += '?filterByFormula=(' + "IF(%7BOffice+Phone%7D+%3D+'" + phone + "'%2CTRUE()))";
+    //     console.log(finalURL);
+    //
+    //     return axios
+    //       .get(finalURL).then(response => {
+    //         if (response.data.records.length > 0) {
+    //           for (var i in response.data.records) {
+    //             if (recId !== response.data.records[i].id) {
+    //               let theseRecs = propedArr.push(response.data.records[i]);
+    //               duplicatesProp.phone = theseRecs;
+    //             }
+    //           }
+    //           console.log(duplicatesProp);
+    //         }
+    //         addrDupes();
+    //       });
+    //   }
+    // }.bind(this);
+    // phoneDupes();
+    //
+    //
+    //
+    // let addrDupes = function() {
+    //   let propedArr = [];
+    //   if (address) {
+    //     finalURL = 'https://api.airtable.com/v0/' + baseId + '/Sales';
+    //     finalURL += '?filterByFormula=(' + "IF(LOWER(%7BAddress+1%7D)+%3D+LOWER('" + address + "')%2CTRUE()))";
+    //     console.log(finalURL);
+    //
+    //     return axios
+    //       .get(finalURL).then(response => {
+    //         if (response.data.records.length > 0) {
+    //           for (var i in response.data.records) {
+    //             if (recId !== response.data.records[i].id) {
+    //               let theseRecs = propedArr.push(response.data.records[i]);
+    //               duplicatesProp.address = theseRecs;
+    //             }
+    //           }
+    //           console.log(duplicatesProp);
+    //         }
+    //         compDupes();
+    //       });
+    //   }
+    // }.bind(this);
+    //
+    // let compDupes = function() {
+    //   let propedArr = [];
+    //   if (companyName) {
+    //     finalURL = 'https://api.airtable.com/v0/' + baseId + '/Sales';
+    //     finalURL += "?filterByFormula=(" + 'IF(LOWER(%7BCompany+Name%7D)+%3D+LOWER("' + companyName + '")%2CTRUE()))';
+    //     console.log(finalURL);
+    //
+    //     return axios
+    //       .get(finalURL).then(response => {
+    //         if (response.data.records.length > 0) {
+    //           for (var i in response.data.records) {
+    //             if (recId !== response.data.records[i].id) {
+    //               let theseRecs = propedArr.push(response.data.records[i]);
+    //               duplicatesProp.company = theseRecs;
+    //             }
+    //           }
+    //           console.log(duplicatesProp);
+    //         }
+    //         finishDupes();
+    //       });
+    //   }
+    // }.bind(this);
+    //
+    // let finishDupes = function() {
+    //   if (duplicatesProp.company.length > 0 || duplicatesProp.phone.length > 0 || duplicatesProp.address.length > 0) {
+    //     this.setState({
+    //       hasActive: true
+    //     });
+    //   }
+    //   this.setState({
+    //     duplicates: duplicatesProp
+    //   })
+    // }.bind(this);
   }
 
   callBack = e => {
@@ -106,6 +297,35 @@ export default class CallModal extends Component {
         })
       }
     }
+  }
+
+  markDeletion = e => {
+    console.log('markDeletion()');
+
+    let pushRecordId = e.id;
+    let todaysDate  = new Date();  todaysDate = (todaysDate.getMonth()+1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
+
+    if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+      e.fields['Recent Caller'] = localStorage.getItem('userName');
+    } else {
+      e.fields['Recent Caller'] = '';
+    }
+    e.fields['Recent Call Date'] = todaysDate;
+    e.fields['Standing'] = 'Mark for Deletion';
+
+    let finalPush = {"fields": e.fields}
+
+    let regionId;
+    if (this.props.citySet === 'tampa') {
+      regionId = this.state.tampaId;
+    } else {
+      regionId = this.state.orlandoId;
+    }
+    axios
+    .put(this.state.dataURL + regionId + '/Sales/' + pushRecordId, finalPush)
+    .then(response => {
+      window.location.reload();
+    });
   }
 
   callNext = e => {
@@ -265,9 +485,9 @@ export default class CallModal extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.scrubCheck();
-  // }
+  componentDidMount() {
+    this.scrubCheck();
+  }
 
   // Render
   // ----------------------------------------------------
@@ -349,9 +569,6 @@ export default class CallModal extends Component {
       </div>
     );
   }
-
-
-
 
 
 
@@ -448,6 +665,9 @@ export default class CallModal extends Component {
           toggleDayPicker={this.props.toggleDayPicker}
           hasActive={this.state.hasActive}
           actives={this.state.actives}
+          duplicates={this.state.duplicates}
+          citySet={this.props.citySet}
+          markDeletion={this.markDeletion}
         />
       )
     } else if (this.state.viewType === 'activeCall') {

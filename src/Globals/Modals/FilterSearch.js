@@ -183,7 +183,7 @@ export default class FilterSearch extends Component {
               >Joel Pipeline</li>
             </ul>
           );
-        } else if (localStorage.getItem('userInitials') === 'MM') {
+        } else if (localStorage.getItem('userInitials') === 'MLM') {
           return (
             <ul id="filtersList">
               <li
@@ -579,7 +579,7 @@ export default class FilterSearch extends Component {
               >Nolan Pipeline</li>
             </ul>
           );
-        } else if (localStorage.getItem('userInitials') === 'MM') {
+        } else if (localStorage.getItem('userInitials') === 'MLM') {
           return (
             <ul id="filtersList">
               <li

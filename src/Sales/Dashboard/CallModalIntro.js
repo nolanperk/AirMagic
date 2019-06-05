@@ -10,6 +10,7 @@ import calendarImg from '../../assets/icons/black/calendar.png';
 import phoneBl from '../../assets/icons/black/phone.png';
 import numberImg from '../../assets/icons/black/number.png';
 import emailImg from '../../assets/icons/black/email.png';
+import popout from '../../assets/icons/popout.png';
 
 
 export default class CallModalIntro extends Component {
@@ -50,6 +51,9 @@ export default class CallModalIntro extends Component {
   render() {
     let fields = this.props.openedCall.fields;
 
+    let googleURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Company Name'];
+    let googlePhoneURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Office Phone'];
+
     let logNotes = '';
     if (fields['Notes']) {
       logNotes = fields['Notes'].replace(/(?:\r\n|\r|\n)/g, '<br />');
@@ -58,18 +62,28 @@ export default class CallModalIntro extends Component {
       document.getElementById('logNotes').innerHTML = logNotes;
     }).bind(this), 250);
 
+
     if (this.props.hasActive) {
       return (
         <div className="callColumn contact">
           <div className="qualifyBox hasActive">
             <div className="streetView" id="streetWindow">
               <img src={this.state.streetViewSrc} alt=" " />
+
+              <div className="googleBtns split">
+                <a className="btn softGrad--black" href={googleURL} target="_blank">Search Name</a>
+                <a className="btn softGrad--blue" href={googlePhoneURL} target="_blank">Search #</a>
+              </div>
             </div>
 
             <div className="activeCheck" id="">
               <h4>Active Check</h4>
-              <h4>Duplicate Check</h4>
+              {this.props.actives.company ? this.props.actives.company.map((e, i) => this.activeItems(e, 'Same Name')) : ''}
+              {this.props.actives.phone ? this.props.actives.phone.map((e, i) => this.activeItems(e, 'Same Phone #')) : ''}
+              {this.props.actives.address ? this.props.actives.address.map((e, i) => this.activeItems(e, 'Same Address')) : ''}
+
             </div>
+            <div className="btn softGrad--primary markDeletion" onClick={()=>this.props.markDeletion(this.props.openedCall)}>Mark for Deletion</div>
           </div>
 
           <div className="contactInfo">
@@ -83,9 +97,6 @@ export default class CallModalIntro extends Component {
       );
     } else {
 
-      let googleURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Company Name'];
-      let googlePhoneURL = 'https://www.google.com/search?q=' + this.props.openedCall.fields['Office Phone'];
-
       return (
         <div className="callColumn contact">
           <div className="qualifyBox">
@@ -94,8 +105,8 @@ export default class CallModalIntro extends Component {
 
 
               <div className="googleBtns split">
-                <a className="btn softGrad--primary" href={googleURL} target="_blank">Search Name</a>
-                <a className="btn softGrad--black" href={googlePhoneURL} target="_blank">Search #</a>
+                <a className="btn softGrad--black" href={googleURL} target="_blank">Search Name</a>
+                <a className="btn softGrad--blue" href={googlePhoneURL} target="_blank">Search #</a>
               </div>
             </div>
           </div>
@@ -111,6 +122,24 @@ export default class CallModalIntro extends Component {
       );
     }
   }
+
+  activeItems(item, matchType) {
+    return(
+      <div className='callItem'>
+        <div className="companyData">
+          <div className="innerCompany">
+            <p>{matchType}</p>
+            <h4>{item.fields['Company Name']}</h4>
+          </div>
+        </div>
+
+        <Link target="_blank" to={'/' + this.props.citySet + '/customer-service/all/' + item.id}><div className="buttons">
+          <img src={popout} onClick={this.popOut} />
+        </div></Link>
+      </div>
+    )
+  }
+
 
   get mainContact() {
     let fields = this.props.openedCall.fields;

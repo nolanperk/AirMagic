@@ -130,8 +130,10 @@ export default class CallModalStart extends Component {
     let ext = fields['Extension'];
     let cell = fields['Cell Phone'];
     let email = fields['Email'];
+    let altEmail = fields['Alternate Email'];
 
     let emailLink = 'mailto:' + email;
+    let altEmailLink = 'mailto:' + altEmail;
 
       return (
         <div className="ModuleCard moduleContact">
@@ -204,7 +206,7 @@ export default class CallModalStart extends Component {
               </div>
             </div>
 
-            <div className="inputBlock inputBlock--full">
+            <div className="inputBlock inputBlock--half">
               <label>Email</label>
               <div className="inputWithTag">
                 <div className="inputTag">
@@ -219,6 +221,24 @@ export default class CallModalStart extends Component {
                 />
               </div>
             </div>
+
+            <div className="inputBlock inputBlock--half">
+              <label>Alt. Email</label>
+              <div className="inputWithTag">
+                <div className="inputTag">
+                  <a onContextMenu={this.handleClick} href={altEmailLink}></a>
+                  <img src={emailImg} />
+                </div>
+                <input
+                  type="text"
+                  id="altEmail"
+                  value={altEmail}
+                  onChange={this.props.changeRecordHandler}
+                />
+              </div>
+            </div>
+
+
 
             <div className="inputBlock inputBlock--half">
               <label>Cell Phone</label>

@@ -78,11 +78,12 @@ export default class CallList extends Component {
             </div>
 
             <div className="rightCol">
-              <h4>Generated List</h4>
+              <h4>Generated</h4>
               <p className="cold-select">
                 <span id="cold-tampa" className={tampaSelect} onClick={this.switchActive}>Tampa <em>{this.props.tampaCalled}/{totalTampa}</em></span>
                 <span id="cold-orlando" className={orlandoSelect} onClick={this.switchActive}>Orlando <em>{this.props.orlandoCalled}/{totalOrlando}</em></span>
               </p>
+              <div className="loadingMore" onClick={this.props.generateMore}>Load More +</div>
               <div className={allGenerated.tampa.x7.length > 0 ? 'CallListBox FullList' : 'CallListBox FullList isHidden' }>
                 <h4>7xWeek</h4>
                 <div className={"cold-tampa " + tampaSelect}>{allGenerated.tampa.x7 ? allGenerated.tampa.x7.map((e, i) => this.callItemQualify(e, 'tampa')) : ''}</div>
@@ -154,7 +155,7 @@ export default class CallList extends Component {
             </div>
 
             <div className="rightCol">
-              <h4>Generated List</h4>
+              <h4>Generated</h4>
               <p className="cold-select">
                 <span id="cold-tampa" className={tampaSelect} onClick={this.switchActive}>Tampa <em>{this.props.tampaCalled}/{totalTampa}</em></span>
                 <span id="cold-orlando" className={orlandoSelect} onClick={this.switchActive}>Orlando <em>{this.props.orlandoCalled}/{totalOrlando}</em></span>

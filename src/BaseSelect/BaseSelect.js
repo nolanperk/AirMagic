@@ -78,7 +78,7 @@ export default class BaseSelect extends Component {
           </div>
         </div>
       );
-    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'PBA' || localStorage.getItem('userInitials') === 'MM' || localStorage.getItem('userInitials') === 'CBM') {
+    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'PBA' || localStorage.getItem('userInitials') === 'MLM' || localStorage.getItem('userInitials') === 'CBM') {
       return (
         <div className="wrapper">
           <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>

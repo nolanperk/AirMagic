@@ -24,61 +24,65 @@ export default class Activity extends Component {
 
   }
   archiveItem(recentActivity, index) {
-    if (recentActivity['Status'] === 'APPC') {
+    if (recentActivity.item['Status'] === 'APPC') {
       return (
-        <div className={recentActivity['Recent Date'] ? 'activityItem' : 'activityItem hide'}>
-          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
+        <div className='activityItem'>
+          <a href={'/' + recentActivity.item['region'] + '/sales/' + recentActivity.item['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel APPC'>
             <div class="inner">
-              <p className="numberLabel">${recentActivity['Monthly Amount']}</p>
+              <p className="numberLabel">${recentActivity.item['Monthly Amount']}</p>
               <p className="typeLabel">Proposal</p>
             </div>
           </div>
 
           <div className="activityContent">
             <div className="inner">
-              <p className={'inside ' + recentActivity['Appt. Set By'].split(' ')[0]}>{recentActivity['Appt. Set By'].split(' ')[0]}</p>
-              <p className={'outside ' + recentActivity['Sales Rep'].split(' ')[0]}>{recentActivity['Sales Rep'].split(' ')[0]}</p>
-              <h4>{recentActivity['Company Name']}</h4>
+              <p className={'inside ' + recentActivity.item['Appt. Set By'].split(' ')[0]}>{recentActivity.item['Appt. Set By'].split(' ')[0]}</p>
+              <p className={'outside ' + recentActivity.item['Sales Rep'].split(' ')[0]}>{recentActivity.item['Sales Rep'].split(' ')[0]}</p>
+              <h4>{recentActivity.item['Company Name']}</h4>
             </div>
           </div>
         </div>
       )
-    } else if (recentActivity['Status'] === 'Closed') {
+    } else if (recentActivity.item['Status'] === 'Closed') {
       return (
         <div className='activityItem'>
-          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
+          <a href={'/' + recentActivity.item['region'] + '/sales/' + recentActivity.item['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel Closed'>
             <div class="inner">
-              <p className="numberLabel">${recentActivity['Monthly Amount']}</p>
+              <p className="numberLabel">${recentActivity.item['Monthly Amount']}</p>
               <p className="typeLabel">New Close!</p>
             </div>
           </div>
 
           <div className="activityContent">
             <div className="inner">
-              <p className={'inside ' + recentActivity['Appt. Set By'].split(' ')[0]}>{recentActivity['Appt. Set By'].split(' ')[0]}</p>
-              <p className={'outside ' + recentActivity['Sales Rep'].split(' ')[0]}>{recentActivity['Sales Rep'].split(' ')[0]}</p>
-              <h4>{recentActivity['Company Name']}</h4>
+              <p className={'inside ' + recentActivity.item['Appt. Set By'].split(' ')[0]}>{recentActivity.item['Appt. Set By'].split(' ')[0]}</p>
+              <p className={'outside ' + recentActivity.item['Sales Rep'].split(' ')[0]}>{recentActivity.item['Sales Rep'].split(' ')[0]}</p>
+              <h4>{recentActivity.item['Company Name']}</h4>
             </div>
           </div>
         </div>
       )
     } else {
+      let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let apptDate = new Date(recentActivity.item['Appt. Date']);
+      apptDate = monthNames[apptDate.getMonth()] + ' ' + apptDate.getDate();
       return (
         <div className='activityItem'>
-          <a href={'/' + recentActivity['region'] + '/sales/' + recentActivity['id']} target="_blank" className="absLink"></a>
+          <a href={'/' + recentActivity.item['region'] + '/sales/' + recentActivity.item['id']} target="_blank" className="absLink"></a>
           <div className='prettyLabel Appt'>
-            <div class="inner centeredIt">
+            <div class="inner">
+              <p className="numberLabel">{apptDate}</p>
               <p className="typeLabel">Appt. Set</p>
             </div>
           </div>
 
           <div className="activityContent">
             <div className="inner">
-              <p className={'inside ' + recentActivity['Appt. Set By'].split(' ')[0]}>{recentActivity['Appt. Set By'].split(' ')[0]}</p>
-              <p className={'outside ' + recentActivity['Sales Rep'].split(' ')[0]}>{recentActivity['Sales Rep'].split(' ')[0]}</p>
-              <h4>{recentActivity['Company Name']}</h4>
+              <p className={'inside ' + recentActivity.item['Appt. Set By'].split(' ')[0]}>{recentActivity.item['Appt. Set By'].split(' ')[0]}</p>
+              <p className={'outside ' + recentActivity.item['Sales Rep'].split(' ')[0]}>{recentActivity.item['Sales Rep'].split(' ')[0]}</p>
+              <h4>{recentActivity.item['Company Name']}</h4>
             </div>
           </div>
         </div>
