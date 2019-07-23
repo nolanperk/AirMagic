@@ -174,6 +174,7 @@ export default class Sales extends Component {
   }
 
   loadPrevSearch = () => {
+    console.log('prev');
     let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
     let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
     this.setState({
@@ -206,8 +207,8 @@ export default class Sales extends Component {
         if (this.state.recordView === false) {
           setTimeout((function() {
             if (document.getElementById('searchInput')) {
-              document.getElementById('searchInput').value = capitalizedQuery;
-              document.getElementById('searchBy').value = this.state.searchBy;
+              document.getElementById('searchInput').value = sessionStorage.getItem('searchQuery');
+              document.getElementById('searchBy').value = sessionStorage.getItem('searchBy');
             }
           }).bind(this), 50);
         }
@@ -218,16 +219,31 @@ export default class Sales extends Component {
 
 
   searchHandler = e => {
-    e.preventDefault();
+    let searchBy;
+    let searchByValue;
 
-    let searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
-    let searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
+    if (e == 'url') {
+      searchByValue = this.props.location.search.split('&')[1].split('=')[1];
+      searchBy = this.props.location.search.split('?')[1].split('&')[0].split('=')[1];
 
-    this.setState({
-      searchQuery: document.getElementById('searchInput').value,
-      searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
-      loading: true,
-    });
+      this.setState({
+        searchQuery: searchByValue,
+        searchBy: searchBy,
+        loading: true,
+      });
+
+    } else {
+      e.preventDefault();
+
+      searchBy = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id;
+      searchByValue = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
+
+      this.setState({
+        searchQuery: document.getElementById('searchInput').value,
+        searchBy: document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].id,
+        loading: true,
+      });
+    }
 
     setTimeout((function() {
       sessionStorage.setItem('searchQuery', this.state.searchQuery);
@@ -1504,7 +1520,18 @@ export default class Sales extends Component {
           if (mergeType === 'Proposal') {
             currentRecordState['Proposal Date'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
             currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+            currentRecordState['Next Follow Up'] = (today.getMonth()+1) + '/' + (today.getDate()+1) + '/' + today.getFullYear();
             currentRecordState['Follow Ups'] = 0;
+
+            let todaysDate = new Date();
+            let tomorrowDate = new Date(todaysDate.getTime()+1000*60*60*24);
+            if (tomorrowDate.getDay() === 0) {
+              tomorrowDate = new Date(todaysDate.getTime()+1000*60*60*24*2);
+            } else if (tomorrowDate.getDay() === 6) {
+              tomorrowDate = new Date(todaysDate.getTime()+1000*60*60*24*3);
+            }
+            currentRecordState['Next Follow Up'] = (tomorrowDate.getMonth()+1) + '/' + tomorrowDate.getDate() + '/' + tomorrowDate.getFullYear();
+
             currentRecordState['Status'] = 'APPC';
             setTimeout((function() {
               document.getElementById('statusSelect').value = 'APPC';
@@ -1633,9 +1660,9 @@ export default class Sales extends Component {
       let testimonialsURL = 'https://api.airtable.com/v0/app3t50c5Z3rAjx4X/all';
       let exportCat;
 
-      if (exportData.category === 'General Office' || exportData.category === 'Manufacturing' || exportData.category === 'Government' || exportData.category === 'Law Office' || exportData.category === 'Retail') {
+      if (exportData.category === 'General Office' || exportData.category === 'Manufacturing' || exportData.category === 'Government' || exportData.category === 'Law Office' || exportData.category === 'Retail' || exportData.category === 'Spa' || exportData.category === 'Dealership') {
         exportCat = 'Office';
-      } else if (exportData.category === 'Standard Medical' || exportData.category === 'Clinic' || exportData.category === 'Dialysis / Oncology' || exportData.category === 'Dentist' || exportData.category === 'Veterinarian') {
+      } else if (exportData.category === 'Standard Medical' || exportData.category === 'Clinic' || exportData.category === 'Dialysis / Oncology' || exportData.category === 'Dentist' || exportData.category === 'Veterinarian' || exportData.category === 'Surgery Center') {
         exportCat = 'Medical';
       } else if (exportData.category === 'Residential Common Area' || exportData.category === 'Residential Living') {
         exportCat = 'Residential';
@@ -1933,7 +1960,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Paula' || slackSet === 'Mariyah') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.currentRecord['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.currentRecord['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set
@@ -3028,6 +3055,10 @@ export default class Sales extends Component {
         localStorage.clear();
         this.props.history.push('/login');
       }
+    }
+
+    if (this.props.location.search && this.props.location.search.split('?')[1].split('=')[0] === 'searchBy') {
+      this.searchHandler('url');
     }
   }
 

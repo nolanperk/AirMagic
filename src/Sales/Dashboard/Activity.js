@@ -24,6 +24,7 @@ export default class Activity extends Component {
 
   }
   archiveItem(recentActivity, index) {
+    console.log(recentActivity);
     if (recentActivity.item['Status'] === 'APPC') {
       return (
         <div className='activityItem'>
@@ -66,7 +67,7 @@ export default class Activity extends Component {
       )
     } else {
       let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      let apptDate = new Date(recentActivity.item['Appt. Date']);
+      let apptDate = new Date(recentActivity.item['Appt. Date'] + 1000*3600*24);
       apptDate = monthNames[apptDate.getMonth()] + ' ' + apptDate.getDate();
       return (
         <div className='activityItem'>

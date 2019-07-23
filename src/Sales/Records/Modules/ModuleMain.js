@@ -148,6 +148,7 @@ export default class ModuleMain extends Component {
                 <option id="Call+Corporate+Office">Call Corporate Office</option>
                 <option disabled>------------</option>
                 <option disabled>Issues</option>
+                <option id="Duplicate">Duplicate</option>
                 <option id="Disconnected">Disconnected</option>
                 <option id="Outside+Territory">Outside Territory</option>
                 <option id="Bad+Number">Bad Number</option>
@@ -166,7 +167,7 @@ export default class ModuleMain extends Component {
                 <option id="none"></option>
                 <option id="Shana+Thorn">Shana Thorn</option>
                 <option id="Mariyah+Moore">Mariyah Moore</option>
-                <option id="Paula+Anderson">Paula Anderson</option>
+                <option id="Lisa+Shirah">Lisa Shirah</option>
                 <option id="Jett">Jett</option>
                 <option id="Jason">Jason</option>
                 <option id="Justin">Justin</option>
@@ -266,6 +267,7 @@ export default class ModuleMain extends Component {
                   <option id="Call+Corporate+Office">Call Corporate Office</option>
                   <option disabled>------------</option>
                   <option disabled>Issues</option>
+                  <option id="Duplicate">Duplicate</option>
                   <option id="Disconnected">Disconnected</option>
                   <option id="Outside+Territory">Outside Territory</option>
                   <option id="Bad+Number">Bad Number</option>
@@ -284,7 +286,7 @@ export default class ModuleMain extends Component {
                   <option id="none"></option>
                   <option id="Shana+Thorn">Shana Thorn</option>
                   <option id="Mariyah+Moore">Mariyah Moore</option>
-                  <option id="Paula+Anderson">Paula Anderson</option>
+                  <option id="Lisa+Shirah">Lisa Shirah</option>
                   <option id="Jett">Jett</option>
                   <option id="Jason">Jason</option>
                   <option id="Justin">Justin</option>
@@ -351,11 +353,12 @@ export default class ModuleMain extends Component {
                 <select id="categorySelect"  value={this.props.category} onChange={this.props.categoryChange}>
                   <option></option>
                   <option disabled>Standard</option>
-                  <option selected>General Office</option>
+                  <option>General Office</option>
                   <option>Manufacturing</option>
                   <option>Government</option>
                   <option>Law Office</option>
                   <option>Retail</option>
+                  <option>Dealership</option>
 
                   <option disabled>--------</option>
                   <option disabled>Medical</option>
@@ -364,6 +367,7 @@ export default class ModuleMain extends Component {
                   <option>Dialysis / Oncology</option>
                   <option>Dentist</option>
                   <option>Veterinarian</option>
+                  <option>Surgery Center</option>
 
                   <option disabled>--------</option>
                   <option>Residential Common Area</option>
@@ -385,6 +389,7 @@ export default class ModuleMain extends Component {
                   <option>Restaurant</option>
                   <option>Bar</option>
                   <option>Gym</option>
+                  <option>Spa</option>
                 </select>
               </div>
             </div>

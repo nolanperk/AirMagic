@@ -523,6 +523,7 @@ export default class Sales extends Component {
               region: thisZip.fields['Region'],
               zips: [thisZip.fields['Zip']],
               stipulation: thisZip.fields['Has Stipulations'],
+              callable: thisZip.fields['Callable'],
             }
             tampaRegions.push(pushObj);
           }
@@ -539,6 +540,7 @@ export default class Sales extends Component {
               region: thisZip.fields['Region'],
               zips: [thisZip.fields['Zip']],
               stipulation: thisZip.fields['Has Stipulations'],
+              callable: thisZip.fields['Callable'],
             }
             orlandoRegions.push(pushObj);
           }
@@ -622,13 +624,22 @@ export default class Sales extends Component {
 
           let randomNumb;
           if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 6) + 1; //loads up to 4 from has stipulations
+            randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
           } else {
-            randomNumb = Math.floor(Math.random() * 16) + 1 //loads up to 12 from green-lit
+            if (this.state.tampaRegions[currentCount].callable === 'Priority') {
+              randomNumb = Math.floor(Math.random() * 10) + 1 //loads up to
+            } else {
+              randomNumb = Math.floor(Math.random() * 8) + 1 //loads up to
+            }
           }
+          // if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
+          //   randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
+          // } else {
+          //   randomNumb = Math.floor(Math.random() * 8) + 1 //loads up to 13 from green-lit
+          // }
           console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
           let generateArr = this.state.tampaGenerated;
-          let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+          let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStanding%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
           return axios
             .get(customersURL).then(response => {
               this.setState({
@@ -762,15 +773,15 @@ export default class Sales extends Component {
         let totalUnknown = finalGenerated.tampa.unknown.length;
         let knownRatio = totalKnown/totalUnknown;
 
-        if (totalUnknown > (totalKnown*.7)) {
-          let finalUnknown = [];
-          for (var i in finalGenerated.tampa.unknown) {
-            if (Math.random() < ((totalKnown*.7)/totalUnknown)) {
-              finalUnknown.push(finalGenerated.tampa.unknown[i]);
-            }
+        console.log('totalUnknown - ' + totalUnknown);
+        console.log('totalKnown - ' + totalKnown);
+        let finalUnknown = [];
+        for (var i in finalGenerated.tampa.unknown) {
+          if (Math.random() < 0.6) {
+            finalUnknown.push(finalGenerated.tampa.unknown[i]);
           }
-          finalGenerated.tampa.unknown = finalUnknown;
         }
+        finalGenerated.tampa.unknown = finalUnknown;
 
         for (var i in finalGenerated.tampa.unknown) {
           let pushRecord = finalGenerated.tampa.unknown[i].fields;
@@ -805,15 +816,27 @@ export default class Sales extends Component {
           regionFilter += ')';
 
           let randomNumb;
+
           if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 2) + 1; //loads up to 1 from has stipulations
+            randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
           } else {
-            randomNumb = Math.floor(Math.random() * 6) + 1 //loads up to 5 from green-lit
+            if (this.state.orlandoRegions[currentCount].callable === 'Priority') {
+              randomNumb = Math.floor(Math.random() * 18) + 1 //loads up to 13 from green-lit
+            } else {
+              randomNumb = Math.floor(Math.random() * 13) + 1 //loads up to 13 from green-lit
+            }
           }
+
+          //
+          // if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
+          //   randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
+          // } else {
+          //   randomNumb = Math.floor(Math.random() * 15) + 1 //loads up to 12 from green-lit
+          // }
           console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
 
           let generateArr = this.state.orlandoGenerated;
-          let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+          let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStanding%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
           return axios
             .get(customersURL).then(response => {
               this.setState({
@@ -936,15 +959,15 @@ export default class Sales extends Component {
         let totalUnknown = finalGenerated.orlando.unknown.length;
         let knownRatio = totalKnown/totalUnknown;
 
-        if (totalUnknown > (totalKnown*.5)) {
-          let finalUnknown = [];
-          for (var i in finalGenerated.orlando.unknown) {
-            if (Math.random() < ((totalKnown*.5)/totalUnknown)) {
-              finalUnknown.push(finalGenerated.orlando.unknown[i]);
-            }
+        console.log('totalUnknown orl - ' + totalUnknown);
+        console.log('totalKnown orl - ' + totalKnown);
+        let finalUnknown = [];
+        for (var i in finalGenerated.orlando.unknown) {
+          if (Math.random() < 0.6) {
+            finalUnknown.push(finalGenerated.orlando.unknown[i]);
           }
-          finalGenerated.orlando.unknown = finalUnknown;
         }
+        finalGenerated.orlando.unknown = finalUnknown;
 
         for (var i in finalGenerated.orlando.unknown) {
           let pushRecord = finalGenerated.orlando.unknown[i].fields;
@@ -1311,6 +1334,7 @@ export default class Sales extends Component {
             region: thisZip.fields['Region'],
             zips: [thisZip.fields['Zip']],
             stipulation: thisZip.fields['Has Stipulations'],
+            callable: thisZip.fields['Callable'],
           }
           tampaRegions.push(pushObj);
         }
@@ -1327,6 +1351,7 @@ export default class Sales extends Component {
             region: thisZip.fields['Region'],
             zips: [thisZip.fields['Zip']],
             stipulation: thisZip.fields['Has Stipulations'],
+            callable: thisZip.fields['Callable'],
           }
           orlandoRegions.push(pushObj);
         }
@@ -1409,14 +1434,26 @@ export default class Sales extends Component {
         regionFilter += ')';
 
         let randomNumb;
+
+
         if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
-          randomNumb = Math.floor(Math.random() * 3) + 1; //loads up to 4 from has stipulations
+          randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
         } else {
-          randomNumb = Math.floor(Math.random() * 9) + 1 //loads up to 12 from green-lit
+          if (this.state.tampaRegions[currentCount].callable === 'Priority') {
+            randomNumb = Math.floor(Math.random() * 10) + 1 //loads up to
+          } else {
+            randomNumb = Math.floor(Math.random() * 7) + 1 //loads up to
+          }
         }
+        //
+        // if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
+        //   randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
+        // } else {
+        //   randomNumb = Math.floor(Math.random() * 7) + 1 //loads up to 12 from green-lit
+        // }
         console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
         let generateArr = this.state.tampaGenerated;
-        let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+        let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStanding%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
         return axios
           .get(customersURL).then(response => {
             this.setState({
@@ -1517,15 +1554,13 @@ export default class Sales extends Component {
       let totalUnknown = finalGenerated.tampa.unknown.length;
       let knownRatio = totalKnown/totalUnknown;
 
-      if (totalUnknown > (totalKnown*.7)) {
-        let finalUnknown = [];
-        for (var i in finalGenerated.tampa.unknown) {
-          if (Math.random() < ((totalKnown*.7)/totalUnknown)) {
-            finalUnknown.push(finalGenerated.tampa.unknown[i]);
-          }
+      let finalUnknown = [];
+      for (var i in finalGenerated.tampa.unknown) {
+        if (Math.random() < 0.5) {
+          finalUnknown.push(finalGenerated.tampa.unknown[i]);
         }
-        finalGenerated.tampa.unknown = finalUnknown;
       }
+      finalGenerated.tampa.unknown = finalUnknown;
 
       for (var i in finalGenerated.tampa.unknown) {
         let pushRecord = finalGenerated.tampa.unknown[i].fields;
@@ -1560,15 +1595,27 @@ export default class Sales extends Component {
         regionFilter += ')';
 
         let randomNumb;
+
+
         if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
-          randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 1 from has stipulations
+          randomNumb = Math.floor(Math.random() * 3) + 1; //loads up to 4 from has stipulations
         } else {
-          randomNumb = Math.floor(Math.random() * 4) + 1 //loads up to 3 from green-lit
+          if (this.state.orlandoRegions[currentCount].callable === 'Priority') {
+            randomNumb = Math.floor(Math.random() * 15) + 1 //loads up to
+          } else {
+            randomNumb = Math.floor(Math.random() * 12) + 1 //loads up to
+          }
         }
+
+        // if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
+        //   randomNumb = Math.floor(Math.random() * 3) + 1; //loads up to 1 from has stipulations
+        // } else {
+        //   randomNumb = Math.floor(Math.random() * 13) + 1 //loads up to 3 from green-lit
+        // }
         console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
 
         let generateArr = this.state.orlandoGenerated;
-        let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStatus%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
+        let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStanding%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
         return axios
           .get(customersURL).then(response => {
             this.setState({
@@ -1658,15 +1705,13 @@ export default class Sales extends Component {
       let totalUnknown = finalGenerated.orlando.unknown.length;
       let knownRatio = totalKnown/totalUnknown;
 
-      if (totalUnknown > (totalKnown*.5)) {
-        let finalUnknown = [];
-        for (var i in finalGenerated.orlando.unknown) {
-          if (Math.random() < ((totalKnown*.5)/totalUnknown)) {
-            finalUnknown.push(finalGenerated.orlando.unknown[i]);
-          }
+      let finalUnknown = [];
+      for (var i in finalGenerated.orlando.unknown) {
+        if (Math.random() < 0.5) {
+          finalUnknown.push(finalGenerated.orlando.unknown[i]);
         }
-        finalGenerated.orlando.unknown = finalUnknown;
       }
+      finalGenerated.orlando.unknown = finalUnknown;
 
       for (var i in finalGenerated.orlando.unknown) {
         let pushRecord = finalGenerated.orlando.unknown[i].fields;
@@ -1681,7 +1726,7 @@ export default class Sales extends Component {
       });
       setTimeout((function() {
         window.location.reload();
-      }).bind(this), 50);
+      }).bind(this), 2000);
 
     }.bind(this);
   }
@@ -2262,7 +2307,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Paula' || slackSet === 'Mariyah') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.openedCall.fields['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.openedCall.fields['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.openedCall.fields['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set

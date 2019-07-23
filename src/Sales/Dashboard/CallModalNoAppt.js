@@ -46,6 +46,7 @@ export default class CallModalNoAppt extends Component {
                 <option id="Call+Corporate+Office">Call Corporate Office</option>
                 <option disabled>------------</option>
                 <option disabled>Issues</option>
+                <option id="Duplicate">Duplicate</option>
                 <option id="Disconnected">Disconnected</option>
                 <option id="Outside+Territory">Outside Territory</option>
                 <option id="Bad+Number">Bad Number</option>

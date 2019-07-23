@@ -790,7 +790,7 @@ export default class ManageDashSales extends Component {
             </div>
 
             <div className="pointCard">
-              <h4>Paula</h4>
+              <h4>Lisa</h4>
 
               <div className="data">
                 {this.isLoading}

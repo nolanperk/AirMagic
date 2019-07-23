@@ -145,7 +145,7 @@ export default class FilterSearch extends Component {
               >Joel Pipeline</li>
             </ul>
           );
-        } else if (localStorage.getItem('userInitials') === 'PBA') {
+        } else if (localStorage.getItem('userInitials') === 'LSS') {
           return (
             <ul id="filtersList">
               <li
@@ -155,16 +155,16 @@ export default class FilterSearch extends Component {
                 >No Filter</li>
               <li
                 onClick={this.selectFilterList}
-                id="Paula+Callbacks"
-              >Paula Callbacks</li>
+                id="Lisa+Callbacks"
+              >Lisa Callbacks</li>
               <li
                 onClick={this.selectFilterList}
                 id="Missed+Callbacks"
               >Missed Callbacks</li>
               <li
                 onClick={this.selectFilterList}
-                id="Paula+Recent+APPCs"
-              >Paula Recent APPCs</li>
+                id="Lisa+Recent+APPCs"
+              >Lisa Recent APPCs</li>
               <li
                 onClick={this.selectFilterList}
                 id="Old+APPCs"
@@ -537,7 +537,7 @@ export default class FilterSearch extends Component {
               >Nolan Pipeline</li>
             </ul>
           );
-        } else if (localStorage.getItem('userInitials') === 'PBA') {
+        } else if (localStorage.getItem('userInitials') === 'LSS') {
           return (
             <ul id="filtersList">
               <li
@@ -547,16 +547,16 @@ export default class FilterSearch extends Component {
                 >No Filter</li>
               <li
                 onClick={this.selectFilterList}
-                id="Paula+Callbacks"
-              >Paula Callbacks</li>
+                id="Lisa+Callbacks"
+              >Lisa Callbacks</li>
               <li
                 onClick={this.selectFilterList}
                 id="Missed+Callbacks"
               >Missed Callbacks</li>
               <li
                 onClick={this.selectFilterList}
-                id="Paula+Recent+APPCs"
-              >Paula Recent APPCs</li>
+                id="Lisa+Recent+APPCs"
+              >Lisa Recent APPCs</li>
               <li
                 onClick={this.selectFilterList}
                 id="Old+APPCs"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FollowUpsList from '../Sales/FollowUpsList';
 
 
 export default class BaseSelect extends Component {
@@ -78,7 +79,7 @@ export default class BaseSelect extends Component {
           </div>
         </div>
       );
-    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'PBA' || localStorage.getItem('userInitials') === 'MLM' || localStorage.getItem('userInitials') === 'CBM') {
+    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'LSS' || localStorage.getItem('userInitials') === 'MLM' || localStorage.getItem('userInitials') === 'CBM') {
       return (
         <div className="wrapper">
           <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
@@ -135,6 +136,112 @@ export default class BaseSelect extends Component {
               </div>
             </div>
           </div>
+        </div>
+      );
+
+    } else if (localStorage.getItem('userRole') === 'sales' && localStorage.getItem('salesType') === 'Outside' && window.innerWidth > 900) {
+      return (
+        <div className="wrapper outsideSales">
+          <FollowUpsList />
+
+          <div className="ActivityWrapper">
+            <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
+
+            <div className="activityContainer">
+              <h4>Tampa Databases</h4>
+              <div className='activityItem'>
+                <a href={'/tampa/sales/'} className="absLink"></a>
+                <div className='prettyLabel tSales'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Sales</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div className='activityItem'>
+                <a href={'/tampa/customer-service/all'} className="absLink"></a>
+                <div className='prettyLabel tCustomers'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Customers</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div className='activityItem'>
+                <a href={'/tampa/franchisees/'} className="absLink"></a>
+                <div className='prettyLabel tFranchise'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Franchisees</h4>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <hr />
+
+              <h4>Orlando Databases</h4>
+              <div className='activityItem'>
+                <a href={'/orlando/sales/'} className="absLink"></a>
+                <div className='prettyLabel oSales'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Sales</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div className='activityItem'>
+                <a href={'/orlando/customer-service/all'} className="absLink"></a>
+                <div className='prettyLabel oCustomers'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Customers</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div className='activityItem'>
+                <a href={'/orlando/franchisees/'} className="absLink"></a>
+                <div className='prettyLabel oFranchise'>
+                  <div class="inner">
+                  </div>
+                </div>
+
+                <div className="activityContent">
+                  <div className="inner">
+                    <h4>Franchisees</h4>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
         </div>
       );
     } else {

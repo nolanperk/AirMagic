@@ -305,7 +305,7 @@ export default class CallModal extends Component {
     let pushRecordId = e.id;
     let todaysDate  = new Date();  todaysDate = (todaysDate.getMonth()+1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
 
-    if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+    if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
       e.fields['Recent Caller'] = localStorage.getItem('userName');
     } else {
       e.fields['Recent Caller'] = '';
@@ -377,7 +377,7 @@ export default class CallModal extends Component {
       }
     } else if (this.state.viewType === 'apptQuestion') {
       if (e.target.id === 'setAppt' || e.target.id === 'noVisit') {
-        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
           logData['Appt. Set By'] = localStorage.getItem('userName');
         } else {
           logData['Appt. Set By'] = '';
@@ -391,7 +391,7 @@ export default class CallModal extends Component {
         logData['Proposal Type'] = 'Visited';
       }
 
-      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Paula Anderson' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
         logData['Recent Caller'] = localStorage.getItem('userName');
       } else {
         logData['Recent Caller'] = '';

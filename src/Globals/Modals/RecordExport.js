@@ -367,13 +367,13 @@ export default class RecordExport extends Component {
     } else if (this.state.viewType === 'category') {
       let currCat = document.getElementById('catSelect').value;
 
-      if (currCat === 'General Office' || currCat === 'Manufacturing' || currCat === 'Government' || currCat === 'Law Office' || currCat === 'Retail') {
+      if (currCat === 'General Office' || currCat === 'Manufacturing' || currCat === 'Government' || currCat === 'Law Office' || currCat === 'Retail' || currCat === 'Spa' || currCat === 'Dealership') {
         if (currRec['Times per Week'] === '1x') {
           this.setState({mergeTemp: this.props.citySet + '-standard-1x'});
         } else {
           this.setState({mergeTemp: this.props.citySet + '-standard'});
         }
-      } else if (currCat === 'Standard Medical' || currCat === 'Clinic' || currCat === 'Dialysis / Oncology' || currCat === 'Dentist' || currCat === 'Veterinarian') {
+      } else if (currCat === 'Standard Medical' || currCat === 'Clinic' || currCat === 'Dialysis / Oncology' || currCat === 'Dentist' || currCat === 'Veterinarian' || currCat === 'Surgery Center') {
         if (currRec['Times per Week'] === '1x') {
           this.setState({mergeTemp: this.props.citySet + '-medical-1x'});
         } else {

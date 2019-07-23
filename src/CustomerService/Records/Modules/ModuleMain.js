@@ -261,6 +261,7 @@ export default class ModuleMain extends Component {
                 <option>Government</option>
                 <option>Law Office</option>
                 <option>Retail</option>
+                <option>Dealership</option>
 
                 <option disabled>--------</option>
                 <option disabled>Medical</option>
@@ -269,6 +270,7 @@ export default class ModuleMain extends Component {
                 <option>Dialysis / Oncology</option>
                 <option>Dentist</option>
                 <option>Veterinarian</option>
+                <option>Surgery Center</option>
 
                 <option disabled>--------</option>
                 <option>Residential Common Area</option>
@@ -290,6 +292,7 @@ export default class ModuleMain extends Component {
                 <option>Restaurant</option>
                 <option>Bar</option>
                 <option>Gym</option>
+                <option>Spa</option>
               </select>
             </div>
           </div>
