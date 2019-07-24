@@ -5,6 +5,7 @@ import {Map, InfoWindow, Marker, HeatMap, GoogleApiWrapper} from 'google-maps-re
 import axios from 'axios';
 import CustomerItem from './CustomerItem';
 import ApiConfig from '../config'
+import MapsAPI from '../google'
 import currLocation from '../assets/icons/location.png';
 
 import exit from '../assets/icons/white/exit.png';
@@ -72,7 +73,7 @@ export class MainMap extends Component {
             }
 
 
-            let geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+            let geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=' + MapsAPI()
             delete axios.defaults.headers.common["Authorization"];
             return axios
               .get(geoCodeURL)
@@ -180,7 +181,7 @@ export class MainMap extends Component {
                             }
 
 
-                            let geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+                            let geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=' + MapsAPI()
                             return axios
                               .get(geoCodeURL)
                               .then(response => {
@@ -334,5 +335,5 @@ export class MainMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw')
+  apiKey: (MapsAPI())
 })(MainMap)

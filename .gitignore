@@ -24,3 +24,4 @@ src/config.js
 src/pass.js
 src/jettpass.js
 src/Sales/Records/RecordNotes.js
+src/google.js

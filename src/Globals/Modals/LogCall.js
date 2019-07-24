@@ -5,6 +5,8 @@ import axios from 'axios';
 import 'react-day-picker/lib/style.css';
 import LogCallAccounts from '../Modals/LogCallAccounts';
 import ApiConfig from '../../config'
+import MapsAPI from '../../google'
+
 import {Map, InfoWindow, Listing, Marker, HeatMap, GoogleApiWrapper} from 'google-maps-react';
 
 import calendarImg from '../../assets/icons/black/calendar.png';
@@ -304,8 +306,8 @@ export class LogCall extends Component {
 
     if (streetAddress) {
       delete axios.defaults.headers.common["Authorization"];
-      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=400x300&location=' + streetAddress.replace(/ /g, '+') + '&fov=75&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
-      geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=400x300&location=' + streetAddress.replace(/ /g, '+') + '&fov=75&key=' + MapsAPI();
+      geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=' + MapsAPI();
       console.log(geoCodeURL);
       return axios
         .get(geoCodeURL)
@@ -903,7 +905,7 @@ export class LogCall extends Component {
   }
 }
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw')
+  apiKey: (MapsAPI())
 })(LogCall)
 
 LogCall.propTypes = {

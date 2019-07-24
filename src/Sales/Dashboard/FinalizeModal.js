@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'react-day-picker/lib/style.css';
 import ApiConfig from '../../config'
 import {Map, InfoWindow, Listing, Marker, HeatMap, GoogleApiWrapper} from 'google-maps-react';
+import MapsAPI from '../../google'
 
 import mapLink from '../../assets/icons/white/location.png';
 import exit from '../../assets/icons/white/exit.png';
@@ -135,8 +136,8 @@ export default class FinalizeModal extends Component {
 
     if (streetAddress) {
       delete axios.defaults.headers.common["Authorization"];
-      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=400x300&location=' + streetAddress.replace(/ /g, '+') + '&fov=75&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
-      geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=400x300&location=' + streetAddress.replace(/ /g, '+') + '&fov=75&key=' + MapsAPI();
+      geoCodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(streetAddress) + '&key=' + MapsAPI();
       console.log(geoCodeURL);
       return axios
         .get(geoCodeURL)

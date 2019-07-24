@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import MapsAPI from '../../google'
 
 import phoneImg from '../../assets/icons/white/phone.png';
 import dollarImg from '../../assets/icons/black/dollar.png';
@@ -31,12 +32,12 @@ export default class CallModalIntro extends Component {
       if (fields['Zip']) {totalAddress = totalAddress + ', ' + fields['Zip'];}
     }
     setTimeout((function() {
-      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=500x500&location=' + totalAddress.replace(/ /g, '+') + '&fov=75&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+      let streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=500x500&location=' + totalAddress.replace(/ /g, '+') + '&fov=75&key=' + MapsAPI();
 
       if (document.getElementById('streetWindow')) {
         let svWidth = document.getElementById('streetWindow').offsetWidth;
         let svHeight = document.getElementById('streetWindow').offsetHeight;
-        streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=' + svWidth + 'x' + svHeight + '&location=' + totalAddress.replace(/ /g, '+') + '&fov=75&key=AIzaSyBHjFAoFrHNd0x-mYqRrI-ZkpT8boKLCTw'
+        streetViewSrc = 'https://maps.googleapis.com/maps/api/streetview?size=' + svWidth + 'x' + svHeight + '&location=' + totalAddress.replace(/ /g, '+') + '&fov=75&key=' + MapsAPI();
       }
 
 
