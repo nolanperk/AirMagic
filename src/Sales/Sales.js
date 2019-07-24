@@ -309,6 +309,7 @@ export default class Sales extends Component {
     else if (this.state.pickerId === 'callDate') {currentRecordState['Recent Call Date'] = finalDate}
     else if (this.state.pickerId === 'callBack') {currentRecordState['Callback Date'] = finalDate}
     else if (this.state.pickerId === 'followDate') {currentRecordState['Last Contact'] = finalDate}
+    else if (this.state.pickerId === 'nextFollow') {currentRecordState['Next Follow Up'] = finalDate}
 
     this.setState({
       currentRecord: currentRecordState,
@@ -734,7 +735,10 @@ export default class Sales extends Component {
     else if (e.target.id === 'weekDays') {currentRecordState['Days of Week'] = e.target.value}
     else if (e.target.id === 'serviceTime') {currentRecordState['Service Time'] = e.target.value}
 
+
     else if (e.target.id === 'followDate') {currentRecordState['Last Contact'] = e.target.value}
+    else if (e.target.id === 'nextFollow') {currentRecordState['Next Follow Up'] = e.target.value}
+    else if (e.target.id === 'followTracking') {currentRecordState['Follow Tracking'] = e.target.value}
     else if (e.target.id === 'followCount') {currentRecordState['Follow Ups'] = parseInt(e.target.value)}
     else if (e.target.id === 'followUsed') {currentRecordState['Follow Ups Used'] = e.target.value}
 
@@ -1047,7 +1051,6 @@ export default class Sales extends Component {
         fullDataSet["Standing"] = document.getElementById('standingSelect').value;
         fullDataSet["Call Status"] = document.getElementById('callStatus').value;
         fullDataSet["Appt. Set By"] = document.getElementById('setBySelect').value;
-        fullDataSet["Follow Status"] = document.getElementById('followStatus').value;
         fullDataSet["Category"] = document.getElementById('category').value;
 
 
@@ -1164,7 +1167,6 @@ export default class Sales extends Component {
         pushRecord["Standing"] = document.getElementById('standingSelect').value;
         pushRecord["Appt. Set By"] = document.getElementById('setBySelect').value;
         pushRecord["Call Status"] = document.getElementById('callStatus').value;
-        pushRecord["Follow Status"] = document.getElementById('followStatus').value;
         pushRecord["Category"] = document.getElementById('categorySelect').value;
         pushRecord["Proposal Type"] = document.getElementById('proposalTypeSelect').value;
 

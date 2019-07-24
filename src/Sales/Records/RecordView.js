@@ -162,6 +162,9 @@ export default class RecordView extends Component {
               currentRecordView={this.props.currentRecordView}
               contact={this.props.currentRecord['Main contact']}
               followDate={this.props.currentRecord['Last Contact']}
+              nextFollow={this.props.currentRecord['Next Follow Up']}
+              followTracking={this.props.currentRecord['Follow Tracking']}
+
               followCount={this.props.currentRecord['Follow Ups']}
               followUsed={this.props.currentRecord['Follow Ups Used']}
               followStatus={this.props.currentRecord['Follow Status']}

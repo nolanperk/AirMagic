@@ -37,9 +37,12 @@ export default class ModuleFollow extends Component {
   }
 
   get ContactType() {
+
     let contact = this.props.contact;
     let email = this.props.email;
     let followDate = this.props.followDate;
+    let nextFollow = this.props.nextFollow;
+    let followTracking = this.props.followTracking;
     let followCount = this.props.followCount;
     let followUsed = this.props.followUsed;
 
@@ -67,30 +70,15 @@ export default class ModuleFollow extends Component {
     }
 
 
-
     return (
       <div className="inner">
         <a className="postApptLink" href={postApptLink}>Post-Appt Email</a>
 
         <div className="inputBlock inputBlock--half">
-          <label>Call Status</label>
-          <div
-            className="selectBlock"
-            id="follow"
-            >
-            <select id="followStatus" value={this.state.followStatus} onChange={this.followStatusChange}>
-              <option></option>
-              <option>Hot</option>
-              <option>Normal</option>
-              <option>Bad</option>
-            </select>
-          </div>
-        </div>
-        <div className="inputBlock inputBlock--half">
           <div class="pickWrapper">
             <DayPicker onDayClick={this.props.handleDayClick} />
           </div>
-          <label>Follow Up Date</label>
+          <label>Last Follow Up</label>
           <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
             <div className="inputTag">
               <img src={calendarImg} alt="" />
@@ -99,6 +87,23 @@ export default class ModuleFollow extends Component {
               type="text"
               value={followDate}
               id="followDate"
+              onChange={this.props.changeRecordHandler}
+            />
+          </div>
+        </div>
+        <div className="inputBlock inputBlock--half">
+          <div class="pickWrapper">
+            <DayPicker onDayClick={this.props.handleDayClick} />
+          </div>
+          <label>Next Follow Up</label>
+          <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
+            <div className="inputTag">
+              <img src={calendarImg} alt="" />
+            </div>
+            <input
+              type="text"
+              value={nextFollow}
+              id="nextFollow"
               onChange={this.props.changeRecordHandler}
             />
           </div>
@@ -122,8 +127,25 @@ export default class ModuleFollow extends Component {
           />
         </div>
 
+        {this.followHist}
+
       </div>
     );
+  }
+
+  get followHist() {
+    let followTracking = this.props.followTracking;
+    return (
+      <div className="inputBlock inputBlock--full">
+        <label>Follow History</label>
+        <input
+          type="text"
+          id="followTracking"
+          value={followTracking}
+          onChange={this.props.changeRecordHandler}
+        />
+      </div>
+    )
   }
 }
 
@@ -132,6 +154,8 @@ ModuleFollow.propTypes ={
   contact: propTypes.string,
   email: propTypes.string,
   followDate: propTypes.string,
+  nextFollow: propTypes.string,
+  followTracking: propTypes.string,
   followCount: propTypes.string,
   changeRecordHandler: propTypes.func.isRequired,
 }
