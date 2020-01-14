@@ -121,6 +121,7 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               amount={this.props.currentRecord['Monthly Amount']}
+              cpopAmount={this.props.currentRecord['Monthly CPOP']}
               sqFt={this.props.currentRecord['Sq. Footage']}
               sqFtReal={this.props.currentRecord['Actual Sq Footage']}
               restrooms={this.props.currentRecord['Restrooms']}
@@ -192,8 +193,8 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               strip={this.props.currentRecord['Strip & Wax']}
-              carpet={this.props.currentRecord['Carpet Cleaning']}
-              tile={this.props.currentRecord['Tile & Grout']}
+              carpetCleaning={this.props.currentRecord['Carpet Cleaning']}
+              tileCleaning={this.props.currentRecord['Tile & Grout']}
               preClean={this.props.currentRecord['Pre-Clean']}
               windows={this.props.currentRecord['Window Cleaning']}
             />

@@ -55,6 +55,7 @@ export default class AccountingView extends Component {
               baseId={this.props.baseId}
             />
             <ModuleSchedule
+              cpopAmount={this.props.currentRecord['Monthly CPOP']}
               amount={this.props.currentRecord['Monthly Amount']}
               weekDays={this.props.currentRecord['Days of Week']}
               changeRecordHandler={this.props.changeRecordHandler}

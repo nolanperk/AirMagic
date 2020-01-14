@@ -37,7 +37,7 @@
   .CallList {
     position: relative;
 
-    .leftCol {
+    .leftCol, .midcol {
       text-align: left;
       margin: 0 1%;
       width: 42%;
@@ -119,17 +119,21 @@
       }
     }
 
+    .hidden {
+      display: none;
+    }
+
     .CallListBox {
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       background: $white;
       padding: 2.5vw 2vw 1.5vw;
       display: inline-block;
       width: 100%;
-      margin: 10px 0;
+      margin: 10px 0 25px;
       border-radius: 10px;
       text-align: left;
 
-      &.isHidden {
+      &.isHidden, &.hidden {
         display: none;
       }
 
@@ -335,7 +339,7 @@
 
       .inside {
         &.Mariyah {background: $primary;}
-        &.Lisa {background: $secondary;}
+        &.Sheila {background: $secondary;}
         &.Shana {background: $tertiary;}
         &.Jett {background: $black;}
       }

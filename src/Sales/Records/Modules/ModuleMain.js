@@ -167,12 +167,13 @@ export default class ModuleMain extends Component {
                 <option id="none"></option>
                 <option id="Shana+Thorn">Shana Thorn</option>
                 <option id="Mariyah+Moore">Mariyah Moore</option>
-                <option id="Lisa+Shirah">Lisa Shirah</option>
+                <option id="Sheila+St.+Clair">Sheila St. Clair</option>
                 <option id="Jett">Jett</option>
                 <option id="Jason">Jason</option>
                 <option id="Justin">Justin</option>
                 <option id="Mike">Mike</option>
                 <option disabled>----------</option>
+                <option id="Lisa+Shirah">Lisa Shirah</option>
                 <option id="Carla+Milian">Carla Milian</option>
                 <option id="Linda+Goldberg">Linda Goldberg</option>
                 <option id="Eric+Kleeman">Eric Kleeman</option>
@@ -286,12 +287,13 @@ export default class ModuleMain extends Component {
                   <option id="none"></option>
                   <option id="Shana+Thorn">Shana Thorn</option>
                   <option id="Mariyah+Moore">Mariyah Moore</option>
-                  <option id="Lisa+Shirah">Lisa Shirah</option>
+                  <option id="Sheila+St.+Clair">Sheila St. Clair</option>
                   <option id="Jett">Jett</option>
                   <option id="Jason">Jason</option>
                   <option id="Justin">Justin</option>
                   <option id="Mike">Mike</option>
                   <option disabled>----------</option>
+                  <option id="Lisa+Shirah">Lisa Shirah</option>
                   <option id="Carla+Milian">Carla Milian</option>
                   <option id="Linda+Goldberg">Linda Goldberg</option>
                   <option id="Eric+Kleeman">Eric Kleeman</option>

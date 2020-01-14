@@ -4,7 +4,8 @@
     background: #F5FAFA
   }
   .ActivityWrapper {
-    width: 300px;
+    width: 250px;
+    padding: 30px;
     padding-top: 90px;
 
     hr {
@@ -48,6 +49,13 @@
       }
     }
 
+    #monthlyFollows {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba($white,0.05);
+    }
+
     #logoutBtn {
       top: 20px;
       right: 20px;
@@ -58,19 +66,86 @@
 
   .CallListContainer {
     top: 0;
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
     height: 100%;
-    padding: 40px 30px 100px;
+    padding: 40px 20px 100px;
 
     .CallList {
-      .leftCol, .rightCol {
-        width: 48%;
+      .leftCol, .midCol, .rightCol {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 1%;
+        width: 33%;
+        text-align: left;
+      }
+      .rightCol {
+        width: 27%;
+      }
+    }
+
+    .align-left {
+      text-align: left;
+    }
+
+    .CallList .handoff {
+      display: flex;
+      .popOut {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+
+        img {
+          width: 15px;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .callItem.handoff {
+        display: block;
+        margin: 0 5px;
+        flex: 1 1 0;
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .companyData, .buttons {
+          width: 100%;
+        }
+
+        .companyData {
+          padding: 0;
+          padding-right: 25px;
+        }
+        .buttons {
+          padding: 0;
+          background: transparent;
+          box-shadow: none;
+          border-radius: 0;
+          margin-top: 10px;
+
+          .btn {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(50% - 4px);
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
       }
     }
 
     .CallList .CallListBox .callItem {
+
       .companyData {
-        width: calc(100% - 190px);
+        width: calc(100% - 170px);
         padding: 0 5px;
         padding-right: 10px;
 
@@ -80,7 +155,8 @@
         }
       }
       .buttons {
-        width: 190px;
+        width: 170px;
+        padding: 8px 12px;
         .skipBtn {
           display: inline-block;
           vertical-align: middle;
@@ -104,6 +180,25 @@
           width: calc(100% - 75px);
         }
       }
+
+
+
+      &.ongoing {
+        .companyData {
+          width: calc(100% - 135px);
+        }
+        .buttons {
+          width: 135px;
+
+          img {
+            margin-left: 10px;
+          }
+
+          .btn {
+            width: calc(100% - 50px);
+          }
+        }
+      }
     }
 
 
@@ -113,7 +208,38 @@
 
     .CallListBox {
       margin-bottom: 30px;
-      padding: 1vw 1.5vw;
+      padding: 1vw 1vw 0.25vw;
+      border-radius: 7px;
+
+      .followHighlight {
+        width: calc(100% + 2vw);
+        padding: 1vw;
+        margin: 0.5vw 0 1vw;
+        margin-left: -1vw;
+        >p {
+          color: $white;
+        }
+
+        .callItem {
+          background: rgba($white, 0.85);
+        }
+
+        &.next {
+          background: rgba($secondary, 0.9);
+        }
+
+        &.hot {
+          background: rgba(#fab32a, 0.9);
+        }
+
+        &.ongoingFollow {
+          background: rgba($tertiary, 0.9);
+        }
+
+        &.rebuttal {
+          background: rgba($primary, 0.9);
+        }
+      }
     }
   }
 
@@ -121,7 +247,7 @@
     position: fixed;
     bottom: 0;
     z-index: 10;
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
     left: 0;
     background: rgba($white, 0.95);
     padding: 10px;
@@ -151,13 +277,23 @@
       border-radius: 5px;
       width: 200px;
     }
+
+    .sendReport {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: white;
+    }
   }
 }
 
 .followModalCont {
   position: fixed;
-  z-index: 3;
-  width: calc(100% - 300px);
+  z-index: 11;
+  width: calc(100% - 250px);
   height: 100%;
   background: rgba(#728080, 0.7);
   top: 0px;
@@ -426,10 +562,12 @@
 
     .skipNotes {
       display: block;
-      #skipReason {
+      .followUp {width:100%;}
+      #skipReason, #insiderSelect {
         outline: 0;
         width: 100%;
         height: auto;
+        margin-bottom: 50px;
         padding: 20px;
         -webkit-appearance: none;
         font-size: 17px;
@@ -448,6 +586,236 @@
       }
       .sentIt {
         margin-left: 10px;
+      }
+    }
+  }
+}
+
+
+.MonthlyFollowsModal {
+  .monthlyGrid {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 63px);
+    width: 100%;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+
+    > .wordCount {
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      font-size: 14px;
+      background: rgba($white, 0.7);
+      padding: 5px 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    > .btn {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    > .listContainer {
+      height: 100%;
+      overflow-y: scroll;
+      background: #edf2f2;
+      border-radius: 10px;
+      border: solid 5px #edf2f2;
+
+      li {
+        display: flex;
+        list-style: none;
+        background: $white;
+        margin-bottom: 3px;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 4px;
+        padding-left: 50px;
+        position: relative;
+        user-select: none;
+
+        &:nth-child(even) {
+          background-color: rgba($white, 0.5);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        p {
+          opacity: 0.7;
+          font-size: 14px;
+          font-style: italic;
+
+          &.isHidden {
+            display: none;
+          }
+
+          .APPC, .Prospect {
+            font-size: 12px;
+            margin-left: 10px;
+          }
+
+          .APPC {
+            color: $tertiary;
+          }
+          .Prospect {
+            color: $secondary;
+          }
+        }
+
+        p.compName {
+          font-style: normal;
+          font-size: 16px;
+          font-weight: 800;
+          opacity: 1;
+        }
+
+        a.popOut {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+
+          img {
+            width: 20px;
+          }
+        }
+
+        .splitHalf {
+          flex: 1 1 0;
+        }
+
+        .notesArea {
+          flex: 1 1 0;
+          margin-right: 50px;
+          width: 20vw;
+
+          textarea {
+            width: 100%;
+            border: none;
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 5px;
+            font-size: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            outline: 0;
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 26px;
+          height: calc(100% - 10px);
+          border-radius: 5px;
+          background: #edf2f2;
+          left: 5px;
+          top: 5px;
+        }
+
+        &.selected::after {
+          width: 16px;
+          height: calc(100% - 20px);
+          border-radius: 5px;
+          background: $secondary;
+          left: 10px;
+          top: 10px;
+        }
+
+        &.sendingEmails {
+          &.isSent,  {
+            background: $secondary;
+            color: $white;
+
+            .btn {
+              opacity: 0.5;
+            }
+
+            img.deleteBtn {display: none;}
+
+            .popOut img {
+              filter: brightness(100);
+            }
+          }
+          &::after {
+            content: none;
+          }
+          &:nth-child(even) {
+            background: $white;
+
+            &.isSent,  {
+              background: $secondary;
+              color: $white;
+
+              .btn {
+                opacity: 0.5;
+              }
+
+              img.deleteBtn {display: none;}
+
+              .popOut img {
+                filter: brightness(100);
+              }
+            }
+          }
+          p.compName {
+            min-height: 40px;
+          }
+          .popOut {
+            transform: none;
+            bottom: 10px;
+            right: 10px;
+            top: auto;
+          }
+          .btn {
+            margin-top: 10px;
+          }
+          width: calc(25% - 5px);
+          display: inline-block;
+          padding: 10px 15px;
+          padding-right: 40px;
+          margin-right: 5px;
+          margin-bottom: 5px;
+
+          .deleteBtn {
+            width: 20px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+
+            &:hover {
+              opacity: 0.6;
+              transition: all 0.25s ease;
+            }
+          }
+        }
+      }
+    }
+
+    > .inner {
+      background: #edf2f2;
+      padding: 10px;
+      border-radius: 5px;
+      height: 100%;
+    }
+
+
+    #tempBox {
+      margin-top: 20px;
+      border: none;
+      background: #edf2f2;
+      padding: 2.5vw;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: 0;
+      flex-basis: 100%;
+
+      &:focus {
+        background: darken(#edf2f2, 3%);
       }
     }
   }

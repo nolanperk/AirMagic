@@ -395,6 +395,7 @@ export default class Sales extends Component {
         'Appt. Set By': '',
         'Pre-Clean Charge': '',
         'Monthly Amount': '',
+        'Monthly CPOP': '',
         'Sq. Footage': '',
         'Actual Sq Footage': '',
         'Restrooms': '',
@@ -435,7 +436,6 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Email']) {pushRecord['Email'] = this.state.currentRecord['Email']}
       if(this.state.currentRecord['Alternate Email']) {pushRecord['Alternate Email'] = this.state.currentRecord['Alternate Email']}
       if(this.state.currentRecord['Lead Source']) {pushRecord['Lead Source'] = this.state.currentRecord['Lead Source']}
-      if(this.state.currentRecord['Cancel Date']) {pushRecord['Cancel Date'] = this.state.currentRecord['Cancel Date']}
       if(this.state.currentRecord['Address 1']) {pushRecord['Address 1'] = this.state.currentRecord['Address 1']}
       if(this.state.currentRecord['Address 2']) {pushRecord['Address 2'] = this.state.currentRecord['Address 2']}
       if(this.state.currentRecord['City']) {pushRecord['City'] = this.state.currentRecord['City']}
@@ -452,6 +452,7 @@ export default class Sales extends Component {
       if(this.state.currentRecord['Pre-Clean Date']) {pushRecord['Pre-Clean Date'] = this.state.currentRecord['Pre-Clean Date']}
       if(this.state.currentRecord['Pre-Clean Charge']) {pushRecord['Pre-Clean Charge'] = this.state.currentRecord['Pre-Clean Charge']}
       if(this.state.currentRecord['Monthly Amount']) {pushRecord['Monthly Amount'] = this.state.currentRecord['Monthly Amount']}
+      if(this.state.currentRecord['Monthly CPOP']) {pushRecord['Monthly CPOP'] = this.state.currentRecord['Monthly CPOP']}
       if(this.state.currentRecord['Sq. Footage']) {pushRecord['Sq. Footage'] = this.state.currentRecord['Sq. Footage']}
       if(this.state.currentRecord['Actual Sq Footage']) {pushRecord['Actual Sq Footage'] = this.state.currentRecord['Actual Sq Footage']}
       if(this.state.currentRecord['Restrooms']) {pushRecord['Restrooms'] = this.state.currentRecord['Restrooms']}
@@ -502,48 +503,51 @@ export default class Sales extends Component {
             loading: false,
           });
 
+          this.props.history.push(destinationURL);
+          this.loadData();
+          alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
 
 
 
 
-          delete axios.defaults.headers.common["Authorization"];
-
-          let secondMessage; let slackMessage;
-          let randomNumb = Math.random();
-          if (randomNumb < 0.33) { //money
-            slackMessage = ":moneybag: :bellhop_bell: :money_mouth_face: :bellhop_bell: :moneybag:";
-            secondMessage = "AHHH!\n*"
-          } else if (randomNumb >= 0.33 && randomNumb < 0.66) { //rain
-            slackMessage = ":partly_sunny_rain: :umbrella_with_rain_drops: :scream: :umbrella_with_rain_drops: :partly_sunny_rain:";
-            secondMessage = "LET IT RAIN!\n*"
-          } else if (randomNumb >= 0.66) { // party
-            slackMessage = ":tada: :clap: :star-struck: :clap: :tada:";
-            secondMessage = "YASSSS!\n*"
-          }
-
-          secondMessage += this.state.currentRecord['Sales Rep'].split(' ')[0];
-          secondMessage += '* just closed a deal in *';
-          secondMessage += this.state.currentRecord['City'];
-          secondMessage += '* for *$';
-          secondMessage += this.state.currentRecord['Monthly Amount'] + '*!!';
-
-          axios.post('https://hooks.slack.com/services/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', '{"text":"' + slackMessage + '"}')
-          .then(response => {
-            setTimeout((function() {
-              delete axios.defaults.headers.common["Authorization"];
-              axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMessage + '"}')
-              .then(response => {
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
-                console.log('gonna bounce now');
-                setTimeout((function() {
-                  this.props.history.push(destinationURL);
-                  this.loadData();
-                  alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
-                }).bind(this), 250);
-              });
-            }).bind(this), 2000);
-
-          });
+          // delete axios.defaults.headers.common["Authorization"];
+          //
+          // let secondMessage; let slackMessage;
+          // let randomNumb = Math.random();
+          // if (randomNumb < 0.33) { //money
+          //   slackMessage = ":moneybag: :bellhop_bell: :money_mouth_face: :bellhop_bell: :moneybag:";
+          //   secondMessage = "AHHH!\n*"
+          // } else if (randomNumb >= 0.33 && randomNumb < 0.66) { //rain
+          //   slackMessage = ":partly_sunny_rain: :umbrella_with_rain_drops: :scream: :umbrella_with_rain_drops: :partly_sunny_rain:";
+          //   secondMessage = "LET IT RAIN!\n*"
+          // } else if (randomNumb >= 0.66) { // party
+          //   slackMessage = ":tada: :clap: :star-struck: :clap: :tada:";
+          //   secondMessage = "YASSSS!\n*"
+          // }
+          //
+          // secondMessage += this.state.currentRecord['Sales Rep'].split(' ')[0];
+          // secondMessage += '* just closed a deal in *';
+          // secondMessage += this.state.currentRecord['City'];
+          // secondMessage += '* for *$';
+          // secondMessage += this.state.currentRecord['Monthly Amount'] + '*!!';
+          //
+          // axios.post('https://hooks.slack.com/services/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', '{"text":"' + slackMessage + '"}')
+          // .then(response => {
+          //   setTimeout((function() {
+          //     delete axios.defaults.headers.common["Authorization"];
+          //     axios.post('https://hooks.slack.com/services/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', '{"text":"' + secondMessage + '"}')
+          //     .then(response => {
+          //       axios.defaults.headers.common['Authorization'] = 'Bearer ' + ApiConfig();
+          //       console.log('gonna bounce now');
+          //       setTimeout((function() {
+          //         this.props.history.push(destinationURL);
+          //         this.loadData();
+          //         alert("The record has been moved to the " + this.props.citySet.charAt(0).toUpperCase() + this.props.citySet.substr(1).toLowerCase() + " Customers database.\n\n Let's go there now!");
+          //       }).bind(this), 250);
+          //     });
+          //   }).bind(this), 2000);
+          //
+          // });
           // return axios
           //   .delete(this.state.dataURL + this.state.baseId + '/Sales/' + currentRecordId)
           //   .then(response => {
@@ -718,6 +722,7 @@ export default class Sales extends Component {
     else if (e.target.id === 'emp') {currentRecordState['Employees'] = e.target.value}
 
     else if (e.target.id === 'amount') {currentRecordState['Monthly Amount'] = e.target.value}
+    else if (e.target.id === 'cpopAmount') {currentRecordState['Monthly CPOP'] = e.target.value}
     else if (e.target.id === 'sqFt') {currentRecordState['Sq. Footage'] = e.target.value}
     else if (e.target.id === 'sqFtReal') {currentRecordState['Actual Sq Footage'] = e.target.value}
     else if (e.target.id === 'restrooms') {currentRecordState['Restrooms'] = e.target.value}
@@ -744,8 +749,8 @@ export default class Sales extends Component {
 
     else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean'] = e.target.value}
     else if (e.target.id === 'strip') {currentRecordState['Strip & Wax'] = e.target.value}
-    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning'] = e.target.value}
-    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout'] = e.target.value}
+    else if (e.target.id === 'carpetCleaning') {currentRecordState['Carpet Cleaning'] = e.target.value}
+    else if (e.target.id === 'tileCleaning') {currentRecordState['Tile & Grout'] = e.target.value}
     else if (e.target.id === 'windows') {currentRecordState['Window Cleaning'] = e.target.value}
 
 
@@ -1262,7 +1267,6 @@ export default class Sales extends Component {
   saveNoteHandler = e => {
     let newNote = document.getElementById("newNoteBox").value;
     currentRecordState = this.state.currentRecord;
-
     if (currentRecordState['Notes']) {
       currentRecordState['Notes'] = newNote + '\n\n' + currentRecordState['Notes'];
     } else {
@@ -1524,6 +1528,7 @@ export default class Sales extends Component {
             currentRecordState['Last Contact'] = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
             currentRecordState['Next Follow Up'] = (today.getMonth()+1) + '/' + (today.getDate()+1) + '/' + today.getFullYear();
             currentRecordState['Follow Ups'] = 0;
+            currentRecordState['Follow Status'] = 'New';
 
             let todaysDate = new Date();
             let tomorrowDate = new Date(todaysDate.getTime()+1000*60*60*24);
@@ -1722,22 +1727,7 @@ export default class Sales extends Component {
             console.log(currExport);
 
             setTimeout((function() {
-              if (this.state.currentRecord['Proposal Date']) { //theres a date. Check it!
-                let previousDate = new Date(this.state.currentRecord['Proposal Date']); //adding six months because we don't want to show this too often
-                let currentDate = new Date();
-                console.log(currentDate + ">" + previousDate);
-                if (currentDate >= previousDate) {
-                  this.setState({
-                    activeModal: false,
-                    modalType: '',
-                  });
-                  this.createDocument();
-                } else {
-                  showModal();
-                }
-              } else {
-                showModal();
-              }
+              showModal();
             }).bind(this), 50);
           });
       }).bind(this), 50);
@@ -1777,7 +1767,6 @@ export default class Sales extends Component {
 
     let currentRecordState = this.state.currentRecord;
 
-    currentRecordState['Forecast Rating'] = document.getElementById('foreRating').value;
     currentRecordState['Forecast Speed'] = document.getElementById('foreSpeed').value;
 
     this.setState({
@@ -1962,7 +1951,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Sheila' || slackSet === 'Shana' || slackSet === 'Bryan' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.currentRecord['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.currentRecord['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.currentRecord['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set
@@ -2122,6 +2111,10 @@ export default class Sales extends Component {
           console.log(currCheck);
           exportFields += '&fields%5B%5D=';
           exportFields += currCheck;
+
+          if (currCheck === 'Monthly+Amount') {
+            exportFields += '&fields%5B%5D=Monthly+CPOP';
+          }
         }
       }
       exportFields += '&fields%5B%5D=';
@@ -2227,41 +2220,53 @@ export default class Sales extends Component {
 
               // let uniq = [ ...new Set(newItems) ];
 
+              console.log(tampaItems);
 
-              const replacer = (key, value) => value === null ? '' : value
-              const header = Object.keys(finalItems[0])
-              let csv = finalItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-              csv.unshift(header.join(','))
-              csv = csv.join('\r\n')
-
-
-              var fakeDownloadA = document.createElement('a');
-              fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
-              fakeDownloadA.setAttribute('download', exportFileName + '.csv');
-
-              fakeDownloadA.style.display = 'none';
-              document.body.appendChild(fakeDownloadA);
-
-              fakeDownloadA.click();
-
-              document.body.removeChild(fakeDownloadA);
 
               setTimeout((function() {
-                this.loadData();
-                this.setState({
-                  loading: false,
-                  activeModal: false,
-                  modalType: '',
-                  customersOffsetTampa: '',
-                  customersDataTampa: [],
-                  salesOffsetTampa: '',
-                  salesDataTampa: [],
+                for (var i in finalItems) {
+                  console.log(finalItems[i]);
+                  if (finalItems[i]['Monthly CPOP']) {
+                    finalItems[i]['Monthly Amount'] = parseInt(finalItems[i]['Monthly CPOP']) + parseInt(finalItems[i]['Monthly Amount']);
+                    finalItems[i]['Monthly CPOP'] = null;
+                  }
+                }
 
-                  customersOffsetOrlando: '',
-                  customersDataOrlando: [],
-                  salesOffsetOrlando: '',
-                  salesDataOrlando: [],
-                });
+                const replacer = (key, value) => value === null ? '' : value
+                const header = Object.keys(finalItems[0])
+                let csv = finalItems.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                csv.unshift(header.join(','))
+                csv = csv.join('\r\n')
+
+
+                var fakeDownloadA = document.createElement('a');
+                fakeDownloadA.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+                fakeDownloadA.setAttribute('download', exportFileName + '.csv');
+
+                fakeDownloadA.style.display = 'none';
+                document.body.appendChild(fakeDownloadA);
+
+                fakeDownloadA.click();
+
+                document.body.removeChild(fakeDownloadA);
+
+                setTimeout((function() {
+                  this.loadData();
+                  this.setState({
+                    loading: false,
+                    activeModal: false,
+                    modalType: '',
+                    customersOffsetTampa: '',
+                    customersDataTampa: [],
+                    salesOffsetTampa: '',
+                    salesDataTampa: [],
+
+                    customersOffsetOrlando: '',
+                    customersDataOrlando: [],
+                    salesOffsetOrlando: '',
+                    salesDataOrlando: [],
+                  });
+                }).bind(this), 50);
               }).bind(this), 100);
             }).bind(this), 200);
           }).bind(this), 200);
@@ -2725,9 +2730,13 @@ export default class Sales extends Component {
           activeModal: true,
           modalType: 'addNotes',
         });
+
         setTimeout((function() {
-          document.getElementById('newNoteBox').focus();
-        }).bind(this), 50);
+          //focus the new note box better
+          let textarea = document.getElementById('newNoteBox'),
+          val = textarea.value;
+          textarea.focus();textarea.value = '';textarea.value = val;
+        }).bind(this), 100);
       } else if(e.target.id === 'salesMetrics') {
         this.setState({
           activeModal: true,

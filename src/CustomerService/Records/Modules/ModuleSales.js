@@ -394,10 +394,9 @@ export default class ModuleSales extends Component {
               <option disabled>---------------</option>
               <option disabled>Inside Sales</option>
               <option disabled>---------------</option>
-              <option id="Carla+Milian">Carla Milian</option>
               <option id="Shana+Thorn">Shana Thorn</option>
               <option id="Mariyah+Moore">Mariyah Moore</option>
-              <option id="Lisa+Shirah">Lisa Shirah</option>
+              <option id="Bryan+Goree">Bryan Goree</option>
               <option disabled>---------------</option>
               <option id="Jett">Jett</option>
               <option id="Jason">Jason</option>
@@ -412,6 +411,7 @@ export default class ModuleSales extends Component {
               <option disabled>---------------</option>
               <option disabled>Other</option>
               <option disabled>---------------</option>
+              <option id="TechSmart">TechSmart</option>
               <option id="Prospectr">Prospectr</option>
               <option id="Referral">Referral</option>
               <option id="Incoming+Call">Incoming Call</option>
@@ -419,6 +419,8 @@ export default class ModuleSales extends Component {
               <option disabled>Old</option>
               <option id="Linda+Goldberg">Linda Goldberg</option>
               <option id="Eric+Kleeman">Eric Kleeman</option>
+              <option id="Lisa+Shirah">Lisa Shirah</option>
+              <option id="Carla+Milian">Carla Milian</option>
               <option disabled>---------------</option>
               <option disabled>Marketing</option>
               <option disabled>---------------</option>

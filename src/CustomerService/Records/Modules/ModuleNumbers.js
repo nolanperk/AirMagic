@@ -121,7 +121,7 @@ export default class ModuleNumbers extends Component {
 
 
           <div className="inputBlock inputBlock--half">
-            <label>CPOP</label>
+            <label>+ CPOP</label>
             <div
               className="selectBlock"
               id="cpop"

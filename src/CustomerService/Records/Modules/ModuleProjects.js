@@ -12,8 +12,8 @@ export default class ModuleSales extends Component {
   // ----------------------------------------------------
   render() {
     let strip = this.props.strip;
-    let carpet = this.props.carpet;
-    let tile = this.props.tile;
+    let carpetCleaning = this.props.carpetCleaning;
+    let tileCleaning = this.props.tileCleaning;
     let preClean = this.props.preClean;
     let windows = this.props.windows;
 
@@ -58,8 +58,8 @@ export default class ModuleSales extends Component {
             </div>
             <input
               type="text"
-              value={carpet}
-              id="carpet"
+              value={carpetCleaning}
+              id="carpetCleaning"
               onChange={this.props.changeRecordHandler}
             />
           </div>
@@ -72,8 +72,8 @@ export default class ModuleSales extends Component {
             </div>
             <input
               type="text"
-              value={tile}
-              id="tile"
+              value={tileCleaning}
+              id="tileCleaning"
               onChange={this.props.changeRecordHandler}
             />
           </div>

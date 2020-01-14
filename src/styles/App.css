@@ -20,12 +20,12 @@ html {
 p, .fieldsList label {
   margin: 0; }
 
-.modal .modalInner .modalTitle, .callModal .modalBox .modalNav {
+.modal .modalInner .modalTitle, .callModal .modalBox .modalNav, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar {
   *zoom: 1; }
-  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
+  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:after {
     content: " ";
     display: table; }
-  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
+  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:after {
     clear: both; }
 
 body {
@@ -71,12 +71,12 @@ a:active {
   box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
   border: solid 1px #E6E6E6; }
 
-.modal .modalInner .modalTitle, .callModal .modalBox .modalNav {
+.modal .modalInner .modalTitle, .callModal .modalBox .modalNav, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar {
   *zoom: 1; }
-  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
+  .modal .modalInner .modalTitle:before, .callModal .modalBox .modalNav:before, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:before, .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:after {
     content: " ";
     display: table; }
-  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after {
+  .modal .modalInner .modalTitle:after, .callModal .modalBox .modalNav:after, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar:after {
     clear: both; }
 
 .btn {
@@ -652,23 +652,40 @@ ul {
     .BaseList .selects .leftSide {
       flex-basis: 40%;
       position: relative; }
-      .BaseList .selects .leftSide a {
+      .BaseList .selects .leftSide a:first-child {
         padding: 10px;
         width: 100%;
-        height: 100%;
+        height: 80%;
         position: absolute;
         left: 0; }
-        .BaseList .selects .leftSide a .whiteCard, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem {
+        .BaseList .selects .leftSide a:first-child .whiteCard, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child input, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child select, .BaseList .selects .leftSide a:first-child .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .selects .leftSide a:first-child .followUpItem {
           position: relative;
           height: 100%; }
-          .BaseList .selects .leftSide a .whiteCard .inner, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input .inner, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select .inner, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem .inner, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem .inner {
+          .BaseList .selects .leftSide a:first-child .whiteCard .inner, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child input .inner, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child select .inner, .BaseList .selects .leftSide a:first-child .FollowUpsModal .followUpItem .inner, .FollowUpsModal .BaseList .selects .leftSide a:first-child .followUpItem .inner {
             position: relative;
             top: 50%;
             transform: translateY(-50%); }
-            .BaseList .selects .leftSide a .whiteCard .inner .circleDot, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search input .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a input .inner .circleDot, .BaseList .selects .leftSide a .ControlsBar .ControlsBar--search select .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a select .inner .circleDot, .BaseList .selects .leftSide a .FollowUpsModal .followUpItem .inner .circleDot, .FollowUpsModal .BaseList .selects .leftSide a .followUpItem .inner .circleDot {
+            .BaseList .selects .leftSide a:first-child .whiteCard .inner .circleDot, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search input .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child input .inner .circleDot, .BaseList .selects .leftSide a:first-child .ControlsBar .ControlsBar--search select .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:first-child select .inner .circleDot, .BaseList .selects .leftSide a:first-child .FollowUpsModal .followUpItem .inner .circleDot, .FollowUpsModal .BaseList .selects .leftSide a:first-child .followUpItem .inner .circleDot {
               background: #407ae6;
               width: 90px;
               height: 90px; }
+      .BaseList .selects .leftSide a:last-child {
+        padding: 10px;
+        width: 100%;
+        height: 20%;
+        position: absolute;
+        left: 0;
+        bottom: 0; }
+        .BaseList .selects .leftSide a:last-child .whiteCard, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search input, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child input, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search select, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child select, .BaseList .selects .leftSide a:last-child .FollowUpsModal .followUpItem, .FollowUpsModal .BaseList .selects .leftSide a:last-child .followUpItem {
+          position: relative;
+          height: 100%;
+          padding: 0; }
+          .BaseList .selects .leftSide a:last-child .whiteCard .inner, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search input .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child input .inner, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search select .inner, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child select .inner, .BaseList .selects .leftSide a:last-child .FollowUpsModal .followUpItem .inner, .FollowUpsModal .BaseList .selects .leftSide a:last-child .followUpItem .inner {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%); }
+            .BaseList .selects .leftSide a:last-child .whiteCard .inner .circleDot, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search input .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child input .inner .circleDot, .BaseList .selects .leftSide a:last-child .ControlsBar .ControlsBar--search select .inner .circleDot, .ControlsBar .ControlsBar--search .BaseList .selects .leftSide a:last-child select .inner .circleDot, .BaseList .selects .leftSide a:last-child .FollowUpsModal .followUpItem .inner .circleDot, .FollowUpsModal .BaseList .selects .leftSide a:last-child .followUpItem .inner .circleDot {
+              display: none; }
     .BaseList .selects .rightSide {
       flex-basis: 60%;
       display: flex;
@@ -1062,6 +1079,35 @@ hr {
         right: 10px;
         top: 50%;
         transform: translateY(-50%); }
+    .ModuleList .inputBlock input[type="checkbox"] {
+      -webkit-appearance: none;
+      height: 32px;
+      margin: 0; }
+      .ModuleList .inputBlock input[type="checkbox"]:checked {
+        position: relative; }
+        .ModuleList .inputBlock input[type="checkbox"]:checked::after {
+          content: 'YES';
+          background: #131313;
+          position: absolute;
+          text-align: center;
+          font-size: 12px;
+          font-weight: 900;
+          line-height: 23px;
+          color: white;
+          top: 10%;
+          left: 3%;
+          right: 3%;
+          bottom: 10%;
+          border-radius: 2px; }
+    .ModuleList .inputBlock.check {
+      flex: 1 1 0;
+      position: relative;
+      margin: 0 5px;
+      height: 35px; }
+      .ModuleList .inputBlock.check:first-child {
+        margin-left: 0; }
+      .ModuleList .inputBlock.check:last-child {
+        margin-right: 0; }
     .ModuleList .inputBlock.inputBlock--half {
       flex-basis: 48%; }
     .ModuleList .inputBlock.inputBlock--full {
@@ -1096,8 +1142,6 @@ hr {
       -webkit-appearance: none;
       padding: 0.3vw 0.35vw;
       background: transparent; }
-    .ModuleList .inputBlock input[type='checkbox'] {
-      background: blue; }
   .ModuleList .inputWithTag {
     display: flex;
     flex-wrap: nowrap; }
@@ -1925,7 +1969,7 @@ hr {
       color: #fff; }
       .logCall.TicketModal .inner .modalTitle h4 em span.Mariyah {
         background: #C31F2F; }
-      .logCall.TicketModal .inner .modalTitle h4 em span.Lisa {
+      .logCall.TicketModal .inner .modalTitle h4 em span.Sheila {
         background: #1FC26A; }
       .logCall.TicketModal .inner .modalTitle h4 em span.Jett {
         background: #131313; }
@@ -3666,82 +3710,82 @@ hr {
   opacity: 0; }
   .confetti-piece:nth-child(1) {
     left: 7%;
-    transform: rotate(-80deg);
+    transform: rotate(50deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 363ms;
-    animation-duration: 1124ms; }
+    animation-delay: 299ms;
+    animation-duration: 770ms; }
   .confetti-piece:nth-child(2) {
     left: 14%;
-    transform: rotate(-74deg);
+    transform: rotate(-2deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 319ms;
-    animation-duration: 860ms; }
+    animation-delay: 78ms;
+    animation-duration: 1100ms; }
   .confetti-piece:nth-child(3) {
     left: 21%;
-    transform: rotate(-48deg);
+    transform: rotate(-45deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 254ms;
-    animation-duration: 945ms; }
+    animation-delay: 423ms;
+    animation-duration: 926ms; }
   .confetti-piece:nth-child(4) {
     left: 28%;
-    transform: rotate(10deg);
+    transform: rotate(54deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 64ms;
-    animation-duration: 1071ms; }
+    animation-delay: 27ms;
+    animation-duration: 1162ms; }
   .confetti-piece:nth-child(5) {
     left: 35%;
-    transform: rotate(-25deg);
+    transform: rotate(-54deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 282ms;
-    animation-duration: 938ms; }
+    animation-delay: 240ms;
+    animation-duration: 788ms; }
   .confetti-piece:nth-child(6) {
     left: 42%;
-    transform: rotate(43deg);
+    transform: rotate(-6deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 263ms;
-    animation-duration: 1038ms; }
+    animation-delay: 214ms;
+    animation-duration: 931ms; }
   .confetti-piece:nth-child(7) {
     left: 49%;
-    transform: rotate(-27deg);
+    transform: rotate(-58deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 346ms;
-    animation-duration: 931ms; }
+    animation-delay: 347ms;
+    animation-duration: 1005ms; }
   .confetti-piece:nth-child(8) {
     left: 56%;
-    transform: rotate(33deg);
+    transform: rotate(-35deg);
     animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 235ms;
-    animation-duration: 1108ms; }
+    animation-delay: 113ms;
+    animation-duration: 976ms; }
   .confetti-piece:nth-child(9) {
     left: 63%;
-    transform: rotate(62deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 221ms;
-    animation-duration: 1013ms; }
-  .confetti-piece:nth-child(10) {
-    left: 70%;
-    transform: rotate(13deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 140ms;
-    animation-duration: 995ms; }
-  .confetti-piece:nth-child(11) {
-    left: 77%;
-    transform: rotate(66deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 445ms;
-    animation-duration: 797ms; }
-  .confetti-piece:nth-child(12) {
-    left: 84%;
-    transform: rotate(74deg);
-    animation: makeItRain 1000ms infinite ease-out;
-    animation-delay: 117ms;
-    animation-duration: 890ms; }
-  .confetti-piece:nth-child(13) {
-    left: 91%;
-    transform: rotate(20deg);
+    transform: rotate(79deg);
     animation: makeItRain 1000ms infinite ease-out;
     animation-delay: 123ms;
-    animation-duration: 1047ms; }
+    animation-duration: 1198ms; }
+  .confetti-piece:nth-child(10) {
+    left: 70%;
+    transform: rotate(38deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 229ms;
+    animation-duration: 717ms; }
+  .confetti-piece:nth-child(11) {
+    left: 77%;
+    transform: rotate(50deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 193ms;
+    animation-duration: 1033ms; }
+  .confetti-piece:nth-child(12) {
+    left: 84%;
+    transform: rotate(-55deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 71ms;
+    animation-duration: 1100ms; }
+  .confetti-piece:nth-child(13) {
+    left: 91%;
+    transform: rotate(-64deg);
+    animation: makeItRain 1000ms infinite ease-out;
+    animation-delay: 446ms;
+    animation-duration: 924ms; }
   .confetti-piece:nth-child(odd) {
     background: #17d3ff; }
   .confetti-piece:nth-child(even) {
@@ -3803,7 +3847,7 @@ hr {
   padding: 50px; }
   .CallListContainer .CallList {
     position: relative; }
-    .CallListContainer .CallList .leftCol {
+    .CallListContainer .CallList .leftCol, .CallListContainer .CallList .midcol {
       text-align: left;
       margin: 0 1%;
       width: 42%;
@@ -3860,16 +3904,18 @@ hr {
           color: #fff;
           border: solid 1px #131313;
           cursor: default; }
+    .CallListContainer .CallList .hidden {
+      display: none; }
     .CallListContainer .CallList .CallListBox {
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       background: #fff;
       padding: 2.5vw 2vw 1.5vw;
       display: inline-block;
       width: 100%;
-      margin: 10px 0;
+      margin: 10px 0 25px;
       border-radius: 10px;
       text-align: left; }
-      .CallListContainer .CallList .CallListBox.isHidden {
+      .CallListContainer .CallList .CallListBox.isHidden, .CallListContainer .CallList .CallListBox.hidden {
         display: none; }
       .CallListContainer .CallList .CallListBox #cold-orlando {
         margin-left: 0px;
@@ -4016,7 +4062,7 @@ hr {
         font-weight: bold; }
       .ActivityWrapper .activityItem .activityContent .inside.Mariyah {
         background: #C31F2F; }
-      .ActivityWrapper .activityItem .activityContent .inside.Lisa {
+      .ActivityWrapper .activityItem .activityContent .inside.Sheila {
         background: #1FC26A; }
       .ActivityWrapper .activityItem .activityContent .inside.Shana {
         background: #407ae6; }
@@ -4477,6 +4523,8 @@ hr {
   height: 100%;
   width: 100%;
   position: absolute; }
+  .FranchiseDash .isHidden {
+    display: none; }
   .FranchiseDash .navBar, .FranchiseDash .preMeeting, .FranchiseDash .meetingList, .FranchiseDash .postMeeting, .FranchiseDash .recentCalls {
     float: left;
     height: 100%;
@@ -4493,6 +4541,30 @@ hr {
       z-index: 1;
       padding: 30px 25px;
       padding-top: 95px; }
+  .FranchiseDash .contactStatus {
+    margin-top: 5px; }
+    .FranchiseDash .contactStatus .contType {
+      background: #3a3636;
+      display: inline-block;
+      font-size: 12px;
+      color: #fff;
+      font-weight: bold;
+      margin: 0 2px;
+      padding: 5px 10px;
+      border-radius: 100px;
+      line-height: 11px;
+      vertical-align: middle; }
+      .FranchiseDash .contactStatus .contType:first-child {
+        margin-left: 0; }
+      .FranchiseDash .contactStatus .contType:last-child {
+        margin-right: 0; }
+      .FranchiseDash .contactStatus .contType img {
+        width: 12px;
+        line-height: 11px;
+        display: inline-block;
+        vertical-align: middle; }
+      .FranchiseDash .contactStatus .contType.isComplete {
+        background: #1FC26A; }
   .FranchiseDash .meetingList .meetingItem, .FranchiseDash .meetingList .recentItem, .FranchiseDash .recentCalls .meetingItem, .FranchiseDash .recentCalls .recentItem {
     margin-top: 10px;
     background: #fff;
@@ -4555,8 +4627,9 @@ hr {
     .FranchiseDash .listArea .listCol {
       display: inline-block;
       vertical-align: top;
-      width: 48%;
-      margin-right: 4%; }
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 20px; }
       .FranchiseDash .listArea .listCol:last-child {
         margin-right: 0; }
       .FranchiseDash .listArea .listCol .inner {
@@ -4571,7 +4644,12 @@ hr {
           padding: 10px;
           border-radius: 8px;
           margin-bottom: 8px;
-          position: relative; }
+          position: relative;
+          transition: all 0.2s ease; }
+          .FranchiseDash .listArea .listCol .inner .callItem:hover {
+            background: #dadede;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease; }
           .FranchiseDash .listArea .listCol .inner .callItem h4 {
             font-size: 15px;
             line-height: 14px; }
@@ -4607,6 +4685,15 @@ hr {
             margin-right: 10px; }
           .FranchiseDash .listArea .listCol .inner .callItem:last-child {
             margin-bottom: 0; }
+          .FranchiseDash .listArea .listCol .inner .callItem.isComplete {
+            background: #1FC26A;
+            color: white; }
+            .FranchiseDash .listArea .listCol .inner .callItem.isComplete .innerCompany p, .FranchiseDash .listArea .listCol .inner .callItem.isComplete .innerCompany .fieldsList label, .fieldsList .FranchiseDash .listArea .listCol .inner .callItem.isComplete .innerCompany label {
+              opacity: 0.75; }
+            .FranchiseDash .listArea .listCol .inner .callItem.isComplete .contactStatus {
+              display: none; }
+            .FranchiseDash .listArea .listCol .inner .callItem.isComplete .buttons img {
+              filter: brightness(100); }
   .FranchiseDash .navBar {
     background: #fff;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
@@ -4625,7 +4712,7 @@ hr {
       transform: translateY(-50%);
       left: 7px; }
   .FranchiseDash .preMeeting, .FranchiseDash .recentCalls {
-    width: calc(28% - 92px); }
+    width: calc(50% - 138px); }
     .FranchiseDash .preMeeting .listCol, .FranchiseDash .recentCalls .listCol {
       width: 100%;
       margin-right: 0;
@@ -4633,19 +4720,21 @@ hr {
       .FranchiseDash .preMeeting .listCol:last-child, .FranchiseDash .recentCalls .listCol:last-child {
         margin-bottom: 0; }
     .FranchiseDash .preMeeting .titleArea, .FranchiseDash .recentCalls .titleArea {
-      width: calc(28% - 92px);
+      width: calc(50% - 138px);
       background: rgba(245, 250, 250, 0.95); }
-  .FranchiseDash .recentCalls {
+  .FranchiseDash .preMeeting {
     background: #3a3636; }
-    .FranchiseDash .recentCalls .titleArea {
-      width: calc(28% - 92px);
+    .FranchiseDash .preMeeting .titleArea {
+      width: calc(50% - 138px);
       background: rgba(58, 54, 54, 0.95); }
-      .FranchiseDash .recentCalls .titleArea h4 {
+      .FranchiseDash .preMeeting .titleArea h4 {
         color: #fff; }
+    .FranchiseDash .preMeeting .listCol > p, .FranchiseDash .preMeeting .fieldsList .listCol > label, .fieldsList .FranchiseDash .preMeeting .listCol > label {
+      color: #fff; }
   .FranchiseDash .postMeeting {
-    width: calc(44% - 92px); }
+    width: calc(50% - 138px); }
     .FranchiseDash .postMeeting .titleArea {
-      width: calc(44% - 92px);
+      width: calc(50% - 138px);
       background: rgba(245, 250, 250, 0.95); }
   .FranchiseDash .meetingList {
     background: #e4e7e6;
@@ -4662,19 +4751,44 @@ hr {
   z-index: 10; }
   .FranchModalWrapper .modalBox {
     position: absolute;
-    top: 10%;
     width: 90%;
-    height: 80%;
+    height: 90%;
     left: 5%;
+    top: 5%;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(19, 19, 19, 0.1); }
     .FranchModalWrapper .modalBox .modalNav {
       width: 100%;
-      height: 100px; }
+      padding: 10px; }
+      .FranchModalWrapper .modalBox .modalNav .titleArea {
+        display: inline-block;
+        vertical-align: middle; }
+      .FranchModalWrapper .modalBox .modalNav img.backBtn {
+        width: 21px;
+        margin-left: 5px;
+        vertical-align: middle;
+        margin-right: 15px;
+        cursor: pointer; }
+        .FranchModalWrapper .modalBox .modalNav img.backBtn:hover {
+          opacity: 0.7; }
+      .FranchModalWrapper .modalBox .modalNav .icons {
+        float: right; }
+        .FranchModalWrapper .modalBox .modalNav .icons .navIcon {
+          display: inline-block;
+          margin-left: 10px;
+          vertical-align: middle; }
+        .FranchModalWrapper .modalBox .modalNav .icons .btn {
+          vertical-align: middle;
+          background: transparent;
+          border: solid 2px #131313;
+          color: #131313;
+          padding: 6px 16px;
+          box-shadow: none;
+          cursor: pointer; }
     .FranchModalWrapper .modalBox .callBoxWrapper {
       width: 100%;
-      height: calc(100% - 100px);
+      height: calc(100% - 68px);
       display: flex;
       padding: 10px;
       padding-top: 0; }
@@ -4706,9 +4820,121 @@ hr {
                 outline: 0; }
         .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction {
           border-radius: 6px;
+          padding: 10px 20px;
           overflow: scroll;
           width: calc(65% - 10px);
-          background: #ebf0f0; }
+          background: #ebf0f0;
+          display: flex;
+          flex-direction: column; }
+          .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .btn {
+            text-align: center; }
+          .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow {
+            padding: 10px 0; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.callArea {
+              height: 25%; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.emailArea {
+              height: 50%; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow input {
+              width: calc(100% - 10px);
+              border: none;
+              margin: 5px;
+              margin-bottom: 0;
+              padding: 10px;
+              border-radius: 3px;
+              background: #ebf0f0; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.textArea {
+              height: 30%; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.textArea .interactArea {
+                display: flex; }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.textArea .interactArea img {
+                  max-width: none;
+                  height: 100%; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .interactArea {
+              padding: 10px;
+              padding-bottom: 15px; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .splitHalf {
+              display: inline-block;
+              width: 49%;
+              margin-right: 2%; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .splitHalf input, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .splitHalf select {
+                outline: 0; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .splitHalf #statusSelect {
+                width: 100%;
+                background: #ebf0f0;
+                border: none;
+                border-radius: 5px;
+                padding: 10px;
+                -webkit-appearance: none; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.meetingArea .splitHalf:last-child {
+                margin-right: 0; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactBtn {
+              position: absolute;
+              right: 5px;
+              bottom: 5px;
+              padding: 12px 16px;
+              line-height: 11px;
+              letter-spacing: 0;
+              opacity: 0.75;
+              transition: all 0.2s ease; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactBtn:hover {
+                transition: all 0.2s ease;
+                opacity: 1; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.completed {
+              position: relative; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow.completed::after {
+                content: "";
+                position: absolute;
+                background: rgba(31, 194, 106, 0.9);
+                background-image: url("../assets/icons/white/done.png");
+                background-repeat: no-repeat;
+                background-size: 25px;
+                background-position: center;
+                top: 10px;
+                border-radius: 10px;
+                left: 0;
+                right: 0;
+                bottom: 10px; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .inner {
+              background: #fff;
+              box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+              height: 100%;
+              border-radius: 10px; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar {
+              width: 100%;
+              border-bottom: 1px solid #d2d2d2;
+              padding: 5px 10px; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact {
+                float: left;
+                margin-top: 8px; }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact h4 {
+                  margin-right: 10px; }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact h4, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact p, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact .fieldsList label, .fieldsList .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact label {
+                  display: inline-block;
+                  vertical-align: middle; }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact p, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact .fieldsList label, .fieldsList .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact label {
+                  font-size: 12px;
+                  margin-right: 10px; }
+                  .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact p:last-child, .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact .fieldsList label:last-child, .fieldsList .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .contact label:last-child {
+                    margin-right: 0; }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .topBar .confirm {
+                float: right;
+                padding: 10px; }
+            .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactArea {
+              position: relative;
+              height: calc(100% - 46px); }
+              .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactArea textarea {
+                width: 100%;
+                height: 100%;
+                border: none;
+                border-radius: 10px;
+                padding: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0; }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactArea textarea#emailInteract {
+                  height: calc(100% - 42px); }
+                .FranchModalWrapper .modalBox .callBoxWrapper .callColumn.interaction .callRow .interactArea textarea:focus {
+                  background: #f7f7f7;
+                  outline: 0; }
 
 .VisitDash .callNav {
   background: transparent;
@@ -4720,7 +4946,8 @@ hr {
   background: #F5FAFA; }
 
 .outsideSales .ActivityWrapper {
-  width: 300px;
+  width: 250px;
+  padding: 30px;
   padding-top: 90px; }
   .outsideSales .ActivityWrapper hr {
     margin: 25px 0;
@@ -4747,6 +4974,11 @@ hr {
         background: #1f7dc2; }
     .outsideSales .ActivityWrapper .activityItem .activityContent {
       padding: 20px 15px; }
+  .outsideSales .ActivityWrapper #monthlyFollows {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.05); }
   .outsideSales .ActivityWrapper #logoutBtn {
     top: 20px;
     right: 20px;
@@ -4755,20 +4987,64 @@ hr {
 
 .outsideSales .CallListContainer {
   top: 0;
-  width: calc(100% - 300px);
+  width: calc(100% - 250px);
   height: 100%;
-  padding: 40px 30px 100px; }
-  .outsideSales .CallListContainer .CallList .leftCol, .outsideSales .CallListContainer .CallList .rightCol {
-    width: 48%; }
+  padding: 40px 20px 100px; }
+  .outsideSales .CallListContainer .CallList .leftCol, .outsideSales .CallListContainer .CallList .midCol, .outsideSales .CallListContainer .CallList .rightCol {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 1%;
+    width: 33%;
+    text-align: left; }
+  .outsideSales .CallListContainer .CallList .rightCol {
+    width: 27%; }
+  .outsideSales .CallListContainer .align-left {
+    text-align: left; }
+  .outsideSales .CallListContainer .CallList .handoff {
+    display: flex; }
+    .outsideSales .CallListContainer .CallList .handoff .popOut {
+      position: absolute;
+      right: 10px;
+      top: 10px; }
+      .outsideSales .CallListContainer .CallList .handoff .popOut img {
+        width: 15px; }
+    .outsideSales .CallListContainer .CallList .handoff.hidden {
+      display: none; }
+    .outsideSales .CallListContainer .CallList .handoff .callItem.handoff {
+      display: block;
+      margin: 0 5px;
+      flex: 1 1 0; }
+      .outsideSales .CallListContainer .CallList .handoff .callItem.handoff:first-child {
+        margin-left: 0; }
+      .outsideSales .CallListContainer .CallList .handoff .callItem.handoff:last-child {
+        margin-right: 0; }
+      .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .companyData, .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .buttons {
+        width: 100%; }
+      .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .companyData {
+        padding: 0;
+        padding-right: 25px; }
+      .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .buttons {
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        margin-top: 10px; }
+        .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .buttons .btn {
+          display: inline-block;
+          vertical-align: middle;
+          width: calc(50% - 4px); }
+          .outsideSales .CallListContainer .CallList .handoff .callItem.handoff .buttons .btn:last-child {
+            margin-right: 0; }
   .outsideSales .CallListContainer .CallList .CallListBox .callItem .companyData {
-    width: calc(100% - 190px);
+    width: calc(100% - 170px);
     padding: 0 5px;
     padding-right: 10px; }
     .outsideSales .CallListContainer .CallList .CallListBox .callItem .companyData h4 {
       font-size: 13px;
       line-height: 14px; }
   .outsideSales .CallListContainer .CallList .CallListBox .callItem .buttons {
-    width: 190px; }
+    width: 170px;
+    padding: 8px 12px; }
     .outsideSales .CallListContainer .CallList .CallListBox .callItem .buttons .skipBtn {
       display: inline-block;
       vertical-align: middle;
@@ -4785,17 +5061,43 @@ hr {
       vertical-align: middle;
       margin-right: 6px;
       width: calc(100% - 75px); }
+  .outsideSales .CallListContainer .CallList .CallListBox .callItem.ongoing .companyData {
+    width: calc(100% - 135px); }
+  .outsideSales .CallListContainer .CallList .CallListBox .callItem.ongoing .buttons {
+    width: 135px; }
+    .outsideSales .CallListContainer .CallList .CallListBox .callItem.ongoing .buttons img {
+      margin-left: 10px; }
+    .outsideSales .CallListContainer .CallList .CallListBox .callItem.ongoing .buttons .btn {
+      width: calc(100% - 50px); }
   .outsideSales .CallListContainer .hidden {
     display: none; }
   .outsideSales .CallListContainer .CallListBox {
     margin-bottom: 30px;
-    padding: 1vw 1.5vw; }
+    padding: 1vw 1vw 0.25vw;
+    border-radius: 7px; }
+    .outsideSales .CallListContainer .CallListBox .followHighlight {
+      width: calc(100% + 2vw);
+      padding: 1vw;
+      margin: 0.5vw 0 1vw;
+      margin-left: -1vw; }
+      .outsideSales .CallListContainer .CallListBox .followHighlight > p, .outsideSales .CallListContainer .CallListBox .fieldsList .followHighlight > label, .fieldsList .outsideSales .CallListContainer .CallListBox .followHighlight > label {
+        color: #fff; }
+      .outsideSales .CallListContainer .CallListBox .followHighlight .callItem {
+        background: rgba(255, 255, 255, 0.85); }
+      .outsideSales .CallListContainer .CallListBox .followHighlight.next {
+        background: rgba(31, 194, 106, 0.9); }
+      .outsideSales .CallListContainer .CallListBox .followHighlight.hot {
+        background: rgba(250, 179, 42, 0.9); }
+      .outsideSales .CallListContainer .CallListBox .followHighlight.ongoingFollow {
+        background: rgba(64, 122, 230, 0.9); }
+      .outsideSales .CallListContainer .CallListBox .followHighlight.rebuttal {
+        background: rgba(195, 31, 47, 0.9); }
 
 .outsideSales .ControlsBar--search {
   position: fixed;
   bottom: 0;
   z-index: 10;
-  width: calc(100% - 300px);
+  width: calc(100% - 250px);
   left: 0;
   background: rgba(255, 255, 255, 0.95);
   padding: 10px;
@@ -4819,11 +5121,19 @@ hr {
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
     border-radius: 5px;
     width: 200px; }
+  .outsideSales .ControlsBar--search .sendReport {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white; }
 
 .followModalCont {
   position: fixed;
-  z-index: 3;
-  width: calc(100% - 300px);
+  z-index: 11;
+  width: calc(100% - 250px);
   height: 100%;
   background: rgba(114, 128, 128, 0.7);
   top: 0px;
@@ -5009,10 +5319,13 @@ hr {
         background: rgba(235, 235, 232, 0.5); }
     .followModalCont .innerModal .skipNotes {
       display: block; }
-      .followModalCont .innerModal .skipNotes #skipReason {
+      .followModalCont .innerModal .skipNotes .followUp {
+        width: 100%; }
+      .followModalCont .innerModal .skipNotes #skipReason, .followModalCont .innerModal .skipNotes #insiderSelect {
         outline: 0;
         width: 100%;
         height: auto;
+        margin-bottom: 50px;
         padding: 20px;
         -webkit-appearance: none;
         font-size: 17px;
@@ -5026,3 +5339,497 @@ hr {
         width: calc(100% - 165px); }
       .followModalCont .innerModal .botBtns .sentIt {
         margin-left: 10px; }
+
+.MonthlyFollowsModal .monthlyGrid {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 63px);
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+  position: relative; }
+  .MonthlyFollowsModal .monthlyGrid > .wordCount {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 5px 8px;
+    border-bottom-left-radius: 8px; }
+  .MonthlyFollowsModal .monthlyGrid > .btn {
+    text-align: center;
+    margin-top: 10px; }
+  .MonthlyFollowsModal .monthlyGrid > .listContainer {
+    height: 100%;
+    overflow-y: scroll;
+    background: #edf2f2;
+    border-radius: 10px;
+    border: solid 5px #edf2f2; }
+    .MonthlyFollowsModal .monthlyGrid > .listContainer li {
+      display: flex;
+      list-style: none;
+      background: #fff;
+      margin-bottom: 3px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 4px;
+      padding-left: 50px;
+      position: relative;
+      user-select: none; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.5); }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li:last-child {
+        margin-bottom: 0; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li p, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label {
+        opacity: 0.7;
+        font-size: 14px;
+        font-style: italic; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li p.isHidden, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label.isHidden, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label.isHidden {
+          display: none; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li p .APPC, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label .APPC, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label .APPC, .MonthlyFollowsModal .monthlyGrid > .listContainer li p .Prospect, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label .Prospect, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label .Prospect {
+          font-size: 12px;
+          margin-left: 10px; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li p .APPC, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label .APPC, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label .APPC {
+          color: #407ae6; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li p .Prospect, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label .Prospect, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label .Prospect {
+          color: #1FC26A; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li p.compName, .MonthlyFollowsModal .monthlyGrid > .listContainer li .fieldsList label.compName, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li label.compName {
+        font-style: normal;
+        font-size: 16px;
+        font-weight: 800;
+        opacity: 1; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li a.popOut {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%); }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li a.popOut img {
+          width: 20px; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li .splitHalf {
+        flex: 1 1 0; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li .notesArea {
+        flex: 1 1 0;
+        margin-right: 50px;
+        width: 20vw; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li .notesArea textarea {
+          width: 100%;
+          border: none;
+          background: #ffffff;
+          padding: 6px;
+          border-radius: 5px;
+          font-size: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+          outline: 0; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li::after {
+        content: '';
+        position: absolute;
+        width: 26px;
+        height: calc(100% - 10px);
+        border-radius: 5px;
+        background: #edf2f2;
+        left: 5px;
+        top: 5px; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li.selected::after {
+        width: 16px;
+        height: calc(100% - 20px);
+        border-radius: 5px;
+        background: #1FC26A;
+        left: 10px;
+        top: 10px; }
+      .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails {
+        width: calc(25% - 5px);
+        display: inline-block;
+        padding: 10px 15px;
+        padding-right: 40px;
+        margin-right: 5px;
+        margin-bottom: 5px; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails.isSent {
+          background: #1FC26A;
+          color: #fff; }
+          .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails.isSent .btn {
+            opacity: 0.5; }
+          .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails.isSent img.deleteBtn {
+            display: none; }
+          .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails.isSent .popOut img {
+            filter: brightness(100); }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails::after {
+          content: none; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails:nth-child(even) {
+          background: #fff; }
+          .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails:nth-child(even).isSent {
+            background: #1FC26A;
+            color: #fff; }
+            .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails:nth-child(even).isSent .btn {
+              opacity: 0.5; }
+            .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails:nth-child(even).isSent img.deleteBtn {
+              display: none; }
+            .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails:nth-child(even).isSent .popOut img {
+              filter: brightness(100); }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails p.compName, .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails .fieldsList label.compName, .fieldsList .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails label.compName {
+          min-height: 40px; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails .popOut {
+          transform: none;
+          bottom: 10px;
+          right: 10px;
+          top: auto; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails .btn {
+          margin-top: 10px; }
+        .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails .deleteBtn {
+          width: 20px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer; }
+          .MonthlyFollowsModal .monthlyGrid > .listContainer li.sendingEmails .deleteBtn:hover {
+            opacity: 0.6;
+            transition: all 0.25s ease; }
+  .MonthlyFollowsModal .monthlyGrid > .inner {
+    background: #edf2f2;
+    padding: 10px;
+    border-radius: 5px;
+    height: 100%; }
+  .MonthlyFollowsModal .monthlyGrid #tempBox {
+    margin-top: 20px;
+    border: none;
+    background: #edf2f2;
+    padding: 2.5vw;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: 0;
+    flex-basis: 100%; }
+    .MonthlyFollowsModal .monthlyGrid #tempBox:focus {
+      background: #e4ecec; }
+
+#yelpFrame {
+  width: 100%;
+  height: 60vh; }
+
+.searchArea {
+  display: flex;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+  background: #fff; }
+  .searchArea .locationStuff {
+    position: relative;
+    border-left: 1px solid #d2d2d2; }
+    .searchArea .locationStuff > h2 {
+      top: 5px;
+      left: 5px;
+      font-size: 18px;
+      position: absolute; }
+    .searchArea .locationStuff .searchFields select {
+      position: absolute;
+      right: 12px;
+      margin-top: 40px;
+      font-size: 12px;
+      height: 33px;
+      border-radius: 100px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      -webkit-appearance: none;
+      padding: 0 8px;
+      outline: 0;
+      border: 1px solid #d2d2d2; }
+  .searchArea .keywordStuff, .searchArea .locationStuff {
+    flex: 1 1 0;
+    display: flex;
+    position: relative; }
+    .searchArea .keywordStuff > h2, .searchArea .locationStuff > h2 {
+      top: 5px;
+      left: 5px;
+      font-size: 18px;
+      position: absolute; }
+    .searchArea .keywordStuff .selectFields, .searchArea .keywordStuff .searchFields, .searchArea .locationStuff .selectFields, .searchArea .locationStuff .searchFields {
+      flex: 1 1 0;
+      width: 50%;
+      opacity: 0.25;
+      transition: all 0.25s ease;
+      position: relative;
+      cursor: pointer; }
+      .searchArea .keywordStuff .selectFields:hover, .searchArea .keywordStuff .searchFields:hover, .searchArea .locationStuff .selectFields:hover, .searchArea .locationStuff .searchFields:hover {
+        opacity: 0.5; }
+      .searchArea .keywordStuff .selectFields::after, .searchArea .keywordStuff .searchFields::after, .searchArea .locationStuff .selectFields::after, .searchArea .locationStuff .searchFields::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: #131313;
+        bottom: 0;
+        left: 0;
+        opacity: 0; }
+      .searchArea .keywordStuff .selectFields.active, .searchArea .keywordStuff .searchFields.active, .searchArea .locationStuff .selectFields.active, .searchArea .locationStuff .searchFields.active {
+        opacity: 1;
+        transition: all 0.25s ease;
+        cursor: default;
+        background: rgba(0, 0, 0, 0.01); }
+        .searchArea .keywordStuff .selectFields.active:hover, .searchArea .keywordStuff .searchFields.active:hover, .searchArea .locationStuff .selectFields.active:hover, .searchArea .locationStuff .searchFields.active:hover {
+          opacity: 1; }
+        .searchArea .keywordStuff .selectFields.active::after, .searchArea .keywordStuff .searchFields.active::after, .searchArea .locationStuff .selectFields.active::after, .searchArea .locationStuff .searchFields.active::after {
+          opacity: 1; }
+      .searchArea .keywordStuff .selectFields::after, .searchArea .keywordStuff .searchFields::after, .searchArea .locationStuff .selectFields::after, .searchArea .locationStuff .searchFields::after {
+        content: '';
+        position: absolute;
+        width: 100%; }
+    .searchArea .keywordStuff .searchFields input, .searchArea .locationStuff .searchFields input {
+      position: relative;
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: solid 1px #d2d2d2;
+      margin: 0 5%;
+      width: 90%;
+      margin-top: 40px;
+      margin-bottom: 2px;
+      outline: 0;
+      background: #fff; }
+    .searchArea .keywordStuff .selectFields #sortTable, .searchArea .locationStuff .selectFields #sortTable {
+      margin-top: 20px;
+      padding: 20px 0 15px;
+      border-top: 0; }
+      .searchArea .keywordStuff .selectFields #sortTable select, .searchArea .locationStuff .selectFields #sortTable select {
+        padding: 5px 8px;
+        width: 90%;
+        background: #fff;
+        margin: 0 5%; }
+      .searchArea .keywordStuff .selectFields #sortTable .selectBox, .searchArea .locationStuff .selectFields #sortTable .selectBox {
+        width: 100%; }
+        .searchArea .keywordStuff .selectFields #sortTable .selectBox::after, .searchArea .locationStuff .selectFields #sortTable .selectBox::after {
+          right: 20px; }
+  .searchArea .keywordStuff {
+    border-left: 1px solid #e7e7e7; }
+  .searchArea .locationStuff {
+    border-right: 1px solid #e7e7e7; }
+  .searchArea .backBtn {
+    padding: 0 15px; }
+    .searchArea .backBtn .navIcon {
+      margin-top: 16px; }
+  .searchArea .openIt {
+    padding: 0 10px;
+    position: relative; }
+    .searchArea .openIt .btn {
+      top: 50%;
+      position: relative;
+      transform: translateY(-50%); }
+      .searchArea .openIt .btn:hover {
+        opacity: 0.8; }
+  .searchArea .locationStuff {
+    flex: 1 1 0; }
+
+ul.suggestedSearch {
+  position: fixed;
+  background: white;
+  padding: 10px 0px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  z-index: 1;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+  border: solid 1px #f7f7f5;
+  display: none; }
+  ul.suggestedSearch.isActive {
+    display: block; }
+  ul.suggestedSearch li {
+    padding: 0px 15px;
+    cursor: pointer; }
+    ul.suggestedSearch li:hover {
+      background: #f7f7f5;
+      text-decoration: underline; }
+
+.YelpDash {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%; }
+
+.errorBox {
+  position: fixed;
+  top: 100px;
+  left: 10px;
+  background: #131313;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  z-index: 10; }
+  .errorBox h2 {
+    font-size: 15px; }
+
+.YelpList {
+  position: relative;
+  width: 100%;
+  height: auto;
+  flex: 1 1 0;
+  text-align: center; }
+  .YelpList .loadMore {
+    width: calc(100% - 40px); }
+  .YelpList .empty {
+    background: white;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.theYelpData {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-bottom: 20px; }
+  .theYelpData li {
+    width: calc(25% - 16px);
+    background: white;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 8px; }
+    .theYelpData li .btn {
+      padding: 4px 17px;
+      text-align: center;
+      margin-top: 7px;
+      vertical-align: middle;
+      margin-bottom: -8px; }
+      .theYelpData li .btn.removeBtn {
+        background: transparent;
+        box-shadow: none;
+        color: #C31F2F;
+        letter-spacing: 0;
+        padding: 5px;
+        line-height: 12px;
+        margin-top: 0;
+        margin-left: 10px; }
+    .theYelpData li.saved {
+      position: relative;
+      pointer-events: none; }
+      .theYelpData li.saved::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-color: rgba(31, 194, 106, 0.75);
+        z-index: 11;
+        background-image: url("../assets/icons/white/done.png");
+        background-position: center;
+        background-size: 60px;
+        background-repeat: no-repeat; }
+    .theYelpData li.hideIt {
+      display: none; }
+  .theYelpData.hideRed .red {
+    display: none; }
+
+#hideRedToggle {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(19, 19, 19, 0.3);
+  border-top-left-radius: 10px; }
+  #hideRedToggle input {
+    margin-right: 10px; }
+
+.textArea {
+  padding: 20px; }
+  .textArea h2 {
+    line-height: 15px;
+    font-size: 18px; }
+  .textArea p, .textArea .fieldsList label, .fieldsList .textArea label {
+    font-size: 14px;
+    line-height: 16px; }
+
+.imgArea {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 40%;
+  height: 0;
+  background: #131313; }
+  .imgArea h1 {
+    z-index: 2;
+    position: relative; }
+  .imgArea .loadGif {
+    position: absolute;
+    width: 20px;
+    min-width: auto;
+    max-width: none;
+    opacity: 1;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    transform: none;
+    border-radius: 100px; }
+  .imgArea img {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: auto;
+    position: absolute;
+    opacity: 0.6; }
+  .imgArea > a {
+    background: #fff;
+    border-radius: 100px;
+    padding: 8px;
+    position: absolute;
+    z-index: 10;
+    line-height: 0;
+    right: 10px;
+    top: 10px; }
+    .imgArea > a.popOut {
+      right: 55px;
+      padding: 10px 3px; }
+      .imgArea > a.popOut img {
+        width: 28px; }
+    .imgArea > a.googleOut {
+      right: 99px; }
+    .imgArea > a:last-child {
+      right: 30px; }
+    .imgArea > a img {
+      opacity: 1;
+      width: 18px;
+      height: auto;
+      min-width: auto;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      transform: none;
+      position: relative; }
+  .imgArea .dupeDot {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(19, 19, 19, 0.3);
+    z-index: 11;
+    border-radius: 100%; }
+    .imgArea .dupeDot.red {
+      background: #C31F2F; }
+    .imgArea .dupeDot.orange {
+      background: #fab32a; }
+    .imgArea .dupeDot.green {
+      background: #1FC26A; }
+    .imgArea .dupeDot .inner {
+      pointer-events: none;
+      opacity: 0; }
+    .imgArea .dupeDot:hover .inner {
+      display: block;
+      pointer-events: all;
+      opacity: 1;
+      background: white;
+      margin-top: -1px;
+      border-radius: 6px;
+      width: 220px;
+      padding: 10px; }
+      .imgArea .dupeDot:hover .inner p, .imgArea .dupeDot:hover .inner .fieldsList label, .fieldsList .imgArea .dupeDot:hover .inner label {
+        font-size: 10px;
+        line-height: 10px; }
+      .imgArea .dupeDot:hover .inner h2 {
+        font-size: 11px;
+        line-height: 11px;
+        margin-bottom: 5px; }

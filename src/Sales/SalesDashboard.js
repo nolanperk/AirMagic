@@ -55,6 +55,9 @@ export default class Sales extends Component {
       tampaOldAPPC: [],
       orlandoOldAPPC: [],
 
+      tampaHandoffs: [],
+      orlandoHandoffs: [],
+
       recentActivityTampa: [],
       recentActivityOrlando: [],
       activityOffset: '',
@@ -81,6 +84,46 @@ export default class Sales extends Component {
   }
 
 
+
+  checkLogin = () => {
+    let finalURL = 'https://api.airtable.com/v0/appYVHBA4LOlBssy3/log';
+    console.log(finalURL);
+
+    return axios
+      .get(finalURL)
+      .then(response => {
+        this.setState({
+          checkData: response.data.records,
+        });
+
+
+        setTimeout((function() {
+          console.log(this.state.checkData);
+          let userRecord;
+          if (this.state.checkData.filter(user => user.fields['Initials'] === localStorage.userInitials)[0]) {
+            userRecord = this.state.checkData.filter(user => user.fields['Initials'] === localStorage.userInitials)[0];
+            console.log(userRecord);
+            this.loadDashboard();
+          } else {
+            this.logoutHandler();
+          }
+        }).bind(this), 0);
+      })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          error: `${error}`,
+        });
+      });
+  }
+
+
+
+  logoutHandler = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.reload();
+  }
 
   loadDashboard = () => {
     // let insideRep = 'Carla';
@@ -286,8 +329,67 @@ export default class Sales extends Component {
 
 
 
+          let todaysDate  = new Date();  todaysDate = (todaysDate.getMonth()+1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
+          this.setState({
+            loadingText: 'Loading New Handoffs',
+            orlandoOffset: '',
+          });
+          loadTampaHandoffs();
+        }
+      });
+    }.bind(this);
 
 
+    let loadTampaHandoffs = function() {
+      console.log('loadTampaHandoffs');
+      let grabRecords = this.state.tampaHandoffs;
+
+      let newFormula = encodeURI('AND(IF({Recent Caller}="' + localStorage.getItem('userName') + '", TRUE()),IF({Handoff Date} > {Recent Call Date}, TRUE()))');
+      let extraFormula = '&filterByFormula=' + newFormula;
+
+      let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=New+Handoffs' + extraFormula;
+      if (this.state.tampaOffset !== '') {customersURL = customersURL + '&offset=' + this.state.tampaOffset;}
+
+      return axios
+        .get(customersURL).then(response => {
+          this.setState({
+            tampaHandoffs: grabRecords.concat(response.data.records),
+            error: false,
+            tampaOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadTampaHandoffs();
+        } else {
+          console.log('clearing loadTampaHandoffs()');
+          this.setState({
+            tampaOffset: '',
+          });
+          loadOrlandoHandoffs();
+        }
+      });
+    }.bind(this);
+
+    let loadOrlandoHandoffs = function() {
+      console.log('loadOrlandoHandoffs');
+      let grabRecords = this.state.orlandoHandoffs;
+
+      let newFormula = encodeURI('AND(IF({Recent Caller}="' + localStorage.getItem('userName') + '", TRUE()),IF({Handoff Date} > {Recent Call Date}, TRUE()))');
+      let extraFormula = '&filterByFormula=' + newFormula;
+
+      let customersURL = 'https://api.airtable.com/v0/' + this.state.orlandoId + '/' + 'Sales' + '?view=New+Handoffs' + extraFormula;
+      if (this.state.orlandoOffset !== '') {customersURL = customersURL + '&offset=' + this.state.orlandoOffset;}
+
+      return axios
+        .get(customersURL).then(response => {
+          this.setState({
+            orlandoHandoffs: grabRecords.concat(response.data.records),
+            error: false,
+            orlandoOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadOrlandoHandoffs();
+        } else {
+          console.log('clearing loadOrlandoHandoffs()');
 
           let todaysDate  = new Date();  todaysDate = (todaysDate.getMonth()+1) + '/' + todaysDate.getDate() + '/' + todaysDate.getFullYear();
           if (localStorage.getItem('generated') === todaysDate) {
@@ -307,6 +409,7 @@ export default class Sales extends Component {
         }
       });
     }.bind(this);
+
 
 
     let loadPreGeneratedList = function() {
@@ -624,7 +727,7 @@ export default class Sales extends Component {
 
           let randomNumb;
           if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
+            randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
           } else {
             if (this.state.tampaRegions[currentCount].callable === 'Priority') {
               randomNumb = Math.floor(Math.random() * 10) + 1 //loads up to
@@ -632,11 +735,6 @@ export default class Sales extends Component {
               randomNumb = Math.floor(Math.random() * 8) + 1 //loads up to
             }
           }
-          // if (this.state.tampaRegions[currentCount].stipulation === 'Yes') {
-          //   randomNumb = Math.floor(Math.random() * 1) + 1; //loads up to 4 from has stipulations
-          // } else {
-          //   randomNumb = Math.floor(Math.random() * 8) + 1 //loads up to 13 from green-lit
-          // }
           console.log(this.state.tampaRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
           let generateArr = this.state.tampaGenerated;
           let customersURL = 'https://api.airtable.com/v0/' + this.state.tampaId + '/' + 'Sales' + '?view=Callable&pageSize=' + randomNumb + '&filterByFormula=AND(AND(NOT(%7BStatus%7D+%3D+"Appointment+Set")%2C+NOT(%7BStatus%7D+%3D+"Closed")%2C+NOT(%7BStatus%7D+%3D+"DNC")%2C+NOT(%7BStatus%7D+%3D+"APPC")%2C+NOT(%7BStanding%7D+%3D+"Mark+for+Deletion")%2C+NOT(%7BStatus%7D+%3D+"Too+Small"))%2C+AND(IF(NOT(%7BStanding%7D+%3D+"Call+Back")%2C+TRUE()%2C+IS_BEFORE(%7BCallback+Date%7D%2C+TODAY())%2C+TRUE())%2C+IF(%7BList+Generated+On%7D+%3D+BLANK()%2C+TRUE()%2C+IS_BEFORE(%7BList+Generated+On%7D%2C+TODAY())))%2C+' + regionFilter + ')';
@@ -777,7 +875,7 @@ export default class Sales extends Component {
         console.log('totalKnown - ' + totalKnown);
         let finalUnknown = [];
         for (var i in finalGenerated.tampa.unknown) {
-          if (Math.random() < 0.6) {
+          if (Math.random() < 0.8) {
             finalUnknown.push(finalGenerated.tampa.unknown[i]);
           }
         }
@@ -818,7 +916,7 @@ export default class Sales extends Component {
           let randomNumb;
 
           if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
-            randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
+            randomNumb = Math.floor(Math.random() * 6) + 1; //loads up to 4 from has stipulations
           } else {
             if (this.state.orlandoRegions[currentCount].callable === 'Priority') {
               randomNumb = Math.floor(Math.random() * 18) + 1 //loads up to 13 from green-lit
@@ -826,13 +924,6 @@ export default class Sales extends Component {
               randomNumb = Math.floor(Math.random() * 13) + 1 //loads up to 13 from green-lit
             }
           }
-
-          //
-          // if (this.state.orlandoRegions[currentCount].stipulation === 'Yes') {
-          //   randomNumb = Math.floor(Math.random() * 4) + 1; //loads up to 4 from has stipulations
-          // } else {
-          //   randomNumb = Math.floor(Math.random() * 15) + 1 //loads up to 12 from green-lit
-          // }
           console.log(this.state.orlandoRegions[currentCount].region + ' - ' + currentCount + ' - ' + randomNumb);
 
           let generateArr = this.state.orlandoGenerated;
@@ -963,7 +1054,7 @@ export default class Sales extends Component {
         console.log('totalKnown orl - ' + totalKnown);
         let finalUnknown = [];
         for (var i in finalGenerated.orlando.unknown) {
-          if (Math.random() < 0.6) {
+          if (Math.random() < 0.8) {
             finalUnknown.push(finalGenerated.orlando.unknown[i]);
           }
         }
@@ -1788,6 +1879,7 @@ export default class Sales extends Component {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
     } else {
+
       let twoWeeksAgo = new Date(+new Date - 1000*60*60*24*14);
       if (localStorage.getItem('lastLogin')) { //logged in after update
         let lastLog = new Date(localStorage.getItem('lastLogin'));
@@ -1802,7 +1894,8 @@ export default class Sales extends Component {
             }
           }
 
-          this.loadDashboard();
+
+          this.checkLogin();
         } else {
           sessionStorage.clear();
           localStorage.clear();
@@ -2307,7 +2400,7 @@ export default class Sales extends Component {
       console.log('no set by');
     }
     let secondMessage;
-    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Shana' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
+    if (slackSet === 'Linda' || slackSet === 'Eric' || slackSet === 'Carla' || slackSet === 'Sheila' || slackSet === 'Shana' || slackSet === 'Bryan' || slackSet === 'Lisa' || slackSet === 'Mariyah') {
       if (slackRep !== 'none' && slackSet !== 'none') { //we have both
         secondMessage = "\nLet's all give *" + this.state.openedCall.fields['Appt. Set By'].split(' ')[0] + '*, a :clap: for getting *' + this.state.openedCall.fields['Sales Rep'].split(' ')[0] + '* an appt. in *' + this.state.openedCall.fields['City'] + '*';
       } else if (slackRep !== 'none') { //rep is set
@@ -2489,6 +2582,8 @@ export default class Sales extends Component {
           orlandoOldAPPC={this.state.orlandoOldAPPC}
           showModal={this.showModal}
           generateMore={this.generateMore}
+          tampaHandoffs={this.state.tampaHandoffs}
+          orlandoHandoffs={this.state.orlandoHandoffs}
         />
 
         <Activity

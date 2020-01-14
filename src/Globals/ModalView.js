@@ -21,6 +21,7 @@ import SalesFollowUps from '../Globals/Modals/SalesFollowUps';
 import YelpModal from '../Globals/Modals/YelpModal';
 import RegionSelect from '../Globals/Modals/RegionSelect';
 import AccountChanges from '../Globals/Modals/AccountChanges';
+import SetMeeting from '../Globals/Modals/SetMeeting';
 
 export default class ModalView extends Component {
   modalView = () => {
@@ -29,6 +30,16 @@ export default class ModalView extends Component {
         <SaveAlert
           revertRecordHandler={this.props.revertRecordHandler}
           saveRecordHandler={this.props.saveRecordHandler}
+        />
+      );
+    } else if (this.props.modalType === 'setMeeting') {
+      return (
+        <SetMeeting
+          controlsModalToggle={this.props.controlsModalToggle}
+          selectFilterHandler={this.props.selectFilterHandler}
+          currentTable={this.props.currentTable}
+          baseId={this.props.baseId}
+          currentRecord={this.props.currentRecord}
         />
       );
     } else if (this.props.modalType === 'filterSearch') {

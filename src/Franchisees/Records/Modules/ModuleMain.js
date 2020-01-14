@@ -80,6 +80,8 @@ export default class ModuleMain extends Component {
                 <option id="Former">Former</option>
                 <option id="Transfer">Transfer</option>
                 <option id="Not+Interested">Not Interested</option>
+                <option id="Looking+for+Work">Looking for Work</option>
+                <option id="New+Lead">New Lead</option>
               </select>
             </div>
           </div>

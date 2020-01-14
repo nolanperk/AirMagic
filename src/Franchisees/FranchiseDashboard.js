@@ -141,22 +141,32 @@ export default class FranchiseSales extends Component {
         mixedCalls.push(item);
       }
 
+      let today = new Date();
+      today = new Date(today.getTime() + Math.abs(today.getTimezoneOffset()*60000)); //fix the date
+
+      let fourAgo = new Date(+new Date - 1000*60*60*24*4);
+      fourAgo = new Date(fourAgo.getTime() + Math.abs(fourAgo.getTimezoneOffset()*60000)); //fix the date
+
+
+
+
       for (var i in mixedCalls) {
         let thisCall = mixedCalls[i].fields;
+
+        let lastCall = new Date(thisCall['Contact Date']);
+        lastCall = new Date(lastCall.getTime() + Math.abs(lastCall.getTimezoneOffset()*60000)); //fix the date
+
+
         if (thisCall['Attended'] === 'Yes') { // has had a meeting!
           if (thisCall['Sales Touches'] === 0) {
             let plannedFDD = new Date(thisCall['Planned Followup']);
             plannedFDD = new Date(plannedFDD.getTime() + Math.abs(plannedFDD.getTimezoneOffset()*60000)); plannedFDD = (plannedFDD.getMonth()+1) + '/' + plannedFDD.getDate() + '/' + plannedFDD.getFullYear();
             let today = new Date(); today = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
 
-            console.log(plannedFDD);
-            console.log(today);
             if (plannedFDD === today) {
               splitCalls.fddCalls.push(mixedCalls[i])
             }
-          }
-
-          else if (thisCall['Sales Touches'] === 1) {
+          } else {
             let lastCall = new Date(thisCall['Last Touch']);
             lastCall = new Date(lastCall.getTime() + Math.abs(lastCall.getTimezoneOffset()*60000));
 
@@ -164,37 +174,26 @@ export default class FranchiseSales extends Component {
             if (lastCall <= twoAgo) {
               splitCalls.apptLetter.push(mixedCalls[i])
             }
-          } else if (thisCall['Sales Touches'] === 2 || thisCall['Sales Touches'] === 3) {
-            let lastCall = new Date(thisCall['Last Touch']);
-            lastCall = new Date(lastCall.getTime() + Math.abs(lastCall.getTimezoneOffset()*60000));
-
-            let threeAgo = new Date(+new Date - 1000*60*60*24*3);
-            if (lastCall <= threeAgo) {
-              splitCalls.ongoing.push(mixedCalls[i])
-            }
           }
         } else { //no meeting yet
-          if (thisCall['Sales Touches'] === 0) {splitCalls.newLeads.push(mixedCalls[i])}
-          else if (thisCall['Sales Touches'] === 1 || thisCall['Sales Touches'] === 2) {
+          if (thisCall['Status'] === 'New Lead') {
+            splitCalls.newLeads.push(mixedCalls[i]);
+          } else {
             let lastCall = new Date(thisCall['Last Touch']);
             lastCall = new Date(lastCall.getTime() + Math.abs(lastCall.getTimezoneOffset()*60000));
 
-            let twoAgo = new Date(+new Date - 1000*60*60*24*2);
-            if (lastCall <= twoAgo) {
-              splitCalls.preMeeting.push(mixedCalls[i])
-            }
-          } else if (thisCall['Sales Touches'] === 3 || thisCall['Sales Touches'] === 4) {
-            let lastCall = new Date(thisCall['Last Touch']);
-            lastCall = new Date(lastCall.getTime() + Math.abs(lastCall.getTimezoneOffset()*60000));
-
-            let fourAgo = new Date(+new Date - 1000*60*60*24*4);
-            if (lastCall <= fourAgo) {
+            if (lastCall >= fourAgo) { // was recently contacted
+              if (lastCall >= today) { //was called today or in future
+                splitCalls.preMeeting.push(mixedCalls[i])
+              }
+            } else { // was called a while ago or never at all
               splitCalls.preMeeting.push(mixedCalls[i])
             }
           }
         }
       }
 
+      console.log(splitCalls);
       this.setState({
         allCallbacks: splitCalls,
         loadingText: 'Grabbing Meetings',
@@ -433,12 +432,29 @@ export default class FranchiseSales extends Component {
   }
 
   showModal = (e, type, region) => {
-    this.setState({
-      modal: true,
-      modalType: type,
-      openedCall: e,
-    })
+    if (type === 'meeting--No' || type === 'meeting--Yes') {
+      this.setState({
+        modal: true,
+        modalType: type,
+        openedCall: e,
+      });
+    } else {
+      let followUpURL = 'https://api.airtable.com/v0/appNqtJO2EtRRk9vj/Franchise';
+      return axios
+      .get(followUpURL).then(response => {
+        let resItems = response.data.records;
+
+        this.setState({
+          modal: true,
+          modalType: type,
+          openedCall: e,
+          followUpList: resItems,
+          currentFollowUp: resItems[Math.floor(Math.random()*resItems.length)]
+        });
+      });
+    }
   }
+
 
   closeModal = () => {
     this.setState({
@@ -617,6 +633,16 @@ export default class FranchiseSales extends Component {
           <FranchiseCallModal
             openedCall={this.state.openedCall}
             closeModal={this.closeModal}
+            followUpList={this.state.followUpList}
+            currentFollowUp={this.state.currentFollowUp}
+          />
+        );
+      } else if (this.state.modalType === 'meeting--No' || this.state.modalType === 'meeting--Yes') {
+        return (
+          <FranchiseCallModal
+            openedCall={this.state.openedCall}
+            closeModal={this.closeModal}
+            answer={this.state.modalType}
           />
         );
       }

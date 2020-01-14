@@ -216,6 +216,48 @@ hr {
       }
     }
 
+    input[type="checkbox"] {
+    	-webkit-appearance: none;
+      height: 32px;
+      margin: 0;
+
+
+    	&:checked {
+    		position: relative;
+
+    		&::after {
+    			content: 'YES';
+    			background: $black;
+    	    position: absolute;
+    	    text-align: center;
+    	    font-size: 12px;
+    	    font-weight: 900;
+    	    line-height: 23px;
+    	    color: white;
+    	    top: 10%;
+    	    left: 3%;
+    	    right: 3%;
+    	    bottom: 10%;
+    	    border-radius: 2px;
+    		}
+    	}
+    }
+
+    &.check {
+    	flex: 1 1 0;
+    	position: relative;
+      margin: 0 5px;
+    	height: 35px;
+
+    	&:first-child {
+    		margin-left: 0;
+    	}
+    	&:last-child {
+    		margin-right: 0;
+    	}
+
+    }
+
     &.inputBlock--half {
       flex-basis: 48%;
     }
@@ -265,10 +307,6 @@ hr {
       -webkit-appearance: none;
       padding: 0.3vw 0.35vw;
       background: transparent;
-    }
-
-    input[type='checkbox'] {
-      background: blue;
     }
   }
 

@@ -19,6 +19,7 @@ export default class ModuleSchedule extends Component {
     let sqFt = this.props.sqFt;
     let sqFtReal = this.props.sqFtReal;
     let amount = this.props.amount;
+    let cpopAmount = this.props.cpopAmount;
     let serviceTime = this.props.serviceTime;
     let hoursPer = this.props.hoursPer;
     let sqFtPer = this.props.sqFtPer;
@@ -27,16 +28,30 @@ export default class ModuleSchedule extends Component {
     if (this.props.currentRecordView === 'accounting') {
       return (
         <div className="inner">
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--75">
             <label>Monthly Amount</label>
             <div className="inputWithTag">
-              <div className="inputTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
                 <img src={dollarImg} alt="" />
               </div>
               <input
                 type="text"
                 value={amount}
                 id="amount"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>+ CPOP</label>
+            <div className="inputWithTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={cpopAmount}
+                id="cpopAmount"
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -66,16 +81,30 @@ export default class ModuleSchedule extends Component {
     } else {
       return (
         <div className="inner">
-          <div className="inputBlock inputBlock--half">
+          <div className="inputBlock inputBlock--75">
             <label>Monthly Amount</label>
             <div className="inputWithTag">
-              <div className="inputTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
                 <img src={dollarImg} alt="" />
               </div>
               <input
                 type="text"
                 value={amount}
                 id="amount"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>+ CPOP</label>
+            <div className="inputWithTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={cpopAmount}
+                id="cpopAmount"
                 onChange={this.props.changeRecordHandler}
               />
             </div>

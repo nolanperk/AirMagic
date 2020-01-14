@@ -24,6 +24,7 @@ export default class ModuleNumbers extends Component {
     let amount = this.props.amount;
     let sqFt = this.props.sqFt;
     let sqFtReal = this.props.sqFtReal;
+    let cpopAmount = this.props.cpopAmount;
     let restrooms = this.props.restrooms;
     let ceramic = this.props.ceramic;
     let marble = this.props.marble;
@@ -221,7 +222,7 @@ export default class ModuleNumbers extends Component {
     } else {
       return (
         <div className="inner">
-          <div className="inputBlock inputBlock--full">
+          <div className="inputBlock inputBlock--75">
             <label>Monthly Amount</label>
             <div className="inputWithTag">
               <div className="inputTag selectable" onClick={this.props.autoPricing}>
@@ -231,6 +232,20 @@ export default class ModuleNumbers extends Component {
                 type="text"
                 value={amount}
                 id="amount"
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+          <div className="inputBlock inputBlock--quart">
+            <label>+ CPOP</label>
+            <div className="inputWithTag">
+              <div className="inputTag selectable" onClick={this.props.autoPricing}>
+                <img src={dollarImg} alt="" />
+              </div>
+              <input
+                type="text"
+                value={cpopAmount}
+                id="cpopAmount"
                 onChange={this.props.changeRecordHandler}
               />
             </div>
@@ -344,6 +359,7 @@ ModuleNumbers.propTypes ={
   sqFtReal: propTypes.string,
   restrooms: propTypes.string,
   ceramic: propTypes.string,
+  cpopAmount: propTypes.string,
   marble: propTypes.string,
   vct: propTypes.string,
   wood: propTypes.string,

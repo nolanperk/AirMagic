@@ -18,14 +18,18 @@ export default class FollowUpsList extends Component {
       baseId: '',
 
       followOffset: '',
+      handoffModal: false,
+
+      suggestedHandoffs: [],
       allFollows: {
-        first: [],
+        nextDay: [],
         references: [],
-        ongoingFirst: [],
-        ongoing: [],
-        ongoingLong: [],
-        retouches: [],
-        oldAPPC: [],
+        firstFollow: [],
+        recentQuick: [],
+        recentLong: [],
+        ongoingFollows: [],
+        oldFollows: [],
+        oldProspects: [],
       },
       propedList: [],
 
@@ -168,27 +172,91 @@ export default class FollowUpsList extends Component {
 
 
     if (document.getElementById('skipReason').value === 'decision-made') {
-      newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Turning back to prospect. They did not choose us.\n\n';
+      if (document.getElementById('skipReasoning').value) {
+        newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Turning back to prospect. They did not choose us.\n';
+        newNotes += document.getElementById('skipReasoning').value + '\n\n';
+      } else {
+        newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Turning back to prospect. They did not choose us.\n\n';
+      }
       currentFollow.fields['Status'] = 'Prospect';
       currentFollow.fields['Call Status'] = 'Open Season';
-    } else {
-      newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Skipped Follow Up (' + document.getElementById('skipReason').value + ')\n\n';
 
-      currentFollow.fields['Follow Ups'] = currentFollow.fields['Follow Ups'] + 1;
-      if (currentFollow.fields['Follow Ups'] < 4) { //Traditional Weekly
-        newPlanned = new Date(+new Date + 1000*60*60*24*7);
-      } else { //Getting Cold. Slow Up now.
-        newPlanned = new Date(+new Date + 1000*60*60*24*14);
+      console.log(currentFollow);
+    } else {
+      if (document.getElementById('skipReasoning').value) {
+        newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Skipped Follow Up (' + document.getElementById('skipReason').value + ')\n';
+        newNotes += document.getElementById('skipReasoning').value + '\n\n';
+      } else {
+        newNotes = dayTime + ' - ' + localStorage.getItem('userInitials') + '\n' + 'Skipped Follow Up (' + document.getElementById('skipReason').value + ')\n\n';
       }
+      // new
+      // first
+      // recent
+      // ongoing
+      console.log(currentFollow.fields['Follow Status']);
+      if (currentFollow.fields['Follow Status'] === 'New') {
+        newPlanned = new Date(+new Date + 1000*60*60*24*8);
+        currentFollow.fields['Follow Status'] = 'First';
+      } else if (currentFollow.fields['Follow Status'] === 'First') {
+        if (currentFollow.fields['Forecast Speed'] !== 'This Month') { //recentLong
+          newPlanned = new Date(+new Date + 1000*60*60*24*14);
+        } else { //recentQuick
+          newPlanned = new Date(+new Date + 1000*60*60*24*8);
+        }
+        currentFollow.fields['Follow Status'] = 'Recent';
+      } else if (currentFollow.fields['Follow Status'] === 'Recent') {
+        if (currentFollow.fields['Forecast Speed'] !== 'This Month') { //recentLong
+          if (currentFollow.fields['Follow Ups'] === 3) {
+            currentFollow.fields['Follow Status'] = 'Ongoing'
+            newPlanned = new Date(+new Date + 1000*60*60*24*30);
+          } else {
+            newPlanned = new Date(+new Date + 1000*60*60*24*14);
+          }
+        } else { //recentQuick
+          if (currentFollow.fields['Follow Ups'] === 4) {
+            currentFollow.fields['Follow Status'] = 'Ongoing'
+            newPlanned = new Date(+new Date + 1000*60*60*24*30);
+          } else {
+            newPlanned = new Date(+new Date + 1000*60*60*24*8);
+          }
+        }
+      } else if (currentFollow.fields['Follow Status'] === 'Ongoing') {
+        if (currentFollow.fields['Follow Status'] === 'Old') {
+          newPlanned = new Date(+new Date + 1000*60*60*24*58);
+        } else {
+          if (currentFollow.fields['Forecast Speed'] !== 'This Month') { //recentLong
+            if (currentFollow.fields['Follow Ups'] === 5) {
+              currentFollow.fields['Follow Status'] = 'Old'
+              newPlanned = new Date(+new Date + 1000*60*60*24*58);
+            } else {
+              newPlanned = new Date(+new Date + 1000*60*60*24*45);
+            }
+          } else { //recentQuick
+            if (currentFollow.fields['Follow Ups'] === 6) {
+              currentFollow.fields['Follow Status'] = 'Old'
+              newPlanned = new Date(+new Date + 1000*60*60*24*58);
+            } else {
+              newPlanned = new Date(+new Date + 1000*60*60*24*45);
+            }
+          }
+        }
+      }
+
       newPlanned = new Date(newPlanned.getTime() + Math.abs(newPlanned.getTimezoneOffset()*60000));
       newPlanned = (newPlanned.getMonth()+1) + "/" + newPlanned.getDate()  + "/" + newPlanned.getFullYear(); //make it look better on db!
       currentFollow.fields['Next Follow Up'] = newPlanned;
+
+
+      currentFollow.fields['Follow Ups'] = currentFollow.fields['Follow Ups'] + 1;
+      currentFollow.fields['Last Contact'] = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear();
     }
     currentFollow.fields['Notes'] = newNotes + currentFollow.fields['Notes'];
 
-    this.setState({
-      openedFollow: currentFollow
-    })
+    setTimeout((function() {
+      this.setState({
+        openedFollow: currentFollow
+      })
+    }).bind(this), 50);
 
 
 
@@ -206,13 +274,14 @@ export default class FollowUpsList extends Component {
 
             followOffset: '',
             allFollows: {
-              first: [],
+              nextDay: [],
               references: [],
-              ongoingFirst: [],
-              ongoing: [],
-              ongoingLong: [],
-              retouches: [],
-              oldAPPC: [],
+              firstFollow: [],
+              recentQuick: [],
+              recentLong: [],
+              ongoingFollows: [],
+              oldFollows: [],
+              oldProspects: [],
             },
             propedList: [],
 
@@ -223,7 +292,7 @@ export default class FollowUpsList extends Component {
             this.loadFollowUps();
           }).bind(this), 150);
         });
-    }).bind(this), 50);
+    }).bind(this), 100);
   }
   sentEmail = () => {
     /////////////////////////////////////////////////
@@ -252,7 +321,6 @@ export default class FollowUpsList extends Component {
     let currentFollow = this.state.openedFollow.fields;
 
     currentFollow['Notes'] = newNotes + currentFollow['Notes'];
-    let amountNum = parseInt(currentFollow['Monthly Amount']);
 
 
     let jsonString = '{"type":"' + this.state.followType + '","date":"' + (today.getMonth()+1) + '/' + today.getDate()  + '/' + today.getFullYear() + '",';
@@ -272,15 +340,57 @@ export default class FollowUpsList extends Component {
     //update the next planned follow up
     let newPlanned;
 
-    if (this.state.followType === 'reference') { //Keep momentum. Add only 3!
-      newPlanned = new Date(+new Date + 1000*60*60*24*3);
-      currentFollow['Follow Ups'] = currentFollow['Follow Ups'] - 1; //need to keep it to 1 for db
-      currentFollow['Sent Reference'] = true;
-    } else { //Traditional Weekly
-      if (currentFollow['Follow Ups'] < 4) { //Traditional Weekly
-        newPlanned = new Date(+new Date + 1000*60*60*24*7);
-      } else { //Getting Cold. Slow Up now.
+
+
+    // new
+    // first
+    // recent
+    // ongoing
+    if (this.state.followType === 'new') {
+      newPlanned = new Date(+new Date + 1000*60*60*24*8);
+      currentFollow['Follow Status'] = 'First';
+    } else if (this.state.followType === 'first') {
+      if (currentFollow['Forecast Speed'] !== 'This Month') { //recentLong
         newPlanned = new Date(+new Date + 1000*60*60*24*14);
+      } else { //recentQuick
+        newPlanned = new Date(+new Date + 1000*60*60*24*8);
+      }
+      currentFollow['Follow Status'] = 'Recent';
+    } else if (this.state.followType === 'recent') {
+      if (currentFollow['Forecast Speed'] !== 'This Month') { //recentLong
+        if (currentFollow['Follow Ups'] === 3) {
+          currentFollow['Follow Status'] = 'Ongoing'
+          newPlanned = new Date(+new Date + 1000*60*60*24*30);
+        } else {
+          newPlanned = new Date(+new Date + 1000*60*60*24*14);
+        }
+      } else { //recentQuick
+        if (currentFollow['Follow Ups'] === 4) {
+          currentFollow['Follow Status'] = 'Ongoing'
+          newPlanned = new Date(+new Date + 1000*60*60*24*30);
+        } else {
+          newPlanned = new Date(+new Date + 1000*60*60*24*8);
+        }
+      }
+    } else if (this.state.followType === 'ongoing') {
+      if (currentFollow['Follow Status'] === 'Old') {
+        newPlanned = new Date(+new Date + 1000*60*60*24*58);
+      } else {
+        if (currentFollow['Forecast Speed'] !== 'This Month') { //recentLong
+          if (currentFollow['Follow Ups'] === 5) {
+            currentFollow['Follow Status'] = 'Old'
+            newPlanned = new Date(+new Date + 1000*60*60*24*58);
+          } else {
+            newPlanned = new Date(+new Date + 1000*60*60*24*45);
+          }
+        } else { //recentQuick
+          if (currentFollow['Follow Ups'] === 6) {
+            currentFollow['Follow Status'] = 'Old'
+            newPlanned = new Date(+new Date + 1000*60*60*24*58);
+          } else {
+            newPlanned = new Date(+new Date + 1000*60*60*24*45);
+          }
+        }
       }
     }
 
@@ -292,8 +402,10 @@ export default class FollowUpsList extends Component {
     currentFollow['Follow Ups'] = currentFollow['Follow Ups'] + 1;
     currentFollow['Last Contact'] = (today.getMonth()+1) + "/" + today.getDate()  + "/" + today.getFullYear();
 
-    if (currentFollow['Follow Up Type'] === 'Ongoing') {
-      currentFollow['Follow Ups Used'] = currentFollow['Follow Ups Used'] + ', ' + currentFollow['Template Name'];
+    if (this.state.followType === 'new') {
+      currentFollow['Follow Ups Used'] = this.state.currentFollowUp.fields['Template Name'];
+    } else {
+      currentFollow['Follow Ups Used'] = currentFollow['Follow Ups Used'] + ', ' + this.state.currentFollowUp.fields['Template Name'];
     }
 
     let finalPush = {"fields": currentFollow}
@@ -309,13 +421,14 @@ export default class FollowUpsList extends Component {
 
           followOffset: '',
           allFollows: {
-            first: [],
+            nextDay: [],
             references: [],
-            ongoingFirst: [],
-            ongoing: [],
-            ongoingLong: [],
-            retouches: [],
-            oldAPPC: [],
+            firstFollow: [],
+            recentQuick: [],
+            recentLong: [],
+            ongoingFollows: [],
+            oldFollows: [],
+            oldProspects: [],
           },
           propedList: [],
 
@@ -332,6 +445,7 @@ export default class FollowUpsList extends Component {
     this.setState({
       modalView: false,
       skipView: false,
+      handoffModal: false,
       followType: 'default',
     })
   }
@@ -371,54 +485,22 @@ export default class FollowUpsList extends Component {
     let monthAgo = new Date(+new Date - 1000*60*60*24*30);
     let twoMonthsAgo = new Date(+new Date - 1000*60*60*24*60);
 
-    let followUpURL = 'https://api.airtable.com/v0/appNqtJO2EtRRk9vj/Follows';
+    let followUpURL = 'https://api.airtable.com/v0/appNqtJO2EtRRk9vj/Follow';
     return axios
       .get(followUpURL).then(response => {
         let resItems = response.data.records;
-        console.log(followCount);
         let responseList = [];
 
-        console.log(resItems);
+        let currentFollow = e.fields;
 
         for (var i in resItems) {
-          if (type === 'proposal') {
-            if (resItems[i].fields['Follow Up Count'] === '0') {
-              console.log('is proposal follow');
-              responseList.push(resItems[i])
-            }
-          } else if (type === 'reference') {
-            if (resItems[i].fields['Follow Up Count'] === '1') {
-             console.log('is reference list');
-             responseList.push(resItems[i])
-           }
-         } else if (type === 'consistency') {
-            if (resItems[i].fields['Follow Up Count'] === '2') {
-             console.log('is intro email');
-             responseList.push(resItems[i])
-           }
-          } else if (type === 'ongoing') {
-            if (followCount > 10) {
-              if (resItems[i].fields['Follow Up Count'] === '+' || resItems[i].fields['Follow Up Count'] === 'Any') {
-                responseList.push(resItems[i]);
+          if ((type.charAt(0).toUpperCase() + type.substring(1)) === resItems[i].fields['Follow Up Type']) {
+            if (e.fields['Follow Ups Used']) {
+              if (e.fields['Follow Ups Used'].includes(resItems[i].fields['Template Name'])) {
+              } else {
+                responseList.push(resItems[i])
               }
             } else {
-              if (resItems[i].fields['Follow Up Count'] === 'Any') {
-                if (usedFollows !== undefined) {
-                  console.log(usedFollows);
-                  if (usedFollows.indexOf(resItems[i].fields['Template Name']) === -1) {
-                    responseList.push(resItems[i]);
-                  }
-                } else {
-                  responseList.push(resItems[i]);
-                }
-              }
-            }
-          } else if (type === 'retouch') {
-            if (resItems[i].fields['Follow Up Type'] === 'Retouch') { //is retouch
-              responseList.push(resItems[i])
-            }
-          } else if (type === 'oldAPPC') {
-            if (resItems[i].fields['Follow Up Type'] === 'Retouch' || resItems[i].fields['Follow Up Type'] === 'Old APPC') {
               responseList.push(resItems[i])
             }
           }
@@ -426,11 +508,8 @@ export default class FollowUpsList extends Component {
 
         if (responseList.length === 0) {
           for (var i in resItems) {
-            if (followCount > 2 && followCount < 10) {
-              if (resItems[i].fields['Follow Up Count'] === 'Any') {
-                console.log(resItems[i]);
-                responseList.push(resItems[i]);
-              }
+            if ((type.charAt(0).toUpperCase() + type.substring(1)) === resItems[i].fields['Follow Up Type']) {
+              responseList.push(resItems[i])
             }
           }
         }
@@ -441,29 +520,6 @@ export default class FollowUpsList extends Component {
           followUpList: responseList,
           currentFollowUp: responseList[Math.floor(Math.random()*responseList.length)]
         });
-
-        if (this.state.followType === 'reference') {
-          let filterByString = 'filterByFormula=FIND("' + e.fields['Zip'] + '"%2C+%7BZip%7D)';
-          filterByString = filterByString.split(' ').join('+');
-
-          let customerBase;
-          if (localStorage.getItem('userOffice') === 'tampa') {
-            customerBase = 'apps7GoAgK23yrOoY';
-          } else if (localStorage.getItem('userOffice') === 'orlando') {
-            customerBase = 'appBUKBn552B8SlbE';
-          }
-
-          let referencesURL = 'https://api.airtable.com/v0/' + customerBase + '/Customers/?view=Reference+Lists&' + filterByString;
-          console.log(referencesURL);
-          return axios
-            .get(referencesURL).then(response => {
-              console.log(response);
-              // let referenceItems = response.data.records;
-              this.setState({
-                referenceList: response.data.records
-              })
-            });
-        }
       });
   }
 
@@ -476,7 +532,9 @@ export default class FollowUpsList extends Component {
     sarchQueryForm = document.getElementById('searchInput').value;
     searchByForm = document.getElementById('searchBy').options[document.getElementById('searchBy').selectedIndex].value;
 
-    window.location = '/' + localStorage.getItem('userOffice') + '/sales/?searchBy=' + searchByForm + '&searchQuery=' + sarchQueryForm;
+    sessionStorage.setItem('searchQuery', sarchQueryForm);
+    sessionStorage.setItem('searchBy', searchByForm);
+    window.location = '/' + localStorage.getItem('userOffice') + '/sales/';
   }
 
   loadFollowUps = () => {
@@ -484,7 +542,7 @@ export default class FollowUpsList extends Component {
     let followURL;
 
 
-    //first
+    //nextDay
     let loadRecents = function() {
       console.log('loadRecents');
       let grabRecords = this.state.propedList;
@@ -505,45 +563,7 @@ export default class FollowUpsList extends Component {
 
           setTimeout((function() {
             let allFollows = this.state.allFollows;
-            allFollows.first = this.state.propedList;
-
-            this.setState({
-              followOffset: '',
-              allFollows: allFollows,
-              propedList: [],
-            });
-
-
-            loadRefs();
-          }).bind(this), 50);
-        }
-      });
-    }.bind(this);
-    loadRecents();
-
-
-    //references
-    let loadRefs = function() {
-      console.log('loadRefs');
-      let grabRecords = this.state.propedList;
-
-      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+References&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
-      if (this.state.followOffset !== '') {followURL = followURL + '&offset=' + this.state.followOffset;}
-
-      return axios
-        .get(followURL).then(response => {
-          this.setState({
-            propedList: grabRecords.concat(response.data.records),
-            followOffset: response.data.offset,
-          });
-        if (response.data.offset !== undefined) {
-          loadRefs();
-        } else {
-          console.log('clearing loadRefs()');
-
-          setTimeout((function() {
-            let allFollows = this.state.allFollows;
-            allFollows.references = this.state.propedList;
+            allFollows.nextDay = this.state.propedList;
 
             this.setState({
               followOffset: '',
@@ -557,13 +577,14 @@ export default class FollowUpsList extends Component {
         }
       });
     }.bind(this);
+    loadRecents();
 
-    //ongoingFirst
+    //firstFollow
     let loadFirstSolid = function() {
       console.log('loadFirstSolid');
       let grabRecords = this.state.propedList;
 
-      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Non-Reference&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
+      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Second&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
       if (this.state.followOffset !== '') {followURL = followURL + '&offset=' + this.state.followOffset;}
 
       return axios
@@ -579,7 +600,7 @@ export default class FollowUpsList extends Component {
 
           setTimeout((function() {
             let allFollows = this.state.allFollows;
-            allFollows.ongoingFirst = this.state.propedList;
+            allFollows.firstFollow = this.state.propedList;
 
             this.setState({
               followOffset: '',
@@ -587,15 +608,78 @@ export default class FollowUpsList extends Component {
               propedList: [],
             });
 
-            loadOngoing();
+            loadRecentQuick();
+          }).bind(this), 50);
+        }
+      });
+    }.bind(this);
+
+    //recentQuick
+    let loadRecentQuick = function() {
+      console.log('loadRecentQuick');
+      let grabRecords = this.state.propedList;
+
+      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Recent&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
+      if (this.state.followOffset !== '') {followURL = followURL + '&offset=' + this.state.followOffset;}
+
+      return axios
+        .get(followURL).then(response => {
+          this.setState({
+            propedList: grabRecords.concat(response.data.records),
+            followOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadRecentQuick();
+        } else {
+          console.log('clearing loadRecentQuick()');
+
+          setTimeout((function() {
+            let allFollows = this.state.allFollows;
+            allFollows.recentQuick = this.state.propedList;
+
+            this.setState({
+              followOffset: '',
+              allFollows: allFollows,
+              propedList: [],
+            });
+
+            moveToRecentLong();
           }).bind(this), 50);
         }
       });
     }.bind(this);
 
 
-    //ongoing
+    //Move to Long if needed
+    let moveToRecentLong = function() {
+      let allFollows = this.state.allFollows
+      let recentQuick = allFollows.recentQuick;
+      let propedList = [];
+      let quickPropedList = [];
+
+      for (var i in recentQuick) {
+        if (recentQuick[i].fields['Forecast Speed'] !== 'This Month') {
+          propedList.push(recentQuick[i]);
+        } else {
+          quickPropedList.push(recentQuick[i]);
+        }
+      }
+
+      allFollows.recentLong = propedList;
+      allFollows.recentQuick = quickPropedList;
+
+      this.setState({
+        allFollows: allFollows,
+        propedList: [],
+      });
+
+      loadOngoing();
+    }.bind(this);
+
+
+    //recentQuick
     let loadOngoing = function() {
+      console.log(this.state.allFollows);
       console.log('loadOngoing');
       let grabRecords = this.state.propedList;
 
@@ -615,7 +699,7 @@ export default class FollowUpsList extends Component {
 
           setTimeout((function() {
             let allFollows = this.state.allFollows;
-            allFollows.ongoing = this.state.propedList;
+            allFollows.ongoingFollows = this.state.propedList;
 
             this.setState({
               followOffset: '',
@@ -623,18 +707,18 @@ export default class FollowUpsList extends Component {
               propedList: [],
             });
 
-            loadOngoingLong();
+            loadOld();
           }).bind(this), 50);
         }
       });
     }.bind(this);
 
-    //ongoingLong
-    let loadOngoingLong = function() {
-      console.log('loadOngoingLong');
+    //oldFollows
+    let loadOld = function() {
+      console.log('loadOld');
       let grabRecords = this.state.propedList;
 
-      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Long+Ongoing&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
+      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Old&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
       if (this.state.followOffset !== '') {followURL = followURL + '&offset=' + this.state.followOffset;}
 
       return axios
@@ -644,70 +728,13 @@ export default class FollowUpsList extends Component {
             followOffset: response.data.offset,
           });
         if (response.data.offset !== undefined) {
-          loadOngoingLong();
+          loadOld();
         } else {
-          console.log('clearing loadOngoingLong()');
+          console.log('clearing loadOld()');
 
           setTimeout((function() {
             let allFollows = this.state.allFollows;
-            allFollows.ongoingLong = this.state.propedList;
-
-            this.setState({
-              followOffset: '',
-              allFollows: allFollows,
-              propedList: [],
-            });
-
-            loadRetouches();
-          }).bind(this), 50);
-        }
-      });
-    }.bind(this);
-
-    //retouches
-    let loadRetouches = function() {
-      console.log('loadRetouches');
-      let grabRecords = this.state.propedList;
-
-      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Retouch&pageSize=4&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
-
-      return axios
-        .get(followURL).then(response => {
-          this.setState({
-            propedList: grabRecords.concat(response.data.records),
-          });
-
-          setTimeout((function() {
-            let allFollows = this.state.allFollows;
-            allFollows.retouches = this.state.propedList;
-
-            this.setState({
-              followOffset: '',
-              allFollows: allFollows,
-              propedList: [],
-            });
-
-            loadOldAPPC();
-          }).bind(this), 50);
-        });
-    }.bind(this);
-
-    //oldAPPC
-    let loadOldAPPC = function() {
-      console.log('loadOldAPPC');
-      let grabRecords = this.state.propedList;
-
-      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Follow+Ups+Old+APPC&pageSize=4&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
-
-      return axios
-        .get(followURL).then(response => {
-          this.setState({
-            propedList: grabRecords.concat(response.data.records),
-          });
-
-          setTimeout((function() {
-            let allFollows = this.state.allFollows;
-            allFollows.oldAPPC = this.state.propedList;
+            allFollows.oldFollows = this.state.propedList;
 
             this.setState({
               followOffset: '',
@@ -717,16 +744,142 @@ export default class FollowUpsList extends Component {
 
             loadFinish();
           }).bind(this), 50);
+        }
       });
     }.bind(this);
+
+
+
 
     let loadFinish = function() {
+      let allFollows = this.state.allFollows;
+
+      let propedAllFollows = {
+        nextDay: this.state.allFollows.nextDay,
+        references: [],
+        firstFollow: this.state.allFollows.firstFollow,
+        recentQuick: [],
+        recentLong: [],
+        ongoingFollows: this.state.allFollows.ongoingFollows,
+        oldFollows: [],
+        oldProspects: [],
+      };
+      let today = new Date();
+
+      for (var i in allFollows.recentQuick) {
+        let lastCont = new Date(allFollows.recentQuick[i].fields['Last Contact']);
+        let firstRecent = new Date(+new Date(lastCont) + 1000*60*60*24*7);
+        let secondRecent = new Date(+new Date(lastCont) + 1000*60*60*24*6);
+        let thirdRecent = new Date(+new Date(lastCont) + 1000*60*60*24*9);
+        let fourthRecent = new Date(+new Date(lastCont) + 1000*60*60*24*8);
+
+        if (allFollows.recentQuick[i].fields['Follow Ups'] === 2) {
+          if (today > firstRecent) {  propedAllFollows.recentQuick.push(allFollows.recentQuick[i]); }
+        } else if (allFollows.recentQuick[i].fields['Follow Ups'] === 3) {
+          if (today > secondRecent) {  propedAllFollows.recentQuick.push(allFollows.recentQuick[i]); }
+        } else if (allFollows.recentQuick[i].fields['Follow Ups'] === 4) {
+          if (today > thirdRecent) {  propedAllFollows.recentQuick.push(allFollows.recentQuick[i]); }
+        } else if (allFollows.recentQuick[i].fields['Follow Ups'] === 5) {
+          allFollows.recentQuick[i].moveToOngoing = true;
+          if (today > fourthRecent) {  propedAllFollows.recentQuick.push(allFollows.recentQuick[i]); }
+        }
+      }
+
+      for (var i in allFollows.recentLong) {
+        let lastCont = new Date(allFollows.recentLong[i].fields['Last Contact']);
+        let firstRecent = new Date(+new Date(lastCont) + 1000*60*60*24*10);
+        let secondRecent = new Date(+new Date(lastCont) + 1000*60*60*24*12);
+        let thirdRecent = new Date(+new Date(lastCont) + 1000*60*60*24*15);
+
+        if (allFollows.recentLong[i].fields['Follow Ups'] === 2) {
+          if (today > firstRecent) {  propedAllFollows.recentLong.push(allFollows.recentLong[i]); }
+        } else if (allFollows.recentLong[i].fields['Follow Ups'] === 3) {
+          if (today > secondRecent) {  propedAllFollows.recentLong.push(allFollows.recentLong[i]); }
+        } else if (allFollows.recentLong[i].fields['Follow Ups'] === 4) {
+          allFollows.recentLong[i].moveToOngoing = true;
+          if (today > thirdRecent) {  propedAllFollows.recentLong.push(allFollows.recentLong[i]); }
+        }
+      }
+
+      for (var i in allFollows.oldFollows) {
+        if (allFollows.oldFollows[i].fields['Status'] === 'APPC') {
+          propedAllFollows.oldFollows.push(allFollows.oldFollows[i]);
+        } else {
+          propedAllFollows.oldProspects.push(allFollows.oldFollows[i]);
+        }
+      }
+
       this.setState({
         loading: false,
+        allFollows: propedAllFollows,
       });
-      console.log(this.state.allFollows);
+      console.log(propedAllFollows);
+      console.log(this.state.suggestedHandoffs);
     }.bind(this);
 
+  }
+
+  sendReport = () => {
+    let currRep = localStorage.getItem('userName').replace(' ', '+')
+    //oldFollows
+    let loadTodaysFollows = function() {
+      console.log('loadTodaysFollows');
+      let grabRecords = this.state.propedList;
+
+      let followURL = 'https://api.airtable.com/v0/' + this.state.baseId + '/' + 'Sales' + '?view=Morning+Follow+Ups&filterByFormula=IF(%7BSales+Rep%7D%2C+%22' + currRep + '%22%2C+TRUE())';
+      if (this.state.followOffset !== '') {followURL = followURL + '&offset=' + this.state.followOffset;}
+
+      return axios
+        .get(followURL).then(response => {
+          this.setState({
+            propedList: grabRecords.concat(response.data.records),
+            followOffset: response.data.offset,
+          });
+        if (response.data.offset !== undefined) {
+          loadTodaysFollows();
+        } else {
+          console.log('clearing loadTodaysFollows()');
+
+          setTimeout((function() {
+            let averageCount = 0;
+            let olderCount = 0;
+            for (var i in this.state.propedList) {
+              averageCount += this.state.propedList[i].fields['Follow Ups'];
+
+              if (this.state.propedList[i].fields['Follow Status'] !== 'New' && this.state.propedList[i].fields['Follow Status'] !== 'First' && this.state.propedList[i].fields['Follow Status'] !== 'Recent') {
+                olderCount += 1;
+              }
+            }
+
+            let totalFollows = this.state.propedList.length;
+            averageCount = (averageCount/totalFollows).toFixed(2);
+            olderCount = (Math.floor((olderCount/totalFollows)*10000))/100 + '%';
+
+
+            let reportLink = 'mailto:tperkins@vanguardcleaning.com';
+            reportLink += "?subject=" + localStorage.getItem('userName').split(' ')[0] + "%27s%20Morning%20Follow-Up%20Report";
+
+
+            reportLink += "&body=";
+            reportLink += encodeURI("Morning Tyler,\n\nI sent out " + totalFollows + " follow ups this morning.\nEach of these accounts have been hit an average of " + averageCount + " times.\n" + olderCount + " of the follow ups are for proposals over 30 days old.");
+
+
+            this.setState({
+              followOffset: '',
+              propedList: [],
+            });
+
+            var fakeDownloadA = document.createElement('a');
+            fakeDownloadA.setAttribute('href', reportLink);
+            fakeDownloadA.style.display = 'none';
+            document.body.appendChild(fakeDownloadA);
+            fakeDownloadA.click();
+            document.body.removeChild(fakeDownloadA);
+          }).bind(this), 50);
+        }
+      });
+    }.bind(this);
+    loadTodaysFollows();
   }
 
   componentDidMount() {
@@ -748,7 +901,7 @@ export default class FollowUpsList extends Component {
   // Render
   // ----------------------------------------------------
   render() {
-    const { allFollows, referenceList } = this.state;
+    const { allFollows, referenceList, suggestedHandoffs } = this.state;
 
     let followModalWrapper = "FollowUpsModal modalInner";
     if (!this.state.noVisit) {
@@ -770,6 +923,7 @@ export default class FollowUpsList extends Component {
       return (
         <div className="CallListContainer">
           {this.skipView}
+          {this.handoffModal}
           {this.modalView}
 
           <form className="ControlsBar--search" onSubmit={this.sendSearch}>
@@ -786,49 +940,52 @@ export default class FollowUpsList extends Component {
             <button type="submit" className="navIcon softGrad--primary">
               <img src={searchImg} alt="search" />
             </button>
+
+
+            <div className="sendReport softGrad--black" onClick={()=>this.sendReport()}>Send Report</div>
           </form>
 
           <div className="CallList">
             <div className="leftCol">
-              <h4 className={allFollows.first.length > 0 ? '' : 'hidden'}>Recent Proposals</h4>
-              <div className={allFollows.first.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                {allFollows.first.length > 0 ? allFollows.first.map((e, i, followType) => this.followUpItem(e, i, 'proposal')): ''}
-              </div>
-
-
-              <h4 className={allFollows.references.length > 0 ? '' : 'hidden'}>References</h4>
-              <div className={allFollows.references.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                {allFollows.references.length > 0 ? allFollows.references.map((e, i, followType) => this.followUpItem(e, i, 'reference')): ''}
-              </div>
-
-
-              <h4 className={allFollows.oldAPPC.length > 0 ? '' : 'hidden'}>Old Proposals</h4>
-              <div className={allFollows.oldAPPC.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                {allFollows.oldAPPC.length > 0 ? allFollows.oldAPPC.map((e, i, followType) => this.followUpItem(e, i, 'oldAPPC')): ''}
-              </div>
-
-              <h4 className={allFollows.retouches.length > 0 ? '' : 'hidden'}>Check-Ins</h4>
-              <div className={allFollows.retouches.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                {allFollows.retouches.length > 0 ? allFollows.retouches.map((e, i, followType) => this.followUpItem(e, i, 'retouch')): ''}
+              <div className="CallListBox">
+                <h4>Recent Proposals</h4>
+                <div className={allFollows.nextDay.length > 0 ? 'followHighlight next' : 'followHighlight next hidden'}>
+                  <p className={allFollows.nextDay.length > 0 ? '' : 'hidden'}>Next Day</p>
+                  {allFollows.nextDay.length > 0 ? allFollows.nextDay.map((e, i, followType) => this.followUpItem(e, i, 'new')): ''}
+                </div>
+                <p className={allFollows.firstFollow.length > 0 ? '' : 'hidden'}>First Follow Up</p>
+                {allFollows.firstFollow.length > 0 ? allFollows.firstFollow.map((e, i, followType) => this.followUpItem(e, i, 'first')): ''}
               </div>
             </div>
 
 
+            <div className="midCol">
+              <div className="CallListBox">
+                <h4>{'Mid-Range'}</h4>
+                <div className={allFollows.recentQuick.length > 0 ? 'followHighlight hot' : 'followHighlight hot hidden'}>
+                  <p className={allFollows.recentQuick.length > 0 ? '' : 'hidden'}>Hot</p>
+                  {allFollows.recentQuick.length > 0 ? allFollows.recentQuick.map((e, i, followType) => this.followUpItem(e, i, 'recent')): ''}
+                </div>
+                {allFollows.recentLong.length > 0 ? allFollows.recentLong.map((e, i, followType) => this.followUpItem(e, i, 'recent')): ''}
+              </div>
+            </div>
+
+
+
             <div className="rightCol">
-              <h4 className={allFollows.ongoingFirst.length > 0 ? '' : 'hidden'}>Final Sales Pitch</h4>
-              <div className={allFollows.ongoingFirst.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                {allFollows.ongoingFirst.length > 0 ? allFollows.ongoingFirst.map((e, i, followType) => this.followUpItem(e, i, 'consistency')): ''}
-              </div>
+              <div className="CallListBox">
+                <h4>Ongoing</h4>
+                <div className={allFollows.ongoingFollows.length > 0 ? 'followHighlight ongoingFollow' : 'followHighlight ongoingFollow hidden'}>
+                  <p className={allFollows.ongoingFollows.length > 0 ? '' : 'hidden'}>More Recent</p>
+                  {allFollows.ongoingFollows.length > 0 ? allFollows.ongoingFollows.map((e, i, followType) => this.followUpItem(e, i, 'ongoing')): ''}
+                </div>
 
+                {allFollows.oldFollows.length > 0 ? allFollows.oldFollows.map((e, i, followType) => this.followUpItem(e, i, 'ongoing')): ''}
 
-              <h4 className={allFollows.ongoing.length > 0 ? '' : 'hidden'}>Ongoing Follow Ups</h4>
-              <div className={allFollows.ongoing.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                <p>Weekly</p>
-                {allFollows.ongoing.length > 0 ? allFollows.ongoing.map((e, i, followType) => this.followUpItem(e, i, 'ongoing')): ''}
-              </div>
-              <div className={allFollows.ongoingLong.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
-                <p>Bi-Weelkly</p>
-                {allFollows.ongoingLong.length > 0 ? allFollows.ongoingLong.map((e, i, followType) => this.followUpItem(e, i, 'ongoing')): ''}
+                <div className={allFollows.oldProspects.length > 0 ? 'followHighlight rebuttal' : 'followHighlight rebuttal hidden'}>
+                  <p className={allFollows.oldProspects.length > 0 ? '' : 'hidden'}>Old Prospects</p>
+                  {allFollows.oldProspects.length > 0 ? allFollows.oldProspects.map((e, i, followType) => this.followUpItem(e, i, 'ongoing')): ''}
+                </div>
               </div>
             </div>
           </div>
@@ -840,6 +997,44 @@ export default class FollowUpsList extends Component {
   }
 
 
+
+  get handoffModal() {
+    if (this.state.handoffModal) {
+      return (
+        <div className='followModalCont'>
+          <div className="innerModal">
+            <div className="modalTitle">
+              <h4>{this.state.openedFollow.fields['Company Name']}</h4>
+              <p>${this.state.openedFollow.fields['Monthly Amount']} | {this.state.openedFollow.fields['Actual Sq Footage']}sqft</p>
+              <p><a href={'mailto:' + this.state.openedFollow.fields['Email']}>{this.state.openedFollow.fields['Email']}</a></p>
+
+              <div className="backArrow" onClick={this.backToList}>
+                <img src={exit} alt="Go Back" />
+              </div>
+              <Link target="_blank" to={'/' + localStorage.getItem('userOffice') + '/sales/' + this.state.openedFollow.id + '/'}><img src={popout} /></Link>
+            </div>
+
+            <div className="splitNotes skipNotes">
+              <div className="followUp">
+                <label>Who do you want to hand this off to?</label>
+                <select id="insiderSelect">
+                  {this.state.insiders.length > 0 ? this.state.insiders.map((e, i) => this.insiderItem(e, i)): ''}
+                  <option value="">No One (appt was 'meh')</option>
+                </select>
+
+                <label>Add Some Notes (optional)</label>
+                <textarea placeholder="Prospect Status" id="prospectStatus" />
+              </div>
+            </div>
+            <div className="botBtns">
+              <a className="btn softGrad--black" onClick={()=>this.handoffHandlerActual(this.state.openedFollow, 'handOff')}>Confirm Changes</a>
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+  }
 
   get skipView() {
     if (this.state.skipView) {
@@ -881,6 +1076,9 @@ export default class FollowUpsList extends Component {
                   <option value="decision-made">Went with another company</option>
                   <option value="delayed">Said they will get back within a few weeks</option>
                 </select>
+
+                <label>Add Some Notes (optional)</label>
+                <textarea placeholder="Reasoning" id="skipReasoning" />
               </div>
             </div>
             <div className="botBtns">
@@ -1009,6 +1207,12 @@ export default class FollowUpsList extends Component {
     }
   }
 
+  insiderItem(insider, i) {
+    return (
+      <option value={insider.fields['Name']}>{insider.fields['Name']}</option>
+    )
+  }
+
   referenceItem(reference, i) {
     let lastCallDate = new Date(reference.fields['Last Call']);
     lastCallDate = (lastCallDate.getMonth() + 1 ) + '/' + lastCallDate.getDate() + '/' + lastCallDate.getFullYear();
@@ -1045,30 +1249,75 @@ export default class FollowUpsList extends Component {
     );
   }
 
+  suggestedItem(suggested, i) {
+    let lastContact = new Date(suggested.fields['Last Contact']);
+    lastContact = new Date(lastContact.getTime() + Math.abs(lastContact.getTimezoneOffset()*60000));
+    let contactDate = (lastContact.getMonth() + 1) + '/' + lastContact.getDate() + '/' + lastContact.getFullYear();
+
+    let propDate = new Date(suggested.fields['Proposal Date']);
+    propDate = new Date(propDate.getTime() + Math.abs(propDate.getTimezoneOffset()*60000));
+    propDate = (propDate.getMonth() + 1) + '/' + propDate.getDate() + '/' + propDate.getFullYear();
+
+
+    return (
+      <div className='callItem handoff'>
+        <div className="companyData">
+          <Link target="_blank" className="popOut" to={'/' + localStorage.getItem('userOffice') + '/sales/' + suggested.id + '/'}><img src={popout} onClick={this.popOut} /></Link>
+          <div className="innerCompany">
+            <p>APPC {propDate}</p>
+            <h4>{suggested.fields['Company Name']}</h4>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <div className="btn softGrad--black" onClick={()=>this.handoffHandlerActual(suggested, 'moreTime')}>Keep It</div>
+          <div className="btn softGrad--primary" onClick={()=>this.handoffHandler(suggested, 'handOff')}>Handoff</div>
+        </div>
+      </div>
+    );
+  }
+
   followUpItem(followUps, i, followType) {
     let lastContact = new Date(followUps.fields['Last Contact']);
     lastContact = new Date(lastContact.getTime() + Math.abs(lastContact.getTimezoneOffset()*60000));
 
     let finalDate = (lastContact.getMonth() + 1) + '/' + lastContact.getDate() + '/' + lastContact.getFullYear();
 
+    if (followType === 'ongoing') {
+      return (
+        <div className='callItem ongoing'>
+          <div className="companyData">
+            <div className="innerCompany">
+              <p>{finalDate}</p>
+              <h4>{followUps.fields['Company Name']}</h4>
+            </div>
+          </div>
 
-    return (
-      <div className='callItem'>
-        <div className="companyData">
-          <div className="innerCompany">
-            <p>{finalDate}</p>
-            <h4>{followUps.fields['Company Name']}</h4>
+          <div className="buttons">
+            <div className="btn softGrad--secondary" onClick={()=>this.openFollowUp(followUps, followType)}>Open</div>
+            <Link target="_blank" to={'/' + localStorage.getItem('userOffice') + '/sales/' + followUps.id + '/'}><img src={popout} onClick={this.popOut} /></Link>
           </div>
         </div>
-
-        <div className="buttons">
-          <div className="btn softGrad--secondary" onClick={()=>this.openFollowUp(followUps, followType)}>Open</div>
-          <div className="skipBtn" onClick={()=>this.skipFollow(followUps)}>
-            <img src={skipImg} alt="skip" />
+      );
+    } else {
+      return (
+        <div className='callItem'>
+          <div className="companyData">
+            <div className="innerCompany">
+              <p>{finalDate}</p>
+              <h4>{followUps.fields['Company Name']}</h4>
+            </div>
           </div>
-          <Link target="_blank" to={'/' + localStorage.getItem('userOffice') + '/sales/' + followUps.id + '/'}><img src={popout} onClick={this.popOut} /></Link>
+
+          <div className="buttons">
+            <div className="btn softGrad--secondary" onClick={()=>this.openFollowUp(followUps, followType)}>Open</div>
+            <div className="skipBtn" onClick={()=>this.skipFollow(followUps)}>
+              <img src={skipImg} alt="skip" />
+            </div>
+            <Link target="_blank" to={'/' + localStorage.getItem('userOffice') + '/sales/' + followUps.id + '/'}><img src={popout} onClick={this.popOut} /></Link>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }

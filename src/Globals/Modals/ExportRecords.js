@@ -739,24 +739,24 @@ export default class ExportRecords extends Component {
               <option disabled>Disregard Range</option>
               <option
                 data-filter-type="default"
-                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=Standing&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Last+Call&fields%5B%5D=Last+Visit&fields%5B%5D=Office+Phone&fields%5B%5D=Extension&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"
+                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Monthly+Amount&fields%5B%5D=SP+Number&fields%5B%5D=Monthly+CPOP&fields%5B%5D=Standing&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Last+Call&fields%5B%5D=Last+Visit&fields%5B%5D=Office+Phone&fields%5B%5D=Extension&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Appt.+Date&fields%5B%5D=Appt.+Set+Date&fields%5B%5D=Proposal+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=Lead+Source&fields%5B%5D=PAM"
                 data-filter-1="FIND(%22Active%22%2C%7BStatus%7D)">
                 Actives Customer Service</option>
 
               <option disabled>Needs Range</option>
               <option
                 data-filter-type="ranged"
-                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Monthly+CPOP&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
                 data-filter-1="Start+Date">
                 New Startups</option>
               <option
                 data-filter-type="ranged"
-                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Monthly+CPOP&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
                 data-filter-1="New+SP+Start">
                 Crew Changes</option>
               <option
                 data-filter-type="ranged"
-                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
+                data-fields="fields%5B%5D=Company+Name&fields%5B%5D=Standing&fields%5B%5D=Monthly+Amount&fields%5B%5D=Monthly+CPOP&fields%5B%5D=Actual+Sq+Footage&fields%5B%5D=Close+Date&fields%5B%5D=Start+Date&fields%5B%5D=New+SP+Start&fields%5B%5D=Cancel+Date&fields%5B%5D=Sales+Rep&fields%5B%5D=Appt.+Set+By&fields%5B%5D=Lead+Source&fields%5B%5D=SP+Name&fields%5B%5D=City&fields%5B%5D=County&fields%5B%5D=Times+per+Week&fields%5B%5D=PAM"
                 data-filter-1="Cancel+Date">
                 New Cancelations</option>
             </select>

@@ -113,7 +113,7 @@ export class LogCall extends Component {
       }
     } else if (this.state.viewType === 'apptQuestion') {
       if (e.target.id === 'setAppt') {
-        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+        if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Sheila St. Clair' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Bryan Goree' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
           logData['Appt. Set By'] = localStorage.getItem('userName');
         } else {
           logData['Appt. Set By'] = '';
@@ -121,7 +121,7 @@ export class LogCall extends Component {
         logData['Appt. Set Date'] = today;
         logData['Status'] = 'Appointment Set';
       }
-      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
+      if (localStorage.getItem('userName') === 'Carla Milian' || localStorage.getItem('userName') === 'Sheila St. Clair' || localStorage.getItem('userName') === 'Shana Thorn' || localStorage.getItem('userName') === 'Mariyah Moore' || localStorage.getItem('userName') === 'Lisa Shirah' || localStorage.getItem('userName') === 'Bryan Goree' || localStorage.getItem('userName') === 'Jett' || localStorage.getItem('userName') === 'Jason') {
         logData['Recent Caller'] = localStorage.getItem('userName');
       } else {
         logData['Recent Caller'] = '';

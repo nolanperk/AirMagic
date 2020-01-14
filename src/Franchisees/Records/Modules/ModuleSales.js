@@ -45,6 +45,7 @@ export default class ModuleSales extends Component {
     let plan = this.props.plan;
     let ar = this.props.ar;
     let downPayment = this.props.downPayment;
+    let veteran = this.props.veteran;
 
     let attended = this.props.attended;
     let standing = this.props.standing;
@@ -55,6 +56,12 @@ export default class ModuleSales extends Component {
 
     let activeDate = this.props.activeDate;
     let inactiveDate = this.props.inactiveDate;
+
+
+    if (this.props.veteran && document.getElementById("veteran")) {
+      document.getElementById("veteran").checked = this.props.veteran;
+    }
+
     return (
       <div className="ModuleCard">
         <div className="inner">
@@ -92,10 +99,7 @@ export default class ModuleSales extends Component {
               </select>
             </div>
           </div>
-          <div className="inputBlock inputBlock--full">
-            <div class="pickWrapper">
-              <DayPicker onDayClick={this.props.handleDayClick} />
-            </div>
+          <div className="inputBlock inputBlock--75">
             <label>Contact Date</label>
             <div className="inputWithTag" onClick={this.props.toggleDayPicker}>
               <div className="inputTag">
@@ -108,6 +112,15 @@ export default class ModuleSales extends Component {
                 onChange={this.props.changeRecordHandler}
               />
             </div>
+          </div>
+          <div className="inputBlock inputBlock--quart check">
+            <label>Veteran?</label>
+            <input
+              type="checkbox"
+              id="veteran"
+              onChange={this.props.changeCheckHandler}
+              // {veteran === true ? 'checked' : ''}
+            />
           </div>
           <div className="inputBlock inputBlock--half">
             <div class="pickWrapper">
@@ -149,6 +162,20 @@ export default class ModuleSales extends Component {
               </select>
             </div>
           </div>
+
+        <div className="inputBlock inputBlock--half">
+          <label>Sales Rep</label>
+          <div
+            className="selectBlock"
+
+            >
+            <select id="rep" value={this.props.rep} onChange={this.props.repChange}>
+              <option value=""></option>
+              <option>Rafael Milanes</option>
+              <option>Tyler Perkins</option>
+            </select>
+          </div>
+        </div>
 
           <hr />
 
@@ -299,6 +326,8 @@ export default class ModuleSales extends Component {
 ModuleSales.propTypes ={
   fdd: propTypes.string,
   ar: propTypes.string,
+  rep: propTypes.string,
+  repChange: propTypes.function,
   sign: propTypes.string,
   graduation: propTypes.string,
   plan: propTypes.string,
@@ -307,6 +336,7 @@ ModuleSales.propTypes ={
   changeRecordHandler: propTypes.func.isRequired,
   referral: propTypes.string,
   packet: propTypes.string,
+  veteran: propTypes.bool,
   standing: propTypes.string,
   contDate: propTypes.string,
   apptDate: propTypes.string,

@@ -1546,8 +1546,11 @@ export default class OutsideSales extends Component {
           modalType: 'addNotes',
         });
         setTimeout((function() {
-          document.getElementById('newNoteBox').focus();
-        }).bind(this), 50);
+          //focus the new note box better
+          let textarea = document.getElementById('newNoteBox'),
+          val = textarea.value;
+          textarea.focus();textarea.value = '';textarea.value = val;
+        }).bind(this), 100);
       } else if(e.target.id === 'exportList') {
         this.setState({
           activeModal: true,

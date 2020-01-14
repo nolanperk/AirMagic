@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FollowUpsList from '../Sales/FollowUpsList';
+import MonthlyFollows from '../Sales/MonthlyFollows';
+import axios from 'axios';
 
 
 export default class BaseSelect extends Component {
+
+  constructor(props) {
+    super();
+    this.state = {
+      showMonthly: false,
+    }
+  }
   componentDidMount() {
     if (localStorage.getItem('isLogged')  !== 'true') {
       this.props.history.push('/login');
@@ -24,11 +33,53 @@ export default class BaseSelect extends Component {
         }
       }
     }
+
+    console.log(localStorage.userInitials);
+
+    this.checkLogin();
   }
+
+  checkLogin = () => {
+    let finalURL = 'https://api.airtable.com/v0/appYVHBA4LOlBssy3/log';
+    console.log(finalURL);
+
+    return axios
+      .get(finalURL)
+      .then(response => {
+        this.setState({
+          checkData: response.data.records,
+        });
+
+
+        setTimeout((function() {
+          console.log(this.state.checkData);
+          let userRecord;
+          if (this.state.checkData.filter(user => user.fields['Initials'] === localStorage.userInitials)[0]) {
+            userRecord = this.state.checkData.filter(user => user.fields['Initials'] === localStorage.userInitials)[0];
+            console.log(userRecord);
+          } else {
+            this.logoutHandler();
+          }
+        }).bind(this), 0);
+      })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          error: `${error}`,
+        });
+      });
+  }
+
   logoutHandler = () => {
     sessionStorage.clear();
     localStorage.clear();
     window.location.reload();
+  }
+
+  closeModal = () => {
+    this.setState({
+      showMonthly: false,
+    })
   }
 
   // Render
@@ -79,7 +130,7 @@ export default class BaseSelect extends Component {
           </div>
         </div>
       );
-    } else if (localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'LSS' || localStorage.getItem('userInitials') === 'MLM' || localStorage.getItem('userInitials') === 'CBM') {
+    } else if (localStorage.getItem('userInitials') === 'TEST' || localStorage.getItem('userInitials') === 'SSC' || localStorage.getItem('userInitials') === 'SLT' || localStorage.getItem('userInitials') === 'LSS' || localStorage.getItem('userInitials') === 'BEG' || localStorage.getItem('userInitials') === 'MLM' || localStorage.getItem('userInitials') === 'CBM') {
       return (
         <div className="wrapper">
           <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
@@ -100,6 +151,15 @@ export default class BaseSelect extends Component {
                       <div className="circleDot"></div>
                       <div className="baseIcon"></div>
                       <h4>Dashboard</h4>
+                    </div>
+                  </div>
+                </Link>
+
+
+                <Link to={`/yelp/`}>
+                  <div className="selectItem whiteCard">
+                    <div className="inner">
+                      <h4>Yelp Lists</h4>
                     </div>
                   </div>
                 </Link>
@@ -143,12 +203,14 @@ export default class BaseSelect extends Component {
       return (
         <div className="wrapper outsideSales">
           <FollowUpsList />
+          {this.MonthlyFollows}
 
           <div className="ActivityWrapper">
             <div className="btn softGrad--primary" id="logoutBtn" onClick={this.logoutHandler}>Logout</div>
+            <div className="btn softGrad--black" id="monthlyFollows" onClick={()=>this.setState({showMonthly:true,})}>Monthly Follows</div>
 
             <div className="activityContainer">
-              <h4>Tampa Databases</h4>
+              <h4>Tampa</h4>
               <div className='activityItem'>
                 <a href={'/tampa/sales/'} className="absLink"></a>
                 <div className='prettyLabel tSales'>
@@ -195,7 +257,7 @@ export default class BaseSelect extends Component {
 
               <hr />
 
-              <h4>Orlando Databases</h4>
+              <h4>Orlando</h4>
               <div className='activityItem'>
                 <a href={'/orlando/sales/'} className="absLink"></a>
                 <div className='prettyLabel oSales'>
@@ -316,6 +378,16 @@ export default class BaseSelect extends Component {
           </div>
         </div>
       );
+    }
+  }
+
+  get MonthlyFollows() {
+    if (this.state.showMonthly) {
+      return (
+        <MonthlyFollows
+          closeModal={this.closeModal}
+         />
+      )
     }
   }
 

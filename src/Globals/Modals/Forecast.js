@@ -26,10 +26,9 @@ export default class Forecast extends Component {
 
   selectChange = () => {
     let foreSpeed = document.getElementById('foreSpeed').value;
-    let foreRating = document.getElementById('foreRating').value;
-    console.log(foreSpeed + ' / ' + foreRating);
+    console.log(foreSpeed);
 
-    if (foreSpeed === '' || foreRating === '') {
+    if (foreSpeed === '') {
       document.getElementById('submitFore').className = "btn softGrad--secondary disabled";
     } else {
       document.getElementById('submitFore').className = "btn softGrad--secondary";
@@ -48,34 +47,20 @@ export default class Forecast extends Component {
 
         <form id="exportForm" onSubmit={this.props.forecastSave}>
 
-          <p>How would you rate our chances of closing this account?</p>
-          <div className="selectBox mergeBox" onChange={this.selectChange}>
-            <select id="foreRating" value={this.state.rating} onChange={this.ratingChange}>
-              <option value="">
-                Select Rating</option>
-                <option value="Unlikely">Unlikely</option>
-                <option value="Okay">It's Possible</option>
-                <option value="Good">Good Chance</option>
-                <option value="Great">We're 1st or 2nd Choice</option>
-                <option value="Awesome">Expected Close</option>
-              </select>
-          </div>
-
-          <p>How soon do you expect them to make a decision?</p>
+          <p>How soon do you expect to close this account?</p>
           <div className="selectBox mergeBox" onChange={this.selectChange}>
             <select id="foreSpeed" value={this.state.speed} onChange={this.speedChange}>
               <option value="">
                 Select Speed</option>
-                <option >This Week</option>
                 <option >This Month</option>
-                <option >Soon</option>
-                <option >Eventually</option>
-                <option>Unknown</option>
+                <option >Within 6 Months</option>
+                <option >Within 18 Months</option>
               </select>
           </div>
 
           <div className="newFilterTrigger">
-            <button type="submit" id="submitFore" className="btn softGrad--secondary disabled">Submit</button>
+
+            <button type="submit" id="submitFore" className={this.state.speed === '' ? 'btn softGrad--secondary disabled' : 'btn softGrad--secondary'}>Submit</button>
           </div>
         </form>
 

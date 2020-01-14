@@ -269,6 +269,7 @@ export default class Franchisees extends Component {
       'Partner Phone': null,
       'English Contact': null,
       'English Contact Phone': null,
+      'Veteran': null,
       'English Contact Email': null,
       'Contact Date': null,
       'FDD Sign Date': null,
@@ -454,6 +455,7 @@ export default class Franchisees extends Component {
     else if (e.target.id === 'partnerPhone') {currentRecordState['Partner Phone'] = e.target.value}
     else if (e.target.id === 'english') {currentRecordState['English Contact'] = e.target.value}
     else if (e.target.id === 'englishPhone') {currentRecordState['English Contact Phone'] = e.target.value}
+    else if (e.target.id === 'veteran') {currentRecordState['Veteran'] = e.target.value}
     else if (e.target.id === 'englishEmail') {currentRecordState['English Contact Email'] = e.target.value}
     else if (e.target.id === 'contDate') {currentRecordState['Contact Date'] = e.target.value}
     else if (e.target.id === 'activeDate') {currentRecordState['Active Date'] = e.target.value}
@@ -506,6 +508,15 @@ export default class Franchisees extends Component {
           newRecord: false,
       });
     }
+  }
+
+
+  repChange = e => {
+    let currentsRec = this.state.currentRecord;
+    currentsRec['Sales Rep'] = e.target.value;
+    this.setState({
+      currentRecord: currentsRec,
+    });
   }
 
   recordChanger = e => {
@@ -1047,6 +1058,19 @@ export default class Franchisees extends Component {
     }).bind(this), 50);
   }
 
+  changeCheckHandler = e => {
+    let currentsRec = this.state.currentRecord;
+
+    if (currentsRec['Veteran'] === true) {
+      currentsRec['Veteran'] = false;
+    } else {
+      currentsRec['Veteran'] = true;
+    }
+    this.setState({
+      currentRecord: currentsRec,
+    });
+  }
+
 
   loadData = () => {
     if (sessionStorage.getItem('listView') != null) {
@@ -1235,8 +1259,11 @@ export default class Franchisees extends Component {
           modalType: 'addNotes',
         });
         setTimeout((function() {
-          document.getElementById('newNoteBox').focus();
-        }).bind(this), 50);
+          //focus the new note box better
+          let textarea = document.getElementById('newNoteBox'),
+          val = textarea.value;
+          textarea.focus();textarea.value = '';textarea.value = val;
+        }).bind(this), 100);
       } else if(e.target.id === 'exportList') {
         this.setState({
           activeModal: true,
@@ -1246,6 +1273,11 @@ export default class Franchisees extends Component {
         this.setState({
           activeModal: true,
           modalType: 'recordExport',
+        });
+      } else if (e.target.id === 'setMeeting') {
+        this.setState({
+          activeModal: true,
+          modalType: 'setMeeting',
         });
       } else if (e.target.closest(".ControlsBar--btn").id === 'filterBtn') {
         this.setState({
@@ -1481,6 +1513,7 @@ export default class Franchisees extends Component {
           userChangeHandler={this.userChangeHandler}
           userSubmitHandler={this.userSubmitHandler}
           submitExport={this.submitExport}
+          currentRecord={this.state.currentRecord}
           exportRecord={this.exportRecord}
           baseId={this.state.baseId}
           currentTable={this.state.currentTable}
@@ -1508,6 +1541,8 @@ export default class Franchisees extends Component {
           toggleDayPicker={this.toggleDayPicker}
           currentRecordView={this.state.currentRecordView}
           updateOwed={this.updateOwed}
+          changeCheckHandler={this.changeCheckHandler}
+          repChange={this.repChange}
         />
       );
     } else if (this.state.listIsVisible) {

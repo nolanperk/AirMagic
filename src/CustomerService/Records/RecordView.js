@@ -79,6 +79,7 @@ export default class RecordView extends Component {
               selectChangeHandler={this.props.selectChangeHandler}
             />
             <ModuleSchedule
+              cpopAmount={this.props.currentRecord['Monthly CPOP']}
               amount={this.props.currentRecord['Monthly Amount']}
               changeRecordHandler={this.props.changeRecordHandler}
               hoursPer={this.props.currentRecord['Hours Per']}
@@ -151,8 +152,8 @@ export default class RecordView extends Component {
               changeRecordHandler={this.props.changeRecordHandler}
               currentRecordView={this.props.currentRecordView}
               strip={this.props.currentRecord['Strip & Wax']}
-              carpet={this.props.currentRecord['Carpet Cleaning']}
-              tile={this.props.currentRecord['Tile & Grout']}
+              carpetCleaning={this.props.currentRecord['Carpet Cleaning']}
+              tileCleaning={this.props.currentRecord['Tile & Grout']}
               preClean={this.props.currentRecord['Pre-Clean']}
               windows={this.props.currentRecord['Window Cleaning']}
             />

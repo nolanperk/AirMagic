@@ -21,6 +21,7 @@ import Visits from './CustomerService/Visits';
 import SalesDashboard from './Sales/SalesDashboard';
 import FranchiseDashboard from './Franchisees/FranchiseDashboard';
 import ManageDashboard from './Globals/ManageDashboard';
+import YelpDashboard from './Globals/YelpDashboard';
 
 
 import MapMain from './Maps/Main';
@@ -65,6 +66,7 @@ class App extends Component {
           <Route exact path='/maps/:citySet' component={bindRouteParamsToProps()(MapMain)} />
           <Route exact path='/outside/' component={UserBaseSelect} />
 
+          <Route exact path='/yelp/' component={YelpDashboard} />
           <Route exact path='/manage/' component={ManageDashboard} />
           <Route exact path='/sales/' component={SalesDashboard} />
           <Route exact path='/franchisees/' component={FranchiseDashboard} />

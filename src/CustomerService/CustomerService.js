@@ -467,6 +467,7 @@ export default class CustomerService extends Component {
         'Pre-Clean Date': null,
         'Pre-Clean Charge': null,
         'Monthly Amount': null,
+        'Monthly CPOP': null,
         'Sq. Footage': null,
         'Actual Sq Footage': null,
         'Restrooms': null,
@@ -829,6 +830,7 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'preCleanDate') {currentRecordState['Pre-Clean Date'] = e.target.value}
     else if (e.target.id === 'preCleanCharge') {currentRecordState['Pre-Clean Charge'] = e.target.value}
     else if (e.target.id === 'amount') {currentRecordState['Monthly Amount'] = e.target.value}
+    else if (e.target.id === 'cpopAmount') {currentRecordState['Monthly CPOP'] = e.target.value}
     else if (e.target.id === 'sqFt') {currentRecordState['Sq. Footage'] = e.target.value}
     else if (e.target.id === 'sqFtReal') {currentRecordState['Actual Sq Footage'] = e.target.value}
     else if (e.target.id === 'restrooms') {currentRecordState['Restrooms'] = e.target.value}
@@ -848,9 +850,9 @@ export default class CustomerService extends Component {
     else if (e.target.id === 'category') {currentRecordState['Category'] = e.target.value}
     else if (e.target.id === 'serviceScheduleNotes') {currentRecordState['Service Schedule Changes'] = e.target.value}
     else if (e.target.id === 'strip') {currentRecordState['Strip & Wax' ] = e.target.value}
-    else if (e.target.id === 'carpet') {currentRecordState['Carpet Cleaning'] = e.target.value}
+    else if (e.target.id === 'carpetCleaning') {currentRecordState['Carpet Cleaning'] = e.target.value}
     else if (e.target.id === 'windows') {currentRecordState['Window Cleaning' ] = e.target.value}
-    else if (e.target.id === 'tile') {currentRecordState['Tile & Grout'] = e.target.value}
+    else if (e.target.id === 'tileCleaning') {currentRecordState['Tile & Grout'] = e.target.value}
     else if (e.target.id === 'preClean') {currentRecordState['Pre-Clean'] = e.target.value}
 
 
@@ -2380,7 +2382,7 @@ export default class CustomerService extends Component {
           let fortnightAway = new Date(+new Date - 12096e5);
           let monthAway = new Date(+new Date - 2.592e+9);
           let twoMonthsAway = new Date(+new Date - 5.184e+9);
-          let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount']);
+          let thisMonthly = parseInt(this.state.data[i].fields['Monthly Amount'].replace(',', ''));
 
           if (localStorage.getItem('userInitials') === 'SBM' && this.state.data[i].fields['PAM'] === 'Christy Subler') {
           } else if (localStorage.getItem('userInitials') === 'ACS' && this.state.data[i].fields['PAM'] === 'Sergibeth Monge') {
@@ -2473,6 +2475,20 @@ export default class CustomerService extends Component {
       loadProactive();
 
     }).bind(this), 500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   clearSearch = () => {
@@ -2500,8 +2516,11 @@ export default class CustomerService extends Component {
           modalType: 'addNotes',
         });
         setTimeout((function() {
-          document.getElementById('newNoteBox').focus();
-        }).bind(this), 50);
+          //focus the new note box better
+          let textarea = document.getElementById('newNoteBox'),
+          val = textarea.value;
+          textarea.focus();textarea.value = '';textarea.value = val;
+        }).bind(this), 100);
       } else if(e.target.id === 'accountChanges') {
         this.setState({
           activeModal: true,

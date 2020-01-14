@@ -53,6 +53,16 @@ export default class CallList extends Component {
         <div className="CallListContainer">
           <div className="CallList">
             <div className="leftCol">
+              <h4 className={this.props.tampaHandoffs.length > 0 ? '' : 'hidden'}>Tampa Handoffs</h4>
+              <div className={this.props.tampaHandoffs.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
+                {this.props.tampaHandoffs ? this.props.tampaHandoffs.map((e, i) => this.callItemHot(e, 'tampa')) : ''}
+              </div>
+
+              <h4 className={this.props.orlandoHandoffs.length > 0 ? '' : 'hidden'}>Orlando Handoffs</h4>
+              <div className={this.props.orlandoHandoffs.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
+                {this.props.orlandoHandoffs ? this.props.orlandoHandoffs.map((e, i) => this.callItemHot(e, 'orlando')) : ''}
+              </div>
+
               <h4>Hot <span>{totalHot}</span></h4>
               <div className="CallListBox">
                 {tampaCallbacks.hot.length > 0 ? <p>Tampa <span>{tampaCallbacks.hot.length}</span></p> : ''}
@@ -132,6 +142,16 @@ export default class CallList extends Component {
         <div className="CallListContainer">
           <div className="CallList">
             <div className="leftCol">
+              <h4 className={this.props.tampaHandoffs.length > 0 ? '' : 'hidden'}>Tampa Handoffs</h4>
+              <div className={this.props.tampaHandoffs.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
+                {this.props.tampaHandoffs ? this.props.tampaHandoffs.map((e, i) => this.callItemHot(e, 'tampa')) : ''}
+              </div>
+
+              <h4 className={this.props.orlandoHandoffs.length > 0 ? '' : 'hidden'}>Orlando Handoffs</h4>
+              <div className={this.props.orlandoHandoffs.length > 0 ? 'CallListBox' : 'CallListBox hidden'}>
+                {this.props.orlandoHandoffs ? this.props.orlandoHandoffs.map((e, i) => this.callItemHot(e, 'orlando')) : ''}
+              </div>
+
               <h4>Hot <span>{totalHot}</span></h4>
               <div className="CallListBox">
                 {tampaCallbacks.hot.length > 0 ? <p>Tampa <span>{tampaCallbacks.hot.length}</span></p> : ''}

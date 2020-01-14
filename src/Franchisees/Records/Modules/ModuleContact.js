@@ -115,6 +115,22 @@ export default class ModuleContact extends Component {
             />
           </div>
 
+          <div className="inputBlock inputBlock--half">
+            <label>English Cont. Phone</label>
+            <div className="inputWithTag">
+                <div className="inputTag">
+                  <a href={englishLink}></a>
+                  <img src={phoneImg} />
+                </div>
+              <input
+                type="text"
+                id="englishPhone"
+                value={englishPhone}
+                onChange={this.props.changeRecordHandler}
+              />
+            </div>
+          </div>
+
           <div className="inputBlock inputBlock--full">
             <label>English Cont. Email</label>
             <div className="inputWithTag">

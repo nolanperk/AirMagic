@@ -68,8 +68,12 @@ export default class Navbar extends Component {
   get downloadButton() {
     if (this.props.recordView) {
       return (
-        <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
-          <img src={exportImg} alt="Export" />
+        <div className="rightButtons">
+          <div className="btn softGrad--black" id="setMeeting" onClick={this.props.controlsModalToggle}>Set Meeting</div>
+
+          <div className="navIcon whiteCard exportBtn" onClick={this.props.controlsModalToggle} id="recordExport">
+            <img src={exportImg} alt="Export" />
+          </div>
         </div>
       );
     } else {
